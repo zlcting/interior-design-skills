@@ -1,6 +1,6 @@
 # 室内设计全流程 · 15 Skills v2
 
-[GitHub 仓库](https://github.com/liuqing0224/interior-design-skills) · [自动检查](https://github.com/liuqing0224/interior-design-skills/actions/workflows/validate.yml)
+[GitHub 仓库](https://github.com/zlcting/interior-design-skills) · [自动检查](https://github.com/zlcting/interior-design-skills/actions/workflows/validate.yml)
 
 用统一项目数据衔接需求、测量、平面、概念、空间表现、材料、灯光、定制、机电、图纸、软装、预算、校审和交付配合。
 
@@ -13,7 +13,7 @@ v2新增[折庭84㎡ L形跨户型测试](projects/TEST-L-084/README.md)：通�
 ## 快速使用
 
 ```bash
-git clone https://github.com/liuqing0224/interior-design-skills.git
+git clone https://github.com/zlcting/interior-design-skills.git
 cd interior-design-skills
 python3 install.py --target ~/.codex/skills
 python3 install.py --target ~/.codex/skills --check
