@@ -20,6 +20,8 @@ description: 从锁定的室内几何、材料和家具数据生成可追溯的�
 
 具体核对项见[阶段检查表](references/checklist.md)。
 
+生成多风格模型时，读取[风格与家具库](../interior-orchestrator/references/style-library.md)。先运行只检查模式，确认家具类型、款式、朝向和构件尺寸，再以同相机生成候选。核对实际款式和basic_objects，不能把配色切换或基础体块称为全部家具精细建模。
+
 ## 交付与验收
 
 05-visualization.md、模型、轴测、代表空间透视、视觉核验清单。

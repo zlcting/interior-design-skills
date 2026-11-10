@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "before": {
+    "file": "before-living-close.png",
+    "sha256": "235bb975bf69ba0f9f9d1b33c6caa56869cd56eaee0148ff90560bf5a6e6e788",
+    "source_blend_sha256": "0d5e4ee29a2714c7994ccb5eb86fe8fe26d06bf4c050ca744f69d6e7381a91f3",
+    "source_manifest_sha256": "c83872584a2a11b25292fb48e6afadbda600f3a98a0d257bc92c60f8163d21c4",
+    "samples": 64
+  },
+  "after": {
+    "file": "living-close.png",
+    "sha256": "2e41be1eca81c331294bbd289e3a2d87feeeea240d780d6b7fb502c6737883eb",
+    "samples": 96
+  },
+  "shared_camera": {
+    "name": "living-close",
+    "lens": 24,
+    "location": [
+      0.6500000000000001,
+      3.9,
+      2.8
+    ],
+    "target": [
+      2.45,
+      1.75,
+      0.65
+    ],
+    "presentation_only": true,
+    "source_objects": [
+      "F01",
+      "F02"
+    ]
+  },
+  "dimensions": [
+    1600,
+    1200
+  ],
+  "note": "The original v2 scene is re-rendered with the v3 living-close camera. Original v2 materials, light rig and exposure are retained."
+}

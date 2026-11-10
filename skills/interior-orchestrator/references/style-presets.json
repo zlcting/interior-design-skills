@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "styles": [
+    {
+      "id": "japanese-natural",
+      "name": "日式自然",
+      "version": 2,
+      "description": "浅木、亚麻与低重心家具，营造自然柔和的空间。",
+      "colors": {
+        "wall": "#EDE8DF",
+        "floor": "#C7AA80",
+        "wood": "#C19D70",
+        "upholstery": "#DCD3C3",
+        "metal": "#504D45",
+        "accent": "#80866A",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "浅橡木",
+        "wood": "哑光浅木饰面",
+        "upholstery": "亚麻织物",
+        "metal": "哑光深灰金属"
+      },
+      "forms": {
+        "sofa": "low-wood-frame",
+        "coffee_table": "rounded-wood",
+        "chair": "wood-frame-fabric",
+        "cabinet_front": "flat-wood",
+        "pendant": "paper-shade"
+      },
+      "avoid": [
+        "大面积亮面石材",
+        "镜面金属",
+        "厚重装饰线条"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "oak",
+        "wood": "oak",
+        "upholstery": "linen",
+        "metal": "metal",
+        "accent": "linen",
+        "stone": "stone",
+        "shade": "paper"
+      },
+      "lighting": {
+        "cct_k": 3000,
+        "ambient_strength": 0.45
+      }
+    },
+    {
+      "id": "italian-modern",
+      "name": "意式现代",
+      "version": 2,
+      "description": "胡桃木、浅石材与低矮宽体家具，强调简洁和材质对比。",
+      "colors": {
+        "wall": "#E5E1DB",
+        "floor": "#C6BFB3",
+        "wood": "#644735",
+        "upholstery": "#B4AAA0",
+        "metal": "#353332",
+        "accent": "#795747",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "浅灰米色石材",
+        "wood": "哑光胡桃木饰面",
+        "upholstery": "细纹织物",
+        "metal": "深色拉丝金属"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "thin-stone",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "linear-metal"
+      },
+      "avoid": [
+        "木格栅堆叠",
+        "繁复雕花",
+        "大面积高饱和色"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "stone",
+        "wood": "walnut",
+        "upholstery": "fabric",
+        "metal": "metal",
+        "accent": "fabric",
+        "stone": "stone",
+        "shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 3200,
+        "ambient_strength": 0.45
+      }
+    },
+    {
+      "id": "mid-century",
+      "name": "中古复古",
+      "version": 2,
+      "description": "深木、焦糖色与细腿家具，加入克制的复古色彩。",
+      "colors": {
+        "wall": "#E8DFCE",
+        "floor": "#A57C52",
+        "wood": "#704A32",
+        "upholstery": "#AD7048",
+        "metal": "#927445",
+        "accent": "#65735B",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "暖色木地板",
+        "wood": "深色胡桃木饰面",
+        "upholstery": "焦糖色皮革",
+        "metal": "拉丝黄铜"
+      },
+      "forms": {
+        "sofa": "raised-leg-leather",
+        "coffee_table": "oval-wood",
+        "chair": "tapered-leg",
+        "cabinet_front": "framed-wood",
+        "pendant": "globe-brass"
+      },
+      "avoid": [
+        "大面积冷灰色",
+        "通体无脚厚重家具",
+        "镜面不锈钢"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "oak",
+        "wood": "walnut",
+        "upholstery": "leather",
+        "metal": "metal",
+        "accent": "linen",
+        "stone": "stone",
+        "shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 3000,
+        "ambient_strength": 0.45
+      }
+    },
+    {
+      "id": "white-minimal",
+      "name": "极简白模",
+      "version": 4,
+      "description": "白模建筑轴测：清晰硬质边缘、白灰明暗分层、蓝色背景与通透玻璃，保留柔软家具和局部暖光。",
+      "colors": {
+        "wall": "#F0F1F3",
+        "floor": "#D3D5DA",
+        "wood": "#E2E5E9",
+        "upholstery": "#F2F1EF",
+        "metal": "#D2D6DD",
+        "accent": "#D7DBE1",
+        "stone": "#E7E9EC",
+        "shade": "#FAF9F6",
+        "detail": "#697584",
+        "foliage": "#5D7047",
+        "soil": "#554A3D",
+        "warm_glow": "#FFF0CC",
+        "lamp_shade": "#FFF1D7"
+      },
+      "materials": {
+        "floor": "连续浅灰白模地面",
+        "wood": "统一哑光白模面",
+        "upholstery": "哑光白模软体",
+        "metal": "浅灰哑光面"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "rounded-wood",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "cone-shade"
+      },
+      "avoid": [
+        "木纹与石纹",
+        "高饱和家具",
+        "镜面金属",
+        "密集地板拼缝"
+      ],
+      "surfaces": {
+        "wall": "plain",
+        "floor": "plain",
+        "wood": "plain",
+        "upholstery": "plain",
+        "metal": "plain",
+        "accent": "plain",
+        "stone": "plain",
+        "shade": "plain",
+        "detail": "plain",
+        "foliage": "plain",
+        "soil": "plain",
+        "warm_glow": "plain",
+        "lamp_shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 5500,
+        "ambient_strength": 0.36
+      },
+      "presentation": {
+        "material_mode": "clay",
+        "background_color": "#7095D2",
+        "ground_plane": true,
+        "foundation": true,
+        "floor_joints": false,
+        "cutaway_mode": "camera",
+        "cutaway_height_mm": 1250,
+        "glazing_color": "#DAE8F5",
+        "glazing_roughness": 0.1,
+        "glazing_transmission": 1.0,
+        "exposure": 0.05,
+        "contrast": "medium-high",
+        "orthographic_margin": 1.12,
+        "orthographic_target_lift_mm": 650,
+        "detail_level": "illustrated",
+        "lighting_rig": "studio",
+        "contact_shadow_strength": 0.34,
+        "contact_shadow_distance_mm": 140,
+        "accessories": true,
+        "aspect_ratio": 1.3333333333333333,
+        "living_refinement": true,
+        "hard_edge_bevel_mm": 1.2,
+        "studio_key_strength": 1.95,
+        "studio_key_angle": 0.18,
+        "studio_fill_scale": 0.55,
+        "pixel_filter_width": 1.0,
+        "default_render_width": 2400,
+        "default_render_samples": 128
+      }
+    }
+  ]
+}

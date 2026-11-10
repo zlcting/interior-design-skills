@@ -1,0 +1,317 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 48,
+  "width": 1600,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20.65
+      ],
+      "target": [
+        6,
+        4,
+        0.65
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 19.779999999999998,
+      "file": "axon.png"
+    },
+    {
+      "name": "living",
+      "location": [
+        0.65,
+        3.1,
+        2.05
+      ],
+      "target": [
+        2.9,
+        1.65,
+        0.8
+      ],
+      "lens": 25,
+      "file": "living.png"
+    },
+    {
+      "name": "dining",
+      "location": [
+        5.15,
+        3.05,
+        2.15
+      ],
+      "target": [
+        7.2,
+        1.45,
+        1.1
+      ],
+      "lens": 27,
+      "file": "dining.png"
+    },
+    {
+      "name": "study",
+      "location": [
+        7.25,
+        4.82,
+        1.85
+      ],
+      "target": [
+        8.15,
+        7.25,
+        1.15
+      ],
+      "lens": 23,
+      "file": "study.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "white-minimal",
+      "name": "极简白模",
+      "version": 1,
+      "description": "参考白模建筑轴测：哑光白与浅灰、蓝色背景和蓝灰玻璃、柔和阴影，突出空间与简洁家具轮廓。",
+      "colors": {
+        "wall": "#ECEEF1",
+        "floor": "#DFE3E8",
+        "wood": "#E7E9EC",
+        "upholstery": "#F0F1F2",
+        "metal": "#D9DDE3",
+        "accent": "#DBDFE4",
+        "stone": "#E9ECEF",
+        "shade": "#FAF9F6"
+      },
+      "materials": {
+        "floor": "连续浅灰白模地面",
+        "wood": "统一哑光白模面",
+        "upholstery": "哑光白模软体",
+        "metal": "浅灰哑光面"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "rounded-wood",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "paper-shade"
+      },
+      "avoid": [
+        "木纹与石纹",
+        "高饱和家具",
+        "镜面金属",
+        "密集地板拼缝"
+      ],
+      "surfaces": {
+        "wall": "plain",
+        "floor": "plain",
+        "wood": "plain",
+        "upholstery": "plain",
+        "metal": "plain",
+        "accent": "plain",
+        "stone": "plain",
+        "shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 6000,
+        "ambient_strength": 0.32
+      },
+      "presentation": {
+        "material_mode": "clay",
+        "background_color": "#7195CA",
+        "ground_plane": true,
+        "foundation": true,
+        "floor_joints": false,
+        "cutaway_mode": "camera",
+        "cutaway_height_mm": 1250,
+        "glazing_color": "#7898C5",
+        "glazing_roughness": 0.22,
+        "glazing_transmission": 0.15,
+        "exposure": -0.6,
+        "contrast": "medium-high",
+        "orthographic_margin": 1.15,
+        "orthographic_target_lift_mm": 650
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting",
+      "presentation",
+      "clay_override"
+    ],
+    "catalog_sha256": "0da79f0819dae434b36f5008aaa542745060dc3ac7ddbf6b4e249e347bd24daa",
+    "resolved_plan_sha256": "b0d4734d6e2286cc2971653931189f169df7b2718e7cf5f9122b4f3a7b6db190",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "low-wide-modular",
+      "F02": "rounded-wood",
+      "F03": "slim-upholstered",
+      "F05": "slim-upholstered",
+      "F06": "slim-upholstered",
+      "F07": "slim-upholstered",
+      "F08": "slim-upholstered",
+      "F12": "slim-upholstered",
+      "F14": "slim-upholstered",
+      "F15": "low-wide-modular",
+      "J01": "flat-handleless",
+      "J02": "flat-handleless",
+      "J03": "flat-handleless",
+      "J04": "flat-handleless",
+      "J05": "flat-handleless",
+      "J06": "flat-handleless",
+      "J07": "flat-handleless",
+      "J08": "flat-handleless",
+      "J09": "flat-handleless",
+      "J10": "flat-handleless",
+      "J11": "flat-handleless"
+    },
+    "applied_pendants": {
+      "L07": "paper-shade"
+    },
+    "basic_objects": [
+      "F04",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "floor": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "wood": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "upholstery": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "metal": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "stone": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "2961a5103def04e620d8956e1f1cde692205eb3339df4351fd03223a86f094ff",
+    "furniture_library.py": "404668985acc9522c599f1b2384ebe648d431c75d6a6cfba012d98579b7c000d",
+    "style_plan.py": "75274171e48b1b5564e99998813828bc592c4af526451cb159d1d8a6f86d0854",
+    "style_library.py": "b97f2fa601cb41817c015fb8ffd1b51b2f3fc9062f6110a8f274b3c3145f9015",
+    "style_presentation.py": "ad6455e8447c0dda87c59a01307033e7322c3104037bfe269eec95f002a21300"
+  },
+  "presentation": {
+    "material_mode": "clay",
+    "exposure": -0.6,
+    "contrast": "medium-high",
+    "orthographic_margin": 1.15,
+    "orthographic_target_lift_mm": 650,
+    "background_color": "#7195CA",
+    "ground_plane": true,
+    "foundation": true,
+    "floor_joints": false,
+    "cutaway_mode": "camera",
+    "cutaway_height_mm": 1250,
+    "glazing_color": "#7898C5",
+    "glazing_roughness": 0.22,
+    "glazing_transmission": 0.15
+  },
+  "cutaway_wall_heights": {
+    "full": {
+      "W01": 2700,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 2700,
+      "W05": 2700,
+      "W06": 2700,
+      "W07": 2700,
+      "W08": 2700,
+      "W09": 2700,
+      "W10": 2700
+    },
+    "default": {
+      "W01": 1250,
+      "W02": 1250,
+      "W03": 1250,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    },
+    "axon": {
+      "W01": 1250,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    }
+  },
+  "outputs": {
+    "interior.blend": "33af982e6948aadc9e90ad4b890888307e60220019820b396798919a5e14629d",
+    "study.png": "e9342eaaf49df8ebf724fd7b11b7592955d5b15abd4ed7cf932d6939a0e82437",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "dining.png": "a892086efc97d1d58a8fed5762dceeb31bcefc33b0d752734d7d4b2ea3586367",
+    "axon.png": "11745e292e563ed6d3f111f70eddc21c22833dfbb3caa1ddeefed0a38a8541d8",
+    "interior.glb": "7f24112e4332d08fc2ce52c549df2a1056b53d05faf7921f0302a44ba7032879",
+    "living.png": "debacfd71a5c5e709b8f9ddb8a1f25b8db062b53ddabc46b370ecead06dfbda8"
+  }
+}

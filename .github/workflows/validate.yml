@@ -53,6 +53,10 @@ jobs:
           PY
       - name: Run behavior tests
         run: python -m unittest discover -s tests -v
+      - name: Verify style previews and current white-model outputs
+        run: |
+          python tools/verify_style_outputs.py projects/STYLE-LAB-096
+          python tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minimal --out projects/STYLE-LAB-096/visuals/style-variants/white-minimal-crisp-v4 --require-current
       - name: Verify transfer example and five actual stage records
         run: python skills/interior-review/scripts/verify_2d.py projects/TEST-L-084 --check-records
       - name: Verify cabinet change

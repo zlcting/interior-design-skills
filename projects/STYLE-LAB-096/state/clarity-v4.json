@@ -1,0 +1,13 @@
+{
+  "status": "rendered_candidate",
+  "source_model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "style_version": 4,
+  "output_directory": "visuals/style-variants/white-minimal-crisp-v4",
+  "render_manifest": "visuals/style-variants/white-minimal-crisp-v4/render-manifest.json",
+  "entry_page": "comparison.html",
+  "before_after_page": "clarity-refinement.html",
+  "validation": "../../validation/white-minimal-crisp-v4.json",
+  "default_project_style_changed": false,
+  "scope": "local contrast, hard-surface edges, high-resolution output",
+  "historical_versions_preserved": true
+}

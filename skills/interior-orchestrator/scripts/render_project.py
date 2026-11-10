@@ -1,15 +1,104 @@
-"""Run with Blender: blender -b -t 4 --python render_project.py -- PROJECT_DIR."""
-import bpy
+"""通过 Blender 渲染；使用 --check-only 可直接用 Python 检查输入。"""
+
+import argparse
 import json
 import math
 import sys
 import hashlib
 from pathlib import Path
+
+
+# 确保 Blender 也能找到同目录的风格读取模块。
+SCRIPT_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_DIR))
+
+from style_library import get_style, load_catalog
+from style_plan import resolve_plan
+from style_presentation import presentation_views, render_quality
+
+
+# Blender 将脚本参数放在 -- 后面；普通 Python 直接读取参数。
+argv = (
+    sys.argv[sys.argv.index("--") + 1:]
+    if "--" in sys.argv
+    else sys.argv[1:]
+)
+
+parser = argparse.ArgumentParser(description="室内项目三维生成")
+parser.add_argument("project_dir", help="项目目录")
+parser.add_argument("--style", help="风格 id；省略时沿用原示范")
+parser.add_argument(
+    "--check-only",
+    action="store_true",
+    help="只检查输入，不创建文件或运行渲染",
+)
+parser.add_argument('--view', default='all', help='all 或相机名称；逗号分隔多个视图')
+parser.add_argument('--samples', type=int, help='采样数；默认取风格质量配置')
+parser.add_argument('--width', type=int, help='输出宽度；默认取风格质量配置')
+parser.add_argument('--device', choices=('cpu','auto'), default='cpu', help='auto 优先可用GPU；不保存全局偏好')
+parser.add_argument('--no-denoise', action='store_true', help='关闭降噪，供细节对照')
+parser.add_argument('--out', type=Path, help='独立输出目录')
+args = parser.parse_args(argv)
+if (args.samples is not None and not 1<=args.samples<=4096) or (args.width is not None and not 320<=args.width<=8000):
+    parser.error('samples 应为1至4096，width 应为320至8000')
+
+P = Path(args.project_dir).resolve()
+
+try:
+    project_text = (P / "model" / "project.json").read_text(
+        encoding="utf-8"
+    )
+    m = json.loads(project_text)
+    style_id = args.style or m.get('visualization', {}).get('style_id')
+    style = get_style(style_id) if style_id else None
+    args.width,args.samples=render_quality(style,args.width,args.samples)
+    catalog = load_catalog() if style else None
+    plan = resolve_plan(m, style, catalog) if style else None
+    if plan and args.view != 'all':
+        requested=args.view.split(',');available={v['name'] for v in presentation_views(plan)}
+        if len(requested)!=len(set(requested)) or set(requested)-available:
+            raise ValueError('未知或重复视图：' + args.view)
+except (OSError, ValueError, KeyError, TypeError) as exc:
+    parser.exit(1, f"输入检查失败：{exc}\n")
+
+# 各风格分别输出，保留原示范文件。
+out = (
+    P / "visuals" / "style-variants" / style["id"]
+    if style
+    else P / "visuals"
+)
+
+if args.out:
+    out = args.out.expanduser().resolve()
+
+if args.check_only:
+    print(f"项目：{P}")
+    if style:
+        print(f"风格：{style['name']}（{style['id']}）")
+    else:
+        print("风格：沿用原示范")
+    print(f"输出目录：{out}")
+    if style:print(f'渲染质量：{args.width}像素宽 / {args.samples}采样')
+    if plan:
+        styled = {i['id']: i['asset_id'] for i in plan['furniture'] if i['mode']=='styled'}
+        print('家具款式：' + json.dumps(styled, ensure_ascii=False))
+        print('基础造型对象：' + ', '.join(plan['basic_objects']))
+        print('类型、资产、材质、构件尺寸及相机检查通过。')
+    print('输入检查通过；未生成文件，未执行渲染。')
+    sys.exit(0)
+
+if style:
+    from style_renderer import render_style
+    render_style(P, project_text, plan, catalog, args, out)
+    sys.exit(0)
+
+import bpy
 from mathutils import Vector
 
-P=Path(sys.argv[sys.argv.index('--')+1]).resolve()
-m=json.loads((P/'model/project.json').read_text());out=P/'visuals';out.mkdir(exist_ok=True)
-(out/'render-input.json').write_text((P/'model/project.json').read_text())
+out.mkdir(parents=True, exist_ok=True)
+(out / "render-input.json").write_text(
+    project_text, encoding="utf-8"
+)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 scene=bpy.context.scene
 scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True
@@ -35,10 +124,51 @@ def material(name,color,rough=.65,wood=False):
         ramp=nodes.new('ShaderNodeValToRGB');ramp.color_ramp.elements[0].position=.1;ramp.color_ramp.elements[0].color=(*[c*.65 for c in col],1);ramp.color_ramp.elements[1].position=.9;ramp.color_ramp.elements[1].color=(*col,1)
         mat.node_tree.links.new(noise.outputs['Fac'],ramp.inputs[0]);mat.node_tree.links.new(ramp.outputs[0],p.inputs['Base Color'])
     return mat
-M={x['id']:material(x['id']+' '+x['name'],x['color'],wood=x['id'] in ['M01','M06']) for x in m['materials']}
-white=material('Linen white','#F5F1E8');dark=material('Bronze details','#4F584E',.4);glass=material('Window light blue','#D8E6E4',.3)
-screen=material('TV screen','#202925',.32);pillow=material('Accent pillow','#84917B');base=material('Plinth','#DDD5C5')
+# 当前96㎡示范项目中，材料编号对应的配色角色。
+MATERIAL_ROLES = {
+    "M01": "floor",
+    "M05": "wall",
+    "M06": "wood",
+    "M08": "upholstery",
+    "M09": "metal",
+}
 
+palette = style["colors"] if style else {}
+
+
+def style_color(role, original):
+    """选了风格就使用对应配色；未选择时保持原色。"""
+    return palette[role] if style else original
+
+
+M = {}
+for item in m["materials"]:
+    role = MATERIAL_ROLES.get(item["id"])
+    color = (
+        style_color(role, item["color"])
+        if role
+        else item["color"]
+    )
+
+    M[item["id"]] = material(
+        item["id"] + " " + item["name"],
+        color,
+        wood=item["id"] in ["M01", "M06"],
+    )
+
+white = material("Linen white", "#F5F1E8")
+dark = material(
+    "Metal details",
+    style_color("metal", "#4F584E"),
+    .4,
+)
+glass = material("Window light blue", "#D8E6E4", .3)
+screen = material("TV screen", "#202925", .32)
+pillow = material(
+    "Accent pillow",
+    style_color("accent", "#84917B"),
+)
+base = material("Plinth", "#DDD5C5")
 def box(name,rect,z,h,mat,bevel=0,collection=None):
     x,y,w,d=[v/1000 for v in rect];z/=1000;h/=1000
     bpy.ops.mesh.primitive_cube_add(size=1,location=(x+w/2,y+d/2,z+h/2));o=bpy.context.object;o.name=name;o.dimensions=(w,d,h)
@@ -188,6 +318,12 @@ for room,loc in [('living',(2.8,1.8,2.65)),('dining',(7,1.6,2.6)),('master',(1.8
 
 data=bpy.data.cameras.new('Camera');camera=bpy.data.objects.new('Camera',data);scene.collection.objects.link(camera);scene.camera=camera
 manifest={'model_sha256':hashlib.sha256((P/'model/project.json').read_bytes()).hexdigest(),'revision':m['revision'],'engine':'Cycles CPU','samples':32,'views':[]}
+if style:
+    manifest["style"] = {
+        "preset": style,
+        "applied_features": ["colors"],
+        "material_roles": MATERIAL_ROLES,
+    }
 def render(name,loc,target,orthographic=False,lens=28):
     camera.location=loc;camera.rotation_euler=(Vector(target)-camera.location).to_track_quat('-Z','Y').to_euler()
     data.type='ORTHO' if orthographic else 'PERSP';data.lens=lens

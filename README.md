@@ -104,3 +104,15 @@ blender -b -t 4 --python skills/interior-orchestrator/scripts/render_project.py 
 `verify_2d.py`为通用户型核验器，读取真实图纸、工作簿及清单，独立重算预算。`tools/verify_change.py`验证本次衣柜变化及陈旧模型拒绝。`tools/verify_delivery.py --baseline-skills --out validation/demo096-regression-v2.json`专用于原96㎡冻结交付，按v1技能快照核对原15项记录、原三维、图纸和40行预算；不会把原记录冒认为由v2技能生成。
 
 具体已执行检查见 `VALIDATION.md`；技能格式校验不替代设计行为验证，示范设计也不等同真实工程施工成果。
+
+
+## 多风格家具库
+
+提供四套风格、16款参数化资产与显式家具类型：风格选择同时影响家具轮廓、柜门、吊灯及材质参数。用 [STYLE-LAB-096](projects/STYLE-LAB-096/README.md) 查看四风格及白模v4结果；字段、命令及扩展方法见[风格与家具库](skills/interior-orchestrator/references/style-library.md)。原96㎡交付及此前配色预览保留。
+
+
+新增第四种风格 **极简白模 white-minimal**：哑光白灰、蓝色背景、蓝灰玻璃、柔和投影及随相机方向变化的剖切墙体。用同一入口指定 `--style white-minimal`；[四风格对比](projects/STYLE-LAB-096/comparison.html)可查看实际结果。
+
+白模v3增加客厅局部样板：矩形软包沙发、薄边茶几、阔叶植物、透明玻璃和暖光落地灯。查看[客厅样板及同机位前后对比](projects/STYLE-LAB-096/living-refinement.html)；本轮候选独立保存于white-minimal-living-v3，其他房间沿用v2造型。
+
+最新白模v4加强局部明暗、收紧硬质边缘，默认2400×1800、128采样；用`--device auto`可优先使用本机GPU。[总对比页](projects/STYLE-LAB-096/comparison.html)已同步v4；[清晰度前后对照](projects/STYLE-LAB-096/clarity-refinement.html)保留同机位v3参考。

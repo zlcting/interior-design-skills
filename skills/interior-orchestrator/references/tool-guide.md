@@ -31,3 +31,8 @@ python interior-review/scripts/verify_2d.py P
 SVG、DXF与PDF共用二维图元。drawing-manifest.json保存来源、生成器哈希、各图原点；柜体用front_axis和joinery参数生成立剖，joinery.csv保存全部柜体。SVG通过data-object、DXF通过INTERIOR扩展数据保留对象编号。
 
 可验证范围为正交简单轮廓与矩形分区。旧render_project.py及tools/build_book.py仍为96㎡住宅案例资源；新项目不要复用其中相机、家具造型或汇报文案。
+
+
+## 多风格三维
+
+需要风格选择、家具造型和材质变化时，使用[风格与家具库](style-library.md)中的新流程。STYLE-LAB-096提供显式类型和相机示例；不选风格的旧分支保持案例用途。

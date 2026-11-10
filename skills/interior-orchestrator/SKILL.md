@@ -21,6 +21,8 @@ description: 编排室内设计从任务书、方案深化到图纸、采购及�
 
 具体核对项见[阶段检查表](references/checklist.md)。
 
+涉及风格选择时，读取[风格与家具库](references/style-library.md)，将选定风格、家具类型和项目相机传给表现阶段。保持项目模型为唯一主件；候选渲染不自动更新正式预算或审批状态。
+
 ## 交付与验收
 
 state/project-plan.md、state/execution-log.json、model/project.json、阶段交付索引。

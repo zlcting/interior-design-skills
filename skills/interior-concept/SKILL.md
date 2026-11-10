@@ -20,6 +20,8 @@ description: 把使用需求转成可执行的室内空间概念、色彩和材�
 
 具体核对项见[阶段检查表](references/checklist.md)。
 
+需要多风格方案时，读取[风格与家具库](../interior-orchestrator/references/style-library.md)，先列出实际可用预设，再形成候选。风格必须落实到材质配置和家具款式；选定前不把候选写成客户已确认。
+
 ## 交付与验收
 
 04-concept.md、概念板、色板、材料方向表。

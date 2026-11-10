@@ -1,0 +1,243 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 32,
+  "width": 1200,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20
+      ],
+      "target": [
+        6,
+        4,
+        0
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 17.2,
+      "file": "axon.png"
+    },
+    {
+      "name": "living",
+      "location": [
+        0.65,
+        3.1,
+        2.05
+      ],
+      "target": [
+        2.9,
+        1.65,
+        0.8
+      ],
+      "lens": 25,
+      "file": "living.png"
+    },
+    {
+      "name": "dining",
+      "location": [
+        5.15,
+        3.05,
+        2.15
+      ],
+      "target": [
+        7.2,
+        1.45,
+        1.1
+      ],
+      "lens": 27,
+      "file": "dining.png"
+    },
+    {
+      "name": "study",
+      "location": [
+        7.25,
+        4.82,
+        1.85
+      ],
+      "target": [
+        8.15,
+        7.25,
+        1.15
+      ],
+      "lens": 23,
+      "file": "study.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "japanese-natural",
+      "name": "日式自然",
+      "version": 2,
+      "description": "浅木、亚麻与低重心家具，营造自然柔和的空间。",
+      "colors": {
+        "wall": "#EDE8DF",
+        "floor": "#C7AA80",
+        "wood": "#C19D70",
+        "upholstery": "#DCD3C3",
+        "metal": "#504D45",
+        "accent": "#80866A",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "浅橡木",
+        "wood": "哑光浅木饰面",
+        "upholstery": "亚麻织物",
+        "metal": "哑光深灰金属"
+      },
+      "forms": {
+        "sofa": "low-wood-frame",
+        "coffee_table": "rounded-wood",
+        "chair": "wood-frame-fabric",
+        "cabinet_front": "flat-wood",
+        "pendant": "paper-shade"
+      },
+      "avoid": [
+        "大面积亮面石材",
+        "镜面金属",
+        "厚重装饰线条"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "oak",
+        "wood": "oak",
+        "upholstery": "linen",
+        "metal": "metal",
+        "accent": "linen",
+        "stone": "stone",
+        "shade": "paper"
+      },
+      "lighting": {
+        "cct_k": 3000,
+        "ambient_strength": 0.45
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting"
+    ],
+    "catalog_sha256": "0da79f0819dae434b36f5008aaa542745060dc3ac7ddbf6b4e249e347bd24daa",
+    "resolved_plan_sha256": "1cdabc2df943f4664c0894046a815ca9cd454f22d95290ff619cf3e44438f0e0",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "low-wood-frame",
+      "F02": "rounded-wood",
+      "F03": "wood-frame-fabric",
+      "F05": "wood-frame-fabric",
+      "F06": "wood-frame-fabric",
+      "F07": "wood-frame-fabric",
+      "F08": "wood-frame-fabric",
+      "F12": "wood-frame-fabric",
+      "F14": "wood-frame-fabric",
+      "F15": "low-wood-frame",
+      "J01": "flat-wood",
+      "J02": "flat-wood",
+      "J03": "flat-wood",
+      "J04": "flat-wood",
+      "J05": "flat-wood",
+      "J06": "flat-wood",
+      "J07": "flat-wood",
+      "J08": "flat-wood",
+      "J09": "flat-wood",
+      "J10": "flat-wood",
+      "J11": "flat-wood"
+    },
+    "applied_pendants": {
+      "L07": "paper-shade"
+    },
+    "basic_objects": [
+      "F04",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.88,
+      "metallic": 0,
+      "texture": "plaster",
+      "scale": 70,
+      "bump": 0.05
+    },
+    "floor": {
+      "roughness": 0.64,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 5,
+      "bump": 0.12
+    },
+    "wood": {
+      "roughness": 0.64,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 5,
+      "bump": 0.12
+    },
+    "upholstery": {
+      "roughness": 0.91,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 180,
+      "bump": 0.16
+    },
+    "metal": {
+      "roughness": 0.3,
+      "metallic": 0.85,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.91,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 180,
+      "bump": 0.16
+    },
+    "stone": {
+      "roughness": 0.3,
+      "metallic": 0,
+      "texture": "stone",
+      "scale": 3,
+      "bump": 0.04
+    },
+    "shade": {
+      "roughness": 0.93,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 100,
+      "bump": 0.08
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "040a487eead6aa2cd2167c43d3edb681d860eb4731d8e48f5d5cd2d255a5a831",
+    "furniture_library.py": "404668985acc9522c599f1b2384ebe648d431c75d6a6cfba012d98579b7c000d",
+    "style_plan.py": "75274171e48b1b5564e99998813828bc592c4af526451cb159d1d8a6f86d0854",
+    "style_library.py": "62280cea59cff391ac10db44793b06f1666bc8c902afa053ebb77fd8875d63b3"
+  },
+  "outputs": {
+    "interior.blend": "4ad6fd3b1d61b0db4fad938a98c0839413d1c7b4574d783d912b658274f92bdf",
+    "study.png": "1baac9cb560b8ab9efbed88647d91eb6aee388a303d2bca73cb563a9293f53ac",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "dining.png": "34337f4be94c268c34a3c730bb89143cbf7aded1f4c4604b0b9a320bd7733f44",
+    "axon.png": "df39f07209589ed2377b4ee72989ee99ad2b3c7c811035019460b35ca671af9a",
+    "interior.glb": "0525714ea849bd4a65ea1f8b68a660929ff66a1557716d02132c5adb60a69201",
+    "living.png": "d2c321f9092d87293ff0aa5fdf57c986345384bdb77d62ad33013454a788f96f"
+  }
+}

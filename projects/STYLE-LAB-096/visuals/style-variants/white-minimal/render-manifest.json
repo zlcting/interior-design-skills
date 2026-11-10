@@ -1,0 +1,996 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 64,
+  "width": 1600,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20.65
+      ],
+      "target": [
+        6,
+        4,
+        0.65
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 19.264,
+      "file": "axon.png"
+    },
+    {
+      "name": "living",
+      "location": [
+        0.65,
+        3.1,
+        2.05
+      ],
+      "target": [
+        2.9,
+        1.65,
+        0.8
+      ],
+      "lens": 25,
+      "file": "living.png"
+    },
+    {
+      "name": "dining",
+      "location": [
+        5.15,
+        3.05,
+        2.15
+      ],
+      "target": [
+        7.2,
+        1.45,
+        1.1
+      ],
+      "lens": 27,
+      "file": "dining.png"
+    },
+    {
+      "name": "study",
+      "location": [
+        7.25,
+        4.82,
+        1.85
+      ],
+      "target": [
+        8.15,
+        7.25,
+        1.15
+      ],
+      "lens": 23,
+      "file": "study.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "white-minimal",
+      "name": "极简白模",
+      "version": 2,
+      "description": "参考白模建筑轴测：哑光白与浅灰、蓝色背景和蓝灰玻璃、柔和阴影，突出空间与简洁家具轮廓。",
+      "colors": {
+        "wall": "#E6E8EB",
+        "floor": "#D3D6DC",
+        "wood": "#E3E5E8",
+        "upholstery": "#F4F3F1",
+        "metal": "#D2D6DD",
+        "accent": "#E1E2E4",
+        "stone": "#E6E8EB",
+        "shade": "#FAF9F6",
+        "detail": "#697584",
+        "foliage": "#5D7047",
+        "soil": "#554A3D",
+        "warm_glow": "#FFF0CC"
+      },
+      "materials": {
+        "floor": "连续浅灰白模地面",
+        "wood": "统一哑光白模面",
+        "upholstery": "哑光白模软体",
+        "metal": "浅灰哑光面"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "rounded-wood",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "cone-shade"
+      },
+      "avoid": [
+        "木纹与石纹",
+        "高饱和家具",
+        "镜面金属",
+        "密集地板拼缝"
+      ],
+      "surfaces": {
+        "wall": "plain",
+        "floor": "plain",
+        "wood": "plain",
+        "upholstery": "plain",
+        "metal": "plain",
+        "accent": "plain",
+        "stone": "plain",
+        "shade": "plain",
+        "detail": "plain",
+        "foliage": "plain",
+        "soil": "plain",
+        "warm_glow": "plain"
+      },
+      "lighting": {
+        "cct_k": 5500,
+        "ambient_strength": 0.45
+      },
+      "presentation": {
+        "material_mode": "clay",
+        "background_color": "#7095D2",
+        "ground_plane": true,
+        "foundation": true,
+        "floor_joints": false,
+        "cutaway_mode": "camera",
+        "cutaway_height_mm": 1250,
+        "glazing_color": "#8FAFDC",
+        "glazing_roughness": 0.22,
+        "glazing_transmission": 0.15,
+        "exposure": 0.3,
+        "contrast": "medium-high",
+        "orthographic_margin": 1.12,
+        "orthographic_target_lift_mm": 650,
+        "detail_level": "illustrated",
+        "lighting_rig": "studio",
+        "contact_shadow_strength": 0.4,
+        "contact_shadow_distance_mm": 320,
+        "accessories": true,
+        "aspect_ratio": 1.3333333333333333
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting",
+      "presentation",
+      "illustrated_details",
+      "clay_override"
+    ],
+    "catalog_sha256": "1449d096148d2dbaf873befe5b22f493c81c12b91eb8026e05a7937850d62c9d",
+    "resolved_plan_sha256": "5d8315933b6ffaab839cea805de7a16242159046f95675866f38660c47b817a5",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "low-wide-modular",
+      "F02": "rounded-wood",
+      "F03": "slim-upholstered",
+      "F05": "slim-upholstered",
+      "F06": "slim-upholstered",
+      "F07": "slim-upholstered",
+      "F08": "slim-upholstered",
+      "F12": "slim-upholstered",
+      "F14": "slim-upholstered",
+      "F15": "low-wide-modular",
+      "J01": "flat-handleless",
+      "J02": "flat-handleless",
+      "J03": "flat-handleless",
+      "J04": "flat-handleless",
+      "J05": "flat-handleless",
+      "J06": "flat-handleless",
+      "J07": "flat-handleless",
+      "J08": "flat-handleless",
+      "J09": "flat-handleless",
+      "J10": "flat-handleless",
+      "J11": "flat-handleless"
+    },
+    "applied_pendants": {
+      "L07": "cone-shade"
+    },
+    "basic_objects": [
+      "F04",
+      "F11",
+      "F13",
+      "F16"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "floor": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "wood": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "upholstery": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "metal": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "stone": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "detail": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "foliage": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "soil": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "warm_glow": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "8ed23db37a7572bed727e562d514a2a9421a74994b20ed37708c33150819e10b",
+    "furniture_library.py": "94c382c034cf73a0a7764d530ac26bbe94d87543f214420691b020a259cc9b50",
+    "style_plan.py": "10744050aadf2c9a5290283e1a27d1dafee2f1c1405f7e76ec790e6bd6307a61",
+    "style_library.py": "42f088ab71e6ac871d5da5259378acb31a6527918269e4f62832c5d09f7c55e7",
+    "style_presentation.py": "fee41cc6c205d9320a9869ef0e1c1fc6ccc668f4c997fa186eae4cc198b184f1",
+    "white_details.py": "a0d10cbdeb45d89f1a9baffcbd30027f05c99b9a4c2d0c2eb704f2f7f721e1fa"
+  },
+  "presentation": {
+    "material_mode": "clay",
+    "detail_level": "illustrated",
+    "aspect_ratio": 1.3333333333333333,
+    "lighting_rig": "studio",
+    "contact_shadow_strength": 0.4,
+    "contact_shadow_distance_mm": 320,
+    "accessories": true,
+    "exposure": 0.3,
+    "contrast": "medium-high",
+    "orthographic_margin": 1.12,
+    "orthographic_target_lift_mm": 650,
+    "background_color": "#7095D2",
+    "ground_plane": true,
+    "foundation": true,
+    "floor_joints": false,
+    "cutaway_mode": "camera",
+    "cutaway_height_mm": 1250,
+    "glazing_color": "#8FAFDC",
+    "glazing_roughness": 0.22,
+    "glazing_transmission": 0.15
+  },
+  "cutaway_wall_heights": {
+    "full": {
+      "W01": 2700,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 2700,
+      "W05": 2700,
+      "W06": 2700,
+      "W07": 2700,
+      "W08": 2700,
+      "W09": 2700,
+      "W10": 2700
+    },
+    "default": {
+      "W01": 1250,
+      "W02": 1250,
+      "W03": 1250,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    },
+    "axon": {
+      "W01": 1250,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    }
+  },
+  "illustration_details": {
+    "refined_objects": {
+      "F01": "soft_edges",
+      "F03": "soft_edges",
+      "F05": "soft_edges",
+      "F06": "soft_edges",
+      "F07": "soft_edges",
+      "F08": "soft_edges",
+      "F09": "bedding",
+      "F10": "bedding",
+      "F12": "soft_edges",
+      "F14": "soft_edges",
+      "F15": "soft_edges",
+      "F17": "refrigerator",
+      "F18": "washer_stack",
+      "F19": "toilet"
+    },
+    "accessories": [
+      {
+        "id": "DECOR-F02",
+        "asset_id": "potted-plant",
+        "facing": "south",
+        "rect": [
+          1580.0,
+          1730.0,
+          240.0,
+          240.0
+        ],
+        "height_mm": 840.0,
+        "parts": [
+          {
+            "name": "ceramic pot",
+            "rect": [
+              52.8,
+              52.8,
+              134.4,
+              134.4
+            ],
+            "z": 360,
+            "height": 132.0,
+            "role": "shade",
+            "shape": "cone",
+            "radius": 0,
+            "top_ratio": 1.18
+          },
+          {
+            "name": "soil",
+            "rect": [
+              64.80000000000001,
+              64.80000000000001,
+              110.4,
+              110.4
+            ],
+            "z": 489.6,
+            "height": 4.8,
+            "role": "soil",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "leaf 0",
+            "rect": [
+              24.0,
+              36.0,
+              91.2,
+              120.0
+            ],
+            "z": 480.0,
+            "height": 252.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 1",
+            "rect": [
+              120.0,
+              28.799999999999997,
+              96.0,
+              120.0
+            ],
+            "z": 480.0,
+            "height": 288.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 2",
+            "rect": [
+              72.0,
+              96.0,
+              96.0,
+              132.0
+            ],
+            "z": 480.0,
+            "height": 276.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 3",
+            "rect": [
+              28.799999999999997,
+              108.0,
+              84.0,
+              108.0
+            ],
+            "z": 480.0,
+            "height": 204.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 4",
+            "rect": [
+              124.80000000000001,
+              108.0,
+              84.0,
+              108.0
+            ],
+            "z": 480.0,
+            "height": 228.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 5",
+            "rect": [
+              84.0,
+              36.0,
+              72.0,
+              96.0
+            ],
+            "z": 480.0,
+            "height": 336.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          }
+        ],
+        "source_object": "F02",
+        "presentation_only": true
+      },
+      {
+        "id": "DECOR-J06",
+        "asset_id": "potted-plant",
+        "facing": "south",
+        "rect": [
+          8650.0,
+          1200.0,
+          200.0,
+          200.0
+        ],
+        "height_mm": 1300.0,
+        "parts": [
+          {
+            "name": "ceramic pot",
+            "rect": [
+              44.0,
+              44.0,
+              112.00000000000001,
+              112.00000000000001
+            ],
+            "z": 900,
+            "height": 110.00000000000001,
+            "role": "shade",
+            "shape": "cone",
+            "radius": 0,
+            "top_ratio": 1.18
+          },
+          {
+            "name": "soil",
+            "rect": [
+              54.0,
+              54.0,
+              92.0,
+              92.0
+            ],
+            "z": 1008.0,
+            "height": 4.0,
+            "role": "soil",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "leaf 0",
+            "rect": [
+              20.0,
+              30.0,
+              76.0,
+              100.0
+            ],
+            "z": 1000.0,
+            "height": 210.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 1",
+            "rect": [
+              100.0,
+              24.0,
+              80.0,
+              100.0
+            ],
+            "z": 1000.0,
+            "height": 240.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 2",
+            "rect": [
+              60.0,
+              80.0,
+              80.0,
+              110.00000000000001
+            ],
+            "z": 1000.0,
+            "height": 229.99999999999997,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 3",
+            "rect": [
+              24.0,
+              90.0,
+              70.0,
+              90.0
+            ],
+            "z": 1000.0,
+            "height": 170.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 4",
+            "rect": [
+              104.0,
+              90.0,
+              70.0,
+              90.0
+            ],
+            "z": 1000.0,
+            "height": 190.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 5",
+            "rect": [
+              70.0,
+              30.0,
+              60.0,
+              80.0
+            ],
+            "z": 1000.0,
+            "height": 280.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          }
+        ],
+        "source_object": "J06",
+        "presentation_only": true
+      },
+      {
+        "id": "DETAIL-E03",
+        "asset_id": "cooktop",
+        "facing": "south",
+        "rect": [
+          9900.0,
+          200.0,
+          600,
+          500
+        ],
+        "height_mm": 1030,
+        "parts": [
+          {
+            "name": "cooktop surface",
+            "rect": [
+              0,
+              0,
+              600,
+              500
+            ],
+            "z": 850.5,
+            "height": 4,
+            "role": "detail",
+            "shape": "box",
+            "radius": 10
+          },
+          {
+            "name": "burner",
+            "rect": [
+              132.0,
+              100.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              132.0,
+              325.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              420.0,
+              100.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              420.0,
+              325.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          }
+        ],
+        "source_equipment": "E03"
+      },
+      {
+        "id": "DETAIL-E05",
+        "asset_id": "sink",
+        "facing": "south",
+        "rect": [
+          11400,
+          1450.0,
+          510.0,
+          500
+        ],
+        "height_mm": 1030,
+        "parts": [
+          {
+            "name": "sink rim",
+            "rect": [
+              0,
+              0,
+              510.0,
+              500
+            ],
+            "z": 850.5,
+            "height": 8,
+            "role": "metal",
+            "shape": "box",
+            "radius": 20
+          },
+          {
+            "name": "sink inset",
+            "rect": [
+              40.800000000000004,
+              40.0,
+              428.4,
+              390.0
+            ],
+            "z": 859,
+            "height": 1,
+            "role": "detail",
+            "shape": "box",
+            "radius": 35
+          },
+          {
+            "name": "tap stem",
+            "rect": [
+              367.2,
+              435.0,
+              17.85,
+              20.0
+            ],
+            "z": 858,
+            "height": 160,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          },
+          {
+            "name": "tap spout",
+            "rect": [
+              229.5,
+              435.0,
+              155.54999999999998,
+              20.0
+            ],
+            "z": 1005,
+            "height": 12,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          }
+        ],
+        "source_equipment": "E05"
+      },
+      {
+        "id": "DETAIL-TV-J05",
+        "asset_id": "television",
+        "facing": "east",
+        "rect": [
+          100,
+          600,
+          350,
+          2600
+        ],
+        "height_mm": 1300,
+        "parts": [
+          {
+            "name": "screen frame",
+            "rect": [
+              600.0,
+              227.5,
+              1400,
+              35
+            ],
+            "z": 580,
+            "height": 700,
+            "role": "metal",
+            "shape": "box",
+            "radius": 8
+          },
+          {
+            "name": "screen inset",
+            "rect": [
+              615.0,
+              225.5,
+              1370,
+              3
+            ],
+            "z": 595,
+            "height": 670,
+            "role": "detail",
+            "shape": "box",
+            "radius": 4
+          },
+          {
+            "name": "screen stand",
+            "rect": [
+              1196.0,
+              112.0,
+              208.0,
+              175.0
+            ],
+            "z": 450,
+            "height": 130,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          }
+        ],
+        "source_object": "J05",
+        "presentation_only": true
+      },
+      {
+        "id": "DETAIL-J09",
+        "asset_id": "vanity-basin",
+        "facing": "west",
+        "rect": [
+          9500,
+          5700,
+          550,
+          1200
+        ],
+        "height_mm": 960,
+        "parts": [
+          {
+            "name": "basin shell",
+            "rect": [
+              192.0,
+              44.0,
+              816.0000000000001,
+              407.0
+            ],
+            "z": 850,
+            "height": 100,
+            "role": "shade",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "basin inset",
+            "rect": [
+              276.0,
+              82.5,
+              648.0,
+              308.00000000000006
+            ],
+            "z": 945,
+            "height": 3,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          }
+        ],
+        "source_object": "J09"
+      },
+      {
+        "id": "DETAIL-SHOWER",
+        "asset_id": "shower",
+        "facing": "south",
+        "rect": [
+          10600,
+          6600,
+          1400,
+          1400
+        ],
+        "height_mm": 2100,
+        "parts": [
+          {
+            "name": "shower tray",
+            "rect": [
+              0,
+              0,
+              1400,
+              1400
+            ],
+            "z": 0,
+            "height": 35,
+            "role": "shade",
+            "shape": "box",
+            "radius": 8
+          },
+          {
+            "name": "shower glass front",
+            "rect": [
+              0,
+              0,
+              1400,
+              10
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "glazing",
+            "shape": "box",
+            "radius": 0
+          },
+          {
+            "name": "shower glass side",
+            "rect": [
+              1390,
+              0,
+              10,
+              1400
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "glazing",
+            "shape": "box",
+            "radius": 0
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              0,
+              0,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              1382,
+              0,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              1382,
+              1382,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          }
+        ],
+        "source": "model.shower"
+      }
+    ]
+  },
+  "outputs": {
+    "interior.blend": "0d5e4ee29a2714c7994ccb5eb86fe8fe26d06bf4c050ca744f69d6e7381a91f3",
+    "study.png": "644410b9053af11c81ba4da1f4fb2ba8563727c8faee94adbe94a4ecca8b66ad",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "dining.png": "abc0a8c7bc4b5d087ffd13f6b392d49f55a8b19a7b81ae2af291ad45e9456793",
+    "axon.png": "ab4fa3f2633e6986d8de6608e2a2c146191d7f0832e7762eca42713ed2e6d3b6",
+    "interior.glb": "c930ec53cb91a37a9fbbf52e27ff6ea6e3dae2e93ce52eb059b86a3c9b8350ab",
+    "living.png": "5d29494bb893b81bdea46a405519d175b38e93a7ad4651fb4620ce26c2ee2728"
+  }
+}

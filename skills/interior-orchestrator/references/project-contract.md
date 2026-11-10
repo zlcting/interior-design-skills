@@ -40,6 +40,6 @@
 
 预算quantity_rule支持floor（materials选择）、net_area、length、projection、count。length/projection按指定家具ids及front_axis计算；count可指定collection=furniture/lights/equipment/points/openings并选择ids，省略ids时计整个集合。明确选择中的未知或重复编号应报错，不能默认为零。
 
-通用二维导出与核验见[工具用法](tool-guide.md)。三维脚本和旧12页汇报仍属于DEMO-APT-096案例流程，不能将二维跨户型验证推及任意三维输入。
+通用二维导出与核验见[工具用法](tool-guide.md)。未选风格的旧三维分支和旧12页汇报仍属于DEMO-APT-096案例流程。新多风格分支使用显式家具语义、模型库和项目相机，字段及适用边界见[风格与家具库](style-library.md)；不能将局部家具验证推及所有三维输入。
 
 设计舒适目标与法规依据必须分列。正式规范应用先核对官方版本、地区、用途和条文；未知阈值不填默认值。
