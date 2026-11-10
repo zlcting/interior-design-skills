@@ -26,7 +26,7 @@ def refine_furniture(item, model):
                 part('duvet',[w*.03,d*.025,w*.94,d*.73],h*.75,h*.09,'shade',radius=min(w,d)*.05,bevel_mm=20),
                 part('duvet fold',[w*.03,d*.62,w*.94,d*.12],h*.84,h*.035,'shade',radius=20,bevel_mm=8),
                 part('bed throw',[w*.03,d*.12,w*.94,d*.24],h*.84,h*.025,'accent',radius=10)]
-        for x in (w*.09,w*.56):pieces.append(part('soft pillow',[x,d*.76,w*.35,d*.19],h*.8,h*.2,'shade',shape='ellipsoid'))
+        for x in (w*.09,w*.56):pieces.append(part('soft pillow',[x,d*.76,w*.35,d*.19],h*.8,h*.2,'shade',shape='cushion',squareness=.52,lean=.06,tuft=.01))
         for x in (w*.07,w*.88):
             for y in (d*.07,d*.87):pieces.append(part('bed foot',[x,y,w*.05,d*.04],0,h*.13,'metal',radius=4))
         refined=True

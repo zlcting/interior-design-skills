@@ -8,7 +8,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'skills/interior-orchestrator/scripts'))
 from style_library import load_styles, load_catalog
-from style_plan import resolve_plan, digest
+from style_plan import resolve_plan, digest, selected_style
 from style_presentation import presentation_views
 
 def verify(project, style_ids=None, require_current=False, output=None):
@@ -21,6 +21,7 @@ def verify(project, style_ids=None, require_current=False, output=None):
         styles={sid:styles[sid] for sid in style_ids}
     if output is not None and len(styles)!=1:raise ValueError('--out 必须配合单个 --style')
     for sid,style in styles.items():
+        style=selected_style(model,style)
         out=Path(output) if output is not None else project/'visuals/style-variants'/sid
         m=json.loads((out/'render-manifest.json').read_text())
         historical_style=m['style']['preset']!=style
@@ -63,8 +64,17 @@ def verify(project, style_ids=None, require_current=False, output=None):
         if style.get('presentation',{}).get('living_refinement'):
             glass=next(mat for mat in content['materials'] if mat['name']=='Presentation glazing')
             assert glass.get('extensions',{}).get('KHR_materials_transmission',{}).get('transmissionFactor',0)>.9,(sid,'GLB glazing lost transmission')
+        exchange_file=out/'exchange-validation.json'
+        exchange_status='not_verified_historical'
+        if exchange_file.exists():
+            exchange=json.loads(exchange_file.read_text())
+            assert exchange['passed'] and exchange['apply_modifiers']
+            assert exchange['glb_sha256']==hashlib.sha256(glb).hexdigest(),(sid,'exchange report stale')
+            assert exchange['objects'] and all(x['passed'] for x in exchange['objects'])
+            exchange_status='verified_evaluated_geometry'
+        if require_current:assert exchange_status=='verified_evaluated_geometry',(sid,'missing evaluated geometry roundtrip')
         signatures[sid]=digest([i['parts'] for i in plan['furniture']])
-        results[sid]={'views':len(m['views']),'styled_objects':len(m['style']['applied_forms']),
+        results[sid]={'exchange_status':exchange_status,'views':len(m['views']),'styled_objects':len(m['style']['applied_forms']),
                       'basic_objects':len(m['style']['basic_objects']),'glb_meshes':len(content['meshes']),
                       'outputs_verified':len(m['outputs']),
                       'style_status':'historical' if historical_style else 'current',

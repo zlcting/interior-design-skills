@@ -342,6 +342,8 @@ full.hide_viewport=False;cut.hide_viewport=True
 bpy.ops.object.select_all(action='DESELECT')
 for o in scene.objects:
     if o.type=='MESH' and not any(c==cut for c in o.users_collection):o.select_set(True)
-bpy.ops.export_scene.gltf(filepath=str(out/'qimu-home.glb'),use_selection=True,export_format='GLB',export_cameras=False,export_lights=False)
+from exchange_validation import export_glb_verified
+exchange=export_glb_verified(out/'qimu-home.glb', list(bpy.context.selected_objects))
+(out/'exchange-validation.json').write_text(json.dumps(exchange,ensure_ascii=False,indent=2)+'\n')
 (out/'render-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 print('RENDER_COMPLETE',len(manifest['views']))

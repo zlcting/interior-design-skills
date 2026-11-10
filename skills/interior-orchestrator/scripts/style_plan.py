@@ -57,7 +57,24 @@ def semantic_model(model):
     return model, ('DEMO-APT-096' if adapter else None)
 
 
+def selected_style(model, style):
+    """Honor an explicit detail choice without mutating shared presets or legacy defaults."""
+    choice = model.get('visualization', {}).get('furniture_detail')
+    if choice is None:
+        return style
+    if choice not in ('basic', 'refined'):
+        raise ValueError('furniture_detail 必须为 basic/refined')
+    result = copy.deepcopy(style)
+    presentation = result.setdefault('presentation', {})
+    if choice == 'basic':
+        presentation.update(detail_level='basic', living_refinement=False, accessories=False)
+    elif presentation.get('detail_level') != 'illustrated':
+        raise ValueError('该风格尚未提供 illustrated 精细家具模块；请先说明支持范围并确认替代方向')
+    return result
+
+
 def resolve_plan(model, style, catalog=None):
+    style = selected_style(model, style)
     catalog = catalog or load_catalog()
     validate_style(style,catalog)
     resolved, adapter = semantic_model(model)

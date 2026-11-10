@@ -17,6 +17,42 @@ MODEL=json.loads((ROOT/'projects/STYLE-LAB-096/model/project.json').read_text())
 CATALOG=load_catalog();STYLES=load_styles()
 
 class StyleTests(unittest.TestCase):
+    def test_refined_bed_pillows_use_plump_surfaces(self):
+        plan=resolve_plan(MODEL,STYLES['white-minimal'])
+        pillows=[p for f in plan['furniture'] if f['furniture_type']=='bed' for p in f['parts'] if p['name']=='soft pillow']
+        self.assertTrue(pillows)
+        self.assertTrue(all(p['shape']=='cushion' for p in pillows))
+        from illustration_meshes import detailed_mesh
+        self.assertTrue(all(len(detailed_mesh(p)[0])>1000 for p in pillows))
+
+    def test_explicit_basic_choice_disables_refinement_and_decor(self):
+        model=copy.deepcopy(MODEL);model['visualization']['furniture_detail']='basic'
+        plan=resolve_plan(model,STYLES['white-minimal'])
+        self.assertNotIn('refined_objects',plan)
+        self.assertNotIn('accessories',plan)
+        self.assertEqual(plan['style']['presentation']['detail_level'],'basic')
+        self.assertFalse(plan['style']['presentation']['living_refinement'])
+
+    def test_explicit_refined_choice_runs_real_living_modules(self):
+        model=copy.deepcopy(MODEL);model['visualization']['furniture_detail']='refined'
+        plan=resolve_plan(model,STYLES['white-minimal'])
+        self.assertTrue(any(i.get('refinement')=='living-tailored-sofa' for i in plan['furniture']))
+        self.assertTrue(any(p['shape']=='piping' for i in plan['furniture'] for p in i['parts']))
+
+    def test_invalid_or_unsupported_detail_choice_is_rejected(self):
+        for choice,style in [('unknown','white-minimal'),('refined','japanese-natural')]:
+            model=copy.deepcopy(MODEL);model['visualization']['furniture_detail']=choice
+            with self.assertRaises(ValueError):resolve_plan(model,STYLES[style])
+
+    def test_detail_selection_preserves_shared_preset_and_default(self):
+        from style_plan import selected_style
+        original=copy.deepcopy(STYLES['white-minimal']);model=copy.deepcopy(MODEL)
+        self.assertEqual(selected_style(model,original),original)
+        model['visualization']['furniture_detail']='basic'
+        chosen=selected_style(model,original)
+        self.assertEqual(original,STYLES['white-minimal'])
+        self.assertNotEqual(chosen,original)
+
     def test_crisp_edges_preserve_soft_bodies_and_authored_bounds(self):
         from style_presentation import presentation_part
         settings=presentation_settings(STYLES['white-minimal'])

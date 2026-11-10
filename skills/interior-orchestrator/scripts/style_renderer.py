@@ -307,7 +307,7 @@ def render_style(project,source_text,plan,catalog,args,out):
                        'applied_forms':{i['id']:i['asset_id'] for i in plan['furniture'] if i['mode']=='styled'},
                        'applied_pendants':{i['id']:i['asset_id'] for i in plan['pendants']},'basic_objects':plan['basic_objects']},
               'material_profiles':{r:catalog['material_profiles'][p] for r,p in style['surfaces'].items()},
-              'generator_sha256':{f:hashlib.sha256((Path(__file__).parent/f).read_bytes()).hexdigest() for f in ('style_renderer.py','furniture_library.py','style_plan.py','style_library.py','style_presentation.py','white_details.py','living_details.py','illustration_meshes.py')},
+              'generator_sha256':{f:hashlib.sha256((Path(__file__).parent/f).read_bytes()).hexdigest() for f in ('style_renderer.py','furniture_library.py','style_plan.py','style_library.py','style_presentation.py','white_details.py','living_details.py','illustration_meshes.py','exchange_validation.py')},
               'presentation':presentation,'cutaway_wall_heights':cut_heights,
               'illustration_details':{'refined_objects':plan.get('refined_objects',{}),'accessories':plan.get('accessories',[])}}
     if style.get('presentation'):
@@ -341,7 +341,9 @@ def render_style(project,source_text,plan,catalog,args,out):
     if export_cut is not None:excluded.add(full)
     for o in scene.objects:
         if o.type=='MESH' and not any(collection in excluded for collection in o.users_collection):o.select_set(True)
-    bpy.ops.export_scene.gltf(filepath=str(out/'interior.glb'),use_selection=True,export_format='GLB',export_cameras=False,export_lights=False)
-    manifest['outputs']={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in out.iterdir() if f.name in ['interior.blend','interior.glb','render-input.json','resolved-input.json']+[v['file'] for v in manifest['views']]}
+    from exchange_validation import export_glb_verified
+    manifest['exchange_validation']=export_glb_verified(out/'interior.glb', list(bpy.context.selected_objects))
+    (out/'exchange-validation.json').write_text(json.dumps(manifest['exchange_validation'],ensure_ascii=False,indent=2)+'\n')
+    manifest['outputs']={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in out.iterdir() if f.name in ['interior.blend','interior.glb','render-input.json','resolved-input.json','exchange-validation.json']+[v['file'] for v in manifest['views']]}
     (out/'render-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('RENDER_COMPLETE',len(manifest['views']))

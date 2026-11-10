@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-10",
+  "regression_tests": 85,
+  "regression_result": "passed",
+  "blender_behavior": {
+    "scaled_translated_bevel_roundtrip": "passed",
+    "unapplied_bevel_rejected": "passed"
+  },
+  "skill_format": "interior-visualization passed",
+  "historical_outputs": "not retroactively certified",
+  "tolerance_mm": 0.02
+}

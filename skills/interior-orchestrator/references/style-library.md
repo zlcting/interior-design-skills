@@ -113,3 +113,11 @@ python3 tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minim
 ```
 
 本轮6张视图统一高分辨率生成。`comparison.html`白模图片与模型均指向v4；`clarity-refinement.html`对照v3/v4同机位轴测与客厅。v1、v2、v3及v3补充图保留。
+
+## 交换几何验收
+
+新版生成器通过 `exchange_validation.py` 显式应用修改器并重新导入GLB，输出 `exchange-validation.json`。当前版本核验要求报告与最终GLB哈希一致，逐对象求值几何在声明容差内匹配。缺少此报告的历史输出标记为交换几何未验，不补造历史通过。渲染/网页对照与独立HTML要求见[三维交换与网页验收](../../interior-visualization/references/exchange-acceptance.md)。
+
+## 生成前的选择提示
+
+使用本流程前执行[家具精细度与风格选择](3d-selection.md)。精细任务需实际经过 `resolve_plan` 的 `refine_furniture`、`refine_living` 与 `detailed_mesh` 等适用模块，并记录解析结果；仅标注white-minimal或修复导出倒角不能替代精细模型。既有明确选择说明沿用，不重复询问。
