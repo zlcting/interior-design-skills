@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-11",
+  "profile": "white-home3d-v1",
+  "profile_version": 1,
+  "profile_sha256": "3d33a106aa028862be5407dbe935a75b0320e1e0f4d5bc5fc9ff08c4f3537194",
+  "unit_tests_passed": 99,
+  "local_references_valid": 51,
+  "skill_format": [
+    "interior-orchestrator",
+    "interior-visualization"
+  ],
+  "synthetic_blender": {
+    "geometry_roundtrip_passes": 2,
+    "material_factors_transmission_emission_preserved": true,
+    "contact_ao_present": true,
+    "no_cumulative_ao_darkening": true,
+    "ao_min_values": [
+      0.6404956745023302,
+      0.6404956745023302
+    ],
+    "unsupported_material_extension_rejected": true
+  },
+  "sample_geometry_objects": 392,
+  "sample_visual_review": "agent reviewed overview/focus/on-off, not user approval",
+  "direct_file_protocol": "not tested: browser policy",
+  "native_app": "not tested"
+}

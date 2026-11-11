@@ -1,0 +1,1978 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 96,
+  "width": 1600,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20.65
+      ],
+      "target": [
+        6,
+        4,
+        0.65
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 19.264,
+      "file": "axon.png"
+    },
+    {
+      "name": "living-detail",
+      "type": "ORTHO",
+      "ortho_scale": 5.408,
+      "location": [
+        -3.55,
+        7.95,
+        8.2
+      ],
+      "target": [
+        2.45,
+        1.95,
+        0.65
+      ],
+      "presentation_only": true,
+      "study_cutaway_mm": 300,
+      "source_objects": [
+        "F01",
+        "F02"
+      ],
+      "file": "living-detail.png"
+    },
+    {
+      "name": "living-close",
+      "lens": 24,
+      "location": [
+        0.6500000000000001,
+        3.9,
+        2.8
+      ],
+      "target": [
+        2.45,
+        1.75,
+        0.65
+      ],
+      "presentation_only": true,
+      "source_objects": [
+        "F01",
+        "F02"
+      ],
+      "file": "living-close.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "white-minimal",
+      "name": "极简白模",
+      "version": 3,
+      "description": "参考白模建筑轴测：哑光白与浅灰、蓝色背景和蓝灰玻璃、柔和阴影，突出空间与简洁家具轮廓。",
+      "colors": {
+        "wall": "#E6E8EB",
+        "floor": "#D3D6DC",
+        "wood": "#E3E5E8",
+        "upholstery": "#F4F3F1",
+        "metal": "#D2D6DD",
+        "accent": "#E1E2E4",
+        "stone": "#E6E8EB",
+        "shade": "#FAF9F6",
+        "detail": "#697584",
+        "foliage": "#5D7047",
+        "soil": "#554A3D",
+        "warm_glow": "#FFF0CC",
+        "lamp_shade": "#FFF1D7"
+      },
+      "materials": {
+        "floor": "连续浅灰白模地面",
+        "wood": "统一哑光白模面",
+        "upholstery": "哑光白模软体",
+        "metal": "浅灰哑光面"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "rounded-wood",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "cone-shade"
+      },
+      "avoid": [
+        "木纹与石纹",
+        "高饱和家具",
+        "镜面金属",
+        "密集地板拼缝"
+      ],
+      "surfaces": {
+        "wall": "plain",
+        "floor": "plain",
+        "wood": "plain",
+        "upholstery": "plain",
+        "metal": "plain",
+        "accent": "plain",
+        "stone": "plain",
+        "shade": "plain",
+        "detail": "plain",
+        "foliage": "plain",
+        "soil": "plain",
+        "warm_glow": "plain",
+        "lamp_shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 5500,
+        "ambient_strength": 0.45
+      },
+      "presentation": {
+        "material_mode": "clay",
+        "background_color": "#7095D2",
+        "ground_plane": true,
+        "foundation": true,
+        "floor_joints": false,
+        "cutaway_mode": "camera",
+        "cutaway_height_mm": 1250,
+        "glazing_color": "#DAE8F5",
+        "glazing_roughness": 0.1,
+        "glazing_transmission": 1.0,
+        "exposure": 0.05,
+        "contrast": "medium-high",
+        "orthographic_margin": 1.12,
+        "orthographic_target_lift_mm": 650,
+        "detail_level": "illustrated",
+        "lighting_rig": "studio",
+        "contact_shadow_strength": 0.2,
+        "contact_shadow_distance_mm": 180,
+        "accessories": true,
+        "aspect_ratio": 1.3333333333333333,
+        "living_refinement": true
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting",
+      "presentation",
+      "illustrated_details",
+      "clay_override"
+    ],
+    "catalog_sha256": "1449d096148d2dbaf873befe5b22f493c81c12b91eb8026e05a7937850d62c9d",
+    "resolved_plan_sha256": "22755085085d8de7ddf7a4ed9e4d50c5a656eb19d6fe146b88c056cee954e849",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "low-wide-modular",
+      "F02": "rounded-wood",
+      "F03": "slim-upholstered",
+      "F05": "slim-upholstered",
+      "F06": "slim-upholstered",
+      "F07": "slim-upholstered",
+      "F08": "slim-upholstered",
+      "F12": "slim-upholstered",
+      "F14": "slim-upholstered",
+      "F15": "low-wide-modular",
+      "J01": "flat-handleless",
+      "J02": "flat-handleless",
+      "J03": "flat-handleless",
+      "J04": "flat-handleless",
+      "J05": "flat-handleless",
+      "J06": "flat-handleless",
+      "J07": "flat-handleless",
+      "J08": "flat-handleless",
+      "J09": "flat-handleless",
+      "J10": "flat-handleless",
+      "J11": "flat-handleless"
+    },
+    "applied_pendants": {
+      "L07": "cone-shade"
+    },
+    "basic_objects": [
+      "F04",
+      "F11",
+      "F13",
+      "F16"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "floor": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "wood": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "upholstery": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "metal": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "stone": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "detail": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "foliage": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "soil": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "warm_glow": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "lamp_shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "33c97543e0d8469b2b170be2dfd60f5fbe04fd99ce003a815e2d1cceadd1c9ce",
+    "furniture_library.py": "94c382c034cf73a0a7764d530ac26bbe94d87543f214420691b020a259cc9b50",
+    "style_plan.py": "38095d704553ea31f9aeeddb6230725532d62dd409338e9d5cb7073b547dff55",
+    "style_library.py": "42f088ab71e6ac871d5da5259378acb31a6527918269e4f62832c5d09f7c55e7",
+    "style_presentation.py": "713fc786ed181a6a6b76fecb5a0efd887717a23b0617fb694c7cecd4ace806a0",
+    "white_details.py": "a0d10cbdeb45d89f1a9baffcbd30027f05c99b9a4c2d0c2eb704f2f7f721e1fa",
+    "living_details.py": "7117e0409976093f1b7bf0ac859fcf1e57b89eed721177eb32876398f2c13430",
+    "illustration_meshes.py": "e79fe15e838fa939bd1e5af6c484bb17aa634dd9d8fdde5752591834fcfa8022"
+  },
+  "presentation": {
+    "material_mode": "clay",
+    "detail_level": "illustrated",
+    "aspect_ratio": 1.3333333333333333,
+    "lighting_rig": "studio",
+    "contact_shadow_strength": 0.2,
+    "contact_shadow_distance_mm": 180,
+    "accessories": true,
+    "living_refinement": true,
+    "exposure": 0.05,
+    "contrast": "medium-high",
+    "orthographic_margin": 1.12,
+    "orthographic_target_lift_mm": 650,
+    "background_color": "#7095D2",
+    "ground_plane": true,
+    "foundation": true,
+    "floor_joints": false,
+    "cutaway_mode": "camera",
+    "cutaway_height_mm": 1250,
+    "glazing_color": "#DAE8F5",
+    "glazing_roughness": 0.1,
+    "glazing_transmission": 1.0
+  },
+  "cutaway_wall_heights": {
+    "full": {
+      "W01": 2700,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 2700,
+      "W05": 2700,
+      "W06": 2700,
+      "W07": 2700,
+      "W08": 2700,
+      "W09": 2700,
+      "W10": 2700
+    },
+    "default": {
+      "W01": 1250,
+      "W02": 1250,
+      "W03": 1250,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    },
+    "axon": {
+      "W01": 1250,
+      "W02": 2700,
+      "W03": 2700,
+      "W04": 1250,
+      "W05": 1250,
+      "W06": 1250,
+      "W07": 1250,
+      "W08": 1250,
+      "W09": 1250,
+      "W10": 1250
+    },
+    "living-detail": {
+      "W01": 2700,
+      "W02": 300,
+      "W03": 300,
+      "W04": 2700,
+      "W05": 300,
+      "W06": 300,
+      "W07": 300,
+      "W08": 300,
+      "W09": 300,
+      "W10": 300
+    }
+  },
+  "illustration_details": {
+    "refined_objects": {
+      "F01": "living-tailored-sofa",
+      "F02": "living-slim-table",
+      "F03": "soft_edges",
+      "F05": "soft_edges",
+      "F06": "soft_edges",
+      "F07": "soft_edges",
+      "F08": "soft_edges",
+      "F09": "bedding",
+      "F10": "bedding",
+      "F12": "soft_edges",
+      "F14": "soft_edges",
+      "F15": "soft_edges",
+      "F17": "refrigerator",
+      "F18": "washer_stack",
+      "F19": "toilet"
+    },
+    "accessories": [
+      {
+        "id": "DECOR-F02",
+        "asset_id": "potted-plant",
+        "facing": "south",
+        "rect": [
+          1496.0,
+          1756.0,
+          408.00000000000006,
+          408.00000000000006
+        ],
+        "height_mm": 972.0000000000001,
+        "parts": [
+          {
+            "name": "ceramic planter",
+            "rect": [
+              122.4,
+              122.4,
+              163.20000000000005,
+              163.20000000000005
+            ],
+            "z": 360,
+            "height": 171.36,
+            "role": "shade",
+            "shape": "cone",
+            "radius": 0,
+            "top_ratio": 1.15
+          },
+          {
+            "name": "planter lip",
+            "rect": [
+              120.36000000000001,
+              120.36000000000001,
+              167.28,
+              167.28
+            ],
+            "z": 519.12,
+            "height": 10.200000000000003,
+            "role": "shade",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "visible soil",
+            "rect": [
+              132.60000000000002,
+              132.60000000000002,
+              142.8,
+              142.8
+            ],
+            "z": 529.7280000000001,
+            "height": 4.896000000000001,
+            "role": "soil",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "broad leaf 0",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.545,
+              0.5,
+              0.035
+            ],
+            "end": [
+              0.9299999999999999,
+              0.5,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 0",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.545,
+              0.5,
+              0.035
+            ],
+            "end": [
+              0.9299999999999999,
+              0.5,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 1",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.4668184074695529,
+              0.5303970708645319,
+              0.035
+            ],
+            "end": [
+              0.18293144915350534,
+              0.790460899372194,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 1",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.4668184074695529,
+              0.5303970708645319,
+              0.035
+            ],
+            "end": [
+              0.18293144915350534,
+              0.790460899372194,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 2",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.50393413701585,
+              0.45517230135351006,
+              0.035
+            ],
+            "end": [
+              0.5375928648181219,
+              0.07164643515576247,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 2",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.50393413701585,
+              0.45517230135351006,
+              0.035
+            ],
+            "end": [
+              0.5375928648181219,
+              0.07164643515576247,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 3",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5273797733562745,
+              0.5357120149383795,
+              0.035
+            ],
+            "end": [
+              0.7616289454044012,
+              0.8412481427445149,
+              0.5650000000000001
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 3",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5273797733562745,
+              0.5357120149383795,
+              0.035
+            ],
+            "end": [
+              0.7616289454044012,
+              0.8412481427445149,
+              0.5650000000000001
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 4",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.45568788595819915,
+              0.49216185295197673,
+              0.035
+            ],
+            "end": [
+              0.07657313248945852,
+              0.42510215043,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 4",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.45568788595819915,
+              0.49216185295197673,
+              0.035
+            ],
+            "end": [
+              0.07657313248945852,
+              0.42510215043,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 5",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.537968960523625,
+              0.4758471940190087,
+              0.035
+            ],
+            "end": [
+              0.8628145116701943,
+              0.2692065206260834,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 5",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.537968960523625,
+              0.4758471940190087,
+              0.035
+            ],
+            "end": [
+              0.8628145116701943,
+              0.2692065206260834,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 6",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.4883178661795983,
+              0.5434571944492765,
+              0.035
+            ],
+            "end": [
+              0.3883707212717171,
+              0.915257635848642,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 6",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.4883178661795983,
+              0.5434571944492765,
+              0.035
+            ],
+            "end": [
+              0.3883707212717171,
+              0.915257635848642,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 7",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.4792591196681405,
+              0.46006485403733344,
+              0.035
+            ],
+            "end": [
+              0.3018093657177871,
+              0.11839749413451944,
+              0.5650000000000001
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 7",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.4792591196681405,
+              0.46006485403733344,
+              0.035
+            ],
+            "end": [
+              0.3018093657177871,
+              0.11839749413451944,
+              0.5650000000000001
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 8",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5422694867046028,
+              0.5154366607052627,
+              0.035
+            ],
+            "end": [
+              0.9039084285106496,
+              0.6475058689613993,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 8",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5422694867046028,
+              0.5154366607052627,
+              0.035
+            ],
+            "end": [
+              0.9039084285106496,
+              0.6475058689613993,
+              0.28
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 9",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.45840448547393575,
+              0.5171701243825425,
+              0.035
+            ],
+            "end": [
+              0.10253175008427523,
+              0.6640700774331838,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 9",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.45840448547393575,
+              0.5171701243825425,
+              0.035
+            ],
+            "end": [
+              0.10253175008427523,
+              0.6640700774331838,
+              0.375
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 10",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5190729761442041,
+              0.45924191391879865,
+              0.035
+            ],
+            "end": [
+              0.6822528831557281,
+              0.11053384411296463,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "stem 10",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5190729761442041,
+              0.45924191391879865,
+              0.035
+            ],
+            "end": [
+              0.6822528831557281,
+              0.11053384411296463,
+              0.47000000000000003
+            ],
+            "arch": 0.25,
+            "width": 0.14
+          },
+          {
+            "name": "broad leaf 11",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5134678824034011,
+              0.5429373513804492,
+              0.035
+            ],
+            "end": [
+              0.5838001571767184,
+              0.7671657419227946,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 11",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5134678824034011,
+              0.5429373513804492,
+              0.035
+            ],
+            "end": [
+              0.5838001571767184,
+              0.7671657419227946,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 12",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.461065433359901,
+              0.47743676617708153,
+              0.035
+            ],
+            "end": [
+              0.2577404742393842,
+              0.35960654510184054,
+              0.68
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 12",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.461065433359901,
+              0.47743676617708153,
+              0.035
+            ],
+            "end": [
+              0.2577404742393842,
+              0.35960654510184054,
+              0.68
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 13",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5439503809566569,
+              0.49033749443649677,
+              0.035
+            ],
+            "end": [
+              0.7734690370636429,
+              0.43987774316042416,
+              0.7350000000000001
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 13",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5439503809566569,
+              0.49033749443649677,
+              0.035
+            ],
+            "end": [
+              0.7734690370636429,
+              0.43987774316042416,
+              0.7350000000000001
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 14",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.47411929408624515,
+              0.5368128925976449,
+              0.035
+            ],
+            "end": [
+              0.33896449653663646,
+              0.7290579983853457,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 14",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.47411929408624515,
+              0.5368128925976449,
+              0.035
+            ],
+            "end": [
+              0.33896449653663646,
+              0.7290579983853457,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 15",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.49421686517803404,
+              0.45537315436162934,
+              0.035
+            ],
+            "end": [
+              0.46401604999665635,
+              0.22232184936124905,
+              0.68
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 15",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.49421686517803404,
+              0.45537315436162934,
+              0.035
+            ],
+            "end": [
+              0.46401604999665635,
+              0.22232184936124905,
+              0.68
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 16",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.5344093113898043,
+              0.5289999877530919,
+              0.035
+            ],
+            "end": [
+              0.7141023819810048,
+              0.6804443682414607,
+              0.7350000000000001
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 16",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.5344093113898043,
+              0.5289999877530919,
+              0.035
+            ],
+            "end": [
+              0.7141023819810048,
+              0.6804443682414607,
+              0.7350000000000001
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "broad leaf 17",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_leaf",
+            "radius": 0,
+            "start": [
+              0.4550384348313099,
+              0.5018594777712129,
+              0.035
+            ],
+            "end": [
+              0.22023915006148392,
+              0.5115700839097688,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          },
+          {
+            "name": "stem 17",
+            "rect": [
+              0,
+              0,
+              408.00000000000006,
+              408.00000000000006
+            ],
+            "z": 531.36,
+            "height": 428.4000000000001,
+            "role": "foliage",
+            "shape": "botanical_stem",
+            "radius": 0,
+            "start": [
+              0.4550384348313099,
+              0.5018594777712129,
+              0.035
+            ],
+            "end": [
+              0.22023915006148392,
+              0.5115700839097688,
+              0.79
+            ],
+            "arch": 0.12,
+            "width": 0.13
+          }
+        ],
+        "source_object": "F02",
+        "presentation_only": true,
+        "refinement": "broad-leaf-plant"
+      },
+      {
+        "id": "DECOR-J06",
+        "asset_id": "potted-plant",
+        "facing": "south",
+        "rect": [
+          8650.0,
+          1200.0,
+          200.0,
+          200.0
+        ],
+        "height_mm": 1300.0,
+        "parts": [
+          {
+            "name": "ceramic pot",
+            "rect": [
+              44.0,
+              44.0,
+              112.00000000000001,
+              112.00000000000001
+            ],
+            "z": 900,
+            "height": 110.00000000000001,
+            "role": "shade",
+            "shape": "cone",
+            "radius": 0,
+            "top_ratio": 1.18
+          },
+          {
+            "name": "soil",
+            "rect": [
+              54.0,
+              54.0,
+              92.0,
+              92.0
+            ],
+            "z": 1008.0,
+            "height": 4.0,
+            "role": "soil",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "leaf 0",
+            "rect": [
+              20.0,
+              30.0,
+              76.0,
+              100.0
+            ],
+            "z": 1000.0,
+            "height": 210.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 1",
+            "rect": [
+              100.0,
+              24.0,
+              80.0,
+              100.0
+            ],
+            "z": 1000.0,
+            "height": 240.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 2",
+            "rect": [
+              60.0,
+              80.0,
+              80.0,
+              110.00000000000001
+            ],
+            "z": 1000.0,
+            "height": 229.99999999999997,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 3",
+            "rect": [
+              24.0,
+              90.0,
+              70.0,
+              90.0
+            ],
+            "z": 1000.0,
+            "height": 170.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 4",
+            "rect": [
+              104.0,
+              90.0,
+              70.0,
+              90.0
+            ],
+            "z": 1000.0,
+            "height": 190.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          },
+          {
+            "name": "leaf 5",
+            "rect": [
+              70.0,
+              30.0,
+              60.0,
+              80.0
+            ],
+            "z": 1000.0,
+            "height": 280.0,
+            "role": "foliage",
+            "shape": "leaf",
+            "radius": 0
+          }
+        ],
+        "source_object": "J06",
+        "presentation_only": true
+      },
+      {
+        "id": "DETAIL-E03",
+        "asset_id": "cooktop",
+        "facing": "south",
+        "rect": [
+          9900.0,
+          200.0,
+          600,
+          500
+        ],
+        "height_mm": 1030,
+        "parts": [
+          {
+            "name": "cooktop surface",
+            "rect": [
+              0,
+              0,
+              600,
+              500
+            ],
+            "z": 850.5,
+            "height": 4,
+            "role": "detail",
+            "shape": "box",
+            "radius": 10
+          },
+          {
+            "name": "burner",
+            "rect": [
+              132.0,
+              100.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              132.0,
+              325.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              420.0,
+              100.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "burner",
+            "rect": [
+              420.0,
+              325.0,
+              90.0,
+              90.0
+            ],
+            "z": 855,
+            "height": 2,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          }
+        ],
+        "source_equipment": "E03"
+      },
+      {
+        "id": "DETAIL-E05",
+        "asset_id": "sink",
+        "facing": "south",
+        "rect": [
+          11400,
+          1450.0,
+          510.0,
+          500
+        ],
+        "height_mm": 1030,
+        "parts": [
+          {
+            "name": "sink rim",
+            "rect": [
+              0,
+              0,
+              510.0,
+              500
+            ],
+            "z": 850.5,
+            "height": 8,
+            "role": "metal",
+            "shape": "box",
+            "radius": 20
+          },
+          {
+            "name": "sink inset",
+            "rect": [
+              40.800000000000004,
+              40.0,
+              428.4,
+              390.0
+            ],
+            "z": 859,
+            "height": 1,
+            "role": "detail",
+            "shape": "box",
+            "radius": 35
+          },
+          {
+            "name": "tap stem",
+            "rect": [
+              367.2,
+              435.0,
+              17.85,
+              20.0
+            ],
+            "z": 858,
+            "height": 160,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          },
+          {
+            "name": "tap spout",
+            "rect": [
+              229.5,
+              435.0,
+              155.54999999999998,
+              20.0
+            ],
+            "z": 1005,
+            "height": 12,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          }
+        ],
+        "source_equipment": "E05"
+      },
+      {
+        "id": "DETAIL-TV-J05",
+        "asset_id": "television",
+        "facing": "east",
+        "rect": [
+          100,
+          600,
+          350,
+          2600
+        ],
+        "height_mm": 1300,
+        "parts": [
+          {
+            "name": "screen frame",
+            "rect": [
+              600.0,
+              227.5,
+              1400,
+              35
+            ],
+            "z": 580,
+            "height": 700,
+            "role": "metal",
+            "shape": "box",
+            "radius": 8
+          },
+          {
+            "name": "screen inset",
+            "rect": [
+              615.0,
+              225.5,
+              1370,
+              3
+            ],
+            "z": 595,
+            "height": 670,
+            "role": "detail",
+            "shape": "box",
+            "radius": 4
+          },
+          {
+            "name": "screen stand",
+            "rect": [
+              1196.0,
+              112.0,
+              208.0,
+              175.0
+            ],
+            "z": 450,
+            "height": 130,
+            "role": "metal",
+            "shape": "box",
+            "radius": 4
+          }
+        ],
+        "source_object": "J05",
+        "presentation_only": true
+      },
+      {
+        "id": "DETAIL-J09",
+        "asset_id": "vanity-basin",
+        "facing": "west",
+        "rect": [
+          9500,
+          5700,
+          550,
+          1200
+        ],
+        "height_mm": 960,
+        "parts": [
+          {
+            "name": "basin shell",
+            "rect": [
+              192.0,
+              44.0,
+              816.0000000000001,
+              407.0
+            ],
+            "z": 850,
+            "height": 100,
+            "role": "shade",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "basin inset",
+            "rect": [
+              276.0,
+              82.5,
+              648.0,
+              308.00000000000006
+            ],
+            "z": 945,
+            "height": 3,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          }
+        ],
+        "source_object": "J09"
+      },
+      {
+        "id": "DETAIL-SHOWER",
+        "asset_id": "shower",
+        "facing": "south",
+        "rect": [
+          10600,
+          6600,
+          1400,
+          1400
+        ],
+        "height_mm": 2100,
+        "parts": [
+          {
+            "name": "shower tray",
+            "rect": [
+              0,
+              0,
+              1400,
+              1400
+            ],
+            "z": 0,
+            "height": 35,
+            "role": "shade",
+            "shape": "box",
+            "radius": 8
+          },
+          {
+            "name": "shower glass front",
+            "rect": [
+              0,
+              0,
+              1400,
+              10
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "glazing",
+            "shape": "box",
+            "radius": 0
+          },
+          {
+            "name": "shower glass side",
+            "rect": [
+              1390,
+              0,
+              10,
+              1400
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "glazing",
+            "shape": "box",
+            "radius": 0
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              0,
+              0,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              1382,
+              0,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          },
+          {
+            "name": "shower post",
+            "rect": [
+              1382,
+              1382,
+              18,
+              18
+            ],
+            "z": 35,
+            "height": 2065,
+            "role": "metal",
+            "shape": "box",
+            "radius": 2
+          }
+        ],
+        "source": "model.shower"
+      },
+      {
+        "id": "DECOR-LAMP-F01",
+        "asset_id": "living-floor-lamp",
+        "rect": [
+          2915.0,
+          220.0,
+          360,
+          360
+        ],
+        "facing": "south",
+        "height_mm": 1590,
+        "parts": [
+          {
+            "name": "lamp base",
+            "rect": [
+              55,
+              55,
+              250,
+              250
+            ],
+            "z": 0,
+            "height": 24,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "lamp stem",
+            "rect": [
+              174,
+              174,
+              12,
+              12
+            ],
+            "z": 24,
+            "height": 1360,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "linen lamp shade",
+            "rect": [
+              0,
+              0,
+              360,
+              360
+            ],
+            "z": 1220,
+            "height": 350,
+            "role": "lamp_shade",
+            "shape": "shade_shell",
+            "radius": 0,
+            "top_ratio": 0.72
+          },
+          {
+            "name": "warm diffuser",
+            "rect": [
+              24,
+              24,
+              312,
+              312
+            ],
+            "z": 1228,
+            "height": 5,
+            "role": "warm_glow",
+            "shape": "oval",
+            "radius": 0
+          },
+          {
+            "name": "lamp finial",
+            "rect": [
+              172,
+              172,
+              16,
+              16
+            ],
+            "z": 1570,
+            "height": 14,
+            "role": "metal",
+            "shape": "oval",
+            "radius": 0
+          }
+        ],
+        "source_object": "F01",
+        "presentation_only": true,
+        "light": {
+          "z_mm": 1215,
+          "energy_w": 55,
+          "cct_k": 2850,
+          "size_mm": 280
+        }
+      }
+    ]
+  },
+  "outputs": {
+    "living-detail.png": "81402584856d32b72b5947ac9b7cc5245448409bc67f6f55fe317bd3114a863c",
+    "interior.blend": "787afce6052880e6573cf6f8272721646411b7923d64b510510a50649874c2d4",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "axon.png": "ab6b053cda71ab08be0de28eb23a636fc857491976d1a2985b940ceba468e9fc",
+    "living-close.png": "2e41be1eca81c331294bbd289e3a2d87feeeea240d780d6b7fb502c6737883eb",
+    "interior.glb": "03a1eb31a2327a8833f123c2d10114ceb832b80892871990f4a74d58f8986180"
+  }
+}

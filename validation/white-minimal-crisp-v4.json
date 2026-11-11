@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-10",
+  "style": "white-minimal",
+  "version": 4,
+  "status": "rendered_candidate",
+  "unit_tests": {
+    "passed": 85,
+    "new_clarity_tests": 3
+  },
+  "render_quality": {
+    "width": 2400,
+    "height": 1800,
+    "samples": 128,
+    "denoising": true,
+    "pixel_filter_width": 1.0,
+    "compute_device": {
+      "backend": "METAL",
+      "devices": [
+        "Apple M2 Pro (GPU - 16 cores)"
+      ]
+    }
+  },
+  "views": [
+    "axon",
+    "living",
+    "dining",
+    "study",
+    "living-detail",
+    "living-close"
+  ],
+  "outputs": {
+    "white-minimal": {
+      "views": 6,
+      "styled_objects": 21,
+      "basic_objects": 4,
+      "glb_meshes": 360,
+      "outputs_verified": 10,
+      "style_status": "current",
+      "generator_status": "current",
+      "changed_generators": [],
+      "catalog_status": "current"
+    }
+  },
+  "scene_verification": {
+    "furniture_objects": 30,
+    "furniture_parts": 201,
+    "hard_parts_checked": 345,
+    "hard_bevel_max_mm": 1.2,
+    "accessories": 8,
+    "bounds_materials_glazing_quality": "passed"
+  },
+  "visual_review": [
+    "axon",
+    "living",
+    "dining",
+    "study",
+    "living-detail",
+    "living-close"
+  ],
+  "controlled_denoising_preview": {
+    "width": 1000,
+    "height": 750,
+    "samples": 48,
+    "same_camera_and_style": true,
+    "decision": "retain denoising; the raw preview adds visible grain without a useful contour improvement at this size"
+  },
+  "project_layout": "unchanged",
+  "historical_model_and_render_integrity": "passed",
+  "comparison_page": "projects/STYLE-LAB-096/comparison.html",
+  "before_after_page": "projects/STYLE-LAB-096/clarity-refinement.html",
+  "same_camera_as_v3": [
+    "axon",
+    "living-close",
+    "living-detail"
+  ],
+  "post_sharpening": false,
+  "features": [
+    "short-range contact contrast",
+    "reduced fill lighting",
+    "distinct white/gray surface values",
+    "1.2 mm hard-surface bevel limit",
+    "narrower pixel filter",
+    "2400 x 1800 output",
+    "128 sample cap",
+    "GPU selection without saved preferences"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "updated",
+  "date": "2026-11-10",
+  "page": "comparison.html",
+  "white_style_version": 3,
+  "white_view_paths": {
+    "axon": "visuals/style-variants/white-minimal-living-v3/axon.png",
+    "living": "visuals/style-variants/white-minimal-living-v3/living-close.png",
+    "dining": "visuals/style-variants/white-minimal-comparison-v3/dining.png",
+    "study": "visuals/style-variants/white-minimal-comparison-v3/study.png"
+  },
+  "supplemental_render_manifest": "visuals/style-variants/white-minimal-comparison-v3/render-manifest.json",
+  "supplemental_settings": {
+    "engine": "Cycles",
+    "width": 1200,
+    "height": 900,
+    "samples": 32,
+    "denoising": true
+  },
+  "switching_check": "4 tabs and 16 image routes passed",
+  "links_checked": 41,
+  "visual_review": [
+    "living.png",
+    "dining.png",
+    "study.png"
+  ],
+  "geometry_changes": false
+}

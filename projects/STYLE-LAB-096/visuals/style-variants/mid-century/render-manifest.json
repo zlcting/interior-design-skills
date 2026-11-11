@@ -1,0 +1,243 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 32,
+  "width": 1200,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20
+      ],
+      "target": [
+        6,
+        4,
+        0
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 17.2,
+      "file": "axon.png"
+    },
+    {
+      "name": "living",
+      "location": [
+        0.65,
+        3.1,
+        2.05
+      ],
+      "target": [
+        2.9,
+        1.65,
+        0.8
+      ],
+      "lens": 25,
+      "file": "living.png"
+    },
+    {
+      "name": "dining",
+      "location": [
+        5.15,
+        3.05,
+        2.15
+      ],
+      "target": [
+        7.2,
+        1.45,
+        1.1
+      ],
+      "lens": 27,
+      "file": "dining.png"
+    },
+    {
+      "name": "study",
+      "location": [
+        7.25,
+        4.82,
+        1.85
+      ],
+      "target": [
+        8.15,
+        7.25,
+        1.15
+      ],
+      "lens": 23,
+      "file": "study.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "mid-century",
+      "name": "中古复古",
+      "version": 2,
+      "description": "深木、焦糖色与细腿家具，加入克制的复古色彩。",
+      "colors": {
+        "wall": "#E8DFCE",
+        "floor": "#A57C52",
+        "wood": "#704A32",
+        "upholstery": "#AD7048",
+        "metal": "#927445",
+        "accent": "#65735B",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "暖色木地板",
+        "wood": "深色胡桃木饰面",
+        "upholstery": "焦糖色皮革",
+        "metal": "拉丝黄铜"
+      },
+      "forms": {
+        "sofa": "raised-leg-leather",
+        "coffee_table": "oval-wood",
+        "chair": "tapered-leg",
+        "cabinet_front": "framed-wood",
+        "pendant": "globe-brass"
+      },
+      "avoid": [
+        "大面积冷灰色",
+        "通体无脚厚重家具",
+        "镜面不锈钢"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "oak",
+        "wood": "walnut",
+        "upholstery": "leather",
+        "metal": "metal",
+        "accent": "linen",
+        "stone": "stone",
+        "shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 3000,
+        "ambient_strength": 0.45
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting"
+    ],
+    "catalog_sha256": "0da79f0819dae434b36f5008aaa542745060dc3ac7ddbf6b4e249e347bd24daa",
+    "resolved_plan_sha256": "f3d7bbba2c1769a2a714c69da74544347aadccf7b19ae9e4ece585fef66468e3",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "raised-leg-leather",
+      "F02": "oval-wood",
+      "F03": "tapered-leg",
+      "F05": "tapered-leg",
+      "F06": "tapered-leg",
+      "F07": "tapered-leg",
+      "F08": "tapered-leg",
+      "F12": "tapered-leg",
+      "F14": "tapered-leg",
+      "F15": "raised-leg-leather",
+      "J01": "framed-wood",
+      "J02": "framed-wood",
+      "J03": "framed-wood",
+      "J04": "framed-wood",
+      "J05": "framed-wood",
+      "J06": "framed-wood",
+      "J07": "framed-wood",
+      "J08": "framed-wood",
+      "J09": "framed-wood",
+      "J10": "framed-wood",
+      "J11": "framed-wood"
+    },
+    "applied_pendants": {
+      "L07": "globe-brass"
+    },
+    "basic_objects": [
+      "F04",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.88,
+      "metallic": 0,
+      "texture": "plaster",
+      "scale": 70,
+      "bump": 0.05
+    },
+    "floor": {
+      "roughness": 0.64,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 5,
+      "bump": 0.12
+    },
+    "wood": {
+      "roughness": 0.48,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 6,
+      "bump": 0.09
+    },
+    "upholstery": {
+      "roughness": 0.37,
+      "metallic": 0,
+      "texture": "leather",
+      "scale": 65,
+      "bump": 0.07
+    },
+    "metal": {
+      "roughness": 0.3,
+      "metallic": 0.85,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.91,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 180,
+      "bump": 0.16
+    },
+    "stone": {
+      "roughness": 0.3,
+      "metallic": 0,
+      "texture": "stone",
+      "scale": 3,
+      "bump": 0.04
+    },
+    "shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "040a487eead6aa2cd2167c43d3edb681d860eb4731d8e48f5d5cd2d255a5a831",
+    "furniture_library.py": "404668985acc9522c599f1b2384ebe648d431c75d6a6cfba012d98579b7c000d",
+    "style_plan.py": "75274171e48b1b5564e99998813828bc592c4af526451cb159d1d8a6f86d0854",
+    "style_library.py": "62280cea59cff391ac10db44793b06f1666bc8c902afa053ebb77fd8875d63b3"
+  },
+  "outputs": {
+    "interior.blend": "612fa4ec097af188927fef5997f96c31b1976610f718effdffb61a5b73995fb7",
+    "study.png": "51f886a37b81d3e0f684ab7f5d05c48af0c323f9eb25c62426c61915557dfdd1",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "dining.png": "dec2ab3ecf2194f5860a42d7b711c2053dbe9c8e67ce671535afcdd156fd9394",
+    "axon.png": "cb8548095f301420e4a725a2654b77d970f4333c542598932524322a7fb1d59b",
+    "interior.glb": "8e37f3eabbf27c434079f7f91e98a48c06ade19dd5d4df2af6cd6b1ee0a7d09c",
+    "living.png": "b9e2584fd7e62db0b895c98a10428c9b580fc4497319fce2499e813abd6ebb06"
+  }
+}

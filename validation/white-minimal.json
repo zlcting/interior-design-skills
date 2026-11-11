@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-10",
+  "style": "white-minimal",
+  "unit_tests": {
+    "passed": 71,
+    "added": 7
+  },
+  "renders": {
+    "white-minimal": {
+      "views": 4,
+      "styled_objects": 21,
+      "basic_objects": 9,
+      "glb_meshes": 226,
+      "outputs_verified": 8,
+      "generator_status": "current",
+      "changed_generators": []
+    }
+  },
+  "actual_scene": {
+    "objects": 30,
+    "parts": 154,
+    "white_material_override": "passed",
+    "camera_cutaway_heights": "passed"
+  },
+  "render_settings": {
+    "width": 1600,
+    "samples": 48
+  },
+  "visual_review": [
+    "axon",
+    "living",
+    "dining",
+    "study"
+  ],
+  "glb_environment_excluded": true,
+  "original_three_previews": "preserved byte-for-byte; marked historical generator version"
+}

@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-10",
+  "style": "white-minimal",
+  "version": 3,
+  "status": "rendered_candidate",
+  "scope": [
+    "living sofa",
+    "coffee table",
+    "tabletop plant",
+    "glazing",
+    "studio and warm floor-lamp lighting"
+  ],
+  "unit_tests": {
+    "passed": 82,
+    "new_living_tests": 4
+  },
+  "render_settings": {
+    "width": 1600,
+    "height": 1200,
+    "samples": 96
+  },
+  "outputs": {
+    "white-minimal": {
+      "views": 3,
+      "styled_objects": 21,
+      "basic_objects": 4,
+      "glb_meshes": 360,
+      "outputs_verified": 7,
+      "style_status": "current",
+      "generator_status": "current",
+      "changed_generators": [],
+      "catalog_status": "current"
+    }
+  },
+  "render_views": [
+    "axon",
+    "living-detail",
+    "living-close"
+  ],
+  "scene_verification": {
+    "furniture_objects": 30,
+    "parts": 201,
+    "accessories": 8,
+    "actual_scene_bounds": "passed",
+    "glass_glb_transmission": "passed"
+  },
+  "visual_review": [
+    "axon",
+    "living-detail",
+    "living-close",
+    "before-living-close"
+  ],
+  "comparison_page": "projects/STYLE-LAB-096/living-refinement.html",
+  "before_comparison": "same camera, original v2 scene, 64 samples",
+  "source_model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "source_layout": "unchanged",
+  "existing_project_outputs_integrity": "passed",
+  "accessory_scope": "presentation only; floor lamp anchored to sofa, placed inside room and clear of furniture",
+  "remaining_limitations": [
+    "Other rooms retain v2 geometry.",
+    "Existing lounge chair, cabinetry and TV keep v2 details.",
+    "This is a visual study, not approved procurement or construction design."
+  ]
+}

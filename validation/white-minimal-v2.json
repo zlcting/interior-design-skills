@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-10",
+  "style": "white-minimal",
+  "version": 2,
+  "unit_tests": {
+    "passed": 78,
+    "new_refinement_tests": 7
+  },
+  "render_settings": {
+    "width": 1600,
+    "height": 1200,
+    "samples": 64
+  },
+  "outputs": {
+    "white-minimal": {
+      "views": 4,
+      "styled_objects": 21,
+      "basic_objects": 4,
+      "glb_meshes": 293,
+      "outputs_verified": 8,
+      "generator_status": "current",
+      "changed_generators": [],
+      "catalog_status": "current"
+    }
+  },
+  "scene_verification": {
+    "furniture_objects": 30,
+    "parts": 184,
+    "accessories": 7
+  },
+  "visual_review": [
+    "axon",
+    "living",
+    "dining",
+    "study"
+  ],
+  "previous_white_version_integrity": "passed",
+  "comparison_page": "projects/STYLE-LAB-096/white-refinement.html",
+  "source_layout": "unchanged",
+  "accessory_scope": "presentation-only, anchored to existing objects or equipment points",
+  "features": [
+    "studio lighting",
+    "contact shadows",
+    "4:3 framing",
+    "soft bedding",
+    "recognizable equipment",
+    "cone lamp and warm bulb",
+    "small plant accents"
+  ]
+}

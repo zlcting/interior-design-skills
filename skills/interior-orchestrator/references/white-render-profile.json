@@ -1,0 +1,18 @@
+{
+  "id": "white-home3d-v1",
+  "version": 1,
+  "scope": "white-minimal realtime delivery; offline rendering keeps its separate calibrated Cycles preset",
+  "renderer": {"outputColorSpace":"SRGBColorSpace","toneMapping":"ACESFilmicToneMapping","exposure":0.85,"maxPixelRatio":1.6,"antialias":true},
+  "studio": {
+    "background":"#7898C7","ground":"#7095D2","hemisphereSky":"#FFFFFF","hemisphereGround":"#A9BDCC","hemisphereIntensity":0.65,
+    "keyColor":"#FFFFFF","keyIntensity":1.5,"keyOffsetPerSpan":[-0.5,1.6,0.8],
+    "fillColor":"#E6EFFF","fillIntensity":0.7,"fillOffsetPerSpan":[0.7,1.4,-0.4],
+    "environmentIntensity":0.35,
+    "environment":{"width":256,"height":128,"stops":[[0,"#9CAABD"],[0.5,"#E9EEF2"],[1,"#969DA7"]],"softbox":[30,18,44,44]}
+  },
+  "shadows":{"filter":"VSMShadowMap","mapSize":2048,"radius":10,"blurSamples":12,"normalBias":0.012,"bias":-0.00005,"pointMapSize":512,"maxShadowedFixtures":2},
+  "contactAO":{"samples":12,"distanceM":0.22,"strength":0.38,"vertexAttribute":"COLOR_0","bakeLightEmission":false},
+  "fixture":{"maxIntensity":30,"initialBrightness":65,"initialCctK":2700,"rangeM":4.8,"emitterOffsetM":[0.04,0,0]},
+  "camera":{"projection":"orthographic","margin":1.75,"targetHeightM":0.9,"offsetPerSpan":[1.4,1.75,1.4],"aspectReference":1.3333333333333333,"minFocusWidthM":4.3},
+  "review":{"requiredViews":["overview","focus"],"sameCameraOnOff":true,"visualApproval":"human_review_required","configurationMatchIsVisualPass":false}
+}

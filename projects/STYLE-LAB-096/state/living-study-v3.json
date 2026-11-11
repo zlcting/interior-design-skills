@@ -1,0 +1,14 @@
+{
+  "status": "rendered_candidate",
+  "default_project_style_changed": false,
+  "source_model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "reference_sha256": "fba8d3e3547aeaab6668311620892446bc32f93af8d7da2f0ebdf74a845d89cc",
+  "output_directory": "visuals/style-variants/white-minimal-living-v3",
+  "manifest": "visuals/style-variants/white-minimal-living-v3/render-manifest.json",
+  "comparison_manifest": "visuals/style-variants/white-minimal-living-v3/comparison-manifest.json",
+  "review_page": "living-refinement.html",
+  "validation": "../../validation/white-minimal-living-v3.json",
+  "authorization": "User requested living-room sofa, coffee table, plant, glazing and lighting refinement plus actual renders.",
+  "input_kind": "design_assumption",
+  "approval_status": "not_requested_or_inferred"
+}

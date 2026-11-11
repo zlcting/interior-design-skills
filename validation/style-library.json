@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-10",
+  "unit_tests": {
+    "passed": 64,
+    "style_tests": 18
+  },
+  "skill_validation": {
+    "passed": 15
+  },
+  "model_check": "passed",
+  "renders": {
+    "japanese-natural": {
+      "views": 4,
+      "styled_objects": 21,
+      "basic_objects": 9,
+      "glb_meshes": 511,
+      "outputs_verified": 8,
+      "actual_scene_objects": 30,
+      "actual_scene_parts": 222
+    },
+    "italian-modern": {
+      "views": 4,
+      "styled_objects": 21,
+      "basic_objects": 9,
+      "glb_meshes": 345,
+      "outputs_verified": 8,
+      "actual_scene_objects": 30,
+      "actual_scene_parts": 152
+    },
+    "mid-century": {
+      "views": 4,
+      "styled_objects": 21,
+      "basic_objects": 9,
+      "glb_meshes": 657,
+      "outputs_verified": 8,
+      "actual_scene_objects": 30,
+      "actual_scene_parts": 362
+    }
+  },
+  "visual_review": [
+    "living",
+    "dining",
+    "study",
+    "axon"
+  ],
+  "scope": "15 procedural assets; sofa, coffee_table, chair, cabinet_front, pendant; 9 basic furniture objects per scene; GLB procedural texture baking not implemented"
+}

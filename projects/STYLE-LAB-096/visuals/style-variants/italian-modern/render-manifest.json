@@ -1,0 +1,243 @@
+{
+  "schema_version": 2,
+  "model_sha256": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+  "resolved_model_sha256": "3635a616645acf39377979b90b33defe740d94370afdb315074edddd98d64967",
+  "revision": "style-v1",
+  "engine": "Cycles",
+  "samples": 32,
+  "width": 1200,
+  "views": [
+    {
+      "name": "axon",
+      "location": [
+        17,
+        -17,
+        20
+      ],
+      "target": [
+        6,
+        4,
+        0
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 17.2,
+      "file": "axon.png"
+    },
+    {
+      "name": "living",
+      "location": [
+        0.65,
+        3.1,
+        2.05
+      ],
+      "target": [
+        2.9,
+        1.65,
+        0.8
+      ],
+      "lens": 25,
+      "file": "living.png"
+    },
+    {
+      "name": "dining",
+      "location": [
+        5.15,
+        3.05,
+        2.15
+      ],
+      "target": [
+        7.2,
+        1.45,
+        1.1
+      ],
+      "lens": 27,
+      "file": "dining.png"
+    },
+    {
+      "name": "study",
+      "location": [
+        7.25,
+        4.82,
+        1.85
+      ],
+      "target": [
+        8.15,
+        7.25,
+        1.15
+      ],
+      "lens": 23,
+      "file": "study.png"
+    }
+  ],
+  "style": {
+    "preset": {
+      "id": "italian-modern",
+      "name": "意式现代",
+      "version": 2,
+      "description": "胡桃木、浅石材与低矮宽体家具，强调简洁和材质对比。",
+      "colors": {
+        "wall": "#E5E1DB",
+        "floor": "#C6BFB3",
+        "wood": "#644735",
+        "upholstery": "#B4AAA0",
+        "metal": "#353332",
+        "accent": "#795747",
+        "stone": "#D8D3C9",
+        "shade": "#F1E6D0"
+      },
+      "materials": {
+        "floor": "浅灰米色石材",
+        "wood": "哑光胡桃木饰面",
+        "upholstery": "细纹织物",
+        "metal": "深色拉丝金属"
+      },
+      "forms": {
+        "sofa": "low-wide-modular",
+        "coffee_table": "thin-stone",
+        "chair": "slim-upholstered",
+        "cabinet_front": "flat-handleless",
+        "pendant": "linear-metal"
+      },
+      "avoid": [
+        "木格栅堆叠",
+        "繁复雕花",
+        "大面积高饱和色"
+      ],
+      "surfaces": {
+        "wall": "plaster",
+        "floor": "stone",
+        "wood": "walnut",
+        "upholstery": "fabric",
+        "metal": "metal",
+        "accent": "fabric",
+        "stone": "stone",
+        "shade": "plain"
+      },
+      "lighting": {
+        "cct_k": 3200,
+        "ambient_strength": 0.45
+      }
+    },
+    "applied_features": [
+      "colors",
+      "material_profiles",
+      "furniture_forms",
+      "pendant_forms",
+      "lighting"
+    ],
+    "catalog_sha256": "0da79f0819dae434b36f5008aaa542745060dc3ac7ddbf6b4e249e347bd24daa",
+    "resolved_plan_sha256": "0def27fa84c96ed48ee243c88dc06de0722313279b19e6eb76f0e74f8878d7f0",
+    "legacy_adapter": null,
+    "applied_forms": {
+      "F01": "low-wide-modular",
+      "F02": "thin-stone",
+      "F03": "slim-upholstered",
+      "F05": "slim-upholstered",
+      "F06": "slim-upholstered",
+      "F07": "slim-upholstered",
+      "F08": "slim-upholstered",
+      "F12": "slim-upholstered",
+      "F14": "slim-upholstered",
+      "F15": "low-wide-modular",
+      "J01": "flat-handleless",
+      "J02": "flat-handleless",
+      "J03": "flat-handleless",
+      "J04": "flat-handleless",
+      "J05": "flat-handleless",
+      "J06": "flat-handleless",
+      "J07": "flat-handleless",
+      "J08": "flat-handleless",
+      "J09": "flat-handleless",
+      "J10": "flat-handleless",
+      "J11": "flat-handleless"
+    },
+    "applied_pendants": {
+      "L07": "linear-metal"
+    },
+    "basic_objects": [
+      "F04",
+      "F09",
+      "F10",
+      "F11",
+      "F13",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ]
+  },
+  "material_profiles": {
+    "wall": {
+      "roughness": 0.88,
+      "metallic": 0,
+      "texture": "plaster",
+      "scale": 70,
+      "bump": 0.05
+    },
+    "floor": {
+      "roughness": 0.3,
+      "metallic": 0,
+      "texture": "stone",
+      "scale": 3,
+      "bump": 0.04
+    },
+    "wood": {
+      "roughness": 0.48,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 6,
+      "bump": 0.09
+    },
+    "upholstery": {
+      "roughness": 0.78,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 220,
+      "bump": 0.08
+    },
+    "metal": {
+      "roughness": 0.3,
+      "metallic": 0.85,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "accent": {
+      "roughness": 0.78,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 220,
+      "bump": 0.08
+    },
+    "stone": {
+      "roughness": 0.3,
+      "metallic": 0,
+      "texture": "stone",
+      "scale": 3,
+      "bump": 0.04
+    },
+    "shade": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  },
+  "generator_sha256": {
+    "style_renderer.py": "040a487eead6aa2cd2167c43d3edb681d860eb4731d8e48f5d5cd2d255a5a831",
+    "furniture_library.py": "404668985acc9522c599f1b2384ebe648d431c75d6a6cfba012d98579b7c000d",
+    "style_plan.py": "75274171e48b1b5564e99998813828bc592c4af526451cb159d1d8a6f86d0854",
+    "style_library.py": "62280cea59cff391ac10db44793b06f1666bc8c902afa053ebb77fd8875d63b3"
+  },
+  "outputs": {
+    "interior.blend": "2047d5b9bf009f7bd9c7eb88243dc4fc6b4c280e2e07884a122c802be0b14659",
+    "study.png": "f9583957d48b430d1d1be24da61ea5c25af77c1989e03f7c76280b91d536305a",
+    "resolved-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "render-input.json": "c3524b6ea916815a248dc78bde6996d5c6c587f6f2490d7163142e2b8cbc980c",
+    "dining.png": "8ae2c64951fb70a7b05eb570606941c2c11815720ab7b8fea7d810bce757c9be",
+    "axon.png": "a3e37962f7ccbcddb321f470dadac4ad0a4123e800db23a305686a9cd4ac33f5",
+    "interior.glb": "51bb27f9a8173104852aff13ec50baf509a4f44f3e6e28a25f0dab84257dea1f",
+    "living.png": "597b07ac3ee0e85f63c9d0e357668031031f25b2b49ebe30ce7e9f5eb7fc8906"
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "assets": {
+    "low-wood-frame": {
+      "family": "sofa",
+      "builder": "sofa",
+      "parameters": {
+        "base": "wood",
+        "legs": "wood",
+        "seat_count": 3,
+        "arm": "wood",
+        "seat_z": 0.32,
+        "seat_h": 0.2,
+        "back_z": 0.58,
+        "back_h": 0.4,
+        "rounding": 0.06
+      }
+    },
+    "low-wide-modular": {
+      "family": "sofa",
+      "builder": "sofa",
+      "parameters": {
+        "base": "upholstery",
+        "legs": "hidden",
+        "seat_count": 2,
+        "arm": "upholstery",
+        "seat_z": 0.17,
+        "seat_h": 0.28,
+        "back_z": 0.45,
+        "back_h": 0.43,
+        "rounding": 0.13
+      }
+    },
+    "raised-leg-leather": {
+      "family": "sofa",
+      "builder": "sofa",
+      "parameters": {
+        "base": "wood",
+        "legs": "tapered",
+        "seat_count": 3,
+        "arm": "upholstery",
+        "seat_z": 0.36,
+        "seat_h": 0.18,
+        "back_z": 0.54,
+        "back_h": 0.46,
+        "rounding": 0.07
+      }
+    },
+    "rounded-wood": {
+      "family": "coffee_table",
+      "builder": "coffee_table",
+      "parameters": {
+        "top": "rounded",
+        "surface": "wood",
+        "thickness": 0.16,
+        "legs": "round"
+      }
+    },
+    "thin-stone": {
+      "family": "coffee_table",
+      "builder": "coffee_table",
+      "parameters": {
+        "top": "rounded",
+        "surface": "stone",
+        "thickness": 0.07,
+        "legs": "slab"
+      }
+    },
+    "oval-wood": {
+      "family": "coffee_table",
+      "builder": "coffee_table",
+      "parameters": {
+        "top": "oval",
+        "surface": "wood",
+        "thickness": 0.12,
+        "legs": "tapered"
+      }
+    },
+    "wood-frame-fabric": {
+      "family": "chair",
+      "builder": "chair",
+      "parameters": {
+        "frame": "wood",
+        "legs": "round",
+        "rounding": 0.06,
+        "back": "slatted"
+      }
+    },
+    "slim-upholstered": {
+      "family": "chair",
+      "builder": "chair",
+      "parameters": {
+        "frame": "metal",
+        "legs": "slim",
+        "rounding": 0.12,
+        "back": "padded"
+      }
+    },
+    "tapered-leg": {
+      "family": "chair",
+      "builder": "chair",
+      "parameters": {
+        "frame": "wood",
+        "legs": "tapered",
+        "rounding": 0.08,
+        "back": "curved"
+      }
+    },
+    "flat-wood": {
+      "family": "cabinet_front",
+      "builder": "cabinet_front",
+      "parameters": {
+        "door": "flat",
+        "base": "plinth",
+        "handles": "wood"
+      }
+    },
+    "flat-handleless": {
+      "family": "cabinet_front",
+      "builder": "cabinet_front",
+      "parameters": {
+        "door": "flat",
+        "base": "recessed",
+        "handles": "none"
+      }
+    },
+    "framed-wood": {
+      "family": "cabinet_front",
+      "builder": "cabinet_front",
+      "parameters": {
+        "door": "framed",
+        "base": "legs",
+        "handles": "metal"
+      }
+    },
+    "paper-shade": {
+      "family": "pendant",
+      "builder": "pendant",
+      "parameters": {
+        "shape": "paper",
+        "surface": "shade"
+      }
+    },
+    "linear-metal": {
+      "family": "pendant",
+      "builder": "pendant",
+      "parameters": {
+        "shape": "linear",
+        "surface": "metal"
+      }
+    },
+    "globe-brass": {
+      "family": "pendant",
+      "builder": "pendant",
+      "parameters": {
+        "shape": "globe",
+        "surface": "metal"
+      }
+    },
+    "cone-shade": {
+      "family": "pendant",
+      "builder": "pendant",
+      "parameters": {
+        "shape": "cone",
+        "surface": "shade"
+      }
+    }
+  },
+  "material_profiles": {
+    "plaster": {
+      "roughness": 0.88,
+      "metallic": 0,
+      "texture": "plaster",
+      "scale": 70,
+      "bump": 0.05
+    },
+    "oak": {
+      "roughness": 0.64,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 5,
+      "bump": 0.12
+    },
+    "walnut": {
+      "roughness": 0.48,
+      "metallic": 0,
+      "texture": "wood",
+      "scale": 6,
+      "bump": 0.09
+    },
+    "linen": {
+      "roughness": 0.91,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 180,
+      "bump": 0.16
+    },
+    "fabric": {
+      "roughness": 0.78,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 220,
+      "bump": 0.08
+    },
+    "leather": {
+      "roughness": 0.37,
+      "metallic": 0,
+      "texture": "leather",
+      "scale": 65,
+      "bump": 0.07
+    },
+    "stone": {
+      "roughness": 0.3,
+      "metallic": 0,
+      "texture": "stone",
+      "scale": 3,
+      "bump": 0.04
+    },
+    "metal": {
+      "roughness": 0.3,
+      "metallic": 0.85,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    },
+    "paper": {
+      "roughness": 0.93,
+      "metallic": 0,
+      "texture": "fabric",
+      "scale": 100,
+      "bump": 0.08
+    },
+    "plain": {
+      "roughness": 0.65,
+      "metallic": 0,
+      "texture": "plain",
+      "scale": 1,
+      "bump": 0
+    }
+  }
+}
