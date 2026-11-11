@@ -121,3 +121,7 @@ python3 tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minim
 ## 生成前的选择提示
 
 使用本流程前执行[家具精细度与风格选择](3d-selection.md)。精细任务需实际经过 `resolve_plan` 的 `refine_furniture`、`refine_living` 与 `detailed_mesh` 等适用模块，并记录解析结果；仅标注white-minimal或修复导出倒角不能替代精细模型。既有明确选择说明沿用，不重复询问。
+
+## 白模网页的稳定光影
+
+白模新交付默认执行[白模光影标准](white-render-standard.md)，以 white-home3d-v1 配置、接触AO烘焙与通用网页运行组件固定表现规则。旧版风格产物保留，不因生成了配置而补写视觉通过。

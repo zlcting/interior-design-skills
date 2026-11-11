@@ -20,6 +20,8 @@ description: 从锁定的室内几何、材料和家具数据生成可追溯的�
 3. 检查开口数量、柜体位置、相邻房间关系、材质及尺度，不能用美观替代尺寸核验。
 4. 保存模型、相机位置、渲染配置、输入哈希及各视图的实际核验结果。
 
+白模网页采用[白模光影标准](../interior-orchestrator/references/white-render-standard.md)。默认使用 white-home3d-v1 的配置和运行组件，保留全屋、代表空间及适用的同机位开关灯对照；接触阴影须实际进入网页，不能只存在于源场景。
+
 交付GLB或交互网页时，执行[三维交换与网页验收](references/exchange-acceptance.md)，重新导入核对求值几何，并在对应相机下对照渲染图与网页。文件哈希一致不代替导出几何和视觉检查。
 
 具体核对项见[阶段检查表](references/checklist.md)。
