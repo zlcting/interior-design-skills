@@ -1,0 +1,67 @@
+{
+  "schema": "interior.home3d-sdk-artifact.v1",
+  "name": "@houzzkit/home3d-package",
+  "version": "0.1.0",
+  "node": ">=20",
+  "builder": {
+    "name": "esbuild",
+    "version": "0.20.2"
+  },
+  "sourceFiles": {
+    "src/cli.mjs": "90b84fc577cf9b5ca3c6a1c93500d5d7187ab05bb3f297c6bc6198682726f3db",
+    "src/glb-container.d.mts": "5b794f6ab81d7a7b0f67493b1cb2905134859024542f9842e119d026c7ca0a96",
+    "src/glb-container.mjs": "7033ec28fda9201ca5b2c431ec7bc2395709b1ed3b4a6d7579939565006ab821",
+    "src/index.d.mts": "373f8e949ffcc846d9e66afe4f8ab6479cc6f82b585dd19f57bb342637de2664",
+    "src/index.mjs": "db8d596cbe7ffd9da72092a4b860e4b5ad601223aaa230a3b8d1efbf261977d2",
+    "src/lighting.d.mts": "2e893bb75444410bd652573334ae8690de8e8986d308122c78a2c7ccf91c6f04",
+    "src/lighting.mjs": "3105fac3bff10239d6a0dc196ae0ef829db600b82bd3ff1365acd5e8ff2c2ac9",
+    "src/model.mjs": "25285a8a956c93dd488830916c5c54e04392882e4afe8cfe3e02067cb8715fb9",
+    "src/primitives.mjs": "b65a0d76667430a3a375bb497dd686bb91f26792ec8842860a8f73da1a3792e4",
+    "src/schemas.mjs": "52762e85f26f0b2290f795aeb480263761cb079606473616cb353c2d12d8bd52",
+    "schemas/common.schema.json": "3f3efd43d44e400e3fb6de6947fcbbb1aed765b53188c91481ebca95bcf96d1f",
+    "schemas/devices.schema.json": "c91f44894e971c4469d614058052ae1a1728f504cf59ffe772892eb1515973a5",
+    "schemas/lighting.schema.json": "97e889156cedb814ceda5e1b3078c3b86cd02fa4d999d57cb7fb0fccd1956d43",
+    "schemas/material.schema.json": "06c38a17e6f1d50482fde3fed7024fba00092340c54c7f537ec6786c1660028a",
+    "schemas/model.schema.json": "eb1562a0e9a0893ad6ca07f4fec9c7a80717dd90e2cc5caa0075f9e3dd3ea15a",
+    "schemas/package.schema.json": "283acc18c96acea6e2b47f50956cecd1a4218d0cc9958523638e071ba8a2236c",
+    "schemas/resources.schema.json": "ec13973016546f6295d27b7dc82ac46db7ff3acb6398377c388479e374930fc9",
+    "schemas/scene.schema.json": "d71de8052ecf2eee9f544401e4c2cbf0c160305f5162052ff2f242a4f7063011",
+    "package.json": "07a74cf0ccf6f99ae4d27d373e967a8f47173b920fe4fd62df93f41ae6b2ec78"
+  },
+  "sourceDigest": "573371872b2b9dbcff1830c5c05b502cb1f237b49cc54d56a6443d93d03cc88e",
+  "dependencies": {
+    "@noble/hashes": {
+      "version": "1.8.0",
+      "license": "MIT"
+    },
+    "ajv": {
+      "version": "8.17.1",
+      "license": "MIT"
+    },
+    "fast-deep-equal": {
+      "version": "3.1.3",
+      "license": "MIT"
+    },
+    "fast-uri": {
+      "version": "3.1.8",
+      "license": "BSD-3-Clause"
+    },
+    "fflate": {
+      "version": "0.8.2",
+      "license": "MIT"
+    },
+    "json-schema-traverse": {
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    "meshoptimizer": {
+      "version": "1.0.1",
+      "license": "MIT"
+    },
+    "three": {
+      "version": "0.171.0",
+      "license": "MIT"
+    }
+  },
+  "bundleSha256": "b8b58eb0902377bd0f7d4d0362dfe99f79ec2e31350b7ba8b05e0db4ac96f09a"
+}

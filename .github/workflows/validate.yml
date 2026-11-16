@@ -17,6 +17,9 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Install verification dependencies
         run: python -m pip install -r requirements.txt
       - name: Check skill metadata and local references
@@ -29,7 +32,7 @@ jobs:
           import yaml
 
           skills = sorted(Path('skills').glob('interior-*'))
-          assert len(skills) == 15, 'Expected exactly 15 skills'
+          assert len(skills) == 16, 'Expected 16 canonical skills'
           references = 0
           for skill in skills:
               text = (skill / 'SKILL.md').read_text()
@@ -49,7 +52,7 @@ jobs:
               for row in json.loads(manifest.read_text())['files']:
                   target = manifest.parent.parent / row['path']
                   assert hashlib.sha256(target.read_bytes()).hexdigest() == row['sha256'], str(target)
-          print(f'15 skills, {references} references and project manifests verified')
+          print(f'{len(skills)} skills, {references} references and project manifests verified')
           PY
       - name: Run behavior tests
         run: python -m unittest discover -s tests -v

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Home3D 可编辑工程"
+  short_description: "从统一室内模型与同源几何生成可逐对象编辑的标准 Home3D 工程，并分层核验交付结果"
+  default_prompt: "使用 $interior-home3d，依据项目权威模型、同源几何和灯光配置生成标准可编辑 .home3d 包，并提交协议、对象和实际编辑验收记录。"
