@@ -105,6 +105,8 @@ def mesh_part(item,p,mat,collection,settings=None):
     for c in list(obj.users_collection):c.objects.unlink(obj)
     collection.objects.link(obj)
     obj['object_id']=item['id'];obj['asset_id']=item.get('asset_id','architecture');obj['part_name']=p['name'];obj['material_role']=p.get('role',mat.name)
+    if p['shape'] in ('cushion','piping','botanical_leaf','botanical_stem','shade_shell'):
+        obj['interior_normal_policy']='triangle-area-v1'
     if p.get('hard_edge_applied'):obj['hard_edge_bevel_mm']=p['bevel_mm']
     return obj
 
@@ -307,7 +309,7 @@ def render_style(project,source_text,plan,catalog,args,out):
                        'applied_forms':{i['id']:i['asset_id'] for i in plan['furniture'] if i['mode']=='styled'},
                        'applied_pendants':{i['id']:i['asset_id'] for i in plan['pendants']},'basic_objects':plan['basic_objects']},
               'material_profiles':{r:catalog['material_profiles'][p] for r,p in style['surfaces'].items()},
-              'generator_sha256':{f:hashlib.sha256((Path(__file__).parent/f).read_bytes()).hexdigest() for f in ('style_renderer.py','furniture_library.py','style_plan.py','style_library.py','style_presentation.py','white_details.py','living_details.py','illustration_meshes.py','exchange_validation.py')},
+              'generator_sha256':{f:hashlib.sha256((Path(__file__).parent/f).read_bytes()).hexdigest() for f in ('style_renderer.py','furniture_library.py','style_plan.py','style_library.py','style_presentation.py','white_details.py','living_details.py','illustration_meshes.py','exchange_validation.py','mesh_normals.py')},
               'presentation':presentation,'cutaway_wall_heights':cut_heights,
               'illustration_details':{'refined_objects':plan.get('refined_objects',{}),'accessories':plan.get('accessories',[])}}
     if style.get('presentation'):

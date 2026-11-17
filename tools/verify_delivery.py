@@ -108,7 +108,8 @@ def verify(p,artifacts_only=False,baseline_skills=False):
     latest={}
     if not artifacts_only:
         for row in t.load(p/'state/execution-log.json'):latest[row['skill']]=row
-        names={x.name for x in (ROOT/'skills').glob('interior-*')}
+        with zipfile.ZipFile(ROOT/'releases/baseline-v1-tools.zip') as archive:
+            names={n.split('/')[1] for n in archive.namelist() if n.startswith('skills/') and n.endswith('/SKILL.md')}
         require(set(latest)==names and len(names)==15,'Execution log does not cover all fifteen skills')
         for name,row in latest.items():
             if baseline_skills:

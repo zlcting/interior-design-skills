@@ -1,10 +1,10 @@
-# 室内设计全流程 · 15 Skills v2
+# 室内设计全流程 · 16 Skills v3
 
 [GitHub 仓库](https://github.com/zlcting/interior-design-skills) · [自动检查](https://github.com/zlcting/interior-design-skills/actions/workflows/validate.yml)
 
 用统一项目数据衔接需求、测量、平面、概念、空间表现、材料、灯光、定制、机电、图纸、软装、预算、校审和交付配合。
 
-15个可独立安装的 Skills、共享项目模型、二维出图与预算工具，以及两个可浏览的项目案例。
+16个可独立安装的 Skills、共享项目模型、二维出图与预算工具，以及两个可浏览的项目案例。
 
 ![栖木之家客厅：由示范项目模型生成的空间表现](projects/DEMO-APT-096/visuals/02-living.png)
 
@@ -34,6 +34,7 @@ python3 install.py --target ~/.codex/skills --check
 
 | Skill | 工作 |
 |---|---|
+| [interior-home3d](skills/interior-home3d/SKILL.md) | 标准可编辑 Home3D 工程、SDK校验与编辑验收 |
 | [interior-orchestrator](skills/interior-orchestrator/SKILL.md) | 总控、阶段与版本 |
 | [interior-brief](skills/interior-brief/SKILL.md) | 需求、任务书与预算范围 |
 | [interior-survey](skills/interior-survey/SKILL.md) | 现状、测量与开口基线 |
@@ -116,3 +117,7 @@ blender -b -t 4 --python skills/interior-orchestrator/scripts/render_project.py 
 白模v3增加客厅局部样板：矩形软包沙发、薄边茶几、阔叶植物、透明玻璃和暖光落地灯。查看[客厅样板及同机位前后对比](projects/STYLE-LAB-096/living-refinement.html)；本轮候选独立保存于white-minimal-living-v3，其他房间沿用v2造型。
 
 最新白模v4加强局部明暗、收紧硬质边缘，默认2400×1800、128采样；用`--device auto`可优先使用本机GPU。[总对比页](projects/STYLE-LAB-096/comparison.html)已同步v4；[清晰度前后对照](projects/STYLE-LAB-096/clarity-refinement.html)保留同机位v3参考。
+
+## 可编辑 Home3D 工程
+
+新增 `interior-home3d`，从同一 `model/project.json`、带稳定对象编号的几何与灯光配置生成标准 v3 `.home3d`。墙、门窗、房间和家具保持独立对象，普通模型随包携带，不绑定业务模型版本。共用打包SDK 0.1.0以锁定的离线制品随技能分发；SDK通过、几何通过、实际编辑通过和视觉通过分别记录。命令、运行依赖和验收步骤见[技能入口](skills/interior-home3d/SKILL.md)。原有十五项冻结案例与执行记录保留。

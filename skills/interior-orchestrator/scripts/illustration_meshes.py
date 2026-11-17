@@ -13,7 +13,7 @@ def detailed_mesh(p):
     if shape=='cushion':
         # A superellipsoid forms a rectangular, plump cushion, with subtle corner gathering.
         exponent=p.get('squareness',.35);lat=32;lon=64
-        for j in range(lat+1):
+        for j in range(1,lat):
             phi=-math.pi/2+math.pi*j/lat;cp=abs(math.cos(phi))**exponent
             for i in range(lon):
                 theta=math.tau*i/lon
@@ -27,10 +27,17 @@ def detailed_mesh(p):
                 tuft=p.get('tuft',0)*math.exp(-12*(u*u+t*t))
                 v+=tuft if v<0 else -tuft
                 vertex((u+1)/2,(v+1)/2,(t+1)/2)
-        for j in range(lat):
+        # Exact shared poles avoid microscopic latitude rings and unstable normals.
+        bottom=vertex(.5,(1-p.get('lean',0))/2,0)
+        top=vertex(.5,(1+p.get('lean',0))/2,1)
+        for i in range(lon):
+            faces.append((bottom,(i+1)%lon,i))
+            a=(lat-2)*lon+i;b=(lat-2)*lon+(i+1)%lon
+            faces.append((a,b,top))
+        for j in range(lat-2):
             for i in range(lon):
                 a=j*lon+i;b=j*lon+(i+1)%lon
-                faces.append((a,b,b+lon,a+lon))
+                faces.extend(((a,b,b+lon),(a,b+lon,a+lon)))
     elif shape=='piping':
         plane=p.get('plane','xy');exponent=p.get('squareness',.35);steps=128;sides=6
         radius=min(1.4,w*.007,d*.007,h*.007)

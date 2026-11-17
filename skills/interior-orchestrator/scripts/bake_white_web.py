@@ -5,6 +5,7 @@ from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from exchange_validation import signature,verify_roundtrip
+from mesh_normals import finalize_glb_normals
 arg=argparse.ArgumentParser();arg.add_argument('--input',type=Path,required=True);arg.add_argument('--output',type=Path,required=True);arg.add_argument('--config',type=Path,required=True);arg.add_argument('--report',type=Path,required=True)
 a=arg.parse_args(sys.argv[sys.argv.index('--')+1:]);config=json.loads(a.config.read_text());ao=config['contactAO']
 raw=a.input.read_bytes();n=struct.unpack_from('<I',raw,12)[0];source=json.loads(raw[20:20+n])
@@ -54,5 +55,6 @@ for obj in objects:
 bpy.ops.object.select_all(action='DESELECT')
 for obj in objects:obj.select_set(True)
 bpy.ops.export_scene.gltf(filepath=str(a.output),use_selection=True,export_format='GLB',export_apply=True,export_extras=True,export_vertex_color='NAME',export_vertex_color_name='WhiteContactAO',export_cameras=False,export_lights=False)
-report=verify_roundtrip(a.output,expected);report.update(apply_modifiers=True,source_geometry_preserved=True,input_glb_sha256=hashlib.sha256(raw).hexdigest(),profile_id=config['profileId'],profile_sha256=config['profileSha256'],ao=ao,ao_objects=stats,previous_vertex_colors='replaced from original flat material factors; no cumulative AO',blender_version=bpy.app.version_string)
+normal_generation=finalize_glb_normals(a.output)
+report=verify_roundtrip(a.output,expected);report.update(normal_generation=normal_generation,apply_modifiers=True,source_geometry_preserved=True,input_glb_sha256=hashlib.sha256(raw).hexdigest(),profile_id=config['profileId'],profile_sha256=config['profileSha256'],ao=ao,ao_objects=stats,previous_vertex_colors='replaced from original flat material factors; no cumulative AO',blender_version=bpy.app.version_string)
 a.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print('WHITE_CONTACT_AO_VERIFIED',len(objects),flush=True)

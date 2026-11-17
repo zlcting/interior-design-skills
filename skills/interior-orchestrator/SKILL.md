@@ -40,3 +40,5 @@ state/project-plan.md、state/execution-log.json、model/project.json、阶段�
 ## 执行工具
 
 使用`scripts/project_tools.py`执行`init`、`check`、`schedules`、`record`，`export_drawings.py`和`export_pdf.py`输出同源二维图集。完整命令和字段见[工具用法](references/tool-guide.md)，项目类型差异见[类型附录](references/typologies.md)。换户型先检查轮廓支持范围和柜体front_axis，避免套用案例尺寸。日志只记录实际执行的阶段，不为凑齐15项重写历史记录。
+
+交付需要逐墙、逐门窗或逐家具编辑的 Home3D 工程时，调用 [interior-home3d](../interior-home3d/SKILL.md)，从同一权威项目和同源几何生成标准包，并执行协议、几何及编辑验收；整屋GLB展示不等于可编辑结构交付。

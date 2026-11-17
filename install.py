@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install all fifteen skills without replacing any existing directory."""
+"""Install canonical interior skills without replacing any existing directory."""
 import argparse
 import hashlib
 import shutil
@@ -13,11 +13,11 @@ def manifest(root):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--target',type=Path,default=Path.home()/'.codex/skills');p.add_argument('--check',action='store_true');p.add_argument('--update-from',type=Path,help='Previously delivered package root; only exact known versions may be updated');a=p.parse_args()
     sources=sorted((Path(__file__).parent/'skills').glob('interior-*'));target=a.target.expanduser()
-    if len(sources)!=15:raise SystemExit('Expected exactly fifteen skills')
+    if not sources or any(not (s/'SKILL.md').is_file() for s in sources):raise SystemExit('Missing canonical skill metadata')
     if a.check:
         bad=[s.name for s in sources if not (target/s.name).is_dir() or manifest(s)!=manifest(target/s.name)]
         if bad:raise SystemExit('Mismatch: '+', '.join(bad))
-        print('PASS: all 15 installed skills match canonical files');return
+        print(f'PASS: all {len(sources)} installed skills match canonical files');return
     conflicts=[s.name for s in sources if (target/s.name).exists()]
     if a.update_from:
         baseline=a.update_from.resolve()/'skills'
@@ -43,7 +43,7 @@ def main():
                     if dest.exists():shutil.rmtree(dest)
                     if old.exists():old.rename(dest)
                 raise
-        print('Updated 15 known skills; previous files saved at '+str(backup));return
+        print(f'Updated {len(sources)} known skills; previous files saved at '+str(backup));return
     if conflicts:raise SystemExit('No files written; existing directories: '+', '.join(conflicts))
     target.mkdir(parents=True,exist_ok=True)
     copied=[]
@@ -53,5 +53,5 @@ def main():
     except Exception:
         for path in copied:shutil.rmtree(path)
         raise
-    print('Installed 15 skills into '+str(target))
+    print(f'Installed {len(sources)} skills into '+str(target))
 if __name__=='__main__':main()

@@ -42,6 +42,8 @@ def match_positions(expected, actual, tolerance_m=0.00002):
 def verify_roundtrip(path, expected):
     import bpy
     path = Path(path)
+    from mesh_normals import validate_glb_normals
+    normals_report = validate_glb_normals(path)
     datablocks = [bpy.data.objects, bpy.data.meshes, bpy.data.materials,
                   bpy.data.collections, bpy.data.images, bpy.data.cameras, bpy.data.lights]
     before = [set(block) for block in datablocks]
@@ -67,7 +69,8 @@ def verify_roundtrip(path, expected):
                             'imported_unique_positions':len(found[name]), 'passed':True})
         return {'passed':True, 'tolerance_mm':0.02, 'objects':details,
                 'glb_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
-                'scope':'evaluated mesh world positions and object set; excludes lighting/material appearance'}
+                'normals':normals_report,
+                'scope':'evaluated mesh world positions, object set and surface normals; excludes lighting/material appearance'}
     finally:
         for block, old in zip(datablocks, before):
             for item in set(block)-old:
@@ -93,6 +96,9 @@ def export_glb_verified(path, objects):
     bpy.ops.export_scene.gltf(filepath=str(path), use_selection=True, export_format='GLB',
                              export_apply=True, export_extras=True,
                              export_cameras=False, export_lights=False)
+    from mesh_normals import finalize_glb_normals
+    normal_generation = finalize_glb_normals(path)
     report = verify_roundtrip(path, expected)
+    report['normal_generation'] = normal_generation
     report['apply_modifiers'] = True
     return report
