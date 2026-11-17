@@ -28,6 +28,8 @@ python3 scripts/prepare_white_viewer.py /path/to/project \
 
 `bake_white_web.py` 将接触 AO 写入 COLOR_0，使模型进入网页后仍有接触层次；只烘焙遮蔽，不把可开关灯光的照明烘死。先恢复原始单色 PBR 因子再替换顶点 AO，重复生成不累计变黑；玻璃不参与遮蔽实体。输出逐对象重新导入验证，几何点位容差 0.02mm 不代表测绘精度。
 
+烘焙输出继续执行 `mesh_normals.py` 的策略校验：技能生成的软包曲面法线须与最终三角网格一致，原位置、UV、COLOR_0 和材质保持不变；法线校验与近景视觉复核分别记录。
+
 当前烘焙器已限定为无纹理、唯一材质名、OPAQUE PBR及透射玻璃；不支持的输入明确报错，不能静默丢纹理、alpha或替换材质。需要其他材质时先扩展并验证工具。
 
 Home3D 或自定义页面优先消费同一个配置及 `assets/white-viewer/studio.js`，通过 `WhiteStudio.create(THREE, renderer, scene, config)` 建立光照；不要在页面再维护一套散落的光强、色调和阴影常量。自定义页面提供的 THREE API 须与绑定运行版本兼容；独立入口已包含验证过的 Three.js r171。该接口只负责表现，不增加设备模拟控制。

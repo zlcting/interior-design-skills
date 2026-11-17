@@ -45,3 +45,16 @@
 世界坐标验收直接读取实际包中的 GLB、归一化和实例变换，双向匹配 Blender 求值后的源顶点；不能只比较包围盒或局部几何。Blender颜色导入/导出会改变颜色存储类型；顶点AO保留与颜色数值精度须分开核对，不能声称字节一致。
 
 目标业务系统的多私有资源导入需使用 Home3D 插件 2.2.29 或包含同等快照引用排序修复的后续版本。Blender内嵌 POINT/SPOT/SUN 需有对象编号或已归属模型父节点；不能与侧车灯具叠加。未归属的 Blender AREA/SUN 棚拍光记入跳过清单，不冒充可移植设备灯光。
+
+## 生成曲面法线与历史资源修复
+
+生成器为软包等曲面写入 `interior_normal_policy: triangle-area-v1`，三维导出、AO 烘焙及拆包按最终三角索引计算法线并重读验证。硬边拆点、UV、COLOR_0、材质和光源不变；未标记的第三方自定义法线保留。已有同源软包缺少标记时，可在显式对象映射 `objects.<sourceId>.normalPolicy` 中选择 `triangle-area-v1`；不能根据名称给未知资源猜策略。
+
+已确认异常的静态 GLB 可单独修复，使用新输出路径：
+
+```sh
+python3 /path/to/interior-orchestrator/scripts/mesh_normals.py source-sofa.glb \
+  --output sofa-normal-fixed.glb --all-static --report sofa-normal-report.json
+```
+
+`--all-static` 是对此文件的明确修复请求，不是所有导入模型的默认策略；蒙皮、变形和压缩模型需原生工具处理，不能静默改写。新文件摘要变化后须用标准 writer 重建包内引用、定义摘要与包摘要，不能直接覆盖旧哈希地址下的文件。修复包需保留原实例编号、位置、尺寸、设备绑定及灯光，并重新验证。 修复项目私有模型不等于发布新版业务资源库：保留原业务 `releaseRevision`、`releaseDigest` 及对应锁版本，只更新模型与包内摘要，不能把模型文件摘要写成业务发布摘要。

@@ -39,7 +39,7 @@ def glb(with_ids=True, asymmetric=False, embedded_light=False):
     colors = struct.pack('<32f', *([.7, .7, .7, 1] * 8))
     triangles = struct.pack('<36H', *indices)
     binary = position + colors + triangles
-    nodes = [{'name': name, 'mesh': 0, 'translation': [x, 0, -1], **({'extras': {'object_id': name}} if with_ids else {})}
+    nodes = [{'name': name, 'mesh': 0, 'translation': [x, 0, -1], **({'extras': {'object_id': name, 'interior_normal_policy':'triangle-area-v1'}} if with_ids else {})}
              for name, x in [('FURN_A', 1), ('FURN_B', 2)]]
     document = {'asset': {'version': '2.0'}, 'scene': 0, 'scenes': [{'nodes': [0, 1]}], 'nodes': nodes,
         'buffers': [{'byteLength': len(binary)}], 'bufferViews': [{'buffer': 0, 'byteOffset': 0, 'byteLength': len(position)},

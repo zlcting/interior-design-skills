@@ -19,6 +19,7 @@ white=material('white',(.8,.82,.85));glass=material('glass',(.7,.8,.9),1);glow=m
 for name,loc,scale,mat in [('seat',(2,3,.208),(1.4,.8,.4),white),('floor',(2,3,-.02),(4,4,.04),white),('glass',(3,3,.6),(.008,1,1.2),glass),('emitter',(2,2,1),(.2,.2,.02),glow)]:
  bpy.ops.mesh.primitive_cube_add(size=1,location=loc);o=bpy.context.object;o.name=name;o.scale=scale;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);o.data.materials.append(mat)
  if name=='seat':
+  o['interior_normal_policy']='triangle-area-v1'
   b=o.modifiers.new('bevel','BEVEL');b.width=.06;b.segments=3
 bpy.ops.export_scene.gltf(filepath=sys.argv[-1],export_format='GLB',export_apply=True,export_extras=True,export_cameras=False,export_lights=False)
 ''')
@@ -28,7 +29,7 @@ bpy.ops.export_scene.gltf(filepath=sys.argv[-1],export_format='GLB',export_apply
   for index in [1,2]:
    target=d/f'pass-{index}.glb';report=d/f'pass-{index}.json'
    run(blender,SCRIPTS/'bake_white_web.py',['--input',current,'--output',target,'--config',d/'config.json','--report',report],d/f'pass-{index}.log')
-   result=json.loads(report.read_text());assert result['passed'] and result['source_geometry_preserved'];reports.append(result);outputs.append(content(target));current=target
+   result=json.loads(report.read_text());assert result['passed'] and result['source_geometry_preserved'] and result['normals']['generatedPrimitives']>0;reports.append(result);outputs.append(content(target));current=target
   src=content(source)
   def factors(j):return {m['name']:{k:v for k,v in m.items() if k!='name'} for m in j['materials']}
   assert factors(src)==factors(outputs[0])==factors(outputs[1]),'flat material/IOR/transmission/emission changed'

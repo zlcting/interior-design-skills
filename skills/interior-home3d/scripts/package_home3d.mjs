@@ -105,6 +105,9 @@ export async function build(jobFile) {
       instances: scene.instances.length, modelDefinitions: resources.resources.length, lightingFixtures: fixtures.length, embeddedLights: extracted.components.reduce((sum, c) => sum + (c.embeddedLights || 0), 0)},
     geometry: {passed: extracted.components.every(c => c.geometryVerification.passed), toleranceMm: 0.02,
       scope: 'evaluated mesh local coordinates after extraction and GLB reimport; source transforms retained in object map'},
+    normals: {passed: extracted.components.every(c => c.geometryVerification.normals?.passed),
+      generatedPrimitives: extracted.components.reduce((n,c) => n + c.geometryVerification.normals.generatedPrimitives, 0),
+      regeneratedPrimitives: extracted.components.reduce((n,c) => n + c.geometryVerification.normal_generation.regeneratedPrimitives, 0)},
     precisionNotes: ['Vertex colors are retained through Blender; storage conversion can quantize values. Exact numerical color preservation requires a separate comparison.'],
     editorReview: {status: 'not_reviewed', evidence: []}, visualReview: {status: 'not_reviewed', evidence: []}};
   await fs.writeFile(path.join(root, 'project.home3d'), bytes, {flag: 'wx'});
