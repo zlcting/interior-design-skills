@@ -9,9 +9,10 @@ if (Number(process.versions.node.split('.')[0]) < 20) throw new Error('Node.js 2
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(await fs.readFile(path.join(HERE, 'vendor/manifest.json')));
 const bundle = path.join(HERE, 'vendor/home3d-package.cjs');
-if (manifest.version !== '0.1.0' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
+if (manifest.version !== '0.2.0' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
 const sdk = createRequire(import.meta.url)(bundle);
-const CAPABILITIES = ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1', 'model.lighting.v1'];
+const CAPABILITIES = ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1', 'model.lighting.v1',
+  'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1'];
 const NS = 'org.houzzkit.interior';
 const EDITOR = 'com.houzzkit.editor';
 const readJson = async file => JSON.parse(await fs.readFile(file, 'utf8'));
@@ -83,9 +84,13 @@ export async function build(jobFile) {
   }
   scene.extensions[NS].sourceModelSha256 = job.sourceModelSha256;
   scene.extensions[NS].sourceGeometrySha256 = job.geometrySha256;
-  const input = {name: scene.projectMetadata.name, producer: {name: 'interior-home3d', version: '1.0.0'},
-    requiredCapabilities: ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1', ...(fixtures.length || extracted.components.some(c => c.embeddedLights) ? ['model.lighting.v1'] : [])],
-    scene, resources, devices: {schema: 'home3d.device-config.v1', bindings: []}, entries};
+  const input = {version: 4, kind: 'project', name: scene.projectMetadata.name,
+    producer: {name: 'interior-home3d', version: '1.1.0'},
+    requiredCapabilities: ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1',
+      'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1',
+      ...(fixtures.length || extracted.components.some(c => c.embeddedLights) ? ['model.lighting.v1'] : [])],
+    project: scene, resources, devices: {schema: 'home3d.devices.v1', instances: []},
+    presentation: {schema: 'home3d.presentation.v1', bindings: []}, entries};
   const bytes = await sdk.writePackage(input, {capabilities: CAPABILITIES});
   const check = await sdk.validatePackage(bytes, {capabilities: CAPABILITIES});
   if (!check.valid) throw new Error(JSON.stringify(check.errors));
@@ -94,11 +99,13 @@ export async function build(jobFile) {
   if (hash(bytes) !== hash(repeat)) throw new Error('Non-deterministic SDK archive');
   const expectedFurniture = new Set(job.project.furniture.map(f => f.id));
   for (const source of expectedFurniture) if (!objectMap.some(o => o.sourceId === source)) throw new Error('Missing independent furniture: ' + source);
-  if (roundtrip.scene.instances.length !== objectMap.length) throw new Error('Round-trip instance count differs');
+  if (roundtrip.format !== 'v4' || roundtrip.manifest.kind !== 'project') throw new Error('Expected standard v4 project');
+  if (roundtrip.project.instances.length !== objectMap.length) throw new Error('Round-trip instance count differs');
   const report = {schema: 'interior.home3d-acceptance.v1', producer: input.producer,
     sdk: {name: manifest.name, version: manifest.version, bundleSha256: manifest.bundleSha256, sourceDigest: manifest.sourceDigest},
     inputs: {modelSha256: job.sourceModelSha256, geometrySha256: job.geometrySha256, skillSha256: job.skillSha256, lightingSha256: job.lightingSha256, fullSourceSha256: job.fullSourceSha256, objectMapSha256: job.objectMapSha256},
-    package: {file: 'project.home3d', sha256: hash(bytes), packageDigest: roundtrip.packageDigest, format: roundtrip.format},
+    package: {file: 'project.home3d', sha256: hash(bytes), packageDigest: roundtrip.packageDigest,
+      format: roundtrip.format, version: roundtrip.manifest.version, kind: roundtrip.manifest.kind},
     protocol: {...check, deterministic: true, consumerCapabilities: CAPABILITIES},
     objects: {passed: true, sourceFurniture: expectedFurniture.size, walls: scene.floors[0].walls.length,
       openings: scene.floors[0].openings.length, rooms: scene.floors[0].rooms.length,
@@ -123,8 +130,8 @@ export async function build(jobFile) {
 
 const [command, file] = process.argv.slice(2);
 if (command === 'build' && file) await build(path.resolve(file));
-else if (command === 'validate' && file) {
-  const result = await sdk.validatePackage(await fs.readFile(file), {capabilities: CAPABILITIES});
+else if (['validate', 'validate-protocol'].includes(command) && file) {
+  const result = await sdk.validatePackage(await fs.readFile(file), {capabilities: command === 'validate-protocol' ? sdk.CAPABILITIES : CAPABILITIES});
   console.log(JSON.stringify(result, null, 2));
   if (!result.valid) process.exitCode = 1;
-} else if (process.argv[1] === fileURLToPath(import.meta.url)) throw new Error('Use build <job.json> or validate <project.home3d>');
+} else if (process.argv[1] === fileURLToPath(import.meta.url)) throw new Error('Use build <job.json> or validate|validate-protocol <project.home3d>');

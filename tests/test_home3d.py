@@ -3,6 +3,8 @@ import copy
 import hashlib
 import importlib.util
 import json
+import math
+import os
 from pathlib import Path
 import shutil
 import struct
@@ -10,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / 'skills/interior-home3d'
@@ -19,6 +22,7 @@ exporter = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(exporter)
 NODE = shutil.which('node')
 BLENDER = shutil.which('blender')
+EDITOR_SOURCE = os.environ.get('HOME3D_EDITOR_SOURCE')
 
 
 def project():
@@ -137,6 +141,14 @@ class SdkTests(unittest.TestCase):
  const a=await sdk.writePackage(input);const b=await sdk.writePackage(input);if(sdk.digest(a)!==sdk.digest(b))throw Error('non deterministic');
  const ok=await sdk.validatePackage(a);if(!ok.valid)throw Error('invalid fixture');
  const unsupported=await sdk.validatePackage(a,{capabilities:['scene.structure.v1']});if(unsupported.valid)throw Error('accepted unsupported editor capability');
+ const unified={...input,version:4,kind:'project',project:input.scene,devices:{schema:'home3d.devices.v1',instances:[]},presentation:{schema:'home3d.presentation.v1',bindings:[]},requiredCapabilities:[...input.requiredCapabilities,'device.contracts.v1','device.presentation.v1','device.simulation.v1']};
+ delete unified.scene;
+ const v4=await sdk.writePackage(unified), v4repeat=await sdk.writePackage(unified), parsed=await sdk.readPackage(v4);
+ if(sdk.digest(v4)!==sdk.digest(v4repeat)||parsed.format!=='v4')throw Error('invalid v4 roundtrip');
+ if(JSON.stringify(parsed.project)!==JSON.stringify((await sdk.readPackage(a)).scene))throw Error('v4 geometry changed');
+ const legacyOnly=await sdk.validatePackage(v4,{capabilities:input.requiredCapabilities});if(legacyOnly.valid)throw Error('accepted v3-only consumer');
+ unified.requiredCapabilities=unified.requiredCapabilities.filter(c=>c!=='device.simulation.v1');
+ let missingCapability=false;try{await sdk.writePackage(unified)}catch(e){missingCapability=e.code==='MISSING_CAPABILITY'}if(!missingCapability)throw Error('accepted missing v4 capability');
  input.scene.instances[0].resourceKey='missing';let failed=false;try{await sdk.writePackage(input)}catch(e){failed=true}if(!failed)throw Error('accepted broken reference');
  a[a.length>>1]^=1; const bad=await sdk.validatePackage(a);if(bad.valid)throw Error('accepted corruption');
  console.log('SDK_BEHAVIOR_PASSED');
@@ -188,11 +200,80 @@ class BlenderTests(unittest.TestCase):
             report = exporter.load(root / 'out/acceptance.json')
             self.assertEqual(report['objects']['instances'], 2)
             self.assertEqual(report['objects']['modelDefinitions'], 1)
+            self.assertEqual(report['package']['format'], 'v4')
+            self.assertEqual(report['package']['version'], 4)
+            self.assertEqual(report['package']['kind'], 'project')
             self.assertEqual(report['editorReview']['status'], 'not_reviewed')
+            self.assertEqual(report['visualReview']['status'], 'not_reviewed')
+            with zipfile.ZipFile(root / 'out/project.home3d') as archive:
+                manifest = json.loads(archive.read('package.json'))
+                self.assertEqual(manifest['schema'], 'home3d.package.v4')
+                self.assertEqual(manifest['entries'], {'project': 'project.json', 'resources': 'resources.json',
+                    'devices': 'devices.json', 'presentation': 'presentation.json'})
+                self.assertNotIn('scene.json', archive.namelist())
+                self.assertNotIn('runtime-resources.json', archive.namelist())
+                self.assertEqual(json.loads(archive.read('devices.json')), {'schema': 'home3d.devices.v1', 'instances': []})
+                self.assertEqual(json.loads(archive.read('presentation.json')), {'schema': 'home3d.presentation.v1', 'bindings': []})
+                self.assertFalse(any('modelVersionId' in r for r in json.loads(archive.read('resources.json'))['resources']))
+                self.assertNotIn('model.lighting.v1', manifest['requiredCapabilities'])
             components = exporter.load(root / 'out/components.json')['components']
             self.assertTrue(all(c['colorPrimitives'] > 0 and c['geometryVerification']['passed'] for c in components))
             check = subprocess.run([NODE, str(SCRIPT / 'package_home3d.mjs'), 'validate', str(root / 'out/project.home3d')], text=True, capture_output=True)
             self.assertEqual(check.returncode, 0, check.stderr)
+
+    def test_rotated_sidecar_lighting_preserves_world_position_and_settings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            model = project()
+            model['furniture'][0]['facing'] = 'east'
+            fixture = {'id': 'LIGHT_A', 'position': [1.12, .85, -.92], 'color': '#ffce8b',
+                'maxIntensity': 30, 'initialBrightness': 65, 'initialCctK': 2700, 'rangeM': 4.8,
+                'emitterOffsetM': [.04, .02, -.03]}
+            lighting = {'schema': 'home3d.model-lighting.v1', 'coordinateSystem': 'right-handed-y-up',
+                'modelDigest': 'sha256:' + hashlib.sha256(glb(asymmetric=True)).hexdigest(), 'fixtures': [fixture]}
+            (root / 'lighting.json').write_text(json.dumps(lighting))
+            (root / 'mapping.json').write_text(json.dumps({'fixtures': {'LIGHT_A': 'FURN_A'}}))
+            result = self.run_export(root, source_model=model, asymmetric=True,
+                extra=('--lighting', str(root / 'lighting.json'), '--object-map', str(root / 'mapping.json')))
+            self.assertEqual(result.returncode, 0, result.stderr)
+            with zipfile.ZipFile(root / 'out/project.home3d') as archive:
+                manifest = json.loads(archive.read('package.json'))
+                self.assertIn('model.lighting.v1', manifest['requiredCapabilities'])
+                scene = json.loads(archive.read('project.json'))
+                instance = next(i for i in scene['instances'] if i['id'] == 'instance-FURN_A')
+                resource = next(r for r in json.loads(archive.read('resources.json'))['resources'] if r['key'] == instance['resourceKey'])
+                definition = json.loads(archive.read(resource['definitionPath']))
+                light = json.loads(archive.read(definition['lightingPath']))
+                self.assertEqual(light['modelDigest'], 'sha256:' + hashlib.sha256(archive.read(definition['file'])).hexdigest())
+                actual = light['fixtures'][0]
+                self.assertEqual(len(light['fixtures']), 1)
+                for field in ['id', 'color', 'maxIntensity', 'initialBrightness', 'initialCctK', 'rangeM']:
+                    self.assertEqual(actual[field], fixture[field])
+                def world(vector):
+                    x, y, z = vector
+                    angle = math.pi / 2
+                    return [math.cos(angle) * x + math.sin(angle) * z, y,
+                        -math.sin(angle) * x + math.cos(angle) * z]
+                offset = world(actual['emitterOffsetM'])
+                position = world(actual['position'])
+                for axis in range(3):
+                    self.assertAlmostEqual(offset[axis], fixture['emitterOffsetM'][axis], places=6)
+                    self.assertAlmostEqual(position[axis] + instance['transform']['position'][axis], fixture['position'][axis], places=6)
+            self.assertTrue(exporter.load(root / 'out/world-verification.json')['passed'])
+
+    @unittest.skipUnless(EDITOR_SOURCE, 'Set HOME3D_EDITOR_SOURCE for actual editor runtime compatibility')
+    def test_v4_editor_save_refresh_export_and_reimport(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            model = project()
+            model['openings'] = [{'id': 'DOOR', 'kind': 'door', 'wall': 'SOUTH', 'start': 500,
+                'width': 900, 'height': 2100, 'sill': 0}]
+            result = self.run_export(root, source_model=model, asymmetric=True, embedded_light=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            checked = subprocess.run([NODE, str(ROOT / 'tests/verify_home3d_editor.mjs'),
+                str(root / 'out/project.home3d'), EDITOR_SOURCE, str(root / 'editor-review')], capture_output=True, text=True)
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            self.assertIn('HOME3D_EDITOR_ROUNDTRIP_PASSED', checked.stdout)
 
     def test_owned_embedded_light_is_preserved_without_sidecar(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -241,9 +322,9 @@ class BlenderTests(unittest.TestCase):
             self.assertTrue(world['passed'])
             script = root / 'forge.cjs'
             script.write_text("""const fs=require('fs');const sdk=require(MODULE);
-(async()=>{const p=await sdk.readPackage(fs.readFileSync(FILE));p.scene.instances[0].transform.rotation[1]*=-1;
-const entries=Object.fromEntries(Object.entries(p.entries).filter(([k])=>!['package.json','scene.json','runtime-resources.json','devices.json'].includes(k)));
-const raw=await sdk.writePackage({name:p.manifest.name,scene:p.scene,resources:p.resources,devices:p.devices,requiredCapabilities:p.manifest.requiredCapabilities,entries});fs.writeFileSync(FILE,raw)})().catch(e=>{console.error(e);process.exitCode=1});
+(async()=>{const p=await sdk.readPackage(fs.readFileSync(FILE));p.project.instances[0].transform.rotation[1]*=-1;
+const entries=Object.fromEntries(Object.entries(p.entries).filter(([k])=>!['package.json',...Object.values(p.manifest.entries)].includes(k)));
+const raw=await sdk.writePackage({version:4,kind:'project',name:p.manifest.name,project:p.project,resources:p.resources,devices:p.devices,presentation:p.presentation,requiredCapabilities:p.manifest.requiredCapabilities,entries});fs.writeFileSync(FILE,raw)})().catch(e=>{console.error(e);process.exitCode=1});
 """.replace('MODULE', json.dumps(str(SCRIPT / 'vendor/home3d-package.cjs'))).replace('FILE', json.dumps(str(root / 'out/project.home3d'))))
             forged = subprocess.run([NODE, str(script)], capture_output=True, text=True)
             self.assertEqual(forged.returncode, 0, forged.stderr)
