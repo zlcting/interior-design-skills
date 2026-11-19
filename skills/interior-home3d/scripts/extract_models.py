@@ -12,7 +12,7 @@ from mathutils import Matrix, Vector
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / 'interior-orchestrator/scripts'))
 from exchange_validation import signature, verify_roundtrip
-from mesh_normals import finalize_glb_normals, KEY, POLICY
+from mesh_normals import finalize_glb_normals, source_normal_policy, KEY, POLICY
 
 job_file = Path(sys.argv[sys.argv.index('--') + 1])
 job = json.loads(job_file.read_text())
@@ -102,7 +102,7 @@ def export_group(key, objects, opening=None):
         clone = bpy.data.objects.new('home3d-part-' + str(index), mesh)
         collection.objects.link(clone)
         clone['exchange_source_id'] = clone.name
-        policy = data.get('normalPolicy', obj.get(KEY))
+        policy = data.get('normalPolicy', source_normal_policy(obj, source_items.get(key, {})))
         if policy is not None:
             if policy not in [POLICY, 'preserve-authored-v1']:
                 raise ValueError('Unsupported normal policy: ' + str(policy))
