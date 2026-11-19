@@ -14,7 +14,7 @@
 
 需要 Python 3.10+、Node 20+ 和支持 glTF 的 Blender；安装整套技能后复用总控技能的求值几何交换校核。运行时 SDK 是 `scripts/vendor` 内锁定的离线制品，不安装全局 Node 包，不依赖开发者绝对目录。
 
-作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.1.0，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
+作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.2.0，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
 
 ## 显式映射
 
@@ -34,13 +34,13 @@
 
 ## 输出
 
-- `project.home3d`：标准 v3，含结构、独立资源/实例、灯光和展示预设。
+- `project.home3d`：标准 v4 project，含结构、独立资源/实例、灯光和展示预设。
 - `object-map.json`：源编号、源节点、实例 ID、资源键及模型摘要。
 - `acceptance.json`：SDK身份与摘要、源文件摘要、协议/对象/几何结果、编辑和视觉状态。
 - `components.json`、`world-verification.json`、`models/`、`blender.log`：实际拆分及重新导入证据。
 - `state/execution-log.json`：本技能的实际执行记录，不补写其他技能执行历史。
 
-旧业务 v2 工程迁移不是把 sourceIdentity 改成当前系统；应回到权威源数据输出标准 v3，保留旧包供追溯。
+旧业务 v2 工程迁移不是把 sourceIdentity 改成当前系统；应回到权威源数据输出标准 v4 project，保留旧包供追溯。
 
 世界坐标验收直接读取实际包中的 GLB、归一化和实例变换，双向匹配 Blender 求值后的源顶点；不能只比较包围盒或局部几何。Blender颜色导入/导出会改变颜色存储类型；顶点AO保留与颜色数值精度须分开核对，不能声称字节一致。
 
@@ -58,3 +58,15 @@ python3 /path/to/interior-orchestrator/scripts/mesh_normals.py source-sofa.glb \
 ```
 
 `--all-static` 是对此文件的明确修复请求，不是所有导入模型的默认策略；蒙皮、变形和压缩模型需原生工具处理，不能静默改写。新文件摘要变化后须用标准 writer 重建包内引用、定义摘要与包摘要，不能直接覆盖旧哈希地址下的文件。修复包需保留原实例编号、位置、尺寸、设备绑定及灯光，并重新验证。 修复项目私有模型不等于发布新版业务资源库：保留原业务 `releaseRevision`、`releaseDigest` 及对应锁版本，只更新模型与包内摘要，不能把模型文件摘要写成业务发布摘要。
+
+## 统一 v4 输出
+
+离线 SDK 锁定 0.2.0，默认调用 `writePackage({version: 4, kind: 'project', ...})`。包以 `project.json` 为唯一空间权威，`resources.json` 为包内私有资源目录；不再输出 v3 的 `scene.json` 或 `runtime-resources.json`。保留同一 floorplan-scene.v5 结构合同、源编号、独立实例、洞口宿主、归一化、材质、灯光和白模预设。普通模型不编造业务版本 ID。
+
+导出器没有逻辑设备合同输入：`devices.json` 使用 `home3d.devices.v1` 和空 `instances`，`presentation.json` 使用 `home3d.presentation.v1` 和空 `bindings`。展示灯光仍写入模型侧车或 GLB，不据此生成设备合同、手动控制或真实设备绑定。不生成 `experience.json`，不声明其能力；`kind: solution`、发布和手机端交付仍由后续方案链路验收。
+
+v4 即使设备为空，也必须声明 `device.contracts.v1`、`device.presentation.v1`、`device.simulation.v1`；另声明实际使用的结构、GLB、normalization，以及有灯光时的 lighting。`package_home3d.mjs validate` 按此导出器的七项消费能力校验 v3/v4；`validate-protocol` 使用 SDK 完整协议能力，只通过后者不等于编辑器兼容。旧版仅支持 v3 的消费者会明确拒收 v4，不删除必需能力或伪装成旧版本。
+
+目标编辑器须包含空主房间引用的工作投影修复：合法的 `projectMetadata.mainRoomId: null` 在编辑器内应省略可选 `mainRoomId`，不能写入 `undefined` 后交给严格 JSON 编码器。已有常驻开发服务需重启以加载更新后的 SDK 和服务模块；协议预检通过不证明旧进程已更新。
+
+协议基线由 Home3D 仓库 `docs/specs/2026-11-17-home3d-unified-v4/` 维护。升级需通过本技能行为测试、源世界几何复核，以及目标编辑器的实际保存与重导入；详细步骤见[分层验收](acceptance.md)。

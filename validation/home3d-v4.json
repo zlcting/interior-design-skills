@@ -1,0 +1,126 @@
+{
+  "schema": "interior.home3d-v4-upgrade-validation.v1",
+  "recordedAt": "2026-11-19T10:04:56.594648+00:00",
+  "status": "passed",
+  "scope": "default standard v4 project export, evaluated geometry, portable model lighting and local editor roundtrip",
+  "sdk": {
+    "name": "@houzzkit/home3d-package",
+    "version": "0.2.0",
+    "bundleSha256": "ff7f2e1c1be556d307c8e487e9ebbc2f8998e4cb6b095da936a92cbc3cc0e633",
+    "sourceDigest": "835ff130079a0537b33780108a6154602c7bfb9f5390b93fef379e991ac38e45"
+  },
+  "package": {
+    "file": "project.home3d",
+    "sha256": "5a46e70c5bf62cb9b9a7ca12c53c5f4e7d8d03a59d574b1b540f4a9b9be77d31",
+    "packageDigest": "sha256:2a9bff23458546bf52507fbc73b0515d4d529d43087ea3fb8e6793733e029956",
+    "format": "v4",
+    "version": 4,
+    "kind": "project"
+  },
+  "objects": {
+    "passed": true,
+    "sourceFurniture": 33,
+    "walls": 47,
+    "openings": 13,
+    "rooms": 11,
+    "instances": 49,
+    "modelDefinitions": 49,
+    "lightingFixtures": 1,
+    "embeddedLights": 0
+  },
+  "geometry": {
+    "passed": true,
+    "sourceWorldVerticesPassed": true,
+    "toleranceMm": 0.02,
+    "maximumVertexErrorMm": 0.0015963727417882656,
+    "normals": {
+      "passed": true,
+      "generatedPrimitives": 11,
+      "regeneratedPrimitives": 11
+    },
+    "sourceFilesUnchanged": true
+  },
+  "lighting": {
+    "passed": true,
+    "sourcePositionErrorMm": 0,
+    "positionAfterEdit": [
+      3.7908888739342532,
+      1.3150000000000002,
+      -3.122686492432806
+    ],
+    "expectedAfterEdit": [
+      3.7908888739342532,
+      1.3150000000000002,
+      -3.122686492432806
+    ],
+    "sourceSettingsPreserved": true,
+    "movedWithInstance": true,
+    "modelDigestValidated": true
+  },
+  "compatibility": {
+    "legacyV3ValidationPassed": true,
+    "v3OnlyConsumerRejectsV4": true,
+    "requiredV4CapabilitiesCannotBeRemoved": true,
+    "logicalDevices": "explicit empty home3d.devices.v1 instances",
+    "devicePresentation": "explicit empty home3d.presentation.v1 bindings"
+  },
+  "editor": {
+    "runtimeRoundtrip": "passed",
+    "uiImportEditSaveRefreshExportReimport": "passed",
+    "instances": 49,
+    "immutableBlobsRetained": 50,
+    "lampTranslationY": 0.1,
+    "lampRotationDeltaDegrees": 12,
+    "wallHeight": 2.81,
+    "doorWidth": 1.1,
+    "reimportedProjectEqual": true,
+    "inputsSha256": {
+      "modelSha256": "6676ddd3e1c2bbfddc1aa9fe97d8167489174f85b3e161e59a66e3128df5dd1e",
+      "geometrySha256": "eac2d8d3a67b98ff355582ccb335620397b5fb12cdeb2bf48b2cda04fd2546a7",
+      "skillSha256": "b12413a5e40efb5af415bba04c97312b427bbe86410c9e0c6cefefa8dcf6fde7",
+      "lightingSha256": "2f113bae4395e022e8991e4630814c70d9916f8fba41fa9afa1a133a374aa18b",
+      "fullSourceSha256": "f8eb55edb3de1e9048b4c4bd5466e239349cca0ab650b0260f109b86900b1512",
+      "objectMapSha256": null
+    },
+    "requiredCompanionFix": {
+      "repository": "home-3d-uniapp",
+      "file": "scripts/lib/standard-project-package.mjs",
+      "behavior": "Omit optional editor mainRoomId for a canonical null main-room reference before strict JSON encoding.",
+      "test": "tests/standardProjectNullMainRoom.test.ts",
+      "commit": "8b974643621db88b347d84bd1526300613ebb022"
+    },
+    "artifactDigests": {
+      "generated": "5a46e70c5bf62cb9b9a7ca12c53c5f4e7d8d03a59d574b1b540f4a9b9be77d31",
+      "uiEditedPackageDigest": "sha256:3f5a2002f446e63dde9e39c0c367a0c8270bb418f3da28477dbc25065773b4d9",
+      "uiReimportedPackageDigest": "sha256:3f5a2002f446e63dde9e39c0c367a0c8270bb418f3da28477dbc25065773b4d9"
+    }
+  },
+  "checks": {
+    "interiorBehaviorTests": 126,
+    "home3dExporterTestsIncluded": 18,
+    "targetEditorTests": 50,
+    "eslint": "passed; existing workspace ESLint with explicit JS/TS syntax and unused-variable rules",
+    "skillQuickValidate": "passed",
+    "gitDiffCheck": "passed",
+    "stagedHome3dExporterTests": 18
+  },
+  "commands": [
+    "HOME3D_EDITOR_SOURCE=/path/to/home-3d-uniapp .venv/bin/python -m unittest discover -s tests -v",
+    "node tests/verify_home3d_editor.mjs /path/to/project.home3d /path/to/home-3d-uniapp /path/to/new-review-directory",
+    "npm test -- tests/standardProjectNullMainRoom.test.ts tests/unifiedEditorWorkspace.test.ts tests/home3dUnifiedPackage.test.ts tests/projectPackageHeight.test.ts"
+  ],
+  "localEvidence": {
+    "directory": ".local/home3d-v4-20261119",
+    "runtimeReview": ".local/home3d-v4-editor-review-2/acceptance.json",
+    "behaviorLog": ".local/home3d-v4-commit-behavior-tests.log",
+    "targetEditorLog": ".local/home3d-v4-commit-editor-tests.log",
+    "screenshot": ".local/home3d-v4-20261119/editor-reimported.jpg",
+    "stagedExporterLog": ".local/home3d-v4-staged-tests.log"
+  },
+  "limitations": [
+    "Verification is against the current local editor source; older running processes must reload the updated SDK/service modules.",
+    "No solution publishing, mobile delivery or real-device control is claimed.",
+    "The example retains four pre-existing editor layout warnings; customer visual approval remains not_reviewed.",
+    "The recorded 126-test behavior run includes the existing uncommitted normal-policy changes; the v4 commit and installed skill exclude those changes."
+  ]
+}

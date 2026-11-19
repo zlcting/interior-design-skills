@@ -86,8 +86,10 @@ def verify(job_file):
     mappings = json.loads((root / 'object-map.json').read_text())['objects']
     details = []
     with zipfile.ZipFile(root / 'project.home3d') as archive:
-        scene = json.loads(archive.read('scene.json'))
-        resources = json.loads(archive.read('runtime-resources.json'))['resources']
+        manifest = json.loads(archive.read('package.json'))
+        documents = manifest['entries']
+        scene = json.loads(archive.read(documents.get('project', documents.get('scene'))))
+        resources = json.loads(archive.read(documents['resources']))['resources']
         definitions = {r['key']: json.loads(archive.read(r['definitionPath'])) for r in resources}
         instances = {i['id']: i for i in scene['instances']}
         for component in components:

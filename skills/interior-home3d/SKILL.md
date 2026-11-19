@@ -5,7 +5,7 @@ description: 从统一室内项目模型与同源几何生成可逐对象编辑�
 
 # Home3D 可编辑工程
 
-交付标准 v3 `.home3d`，使墙、门窗和家具保持独立对象。先读[输入与导出约定](references/export-contract.md)，再读取[共享项目契约](../interior-orchestrator/references/project-contract.md)中与交付有关的字段。预算、采购和现场状态不作为模型导出的前置条件。
+交付标准 v4 project `.home3d`，使墙、门窗和家具保持独立对象。先读[输入与导出约定](references/export-contract.md)，再读取[共享项目契约](../interior-orchestrator/references/project-contract.md)中与交付有关的字段。预算、采购和现场状态不作为模型导出的前置条件。
 
 ## 输入与准备
 
@@ -23,7 +23,7 @@ python3 scripts/export_home3d.py /path/to/project \
   --geometry /path/to/project/visuals/white-web-v1/white-web.glb \
   --lighting /path/to/project/visuals/white-web-v1/white-render-config.json \
   --full-source /path/to/project/visuals/white-minimal/interior.blend \
-  --out /path/to/project/Home3D-standard-v3
+  --out /path/to/project/Home3D-standard-v4
 ```
 
 目录外使用脚本绝对路径。参数、显式对象映射与运行依赖见[导出约定](references/export-contract.md)。
@@ -41,5 +41,7 @@ python3 scripts/export_home3d.py /path/to/project \
 输出 `project.home3d`、`object-map.json`、`acceptance.json`、逐模型交换记录与实际执行日志。包可通过业务系统“导入可编辑工程”导入，不能用“导入模型”入口重新包成整屋家具。
 
 首次版本及导出工具改动需实际导入目标编辑器，修改一件家具、一段墙和一个门窗，保存、刷新、导出再导入，并检查灯光位置、材质及白模预设。未执行的检查保持 `not_reviewed`；程序通过不等同客户视觉批准。
+
+离线 SDK 0.2.0 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export a locked interior project as an editable, self-contained Home3D v3 package."""
+"""Export a locked interior project as an editable, self-contained Home3D v4 project package."""
 import argparse
 import hashlib
 import json
