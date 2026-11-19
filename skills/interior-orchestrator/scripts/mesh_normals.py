@@ -15,6 +15,30 @@ import struct
 POLICY = 'triangle-area-v1'
 KEY = 'interior_normal_policy'
 ERROR = 0.0002
+LEGACY_SOFA_CUSHIONS = {
+    'back shell': 'upholstery',
+    'padded arm': 'upholstery',
+    'tailored back': 'upholstery',
+    'tailored seat': 'upholstery',
+    'tailored pillow': 'shade',
+}
+
+
+def source_normal_policy(metadata, furniture):
+    """Recover the policy for identifiable pre-marker generated sofa cushions."""
+    policy = metadata.get(KEY)
+    if policy is not None:
+        return policy
+    if (furniture.get('furniture_type') != 'sofa'
+            or metadata.get('object_id') != furniture.get('id')
+            or metadata.get('asset_id') != 'low-wide-modular'
+            or furniture.get('asset_id', 'low-wide-modular') != 'low-wide-modular'):
+        return None
+    part = metadata.get('part_name')
+    role = LEGACY_SOFA_CUSHIONS.get(part) if isinstance(part, str) else None
+    if role is not None and metadata.get('material_role') == role:
+        return POLICY
+    return None
 
 
 def unpack(raw):
