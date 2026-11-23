@@ -34,6 +34,8 @@ python3 scripts/export_home3d.py /path/to/project \
 
 资源使用包内模型与内容摘要；不编造业务 modelVersionId、不写业务系统身份或凭据。包结构、摘要、引用和能力由锁定共用 SDK 处理，不另写验证器或绕过失败检查。
 
+白模实时配置带有效 `white-home3d-v1` 来源和几何摘要时，导出器自动写入完整 `rendering.json`、冻结环境 PNG 和光影能力声明。其他可信配置通过 `--rendering` / `--rendering-assets` 显式提供；没有配置的旧工程保留原路径，不从预设名称猜测灯位、曝光或阴影。输入与严格兼容范围见[光影导出](references/export-contract.md#光影配置导出)。
+
 ## 验收与交付
 
 依次执行[分层验收](references/acceptance.md)。SDK通过、对象/几何通过、实际编辑通过和视觉通过分别记录。
@@ -42,6 +44,6 @@ python3 scripts/export_home3d.py /path/to/project \
 
 首次版本及导出工具改动需实际导入目标编辑器，修改一件家具、一段墙和一个门窗，保存、刷新、导出再导入，并检查灯光位置、材质及白模预设。未执行的检查保持 `not_reviewed`；程序通过不等同客户视觉批准。
 
-离线 SDK 0.2.0 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
+离线 SDK 0.3.0 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。

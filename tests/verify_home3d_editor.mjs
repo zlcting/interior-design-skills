@@ -38,6 +38,14 @@ furnishing.rotationY += 12 * Math.PI / 180;
 wall.height += 0.01;
 opening.width -= 0.05;
 assert.ok(opening.width > 0);
+const expectedRendering=before.rendering?structuredClone(before.rendering):null;
+if(expectedRendering){
+  assert.ok(sdk.CAPABILITIES.includes('render.scene.v1'),'Target editor must support package rendering');
+  project.rendering.document.renderer.exposureMultiplier=1.1;
+  expectedRendering.renderer.exposureMultiplier=1.1;
+  const light=project.rendering.document.lights.find(l=>l.kind==='directional');
+  if(light){light.intensity=1.8;expectedRendering.lights.find(l=>l.id===light.id).intensity=1.8;}
+}
 project.revision++;
 await request('project-repository', 'PUT', Buffer.from(JSON.stringify({schema: 'home3d.project-repository.v1',
   version: 1, activeProjectId: imported.projectId, projects: [project]})));
@@ -53,6 +61,11 @@ const exported = await request('project-package', 'GET', new Uint8Array(),
 assert.equal(exported.headers['x-home3d-package-version'], '4');
 const after = await bundled.readPackage(exported.body);
 assert.equal(after.format, 'v4');
+if(expectedRendering){
+  assert.deepEqual(bundled.encode(after.rendering),bundled.encode(bundled.bindRenderingToProject(expectedRendering,after.project)));
+  assert.equal(after.rendering.projectDigest,bundled.digest(after.entries['project.json']));
+  if(after.rendering.contactAO.mode==='baked-vertex')assert.ok(after.warnings.some(w=>w.code==='AO_STALE'));
+}
 const original = before.project.instances.find(i => i.id === furnishing.id);
 const edited = after.project.instances.find(i => i.id === furnishing.id);
 assert.ok(Math.abs(edited.transform.position[1] - original.transform.position[1] - .1) < 1e-8);
@@ -73,6 +86,7 @@ const reexport = await request('project-package', 'GET', new Uint8Array(),
   new URLSearchParams({projectId: reimported.projectId, format: 'unified'}).toString());
 const final = await bundled.readPackage(reexport.body);
 assert.deepEqual(final.project, after.project);
+assert.deepEqual(final.rendering,after.rendering);
 assert.deepEqual(final.devices, after.devices);
 assert.deepEqual(final.presentation, after.presentation);
 assert.equal((await sdk.validatePackage(reexport.body)).valid, true);
@@ -86,7 +100,8 @@ const report = {schema: 'interior.home3d-editor-runtime-review.v1', status: 'pas
   edits: {furnitureId: furnishing.id, position: furnishing.position, rotationY: furnishing.rotationY,
     wallId: wall.id, height: wall.height, openingId: opening.id, width: opening.width},
   checks: {savedValues: true, independentInstances: true, openingHost: true,
-    geometryAndLightingBlobsUnchanged: true, devicesAndPresentationUnchanged: true, v4Reimport: true},
+    geometryAndLightingBlobsUnchanged: true, renderingPreserved:before.rendering?true:null, devicesAndPresentationUnchanged: true, v4Reimport: true},
+  rendering:after.rendering?{documentDigest:after.renderingDigest,exposure:after.rendering.renderer.exposureMultiplier,staleAO:after.warnings.some(w=>w.code==='AO_STALE')}:null,
   uiReview: 'not_reviewed', visualReview: 'not_reviewed'};
 await writeFile(path.join(output, 'acceptance.json'), JSON.stringify(report, null, 2) + '\n');
 console.log('HOME3D_EDITOR_ROUNDTRIP_PASSED', JSON.stringify(report.checks));

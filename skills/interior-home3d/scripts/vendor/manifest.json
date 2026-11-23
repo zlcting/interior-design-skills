@@ -1,29 +1,31 @@
 {
   "schema": "interior.home3d-sdk-artifact.v1",
   "name": "@houzzkit/home3d-package",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "node": ">=20",
   "builder": {
     "name": "esbuild",
     "version": "0.20.2"
   },
   "sourceFiles": {
-    "src/cli.mjs": "4dc2c5adf6f538b724ee3d8269a2574535c1bae970465b34113eb163e8cfe69f",
+    "src/cli.mjs": "0d881c808ff680e8307cc87f0ed4d53e8786d6e47c2df076d2452cd8cd013c4e",
     "src/demo-runtime.d.mts": "c9130953518b65549df98da1055690af403bb4df54138b3571b991bcf988f36c",
     "src/demo-runtime.mjs": "597d230b6943868d6fa62f86b4e8192cd13d7456fa9b6fca0360a2342de1f00e",
     "src/floor-height.d.mts": "c0e1538da88f46dc48f4060e8c5b3a3b7567ab4f312634609cd240207242fc3f",
     "src/floor-height.mjs": "f84a7cc66b0c6cd801b09081c66603db3fc086093c8a8506c310c16c7e6d4b5d",
     "src/glb-container.d.mts": "5b794f6ab81d7a7b0f67493b1cb2905134859024542f9842e119d026c7ca0a96",
     "src/glb-container.mjs": "7033ec28fda9201ca5b2c431ec7bc2395709b1ed3b4a6d7579939565006ab821",
-    "src/index.d.mts": "5352c6aaa9eddada0d13c57bdbaf866d3e937610c926bef76e12458a05747584",
-    "src/index.mjs": "55531456cb29ba48db21771f491778a44c4696d19111d9736057e090c3f29d0f",
+    "src/index.d.mts": "13db8bb1e90ed60768e4487fcdfa7e30ff47952ddbbf3ab13252a7824416aae8",
+    "src/index.mjs": "01e40eb7e4c27192786573a859212339b1cc1a174c3b1f04d5f5e89e456d5afe",
     "src/lighting.d.mts": "2e893bb75444410bd652573334ae8690de8e8986d308122c78a2c7ccf91c6f04",
     "src/lighting.mjs": "3105fac3bff10239d6a0dc196ae0ef829db600b82bd3ff1365acd5e8ff2c2ac9",
     "src/model.mjs": "25285a8a956c93dd488830916c5c54e04392882e4afe8cfe3e02067cb8715fb9",
     "src/primitives.mjs": "b65a0d76667430a3a375bb497dd686bb91f26792ec8842860a8f73da1a3792e4",
-    "src/schemas.mjs": "0f477e7dcdc46fd34ce224243c900a32c525de72ebf6e25a725575eb5e5d880b",
-    "src/unified.d.mts": "da947d3f694e517894a4837ca8906b7eabbd1a85e0a9ba288c9a4ff3a8598f80",
-    "src/unified.mjs": "69335456ee53a78cc9dd314de8a827ea961c13e3ff20588e6c2ae112a48595a9",
+    "src/rendering.d.mts": "7f74d051bfa15c6f591275f49fce7c63aab101d1b94d774630c8cafc53599be4",
+    "src/rendering.mjs": "7600c7976cfed873b1485dd28bcf33f11562e294fcf09cb08e9480b6e25f1ed1",
+    "src/schemas.mjs": "c0c4c73b03d0ec99ac1ec4a672c000f45e522c91ee73fee04172b565b8f2e638",
+    "src/unified.d.mts": "a8810f6bb3c7da63da25ffa9ba97e5f76f9113efe6c1ccf9760defd3ee42dca1",
+    "src/unified.mjs": "ae508b7dd4496e39b40d395d1f1522e3adc889834ca8055bdbe93e58b1cbf8b1",
     "schemas/common.schema.json": "856d7f4b0df89883a4d5d50d3ef1f8e7bcfff213ce3cfc20a88c58ceb76a21a2",
     "schemas/device-contract.schema.json": "65135e66efafb1277e96b05fef58f7ce077baebbb38c563e6de43153b7b375e0",
     "schemas/device-program.schema.json": "61437d25f31332c9752b2cb7aad827074e07cc6d1ef977b897361e5a550804ee",
@@ -33,13 +35,14 @@
     "schemas/model.schema.json": "eb1562a0e9a0893ad6ca07f4fec9c7a80717dd90e2cc5caa0075f9e3dd3ea15a",
     "schemas/package.schema.json": "283acc18c96acea6e2b47f50956cecd1a4218d0cc9958523638e071ba8a2236c",
     "schemas/presentation.schema.json": "87271a529b9acd4f7824c767a5c1ea51acd76df26a99a216114e2e695e29608a",
+    "schemas/rendering.schema.json": "a9fd36f489886b0dd40477d4c332347c205a685260daa53ddbc65daf9823ec13",
     "schemas/resources.schema.json": "ec13973016546f6295d27b7dc82ac46db7ff3acb6398377c388479e374930fc9",
     "schemas/scene.schema.json": "8c8294b1ff4ea0c28f52947585be63342b6b48d47922a6d8819c7aa38f8d3779",
     "schemas/unified-devices.schema.json": "b3441f3242f8e151276428aa47b35a03c05fc14b5bff47e58dcdb07bb2fb9bd2",
-    "schemas/unified-package.schema.json": "546b92bd273cf854889173484926e8b3c3b353f1266c294f3be84f90636c099d",
-    "package.json": "d29a8d0a5b36f0e88ee17193072f57f333c86c6e0c368fe6b86dd63d18843641"
+    "schemas/unified-package.schema.json": "4bb92ba8b5a43d6f7d3ab45a81c04f9c4da0ea61ea4f06070458fd860ccdc28b",
+    "package.json": "8ae73c5f577c25b384410ee6dc080c4d64d4b1762053a761371f8b48cd21215f"
   },
-  "sourceDigest": "835ff130079a0537b33780108a6154602c7bfb9f5390b93fef379e991ac38e45",
+  "sourceDigest": "58871db63449dc29af44c48f5d0191cbb2300f1da6c6ea0e134f94deba9dba74",
   "dependencies": {
     "@noble/hashes": {
       "version": "1.8.0",
@@ -74,5 +77,5 @@
       "license": "MIT"
     }
   },
-  "bundleSha256": "ff7f2e1c1be556d307c8e487e9ebbc2f8998e4cb6b095da936a92cbc3cc0e633"
+  "bundleSha256": "3a54a0961c7f02cabf644a7c4c13bf0ca6b852bbc4493dce339bb9098e8cf6fc"
 }

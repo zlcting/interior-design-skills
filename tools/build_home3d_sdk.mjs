@@ -9,7 +9,7 @@ const position = process.argv.indexOf('--sdk-source');
 if (position < 0 || !process.argv[position + 1]) throw new Error('Use --sdk-source <canonical home3d-package directory>');
 const source = path.resolve(process.argv[position + 1]);
 const pkg = JSON.parse(await fs.readFile(path.join(source, 'package.json')));
-if (pkg.name !== '@houzzkit/home3d-package' || pkg.version !== '0.2.0') throw new Error('Expected locked SDK @houzzkit/home3d-package@0.2.0');
+if (pkg.name !== '@houzzkit/home3d-package' || pkg.version !== '0.3.0') throw new Error('Expected locked SDK @houzzkit/home3d-package@0.3.0');
 const require = createRequire(path.join(source, 'package.json'));
 const { build, version: buildVersion } = require('esbuild');
 if (buildVersion !== '0.20.2') throw new Error('Expected reproducible SDK builder esbuild@0.20.2');

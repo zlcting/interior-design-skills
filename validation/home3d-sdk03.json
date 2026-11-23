@@ -1,0 +1,104 @@
+{
+  "schema": "interior.home3d-sdk-upgrade-review.v1",
+  "date": "2026-11-23",
+  "sdk": {
+    "name": "@houzzkit/home3d-package",
+    "version": "0.3.0",
+    "sourceDigest": "58871db63449dc29af44c48f5d0191cbb2300f1da6c6ea0e134f94deba9dba74",
+    "bundleSha256": "3a54a0961c7f02cabf644a7c4c13bf0ca6b852bbc4493dce339bb9098e8cf6fc"
+  },
+  "reproducibleBundle": true,
+  "skills": 16,
+  "relativeReferences": {
+    "checked": 61,
+    "missing": []
+  },
+  "behaviorTests": {
+    "count": 132,
+    "passed": true
+  },
+  "editorRuntime": {
+    "passed": true,
+    "renderingSaveExportReimport": true,
+    "bakedAOStaleReported": true
+  },
+  "browser": {
+    "scope": "Desktop Chrome and mobile WebKit emulation on one host; no phone claim",
+    "syntheticFixture": true,
+    "twoViewsShareOneRoom": true,
+    "clients": [
+      "desktop Chrome",
+      "mobile WebKit emulation"
+    ],
+    "checks": {
+      "renderingExecuted": true,
+      "realSaveExportReimport": true,
+      "immutableBlobsPreserved": true,
+      "corruptEnvironmentRejected": true,
+      "actualUiImportEditSaveRefreshDownloadReimport": true
+    },
+    "viewport": {
+      "width": 1600,
+      "height": 1200,
+      "pixelRatio": 1
+    },
+    "pixels": {
+      "limits": {
+        "meanAbsoluteError": 0.00784313725490196,
+        "p99MaxChannelError": 0.03137254901960784
+      },
+      "pairs": [
+        {
+          "state": "original",
+          "view": "overview",
+          "meanAbsoluteError": 0.0,
+          "p99MaxChannelError": 0.0,
+          "passed": true
+        },
+        {
+          "state": "original",
+          "view": "focus",
+          "meanAbsoluteError": 0.0,
+          "p99MaxChannelError": 0.0,
+          "passed": true
+        },
+        {
+          "state": "reimported",
+          "view": "overview",
+          "meanAbsoluteError": 0.0,
+          "p99MaxChannelError": 0.0,
+          "passed": true
+        },
+        {
+          "state": "reimported",
+          "view": "focus",
+          "meanAbsoluteError": 0.0,
+          "p99MaxChannelError": 0.0,
+          "passed": true
+        }
+      ],
+      "configurationAffectsPixels": {
+        "half-exposure": {
+          "meanAbsoluteChange": 0.17997162581699347,
+          "passed": true
+        },
+        "key-off": {
+          "meanAbsoluteChange": 0.09359849060457516,
+          "passed": true
+        },
+        "shadows-off": {
+          "meanAbsoluteChange": 0.020959245642701525,
+          "passed": true
+        },
+        "environment-off": {
+          "meanAbsoluteChange": 0.07133375,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "userApproval": "not_requested",
+    "physicalPhoneReview": "not_tested",
+    "referencePipeline": "home3d.white-three-r171.v1"
+  }
+}
