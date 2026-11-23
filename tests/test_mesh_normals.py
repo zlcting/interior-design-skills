@@ -9,7 +9,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'skills/interior-orchestrator/scripts'))
-from mesh_normals import POLICY, KEY, accessor, pack, process, unpack
+from mesh_normals import POLICY, KEY, accessor, pack, process, source_normal_policy, unpack
 from illustration_meshes import detailed_mesh
 
 
@@ -57,6 +57,26 @@ class MeshNormalsTests(unittest.TestCase):
         self.assertEqual(fixed,raw);self.assertEqual(report['regeneratedPrimitives'],0)
         forced,_=process(raw,repair=True,all_static=True)
         self.assertNotEqual(forced,raw);self.assertTrue(process(forced)[1]['passed'])
+
+    def test_legacy_generated_sofa_recovers_policy_and_repairs_bad_normals(self):
+        source = {'id': 'SOFA-A', 'furniture_type': 'sofa'}
+        extras = {'object_id': 'SOFA-A', 'asset_id': 'low-wide-modular',
+                  'part_name': 'tailored seat', 'material_role': 'upholstery'}
+        self.assertEqual(source_normal_policy(extras, source), POLICY)
+        document, binary = unpack(fixture(False))
+        document['nodes'][0]['extras'][KEY] = source_normal_policy(extras, source)
+        repaired, report = process(pack(document, binary), repair=True)
+        self.assertEqual(report['regeneratedPrimitives'], 1)
+        self.assertTrue(process(repaired)[1]['passed'])
+
+        for override in ({'object_id': 'OTHER'}, {'asset_id': 'external-model'},
+                         {'part_name': 'seat piping'}, {'material_role': 'wood'}):
+            with self.subTest(override=override):
+                self.assertIsNone(source_normal_policy({**extras, **override}, source))
+        self.assertIsNone(source_normal_policy(extras, {'id': 'SOFA-A'}))
+        self.assertIsNone(source_normal_policy(extras, {**source, 'asset_id': 'external-model'}))
+        self.assertEqual(source_normal_policy({**extras, KEY: 'preserve-authored-v1'}, source),
+                         'preserve-authored-v1')
 
     def test_non_indexed_static_triangles_can_be_repaired(self):
         fixed,_=process(fixture(indexed=False),repair=True)
