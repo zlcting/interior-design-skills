@@ -13,7 +13,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument("--output-dir",type=Path,default=ROOT/"validation");args=parser.parse_args()
     if not VALIDATOR.is_file():raise SystemExit('Locate skill-creator/scripts/quick_validate.py first')
     skills=sorted((ROOT/'skills').glob('interior-*'));results=[];links=[]
-    if len(skills)!=16:raise ValueError('Expected sixteen skills')
+    if len(skills)!=17:raise ValueError('Expected seventeen skills')
     for skill in skills:
         run=subprocess.run([sys.executable,str(VALIDATOR),str(skill)],capture_output=True,text=True)
         results.append({'skill':skill.name,'passed':run.returncode==0,'output':(run.stdout+run.stderr).strip()})

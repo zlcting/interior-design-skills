@@ -47,3 +47,5 @@ python3 scripts/export_home3d.py /path/to/project \
 离线 SDK 0.3.0 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。
+
+单件家居设备的独立源包、能力/状态定义及基础模拟装配，使用[设备模型包技能](../interior-device-package/SKILL.md)。本技能现有整屋导出器继续保持空设备文档，直到有显式设备合同与装配任务；不从灯具外观推断逻辑设备。

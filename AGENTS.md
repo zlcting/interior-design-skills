@@ -1,6 +1,6 @@
 # 室内设计全流程 Skills
 
-本目录是16个 interior-* Skills和示范项目的canonical资产。`skills/`为主版本，安装副本位于用户Skills目录。
+本目录是17个 interior-* Skills和示范项目的canonical资产。`skills/`为主版本，安装副本位于用户Skills目录。
 
 - 用户已确认住宅示范：约96㎡、两卧加书房、三口之家、原木浅色、30万元预算。
 - 所有项目尺寸/材料/设备共享`model/project.json`；状态和实际输出记录在项目`state/`。
