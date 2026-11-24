@@ -116,15 +116,22 @@ class RenderingExportTests(unittest.TestCase):
             with zipfile.ZipFile(root / 'out/project.home3d') as z:
                 m, r = json.loads(z.read('package.json')), json.loads(z.read('rendering.json'))
                 self.assertEqual(m['entries']['rendering'], 'rendering.json')
+                self.assertEqual(r['profile']['id'], 'soft-studio-v1')
+                self.assertEqual(r['lights'][1]['shadow']['blurSamples'], 16)
+                self.assertLessEqual(r['lights'][1]['shadow']['radiusTexels'], 24)
                 self.assertTrue({'render.scene.v1', 'render.pipeline.three-r171-white.v1'} <= set(m['requiredCapabilities']))
                 self.assertEqual(r['projectDigest'], 'sha256:' + hashlib.sha256(z.read('project.json')).hexdigest())
                 self.assertEqual(r['environment']['digest'], 'sha256:' + hashlib.sha256(z.read(r['environment']['file'])).hexdigest())
                 self.assertEqual(r['modelLightShadows'][0]['instanceId'], 'instance-FURN_A')
                 self.assertEqual(r['modelLightShadows'][0]['lightId'], 'FURN_A')
                 self.assertTrue(r['modelLightShadows'][0]['shadow']['enabled'])
-                self.assertEqual(len(r['lights']), 3)  # no duplicate world-space model light
+                self.assertEqual(len(r['lights']), 6)  # 4 key samples, fill, hemisphere; model lamps stay local
+                keys = [light for light in r['lights'] if light['kind'] == 'directional' and light['shadow']['enabled']]
+                self.assertEqual(len(keys), 4)
+                self.assertAlmostEqual(sum(light['intensity'] for light in keys), 1.5)
+                self.assertEqual(r['shadowPolicy']['maxShadowedDirectionalLights'], 4)
             report = json.loads((root / 'out/acceptance.json').read_text())
-            self.assertEqual(report['sdk']['version'], '0.3.0')
+            self.assertEqual(report['sdk']['version'], '0.3.1')
             self.assertEqual(report['rendering']['status'], 'protocol-passed')
             self.assertEqual(report['visualReview']['status'], 'not_reviewed')
             self.assertTrue(json.loads((root / 'out/world-verification.json').read_text())['passed'])
