@@ -35,6 +35,8 @@ node scripts/device_package.mjs build /path/to/build-job.json
 
 工具检查文件清单、摘要和基础兼容，再由SDK校验GLB、合同、绑定和v4协议。build交付新的设备ZIP、测试工程及acceptance；可以装入既有v4，保留原对象、资源、光影及能力声明。不能完整表达的必需功能明确受阻，待执行器和消费者验证后扩展。
 
+交给方案中心做业务能力编排时，读[业务模板引用](references/business-template.md)。build job 的 `businessTemplate` 可按目标环境加模板 key 或 UUID 只读解析远端引用；源包已有 `requirementRef.templateKey` 时可只给环境。复用已有 `nb` 登录，解析结果写入新工程实例，产品选型和远端绑定证据另由业务流程处理。
+
 ## 验收与交付
 
 至少放置两个相同设备验证独立状态；按任务检查边界、停止和异常。SDK状态隔离不等于实际渲染材质隔离。客户端还需安装点、旋转缩放、效果跟随、保存重开、导出重导入与光影检查，详见[状态与验收](references/state-and-acceptance.md)。

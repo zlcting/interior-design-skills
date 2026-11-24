@@ -6,6 +6,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import {resolveTemplateReference} from './resolve_template.mjs';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
@@ -99,6 +100,16 @@ export function testProject(name){
 
 export async function assemble(asset,job,sdk){
   const capabilities=job.consumerCapabilities||sdk.CAPABILITIES;
+  let businessReference=null;
+  if(job.businessTemplate){
+    const config=job.businessTemplate;
+    assert(typeof config==='object'&&!Array.isArray(config)&&Object.keys(config).every(k=>['env','templateKey','templateId'].includes(k)),'businessTemplate accepts only env and templateKey or templateId');
+    const query={...config},declaredKey=asset.meta.requirementRef?.templateKey;
+    if(!query.templateKey&&!query.templateId)query.templateKey=declaredKey;
+    businessReference=await resolveTemplateReference(query);
+    if(declaredKey)assert.equal(businessReference.templateKey,declaredKey,'Business template differs from the asset requirementRef.templateKey');
+  }
+
   const source=job.basePackage?await sdk.readPackage(await fs.readFile(job.basePackage),{capabilities}):null;
   if(source)assert.equal(source.format,'v4','Only standard v4 base projects supported');
   const project=structuredClone(source?.project||testProject(job.name||asset.meta.name+' · 测试'));
@@ -122,7 +133,7 @@ export async function assemble(asset,job,sdk){
     const deviceId=place.deviceId||'device-'+place.instanceId;assert(!devices.instances.some(d=>d.id===deviceId),'Duplicate device id');
     project.instances.push({id:place.instanceId,name:place.name||asset.meta.name,kind:'device',resourceKey,floorId:place.floorId,roomId:place.roomId??null,regionId:null,materialKey:null,
       transform:{position:place.position,rotation:place.rotation||[0,0,0,1],size:place.size||def.defaultSize},visible:true,placement:place.placement,host:null,
-      extensions:{[NS]:{assetId:asset.meta.id,assetVersion:asset.meta.version}}});
+      extensions:{[NS]:{assetId:asset.meta.id,assetVersion:asset.meta.version},...(businessReference?{'org.houzzkit.device-template':businessReference}:{})}});
     devices.instances.push({id:deviceId,name:place.name||asset.meta.name,instanceId:place.instanceId,contractPath,contractDigest:digest,manualControlEnabled:true});
     for(const b of asset.template.bindings)presentation.bindings.push({deviceId,...structuredClone(b)});
     additions.push({instanceId:place.instanceId,deviceId});
@@ -169,6 +180,7 @@ export async function assemble(asset,job,sdk){
   return{bytes,parsed,report:{schema:'home3d.device-acceptance.v1',assetId:asset.meta.id,version:asset.meta.version,entryDigest:sha(asset.raw),packageFileDigest:sha(bytes),packageDigest:parsed.packageDigest,
     protocol:'passed',deterministic:true,scope:'fixed geometry, simulation, core-v4 primitives',sourcePreservation:source?'passed':'not-requested',stateIsolation:isolation,stateIsolationChecks:isolationChecks,
     scenarios:(job.scenarios||[]).map(s=>({name:s.name,status:'passed'})),consumerCapabilityCheck:job.consumerCapabilities?'passed':'not-reviewed',
+    businessTemplate:businessReference?{status:'resolved-read-only',env:job.businessTemplate.env,reference:businessReference}:{status:'not-requested'},
     materialIsolation:'not-reviewed',geometryReview:'not-reviewed',editorReview:'not-reviewed',onlineSave:'not-reviewed',realHardware:'not-reviewed',additions}};
 }
 
@@ -189,7 +201,8 @@ export async function build(jobFile,sdkInfo){
   return result.report;
 }
 
-if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+const invokedFile=process.argv[1]?await fs.realpath(path.resolve(process.argv[1])).catch(()=>null):null;
+if(invokedFile===fileURLToPath(import.meta.url)){
   try{
     const args=process.argv.slice(2),index=args.indexOf('--sdk-dir');let sdkDir;
     if(index>=0){sdkDir=args[index+1];assert(sdkDir,'Missing --sdk-dir value');args.splice(index,2);}
