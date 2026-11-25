@@ -32,7 +32,9 @@ python3 scripts/prepare_white_viewer.py /path/to/project \
 
 当前烘焙器已限定为无纹理、唯一材质名、OPAQUE PBR及透射玻璃；不支持的输入明确报错，不能静默丢纹理、alpha或替换材质。需要其他材质时先扩展并验证工具。
 
-Home3D 或自定义页面优先消费同一个配置及 `assets/white-viewer/studio.js`，通过 `WhiteStudio.create(THREE, renderer, scene, config)` 建立光照；不要在页面再维护一套散落的光强、色调和阴影常量。自定义页面提供的 THREE API 须与绑定运行版本兼容；独立入口已包含验证过的 Three.js r171。该接口只负责表现，不增加设备模拟控制。
+独立HTML或自定义页面优先消费同一个配置及 `assets/white-viewer/studio.js`，通过 `WhiteStudio.create(THREE, renderer, scene, config)` 建立光照；不要在页面再维护一套散落的光强、色调和阴影常量。自定义页面提供的 THREE API 须与绑定运行版本兼容；独立入口已包含验证过的 Three.js r171。该接口只负责表现，不增加设备模拟控制。
+
+可编辑Home3D v4交付转交 `interior-home3d`：用SDK 0.3.0将同源配置导出为完整 `rendering.json` 与冻结环境PNG，保留项目灯位、阴影、曝光和相机。H5执行包声明的Three r171参考管线；历史独立HTML继续使用既有WhiteStudio接口，两条管线的截图分别验收，不能将预设名字相同当成像素一致。
 
 ## 视觉放行
 

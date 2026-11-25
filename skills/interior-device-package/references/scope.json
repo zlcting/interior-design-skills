@@ -1,0 +1,504 @@
+{
+  "schema": "interior.device-scope-snapshot.v1",
+  "sourceName": "设备模型与渲染效果需求评审包-20261123",
+  "sourceSchema": "home3d-adaptation-scope.v3",
+  "baselineCommit": "599b6cdf4e4131afaee302e9f257c1da64993b71",
+  "sourceDigests": {
+    "index.html": "sha256:93e26ecfc2d8ce60224ae898b26936791eb2dc28d654c6a4c6921f98a2825db4",
+    "资料/scope-manifest.json": "sha256:5306c945d159fa7520f21330198b92ceaff9d7f95f28a24a8cc6a695bd93fa75",
+    "资料/design-catalog.json": "sha256:c09f81b79b718b515efe82fbc73d52f68dbb7629eaa0ae7fa2b365f7f83b0b1b"
+  },
+  "counts": {
+    "businessCategories": 11,
+    "businessDeviceTypes": 29,
+    "deviceTemplates": 29,
+    "modelTypes": 43,
+    "adaptations": 43,
+    "dynamicEffectGroups": 11,
+    "fixedModelForms": 36,
+    "proceduralCurtainForms": 6,
+    "pathForms": 1
+  },
+  "forms": [
+    {
+      "modelTypeId": "model-type.cleaning.floor-robot.general.03",
+      "templateKey": "cleaning.floor-robot.general",
+      "templateName": "扫地机器人",
+      "group": "清洁",
+      "name": "圆盘机身＋基站组合",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "robot-dock"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-conditioning.room-ac.01",
+      "templateKey": "climate-air.air-conditioning.room-ac",
+      "templateName": "空调",
+      "group": "空气调节",
+      "name": "壁挂空调",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "airflow"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-conditioning.room-ac.02",
+      "templateKey": "climate-air.air-conditioning.room-ac",
+      "templateName": "空调",
+      "group": "空气调节",
+      "name": "立式柜机",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "airflow"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-movement.fan.02",
+      "templateKey": "climate-air.air-movement.fan",
+      "templateName": "风扇",
+      "group": "空气调节",
+      "name": "落地风扇",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "airflow"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-movement.fan.03",
+      "templateKey": "climate-air.air-movement.fan",
+      "templateName": "风扇",
+      "group": "空气调节",
+      "name": "塔式风扇",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "airflow"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-treatment.air-purifier.03",
+      "templateKey": "climate-air.air-treatment.air-purifier",
+      "templateName": "空气净化器",
+      "group": "空气调节",
+      "name": "箱式净化器",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "airflow"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-treatment.dehumidifier.01",
+      "templateKey": "climate-air.air-treatment.dehumidifier",
+      "templateName": "除湿机",
+      "group": "空气调节",
+      "name": "落地除湿机",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.climate-air.air-treatment.humidifier.03",
+      "templateKey": "climate-air.air-treatment.humidifier",
+      "templateName": "加湿器",
+      "group": "空气调节",
+      "name": "无雾加湿器",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.environment-sensor.temperature-humidity-sensor.02",
+      "templateKey": "control-sensing.environment-sensor.temperature-humidity-sensor",
+      "templateName": "温湿度传感器",
+      "group": "传感器",
+      "name": "壁挂温湿度传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.presence.door-window-sensor.01",
+      "templateKey": "control-sensing.presence.door-window-sensor",
+      "templateName": "门窗传感器",
+      "group": "传感器",
+      "name": "分体磁吸门窗传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.presence.motion-sensor.01",
+      "templateKey": "control-sensing.presence.motion-sensor",
+      "templateName": "人体移动传感器",
+      "group": "传感器",
+      "name": "吸顶运动传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.presence.motion-sensor.02",
+      "templateKey": "control-sensing.presence.motion-sensor",
+      "templateName": "人体移动传感器",
+      "group": "传感器",
+      "name": "壁挂运动传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.presence.presence-sensor.01",
+      "templateKey": "control-sensing.presence.presence-sensor",
+      "templateName": "人体存在传感器",
+      "group": "传感器",
+      "name": "吸顶存在传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.presence.presence-sensor.02",
+      "templateKey": "control-sensing.presence.presence-sensor",
+      "templateName": "人体存在传感器",
+      "group": "传感器",
+      "name": "壁挂存在传感器",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.control-sensing.wall-control.multi-gang-switch.03",
+      "templateKey": "control-sensing.wall-control.multi-gang-switch",
+      "templateName": "多路开关面板",
+      "group": "开关照明",
+      "name": "多键实体按键面板",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.energy-electrical.power-endpoint.smart-plug.01",
+      "templateKey": "energy-electrical.power-endpoint.smart-plug",
+      "templateName": "智能插座",
+      "group": "开关照明",
+      "name": "墙壁插座",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.lighting.light.general.04",
+      "templateKey": "lighting.light.general",
+      "templateName": "灯",
+      "group": "开关照明",
+      "name": "顶灯（吸顶）",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "surface"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.lighting.light.general.06",
+      "templateKey": "lighting.light.general",
+      "templateName": "灯",
+      "group": "开关照明",
+      "name": "落地灯",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "point"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.lighting.light.general.08",
+      "templateKey": "lighting.light.general",
+      "templateName": "灯",
+      "group": "开关照明",
+      "name": "筒灯",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "directional"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.lighting.light.general.09",
+      "templateKey": "lighting.light.general",
+      "templateName": "灯",
+      "group": "开关照明",
+      "name": "灯带路径",
+      "geometryKind": "path",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "path"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.lighting.light.general.10",
+      "templateKey": "lighting.light.general",
+      "templateName": "灯",
+      "group": "开关照明",
+      "name": "轨道灯",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "directional"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.media-entertainment.display.television.01",
+      "templateKey": "media-entertainment.display.television",
+      "templateName": "电视",
+      "group": "影音",
+      "name": "壁挂电视",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.media-entertainment.display.television.02",
+      "templateKey": "media-entertainment.display.television",
+      "templateName": "电视",
+      "group": "影音",
+      "name": "带底座电视",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.curtain.01",
+      "templateKey": "openings-shading.curtain.curtain",
+      "templateName": "窗帘",
+      "group": "窗帘遮阳",
+      "name": "单开布帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "curtain"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.curtain.02",
+      "templateKey": "openings-shading.curtain.curtain",
+      "templateName": "窗帘",
+      "group": "窗帘遮阳",
+      "name": "双开布帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "curtain"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.curtain.03",
+      "templateKey": "openings-shading.curtain.curtain",
+      "templateName": "窗帘",
+      "group": "窗帘遮阳",
+      "name": "单开纱帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "curtain"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.curtain.04",
+      "templateKey": "openings-shading.curtain.curtain",
+      "templateName": "窗帘",
+      "group": "窗帘遮阳",
+      "name": "双开纱帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "curtain"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.roller-shade.01",
+      "templateKey": "openings-shading.curtain.roller-shade",
+      "templateName": "卷帘",
+      "group": "窗帘遮阳",
+      "name": "普通卷帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "roller"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.openings-shading.curtain.adjustable-slat.01",
+      "templateKey": "openings-shading.curtain.adjustable-slat",
+      "templateName": "百叶帘",
+      "group": "窗帘遮阳",
+      "name": "水平百叶帘（程序化）",
+      "geometryKind": "procedural",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "blind"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.security-care.access.smart-lock.01",
+      "templateKey": "security-care.access.smart-lock",
+      "templateName": "智能门锁",
+      "group": "安防",
+      "name": "执手智能锁",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.security-care.access.smart-lock.02",
+      "templateKey": "security-care.access.smart-lock",
+      "templateName": "智能门锁",
+      "group": "安防",
+      "name": "推拉智能锁",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.security-care.alarm.gas-alarm.03",
+      "templateKey": "security-care.alarm.gas-alarm",
+      "templateName": "燃气报警器",
+      "group": "安防",
+      "name": "吸顶燃气报警器",
+      "geometryKind": "fixed",
+      "displayMode": "alert-static",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.security-care.alarm.smoke-alarm.01",
+      "templateKey": "security-care.alarm.smoke-alarm",
+      "templateName": "烟雾报警器",
+      "group": "安防",
+      "name": "吸顶烟雾报警器",
+      "geometryKind": "fixed",
+      "displayMode": "alert-static",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.security-care.alarm.water-leak-alarm.01",
+      "templateKey": "security-care.alarm.water-leak-alarm",
+      "templateName": "水浸报警器",
+      "group": "安防",
+      "name": "地面水浸报警器",
+      "geometryKind": "fixed",
+      "displayMode": "alert-static",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.water-bathroom.water-heating.electric-water-heater.01",
+      "templateKey": "water-bathroom.water-heating.electric-water-heater",
+      "templateName": "电热水器",
+      "group": "热水",
+      "name": "横式储水电热水器",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.water-bathroom.water-heating.gas-water-heater.01",
+      "templateKey": "water-bathroom.water-heating.gas-water-heater",
+      "templateName": "燃气热水器",
+      "group": "热水",
+      "name": "壁挂燃气热水器",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.kitchen.refrigeration.refrigerator.01",
+      "templateKey": "kitchen.refrigeration.refrigerator",
+      "templateName": "冰箱",
+      "group": "厨房家电",
+      "name": "双门冰箱",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.kitchen.refrigeration.refrigerator.03",
+      "templateKey": "kitchen.refrigeration.refrigerator",
+      "templateName": "冰箱",
+      "group": "厨房家电",
+      "name": "对开门冰箱",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    },
+    {
+      "modelTypeId": "model-type.kitchen.cleaning-disinfection.dishwasher.01",
+      "templateKey": "kitchen.cleaning-disinfection.dishwasher",
+      "templateName": "洗碗机",
+      "group": "厨房家电",
+      "name": "嵌入式洗碗机",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.laundry.washing.washer.01",
+      "templateKey": "laundry.washing.washer",
+      "templateName": "洗衣机",
+      "group": "衣物洗护",
+      "name": "滚筒洗衣机",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.laundry.drying.dryer.01",
+      "templateKey": "laundry.drying.dryer",
+      "templateName": "干衣机",
+      "group": "衣物洗护",
+      "name": "滚筒干衣机",
+      "geometryKind": "fixed",
+      "displayMode": "running",
+      "effectGroupIds": [
+        "running"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.laundry.clothing-care.drying-rack.01",
+      "templateKey": "laundry.clothing-care.drying-rack",
+      "templateName": "晾衣架",
+      "group": "衣物洗护",
+      "name": "双杆升降晾衣架",
+      "geometryKind": "fixed",
+      "displayMode": "spatial",
+      "effectGroupIds": [
+        "lift"
+      ]
+    },
+    {
+      "modelTypeId": "model-type.water-bathroom.water-treatment.water-dispenser.02",
+      "templateKey": "water-bathroom.water-treatment.water-dispenser",
+      "templateName": "净饮机",
+      "group": "净饮",
+      "name": "台式净饮机",
+      "geometryKind": "fixed",
+      "displayMode": "static-card",
+      "effectGroupIds": []
+    }
+  ]
+}

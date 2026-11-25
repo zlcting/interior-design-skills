@@ -10,11 +10,11 @@
 
 ## 命令与依赖
 
-`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--lighting JSON`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
+`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--lighting JSON`、`--rendering JSON`、`--rendering-assets DIRECTORY`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
 
 需要 Python 3.10+、Node 20+ 和支持 glTF 的 Blender；安装整套技能后复用总控技能的求值几何交换校核。运行时 SDK 是 `scripts/vendor` 内锁定的离线制品，不安装全局 Node 包，不依赖开发者绝对目录。
 
-作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.2.0，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
+作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.3.1，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
 
 ## 显式映射
 
@@ -63,12 +63,54 @@ python3 /path/to/interior-orchestrator/scripts/mesh_normals.py source-sofa.glb \
 
 ## 统一 v4 输出
 
-离线 SDK 锁定 0.2.0，默认调用 `writePackage({version: 4, kind: 'project', ...})`。包以 `project.json` 为唯一空间权威，`resources.json` 为包内私有资源目录；不再输出 v3 的 `scene.json` 或 `runtime-resources.json`。保留同一 floorplan-scene.v5 结构合同、源编号、独立实例、洞口宿主、归一化、材质、灯光和白模预设。普通模型不编造业务版本 ID。
+离线 SDK 锁定 0.3.1，默认调用 `writePackage({version: 4, kind: 'project', ...})`。包以 `project.json` 为唯一空间权威，`resources.json` 为包内私有资源目录；不再输出 v3 的 `scene.json` 或 `runtime-resources.json`。保留同一 floorplan-scene.v5 结构合同、源编号、独立实例、洞口宿主、归一化、材质、灯光和白模预设。普通模型不编造业务版本 ID。
 
 导出器没有逻辑设备合同输入：`devices.json` 使用 `home3d.devices.v1` 和空 `instances`，`presentation.json` 使用 `home3d.presentation.v1` 和空 `bindings`。展示灯光仍写入模型侧车或 GLB，不据此生成设备合同、手动控制或真实设备绑定。不生成 `experience.json`，不声明其能力；`kind: solution`、发布和手机端交付仍由后续方案链路验收。
 
-v4 即使设备为空，也必须声明 `device.contracts.v1`、`device.presentation.v1`、`device.simulation.v1`；另声明实际使用的结构、GLB、normalization，以及有灯光时的 lighting。`package_home3d.mjs validate` 按此导出器的七项消费能力校验 v3/v4；`validate-protocol` 使用 SDK 完整协议能力，只通过后者不等于编辑器兼容。旧版仅支持 v3 的消费者会明确拒收 v4，不删除必需能力或伪装成旧版本。
+v4 即使设备为空，也必须声明 `device.contracts.v1`、`device.presentation.v1`、`device.simulation.v1`；另声明实际使用的结构、GLB、normalization，以及有灯光时的 lighting。`package_home3d.mjs validate` 按此导出器的基础七项及两项光影消费能力校验 v3/v4；`validate-protocol` 使用 SDK 完整协议能力，只通过后者不等于编辑器兼容。旧版仅支持 v3 的消费者会明确拒收 v4，不删除必需能力或伪装成旧版本。
 
 目标编辑器须包含空主房间引用的工作投影修复：合法的 `projectMetadata.mainRoomId: null` 在编辑器内应省略可选 `mainRoomId`，不能写入 `undefined` 后交给严格 JSON 编码器。已有常驻开发服务需重启以加载更新后的 SDK 和服务模块；协议预检通过不证明旧进程已更新。
 
 协议基线由 Home3D 仓库 `docs/specs/2026-11-17-home3d-unified-v4/` 维护。升级需通过本技能行为测试、源世界几何复核，以及目标编辑器的实际保存与重导入；详细步骤见[分层验收](acceptance.md)。
+
+## 光影配置导出
+
+### 显示视图与原生结构
+
+全高墙、完整洞口和窗框是可编辑工程的权威几何。离线效果图的低墙、剖切、Cycles软阴影及摄影机构图属于表现层，不能通过降低包内真实墙高来复刻。
+
+当前 `home3d.rendering.v1` 的 `geometryPresentation` 中 cutaway、frontWallFade、roomIsolation、outlines 均为 false；该版本没有可随包分发的剖切描述。不能写入未支持的 true、私自更换能力声明或把交互相机当作包内固定参考机位。若用户要求导入后默认剖切，应明确这是待补的协议/消费端能力，按授权扩展并完成导出、导入和往返验证。
+
+目标查看器可提供独立的会话预览剖切开关，采用权威模型的显示副本，并保持原墙高、洞口及窗框宿主。此开关不写入工程或 rendering.json；标准参考捕获恢复完整结构后再按包内相机和管线拍摄，捕获成功或失败后均恢复当前预览。交付时记录实际的全高/剖切模式与相机投影，不能把查看器临时开关说成包内设置。
+
+
+SDK 0.3.0新增可选 `home3d.rendering.v1`。`--lighting` 指向经几何SHA-256与锁定预设摘要核验的 `white-render-config.json` 时，自动转换其中项目专属的世界灯位、阴影视锥、曝光、环境强度、地面和正交相机，生成完整 `rendering.json`。没有此输入的普通工程仍可输出不带光影入口的v4；不自动套用白模配置。
+
+自定义光影使用完整作者模板：
+
+```sh
+python3 scripts/export_home3d.py /path/to/project \
+  --geometry /path/to/source.glb \
+  --rendering /path/to/authoring/rendering.json \
+  --rendering-assets /path/to/authoring \
+  --out /path/to/new-delivery
+```
+
+资产根默认为模板所在目录，包含模板引用的 `blobs/<sha256>.png`。模板可取自此前导出的同项目 `rendering.json`；保留完整字段、世界坐标和对象编号后修改，不用第三方户型样例代替本项目配置。`--rendering` 优先于白模自动转换，`--lighting` 仍可独立提供模型灯光侧车。环境资源不能使用网络URL、路径穿越或逃逸资产根的符号链接。
+
+白模环境按明确的sRGB渐变、像素中心采样和整数软箱范围冻结为PNG，版本为 `vertical-srgb-pixel-centers.v1`；避免客户端分别运行Canvas产生不同像素。不声称与历史HTML的Canvas结果逐像素相同。包内执行管线固定为 `home3d.white-three-r171.v1`，4倍MSAA，1600×1200参考捕获；AgX、其他投影或滤波不能静默映射到该管线，须提供支持它们的新协议版本。
+
+模型完成拆分后，共用SDK绑定最终 `project.json` 的精确字节摘要，并验证完整配置、图片与对象引用。自动转换给实际侧车灯逐实例生成投影策略，沿用配置中前 `maxShadowedFixtures` 盏灯的选择；额外点光和内嵌点光显式关闭投影。不会复制世界坐标灯光造成双重照明。内嵌SPOT/SUN不属于本光影管线，带光影配置时明确拒绝；无光影入口的旧导出能力保持原范围。显式模板的逐模型策略原样验证，不替作者补猜策略。
+
+清单同时声明 `entries.rendering`、`render.scene.v1` 与 `render.pipeline.three-r171-white.v1`，环境以内容地址存储。旧消费者缺少能力时必须拒绝。目标H5须包含SDK 0.3.1及共用渲染实现；已有常驻进程需重新加载代码。输出目录还保留完整 `rendering.json`、环境PNG和验收来源记录，方便复核或再次作为作者输入。
+
+`acceptance.json.rendering` 记录配置/工程/环境摘要、参考视角及实际模型灯数量，初始 `referenceReview` 为 `not_reviewed`；协议通过不自动升级为像素一致或客户批准。几何编辑后的 `AO_STALE` 表示保留了可能过期的烘焙颜色，需要重新审核或烘焙。
+
+
+### 共用柔和光影预设
+
+SDK 0.3.1的 `applySoftStudioPreset` 是新白模Home3D包的光影参数来源。`soft-studio-v1` 在现有Three r171/VSM协议范围内给出四个方向主光采样模拟发光面（总能量保持、角半径0.035rad）、每个采样0.14m/24texel的柔化上限及16个滤波采样、协调后的补光/半球光、环境及曝光；预设明确写入4个方向阴影的预算，按实际阴影视锥换算，保留原贴图分辨率。正式数值与摘要由SDK持有，技能不复制另一份常量。
+
+自动白模转换调用此函数后绑定工程摘要，再由共用writer完整校验；显式作者模板、已有包及独立HTML仍保留其声明参数，不因为升级SDK隐式覆盖。升级已有工程应在副本中显式应用预设、写成新包并核对几何和资源未变。
+
+Three.js客户端可从 `@houzzkit/home3d-package/rendering-three` 复用 `ThreeRenderingStudio`，统一环境、VSM、MSAA、曝光、色彩管理及参考捕获；核心reader/writer仍可离线运行。非Three客户端须实现包声明的同等管线并进行图像验收。实时柔影不等同于Cycles面积光源，不将原离线图标注为新客户端截图。SDK构建与类型入口随版本制品分发，不能只复制查看器中的光强参数。

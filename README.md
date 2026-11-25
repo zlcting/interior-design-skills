@@ -1,10 +1,10 @@
-# 室内设计全流程 · 16 Skills v3
+# 室内设计全流程 · 17 Skills v3
 
 [GitHub 仓库](https://github.com/zlcting/interior-design-skills) · [自动检查](https://github.com/zlcting/interior-design-skills/actions/workflows/validate.yml)
 
 用统一项目数据衔接需求、测量、平面、概念、空间表现、材料、灯光、定制、机电、图纸、软装、预算、校审和交付配合。
 
-16个可独立安装的 Skills、共享项目模型、二维出图与预算工具，以及两个可浏览的项目案例。
+17个可独立安装的 Skills、共享项目模型、二维出图与预算工具，以及两个可浏览的项目案例。
 
 ![栖木之家客厅：由示范项目模型生成的空间表现](projects/DEMO-APT-096/visuals/02-living.png)
 
@@ -35,6 +35,7 @@ python3 install.py --target ~/.codex/skills --check
 | Skill | 工作 |
 |---|---|
 | [interior-home3d](skills/interior-home3d/SKILL.md) | 标准可编辑 Home3D 工程、SDK校验与编辑验收 |
+| [interior-device-package](skills/interior-device-package/SKILL.md) | 单件家居设备模型包、状态与效果、v4装配与验收 |
 | [interior-orchestrator](skills/interior-orchestrator/SKILL.md) | 总控、阶段与版本 |
 | [interior-brief](skills/interior-brief/SKILL.md) | 需求、任务书与预算范围 |
 | [interior-survey](skills/interior-survey/SKILL.md) | 现状、测量与开口基线 |
@@ -120,6 +121,18 @@ blender -b -t 4 --python skills/interior-orchestrator/scripts/render_project.py 
 
 ## 可编辑 Home3D 工程
 
-新增 `interior-home3d`，从同一 `model/project.json`、带稳定对象编号的几何与灯光配置默认生成标准 v4 project `.home3d`。墙、门窗、房间和家具保持独立对象，普通模型随包携带，不绑定业务模型版本。共用打包SDK 0.2.0以锁定的离线制品随技能分发；SDK通过、几何通过、实际编辑通过和视觉通过分别记录。命令、运行依赖和验收步骤见[技能入口](skills/interior-home3d/SKILL.md)。原有十五项冻结案例与执行记录保留。
+新增 `interior-home3d`，从同一 `model/project.json`、带稳定对象编号的几何与灯光配置默认生成标准 v4 project `.home3d`。墙、门窗、房间和家具保持独立对象，普通模型随包携带，不绑定业务模型版本。共用打包SDK 0.3.0以锁定的离线制品随技能分发；支持将可信白模配置或显式作者模板导出为完整光线、阴影、曝光及参考相机配置和冻结环境图。SDK通过、几何通过、实际编辑通过和跨端视觉通过分别记录。命令、运行依赖和验收步骤见[技能入口](skills/interior-home3d/SKILL.md)。原有十五项冻结案例与执行记录保留。
 
 默认 v4 升级已通过源世界顶点、侧车/内嵌灯光和本地编辑器保存、刷新、导出重导入验收，见[升级验收记录](validation/home3d-v4.json)。旧 v3 工程仍可校验；仅支持 v3 的消费者须更新。
+
+## 家居设备模型包
+
+新增 [interior-device-package](skills/interior-device-package/SKILL.md)，把单件设备的模型、能力、状态及效果连接整理为可复用源包，并生成标准Home3D v4测试工程。自带29种设备、43项形态和11组效果的需求快照；首版工具支持固定几何、模拟状态与基础通道，可检查两实例状态隔离并保留既有工程光影。程序化生成、气流、百叶旋转和真实硬件控制仍需相应扩展和独立验收。
+
+```text
+使用 $interior-device-package 制作一个落地灯设备包。
+产品尺寸与资料<资料>，支持开关和亮度0—100%，先用模拟状态。
+输出到<新目录>，交付独立设备ZIP、两台灯的Home3D测试工程和验收记录。
+```
+
+生成不依赖本机Demo目录或飞书登录。运行工具需要Node20+、Python3及同组interior-home3d的锁定SDK；不自动安装或覆盖用户已有技能。

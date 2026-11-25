@@ -1,0 +1,35 @@
+# 状态与验收
+
+## 状态来源
+
+- property注明类型/范围/单位/枚举/权限；command只写、event只读。初值只用于属性，模拟初值不作为硬件事实。
+- 当前开度/高度/运行状态与目标值、write/execute指令分开。发送成功不表示已到位，无参数execute仍传value:null。
+- 绑定包含deviceId及适用的controlObjectId/outputId/capabilityKey，不按同名跨分路回退；源template/relation/转换/版本写入sources。
+- valid/unknown/offline/stale是质量，fault/alarm另设状态。采样有来源、时间和产品确认的过期阈值。未知不填0/false，历史报警事件不锁存为当前报警。
+- 首次载入显示当前状态，不补播历史/重复事件。真实反馈只显示插值，无更新不继续朝目标移动。后台冻结模拟，恢复先刷新真实状态；减少动态时用静态结果和文本。
+
+SDK0.3.0只有基础known/value和模拟，完整质量生命周期、硬件反馈和高级时序需另实现。首版工具拒绝real模式。
+
+## 分层验收
+
+| 层级 | 最低证据 |
+|---|---|
+| 来源 | 形态ID、产品尺寸/许可、能力依据；不把待确认项说成实测或已适配 |
+| 几何 | 单位/原点/正面、唯一目标、锚点/LOD/预算；变换后标定正确 |
+| 源包与v4 | 文件/摘要/引用、坏输入拒绝、SDK真实校验、重复构建一致 |
+| 状态 | 正常/边界/错误分路/停止/无反馈/异常，两实例独立 |
+| 渲染 | 材质隔离、关灯无残光、效果随变换、布纱独立、百叶两轴独立 |
+| 编辑往返 | 保存/重开/导出重导入，原对象、资源、绑定、光影保留 |
+| 服务与硬件 | 指定客户端/URL/包摘要的在线保存与真实反馈联调，分别报告 |
+
+负例包括缺文件、错摘要、越界路径、重名/断裂目标、类型/范围错误、通道冲突、缺必需能力、未知变0、命令被当反馈、共享材质串状态。机器人加测异常取消与回充不归座；事件不作为持续报警。
+
+结果使用passed/failed/blocked/not-reviewed并附证据。build只证明源包基础检查、SDK协议及声明场景断言；stateIsolation仅SDK状态，materialIsolation/editorReview/onlineSave/realHardware默认not-reviewed，不手工盖章。
+
+## 规范来源
+
+阅读说明：https://ywjb3x2kfn.feishu.cn/wiki/Q6Osw0qA2ieNfAk1im5c4K8Bnhe
+
+开发附录：https://ywjb3x2kfn.feishu.cn/docx/S5nud3W1yokgc2xEEuKchJ9qnif
+
+技能自带范围和方法快照，生成不要求飞书登录。源《设备模型与渲染效果需求评审包-20261123》基线599b6cdf4e4131afaee302e9f257c1da64993b71，摘要见scope.json。原始2576条能力关系只用于追溯，不是可运行合同，也不随技能分发。

@@ -9,10 +9,11 @@ if (Number(process.versions.node.split('.')[0]) < 20) throw new Error('Node.js 2
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(await fs.readFile(path.join(HERE, 'vendor/manifest.json')));
 const bundle = path.join(HERE, 'vendor/home3d-package.cjs');
-if (manifest.version !== '0.2.0' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
+if (manifest.version !== '0.3.1' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
 const sdk = createRequire(import.meta.url)(bundle);
+if (sdk.VERSION !== manifest.version) throw new Error('SDK runtime version mismatch');
 const CAPABILITIES = ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1', 'model.lighting.v1',
-  'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1'];
+  'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1', ...sdk.RENDERING_CAPABILITIES];
 const NS = 'org.houzzkit.interior';
 const EDITOR = 'com.houzzkit.editor';
 const readJson = async file => JSON.parse(await fs.readFile(file, 'utf8'));
@@ -27,7 +28,7 @@ export async function build(jobFile) {
   const fixtureOwners = job.mapping.fixtures || {};
   for (const light of fixtures)
     if (!extracted.components.some(c => c.sourceId === (fixtureOwners[light.id] || light.id))) throw new Error('LIGHT_OWNER_REQUIRED: ' + light.id);
-  const definitions = new Map(), objectMap = [];
+  const definitions = new Map(), objectMap = [], modelLights = [];
   for (const component of extracted.components) {
     const bytes = await fs.readFile(path.join(root, component.file));
     const digest = hash(bytes), blobPath = 'blobs/' + digest + '.glb';
@@ -79,18 +80,39 @@ export async function build(jobFile) {
         localV: position[1], normalOffset: 0}};
     }
     scene.instances.push(instance);
+    for(const f of normalizedFixtures)modelLights.push({instanceId:instance.id,lightId:f.id,kind:'point',rangeM:f.rangeM,sidecar:true});
+    if(!definition.lightingPath)for(const [index,node] of (model.document.nodes || []).entries()) {
+      const light=node.extensions?.KHR_lights_punctual?.light;
+      if(light===undefined || !model.reachableNodes.has(index))continue;
+      const data=model.document.extensions.KHR_lights_punctual.lights[light];
+      modelLights.push({instanceId:instance.id,lightId:node.name,kind:data.type,rangeM:data.range || 0,sidecar:false});
+    }
     objectMap.push({sourceId: component.sourceId, sourceNodes: component.sourceNodes, instanceId: instance.id,
       resourceKey, modelDigest: digest, lightingFixtures: normalizedFixtures.map(f => f.id), openingId: component.openingId});
   }
   scene.extensions[NS].sourceModelSha256 = job.sourceModelSha256;
   scene.extensions[NS].sourceGeometrySha256 = job.geometrySha256;
   const input = {version: 4, kind: 'project', name: scene.projectMetadata.name,
-    producer: {name: 'interior-home3d', version: '1.1.0'},
+    producer: {name: 'interior-home3d', version: '1.2.0'},
     requiredCapabilities: ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1',
       'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1',
       ...(fixtures.length || extracted.components.some(c => c.embeddedLights) ? ['model.lighting.v1'] : [])],
     project: scene, resources, devices: {schema: 'home3d.devices.v1', instances: []},
     presentation: {schema: 'home3d.presentation.v1', bindings: []}, entries};
+  if(job.rendering) {
+    const document=await readJson(path.join(root,job.rendering.file));
+    if(!/^blobs\/[0-9a-f]{64}\.png$/.test(document.environment.file))throw new Error('RENDER_SOURCE: unsafe environment path');
+    entries[document.environment.file]=await fs.readFile(path.join(root,document.environment.file));
+    const generated=job.rendering.generatedModelShadows;
+    if(generated)document.modelLightShadows=modelLights.map(light=>{
+      if(light.kind!=='point')throw new Error('RENDER_PIPELINE_UNSUPPORTED: model light '+light.instanceId+'/'+light.lightId+' is '+light.kind);
+      const enabled=light.sidecar && generated.shadowedFixtureIds.includes(light.lightId);
+      return {instanceId:light.instanceId,lightId:light.lightId,shadow:enabled?{enabled:true,algorithm:'three-r171-point-depth.v1',mapSize:[generated.mapSize,generated.mapSize],bias:-.0001,normalBiasM:.01,nearM:.5,farM:light.rangeM || 500}:{enabled:false}};
+    });
+    const authored=job.rendering.provenance?.kind==='white-profile' ? sdk.applySoftStudioPreset(document) : document;
+    input.rendering=sdk.bindRenderingToProject(authored,scene);
+    input.requiredCapabilities.push(...sdk.RENDERING_CAPABILITIES);
+  }
   const bytes = await sdk.writePackage(input, {capabilities: CAPABILITIES});
   const check = await sdk.validatePackage(bytes, {capabilities: CAPABILITIES});
   if (!check.valid) throw new Error(JSON.stringify(check.errors));
@@ -107,6 +129,7 @@ export async function build(jobFile) {
     package: {file: 'project.home3d', sha256: hash(bytes), packageDigest: roundtrip.packageDigest,
       format: roundtrip.format, version: roundtrip.manifest.version, kind: roundtrip.manifest.kind},
     protocol: {...check, deterministic: true, consumerCapabilities: CAPABILITIES},
+    rendering: roundtrip.rendering ? {status:'protocol-passed',documentDigest:roundtrip.renderingDigest,projectDigest:roundtrip.rendering.projectDigest,environmentDigest:roundtrip.rendering.environment.digest,viewIds:roundtrip.rendering.views.map(v=>v.id),modelLightPolicies:roundtrip.rendering.modelLightShadows.length,provenance:job.rendering.provenance,referenceReview:'not_reviewed'} : {status:'not_requested'},
     objects: {passed: true, sourceFurniture: expectedFurniture.size, walls: scene.floors[0].walls.length,
       openings: scene.floors[0].openings.length, rooms: scene.floors[0].rooms.length,
       instances: scene.instances.length, modelDefinitions: resources.resources.length, lightingFixtures: fixtures.length, embeddedLights: extracted.components.reduce((sum, c) => sum + (c.embeddedLights || 0), 0)},
@@ -117,6 +140,7 @@ export async function build(jobFile) {
       regeneratedPrimitives: extracted.components.reduce((n,c) => n + c.geometryVerification.normal_generation.regeneratedPrimitives, 0)},
     precisionNotes: ['Vertex colors are retained through Blender; storage conversion can quantize values. Exact numerical color preservation requires a separate comparison.'],
     editorReview: {status: 'not_reviewed', evidence: []}, visualReview: {status: 'not_reviewed', evidence: []}};
+  if(roundtrip.rendering)await fs.writeFile(path.join(root,'rendering.json'),sdk.encode(roundtrip.rendering));
   await fs.writeFile(path.join(root, 'project.home3d'), bytes, {flag: 'wx'});
   await fs.writeFile(path.join(root, 'object-map.json'), JSON.stringify({schema: 'interior.home3d-object-map.v1', objects: objectMap}, null, 2) + '\n');
   await fs.writeFile(path.join(root, 'acceptance.json'), JSON.stringify(report, null, 2) + '\n');

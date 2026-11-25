@@ -34,14 +34,20 @@ python3 scripts/export_home3d.py /path/to/project \
 
 资源使用包内模型与内容摘要；不编造业务 modelVersionId、不写业务系统身份或凭据。包结构、摘要、引用和能力由锁定共用 SDK 处理，不另写验证器或绕过失败检查。
 
+白模实时配置带有效 `white-home3d-v1` 来源和几何摘要时，导出器自动写入完整 `rendering.json`、冻结环境 PNG 和光影能力声明。自动生成的白模光影调用 SDK 的 `applySoftStudioPreset`，将 `soft-studio-v1` 柔和投影、补光及曝光写入文档；显式 `--rendering` 模板按作者原值保留。其他可信配置通过 `--rendering` / `--rendering-assets` 显式提供；没有配置的旧工程保留原路径，不从预设名称猜测灯位、曝光或阴影。输入与严格兼容范围见[光影导出](references/export-contract.md#光影配置导出)。
+
 ## 验收与交付
 
 依次执行[分层验收](references/acceptance.md)。SDK通过、对象/几何通过、实际编辑通过和视觉通过分别记录。
+
+交付说明分开标注离线效果图、包内全高结构和目标页面的实际显示。剖切图不能作为导入后默认画面的证据；当前协议的展示边界见[显示视图与原生结构](references/export-contract.md#显示视图与原生结构)，验收保留实际客户端截图。
 
 输出 `project.home3d`、`object-map.json`、`acceptance.json`、逐模型交换记录与实际执行日志。包可通过业务系统“导入可编辑工程”导入，不能用“导入模型”入口重新包成整屋家具。
 
 首次版本及导出工具改动需实际导入目标编辑器，修改一件家具、一段墙和一个门窗，保存、刷新、导出再导入，并检查灯光位置、材质及白模预设。未执行的检查保持 `not_reviewed`；程序通过不等同客户视觉批准。
 
-离线 SDK 0.2.0 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
+离线 SDK 0.3.1 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。
+
+单件家居设备的独立源包、能力/状态定义及基础模拟装配，使用[设备模型包技能](../interior-device-package/SKILL.md)。本技能现有整屋导出器继续保持空设备文档，直到有显式设备合同与装配任务；不从灯具外观推断逻辑设备。

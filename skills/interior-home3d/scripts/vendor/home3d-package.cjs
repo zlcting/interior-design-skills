@@ -4367,7 +4367,7 @@ var require_core = __commonJS({
         uriResolver
       };
     }
-    var Ajv3 = class {
+    var Ajv4 = class {
       constructor(opts = {}) {
         this.schemas = {};
         this.refs = {};
@@ -4737,9 +4737,9 @@ var require_core = __commonJS({
         }
       }
     };
-    Ajv3.ValidationError = validation_error_1.default;
-    Ajv3.MissingRefError = ref_error_1.default;
-    exports2.default = Ajv3;
+    Ajv4.ValidationError = validation_error_1.default;
+    Ajv4.MissingRefError = ref_error_1.default;
+    exports2.default = Ajv4;
     function checkOptions(checkOpts, options, msg, log = "error") {
       for (const key in checkOpts) {
         const opt = key;
@@ -6841,7 +6841,7 @@ var require_ajv = __commonJS({
     var draft7MetaSchema = require_json_schema_draft_07();
     var META_SUPPORT_DATA = ["/properties"];
     var META_SCHEMA_ID = "http://json-schema.org/draft-07/schema";
-    var Ajv3 = class extends core_1.default {
+    var Ajv4 = class extends core_1.default {
       _addVocabularies() {
         super._addVocabularies();
         draft7_1.default.forEach((v) => this.addVocabulary(v));
@@ -6860,11 +6860,11 @@ var require_ajv = __commonJS({
         return this.opts.defaultMeta = super.defaultMeta() || (this.getSchema(META_SCHEMA_ID) ? META_SCHEMA_ID : void 0);
       }
     };
-    exports2.Ajv = Ajv3;
-    module2.exports = exports2 = Ajv3;
-    module2.exports.Ajv = Ajv3;
+    exports2.Ajv = Ajv4;
+    module2.exports = exports2 = Ajv4;
+    module2.exports.Ajv = Ajv4;
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.default = Ajv3;
+    exports2.default = Ajv4;
     var validate_1 = require_validate();
     Object.defineProperty(exports2, "KeywordCxt", { enumerable: true, get: function() {
       return validate_1.KeywordCxt;
@@ -6905,8 +6905,12 @@ __export(stdin_exports, {
   CAPABILITIES: () => CAPABILITIES,
   LIMITS: () => LIMITS,
   PackageError: () => PackageError,
+  RENDERING_CAPABILITIES: () => RENDERING_CAPABILITIES,
+  SOFT_STUDIO_PRESET: () => SOFT_STUDIO_PRESET,
   VERSION: () => VERSION,
+  applySoftStudioPreset: () => applySoftStudioPreset,
   archivePackageEntries: () => archivePackageEntries,
+  bindRenderingToProject: () => bindRenderingToProject,
   createDemoRuntime: () => createDemoRuntime,
   createDemoRuntimeFromDocument: () => createDemoRuntimeFromDocument,
   digest: () => digest,
@@ -6922,16 +6926,11 @@ __export(stdin_exports, {
   readPackageEntries: () => readPackageEntries,
   serializeModelLighting: () => serializeModelLighting,
   validatePackage: () => validatePackage,
+  validateRendering: () => validateRendering,
   writePackage: () => writePackage,
   writePackageEntries: () => writePackageEntries
 });
 module.exports = __toCommonJS(stdin_exports);
-
-// src/unified.mjs
-var import_ajv = __toESM(require_ajv(), 1);
-
-// src/schemas.mjs
-var schemas_default = { "common.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/common.schema.json", "title": "Home3D v3 proposal: common.schema.json", "definitions": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "path": { "type": "string", "pattern": "^(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\\.(?:json|glb|png|jpg|webp)$", "maxLength": 240 }, "point": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number" }, "z": { "type": "number" } }, "required": ["x", "z"] }, "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }, "quat": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }, "size": { "type": "object", "additionalProperties": false, "properties": { "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "depth": { "type": "number", "exclusiveMinimum": 0 } }, "required": ["width", "height", "depth"] }, "extensions": { "type": "object", "propertyNames": { "pattern": "^(?:[a-z0-9-]+\\.)+[a-z0-9-]+$" }, "additionalProperties": true }, "source": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1, "maxLength": 128 }, "resourceKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "versionKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "productKey": { "type": "string", "minLength": 1, "maxLength": 128 } }, "required": ["namespace", "resourceKey", "versionKey", "digest"] }, "camera": { "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.camera.v1" }, "projection": { "enum": ["perspective", "orthographic"] }, "fov": { "type": "number", "minimum": 10, "maximum": 70 }, "azimuthDegrees": { "type": "number", "minimum": -180, "maximum": 180 }, "elevationDegrees": { "type": "number", "minimum": 10, "maximum": 85 }, "distanceScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "heightScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "depthScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 } }, "required": ["schema", "projection", "fov", "azimuthDegrees", "elevationDegrees", "distanceScale", "heightScale", "depthScale"] } } }, "device-contract.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-contract.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-contract.v1" }, "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "scopes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilities": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "behavior": { "enum": ["property", "command", "event"] }, "access": { "enum": ["read", "write", "read-write"] }, "value": { "type": "object", "additionalProperties": false, "properties": { "type": { "enum": ["boolean", "number", "integer", "enum", "string", "null"] }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string", "minLength": 1, "maxLength": 200 }, "values": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 200 }, "minItems": 1, "uniqueItems": true } }, "required": ["type"] }, "initialValue": { "type": ["boolean", "number", "string", "null"] } }, "required": ["key", "behavior", "access", "value"] }, "minItems": 1 } }, "required": ["capabilities"] }, "minItems": 1 }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "controls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "label": { "type": "string", "minLength": 1, "maxLength": 200 }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "widget": { "enum": ["toggle", "slider", "select", "value", "button"] } }, "required": ["id", "label", "source", "widget"] } }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "channel": { "enum": ["node.visible", "node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.opacity", "material.emissiveIntensity", "light.intensity", "animation.progress", "morph.weight"] }, "mapping": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "linear" }, "input": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["kind", "input", "output"] }, { "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "cases" }, "cases": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "value": { "type": ["boolean", "number", "string", "null"] }, "output": { "type": ["number", "boolean"] } }, "required": ["value", "output"] }, "minItems": 1 } }, "required": ["kind", "cases"] }] }, "enabledBy": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] } }, "required": ["id", "source", "slot", "channel", "mapping"] } } }, "required": ["controls", "effects"] }, "simulation": { "type": "object", "additionalProperties": false, "properties": { "behavior": { "const": "state-transition.v1" }, "transitions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "durationMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["target", "durationMs"] } }, "commands": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "operation": { "enum": ["set", "stop"] }, "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["operation", "target"] }, "minItems": 1 } }, "required": ["source", "effects"] } } }, "required": ["behavior", "transitions", "commands"] } }, "required": ["schema", "id", "version", "name", "scopes", "presentation", "simulation"] }, "device-program.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-program.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-program.v1" }, "projectDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "initialState": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] } }, "scenes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] } } }, "required": ["id", "name", "actions"] } }, "rules": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "when": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] }, "minItems": 1 } }, "required": ["id", "when", "actions"] } } }, "required": ["schema", "projectDigest", "initialState", "scenes", "rules"] }, "devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/devices.schema.json", "title": "Home3D v3 proposal: devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-config.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "instanceId": { "$ref": "common.schema.json#/definitions/id" }, "deviceClass": { "$ref": "common.schema.json#/definitions/id" }, "properties": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "valueType": { "enum": ["boolean", "number"] }, "readable": { "type": "boolean" }, "writable": { "type": "boolean" }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string" } }, "required": ["key", "valueType", "readable", "writable"] }, "minItems": 1 }, "previewState": { "type": "object", "additionalProperties": { "type": ["boolean", "number"] } }, "visualEffects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "property": { "$ref": "common.schema.json#/definitions/id" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] }, "channel": { "enum": ["node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.emissiveIntensity", "material.opacity", "animation.progress", "morph.weight"] }, "input": { "type": "array", "items": { "type": ["number", "boolean"] }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["property", "target", "channel", "input", "output"] } }, "controlIntent": { "type": "object", "additionalProperties": false, "properties": { "manualControlEnabled": { "type": "boolean" }, "slots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "property": { "$ref": "common.schema.json#/definitions/id" }, "operation": { "const": "set" } }, "required": ["id", "property", "operation"] } } }, "required": ["manualControlEnabled", "slots"] }, "productHint": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1 }, "productKey": { "type": "string", "minLength": 1 }, "templateKey": { "type": "string", "minLength": 1 } }, "required": ["namespace", "productKey"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "instanceId", "deviceClass", "properties", "previewState", "visualEffects", "controlIntent"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "bindings"] }, "lighting.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/lighting.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-lighting.v1" }, "modelDigest": { "$ref": "common.schema.json#/definitions/digest" }, "coordinateSystem": { "const": "right-handed-y-up" }, "fixtures": { "type": "array", "maxItems": 32, "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z0-9_:.\\u4e00-\\u9fff-]{1,128}$" }, "position": { "$ref": "common.schema.json#/definitions/vec3" }, "emitterOffsetM": { "$ref": "common.schema.json#/definitions/vec3" }, "color": { "type": "string", "pattern": "^#[0-9a-f]{6}$" }, "maxIntensity": { "type": "number", "minimum": 0, "maximum": 1e5 }, "initialBrightness": { "type": "number", "minimum": 0, "maximum": 100 }, "initialCctK": { "type": "number", "minimum": 1e3, "maximum": 4e4 }, "rangeM": { "type": "number", "minimum": 1e-3, "maximum": 1e4 } }, "required": ["id", "position", "emitterOffsetM", "color", "maxIntensity", "initialBrightness", "initialCctK", "rangeM"] } } }, "required": ["schema", "modelDigest", "coordinateSystem", "fixtures"] }, "material.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/material.schema.json", "title": "Home3D v3 proposal: material.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.material-definition.v1" }, "kind": { "const": "material" }, "baseColor": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 4, "maxItems": 4 }, "metallic": { "type": "number", "minimum": 0, "maximum": 1 }, "roughness": { "type": "number", "minimum": 0, "maximum": 1 }, "textures": { "type": "object", "additionalProperties": false, "properties": { "baseColor": { "$ref": "common.schema.json#/definitions/path" }, "normal": { "$ref": "common.schema.json#/definitions/path" }, "metallicRoughness": { "$ref": "common.schema.json#/definitions/path" } }, "required": [] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "kind", "baseColor", "metallic", "roughness", "textures"] }, "model.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/model.schema.json", "title": "Home3D v3 proposal: model.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-definition.v1" }, "kind": { "const": "model" }, "file": { "$ref": "common.schema.json#/definitions/path" }, "defaultSize": { "$ref": "common.schema.json#/definitions/size" }, "pivot": { "const": "bottom-center" }, "targets": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" }, "normalization": { "type": "object", "additionalProperties": false, "properties": { "translation": { "$ref": "common.schema.json#/definitions/vec3" }, "scale": { "$ref": "common.schema.json#/definitions/vec3" } }, "required": ["translation", "scale"] }, "lightingPath": { "$ref": "common.schema.json#/definitions/path" }, "images": { "type": "object", "additionalProperties": false, "properties": { "preview": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] }, "topView": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] } } }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] } }, "required": ["schema", "kind", "file", "defaultSize", "pivot", "targets"] }, "package.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/package.schema.json", "title": "Home3D v3 proposal: package.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.project-package.v3" }, "version": { "const": 3 }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "producer": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 } }, "required": ["name", "version"] }, "requiredCapabilities": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/id" }, "uniqueItems": true, "minItems": 2 }, "entries": { "type": "object", "additionalProperties": false, "properties": { "scene": { "const": "scene.json" }, "resources": { "const": "runtime-resources.json" }, "devices": { "const": "devices.json" } }, "required": ["scene", "resources", "devices"] }, "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "path": { "$ref": "common.schema.json#/definitions/path" }, "byteSize": { "type": "integer", "minimum": 0 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp"] } }, "required": ["path", "byteSize", "digest", "contentType"] }, "minItems": 3 }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "version", "name", "producer", "requiredCapabilities", "entries", "files"] }, "presentation.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/presentation.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.presentation.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph", "light"] }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "nodeName": { "type": "string", "minLength": 1, "maxLength": 200 } }, "required": ["kind", "name"] } }, "required": ["deviceId", "slot", "target"] } } }, "required": ["schema", "bindings"] }, "resources.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/resources.schema.json", "title": "Home3D v3 proposal: resources.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.runtime-resources.v4" }, "resources": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["model", "material"] }, "definitionPath": { "$ref": "common.schema.json#/definitions/path" }, "catalogSource": { "$ref": "common.schema.json#/definitions/source" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["key", "kind", "definitionPath"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "resources"] }, "scene.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/scene.schema.json", "title": "Home3D v3 proposal: scene.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.floorplan-scene.v5" }, "id": { "$ref": "common.schema.json#/definitions/id" }, "revision": { "type": "integer", "minimum": 1 }, "parentDigest": { "anyOf": [{ "$ref": "common.schema.json#/definitions/digest" }, { "type": "null" }] }, "unit": { "const": "m" }, "coordinateSystem": { "const": "right-handed-y-up" }, "projectMetadata": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "address": { "type": "string" }, "remark": { "type": "string" }, "activeFloorId": { "$ref": "common.schema.json#/definitions/id" }, "mainRoomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["name", "activeFloorId", "mainRoomId"] }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "profile": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "version": { "type": "integer", "minimum": 1 } }, "required": ["id", "version"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["profile"] }, "floors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "elevation": { "type": "number" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "walls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "kind": { "enum": ["straight", "arc"] }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "thickness": { "type": "number", "exclusiveMinimum": 0 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "curve": { "type": "object", "additionalProperties": false, "properties": { "center": { "$ref": "common.schema.json#/definitions/point" }, "radius": { "type": "number", "exclusiveMinimum": 0 }, "startAngle": { "type": "number" }, "sweepAngle": { "type": "number" } }, "required": ["center", "radius", "startAngle", "sweepAngle"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "kind", "start", "end", "height", "thickness", "materialKey"], "allOf": [{ "if": { "properties": { "kind": { "const": "arc" } } }, "then": { "required": ["curve"] }, "else": { "not": { "required": ["curve"] } } }] } }, "openings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "wallId": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["door", "window"] }, "offset": { "type": "number", "minimum": 0 }, "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "sillHeight": { "type": "number", "minimum": 0 }, "doorLeafMode": { "enum": ["chord", "tangent"] }, "doorHingeSide": { "enum": ["left", "right"] }, "doorSwingSide": { "enum": ["inside", "outside"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "wallId", "kind", "offset", "width", "height", "sillHeight"] } }, "rooms": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "boundary", "materialKey"] } }, "regions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 } }, "required": ["id", "roomId", "name", "boundary"] } }, "dividers": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" } }, "required": ["id", "start", "end"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "elevation", "height", "walls", "openings", "rooms", "regions", "dividers"] }, "minItems": 1 }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "kind": { "enum": ["furnishing", "device", "opening-frame"] }, "resourceKey": { "$ref": "common.schema.json#/definitions/id" }, "floorId": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "regionId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "transform": { "type": "object", "additionalProperties": false, "properties": { "position": { "$ref": "common.schema.json#/definitions/vec3" }, "rotation": { "$ref": "common.schema.json#/definitions/quat" }, "size": { "$ref": "common.schema.json#/definitions/size" } }, "required": ["position", "rotation", "size"] }, "placement": { "enum": ["floor", "wall", "ceiling", "surface", "opening"] }, "host": { "anyOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["wall", "opening", "instance"] }, "id": { "$ref": "common.schema.json#/definitions/id" } }, "required": ["kind", "id"] }, { "type": "null" }] }, "openingFit": { "type": "object", "additionalProperties": false, "properties": { "margins": { "type": "object", "additionalProperties": false, "properties": { "left": { "type": "number", "minimum": 0 }, "right": { "type": "number", "minimum": 0 }, "top": { "type": "number", "minimum": 0 }, "bottom": { "type": "number", "minimum": 0 } }, "required": ["left", "right", "top", "bottom"] }, "normalOffset": { "type": "number" } }, "required": ["margins", "normalOffset"] }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "visible": { "type": "boolean" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "kind", "resourceKey", "floorId", "roomId", "regionId", "transform", "placement", "host", "materialKey", "visible"] } }, "extensions": { "allOf": [{ "$ref": "common.schema.json#/definitions/extensions" }], "properties": { "com.houzzkit.camera": { "$ref": "common.schema.json#/definitions/camera" } } } }, "required": ["schema", "id", "revision", "parentDigest", "unit", "coordinateSystem", "projectMetadata", "floors", "instances"] }, "unified-devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/unified-devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.devices.v1" }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "instanceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "contractPath": { "type": "string", "pattern": "^contracts/[0-9a-f]{64}\\.json$" }, "contractDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "manualControlEnabled": { "type": "boolean" } }, "required": ["id", "name", "instanceId", "contractPath", "contractDigest", "manualControlEnabled"] } } }, "required": ["schema", "instances"] }, "unified-package.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/unified-package.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.package.v4" }, "version": { "const": 4 }, "kind": { "enum": ["project", "solution"] }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "producer": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "version": { "type": "string", "minLength": 1, "maxLength": 200 } }, "required": ["name", "version"] }, "requiredCapabilities": { "type": "array", "items": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "minItems": 2, "uniqueItems": true }, "entries": { "type": "object", "additionalProperties": false, "properties": { "project": { "const": "project.json" }, "resources": { "const": "resources.json" }, "devices": { "const": "devices.json" }, "presentation": { "const": "presentation.json" }, "experience": { "const": "experience.json" } }, "required": ["project", "resources", "devices", "presentation"] }, "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "path": { "type": "string", "maxLength": 240 }, "byteSize": { "type": "integer", "minimum": 0 }, "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp", "audio/mpeg", "audio/wav"] } }, "required": ["path", "byteSize", "digest", "contentType"] }, "minItems": 4 } }, "required": ["schema", "version", "kind", "name", "producer", "requiredCapabilities", "entries", "files"] } };
 
 // ../../node_modules/@noble/hashes/esm/utils.js
 /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
@@ -8515,973 +8514,85 @@ function writeArchive(entries) {
   return zipSync(sorted);
 }
 
-// src/unified.mjs
-var UNIFIED_CAPABILITIES = Object.freeze([
-  "device.contracts.v1",
-  "device.presentation.v1",
-  "device.simulation.v1",
-  "experience.references.v1"
-]);
-var DEVICE_CHANNELS = Object.freeze([
-  "node.visible",
-  "node.position.x",
-  "node.position.y",
-  "node.position.z",
-  "node.scale.x",
-  "node.scale.y",
-  "node.scale.z",
-  "material.opacity",
-  "material.emissiveIntensity",
-  "light.intensity",
-  "animation.progress",
-  "morph.weight"
-]);
-var ajv = new import_ajv.default({ strict: false, allErrors: false });
-for (const schema2 of Object.values(schemas_default))
-  ajv.addSchema(schema2);
-var actionShape = ajv.compile(
-  schemas_default["device-program.schema.json"].properties.scenes.items.properties.actions.items
-);
-function validate(name, value, document2) {
-  const validator = ajv.getSchema(schemas_default[name + ".schema.json"].$id);
-  if (!validator(value)) {
-    const e = validator.errors[0];
-    throw new PackageError("SCHEMA", e.message, document2, e.instancePath);
+// src/rendering-presets.mjs
+var preset = {
+  id: "soft-studio-v1",
+  version: 1,
+  keySamples: 4,
+  emitterAngularRadiusRadians: 0.035,
+  perSampleSoftnessM: 0.14,
+  maxRadiusTexels: 24,
+  blurSamples: 16,
+  keyIntensity: 1.5,
+  fillIntensity: 0.65,
+  hemisphereIntensity: 0.6,
+  environmentIntensity: 0.35,
+  exposureMultiplier: 0.82,
+  backgroundColor: "#6e8fba",
+  groundColor: "#7095d2"
+};
+var SOFT_STUDIO_PRESET = Object.freeze({ ...preset, sourceDigest: digest(encode(preset)) });
+var cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+var unit = (v) => {
+  const n = Math.hypot(...v);
+  if (!(n > 1e-9 && Number.isFinite(n)))
+    throw new TypeError("Soft studio requires a nondegenerate light direction");
+  return v.map((x) => x / n);
+};
+function applySoftStudioPreset(rendering) {
+  if (rendering?.schema !== "home3d.rendering.v1" || rendering.pipeline?.id !== "home3d.white-three-r171.v1")
+    throw new TypeError("Soft studio requires home3d.rendering.v1 and the Three r171 white pipeline");
+  const next = structuredClone(rendering), p = SOFT_STUDIO_PRESET;
+  const key = next.lights.find((l) => l.kind === "directional" && l.shadow.enabled);
+  if (!key)
+    throw new TypeError("Soft studio requires one authored shadowed directional key light");
+  const ids = Array.from({ length: p.keySamples - 1 }, (_, i) => `${key.id}.soft-sample-${i + 1}`);
+  if (ids.some((id) => id.length > 128))
+    throw new TypeError("Soft studio key light ID is too long");
+  const already = rendering.profile?.id === p.id;
+  if (!already && next.lights.some((l) => ids.includes(l.id)))
+    throw new TypeError("Soft studio sample light identity collision");
+  if (already)
+    next.lights = next.lights.filter((l) => !ids.includes(l.id));
+  if (next.lights.some((l) => l !== key && l.kind === "directional" && l.shadow.enabled))
+    throw new TypeError("Soft studio supports one primary shadowed directional light");
+  next.profile = { id: p.id, version: p.version, sourceDigest: p.sourceDigest };
+  next.renderer.exposureMultiplier = p.exposureMultiplier;
+  next.renderer.exposureCompensationEV = 0;
+  next.environment.intensity = p.environmentIntensity;
+  next.background.color = p.backgroundColor;
+  next.ground.color = p.groundColor;
+  for (const light of next.lights) {
+    if (light.kind === "hemisphere")
+      light.intensity = p.hemisphereIntensity;
+    if (light.kind === "directional")
+      light.intensity = light === key ? p.keyIntensity / p.keySamples : p.fillIntensity;
   }
-}
-var scopeKey = (ref) => JSON.stringify([
-  ref.controlObjectId ?? null,
-  ref.outputId ?? null,
-  ref.capabilityKey
-]);
-var stateKey = (ref) => JSON.stringify([
-  ref.deviceId,
-  ref.controlObjectId ?? null,
-  ref.outputId ?? null,
-  ref.capabilityKey
-]);
-function validCapabilityValue(schema2, value) {
-  if (schema2.type === "null")
-    return value === null;
-  if (schema2.type === "boolean")
-    return typeof value === "boolean";
-  if (schema2.type === "enum")
-    return typeof value === "string" && schema2.values.includes(value);
-  if (schema2.type === "string")
-    return typeof value === "string" && value.length <= 4096;
-  return typeof value === "number" && Number.isFinite(value) && (schema2.type !== "integer" || Number.isInteger(value)) && value >= schema2.minimum && value <= schema2.maximum;
-}
-function unique(items, key, document2, path) {
-  const result = /* @__PURE__ */ new Map();
-  items.forEach((item, i) => {
-    const id = key(item);
-    requireValue(
-      !result.has(id),
-      "DUPLICATE_ID",
-      "Duplicate identity: " + id,
-      document2,
-      path + "/" + i
-    );
-    result.set(id, item);
-  });
-  return result;
-}
-function contractCapabilities(contract, document2 = "contracts.json") {
-  validate("device-contract", contract, document2);
-  const capabilities = /* @__PURE__ */ new Map();
-  const scopes = /* @__PURE__ */ new Set();
-  for (const [i, scope] of contract.scopes.entries()) {
-    const key = JSON.stringify([
-      scope.controlObjectId ?? null,
-      scope.outputId ?? null
-    ]);
-    requireValue(
-      !scopes.has(key),
-      "DUPLICATE_SCOPE",
-      "Scope identity must be unique",
-      document2,
-      "/scopes/" + i
-    );
-    scopes.add(key);
-    for (const [j, capability] of scope.capabilities.entries()) {
-      const at = "/scopes/" + i + "/capabilities/" + j;
-      const k = scopeKey({ ...scope, capabilityKey: capability.key });
-      requireValue(
-        !capabilities.has(k),
-        "DUPLICATE_CAPABILITY",
-        "Capability identity must be unique",
-        document2,
-        at
-      );
-      capabilities.set(k, capability);
-      const v = capability.value;
-      requireValue(
-        !["number", "integer"].includes(v.type) || Number.isFinite(v.minimum) && Number.isFinite(v.maximum) && v.minimum < v.maximum,
-        "CAPABILITY_RANGE",
-        "Numeric values require a finite minimum and maximum",
-        document2,
-        at
-      );
-      requireValue(
-        v.type !== "enum" || Array.isArray(v.values),
-        "CAPABILITY_ENUM",
-        "Enum values are required",
-        document2,
-        at
-      );
-      requireValue(
-        capability.behavior === "property" ? ["read", "read-write"].includes(capability.access) : capability.behavior === "command" ? capability.access === "write" : capability.access === "read",
-        "CAPABILITY_ACCESS",
-        "Properties must be readable; command must be write-only; event must be read-only",
-        document2,
-        at
-      );
-      if (Object.hasOwn(capability, "initialValue")) {
-        requireValue(
-          capability.behavior === "property" && validCapabilityValue(v, capability.initialValue),
-          "STATE_VALUE",
-          "Invalid initial property value",
-          document2,
-          at + "/initialValue"
-        );
-      }
-    }
+  const s = key.shadow, c = s.camera;
+  const texelM = Math.max((c.right - c.left) / s.mapSize[0], (c.top - c.bottom) / s.mapSize[1]);
+  if (!(texelM > 0 && Number.isFinite(texelM)))
+    throw new TypeError("Soft studio requires a finite orthographic shadow frustum");
+  s.radiusTexels = Math.min(p.perSampleSoftnessM / texelM, p.maxRadiusTexels);
+  s.blurSamples = p.blurSamples;
+  const direction = unit(key.positionM.map((v, i) => v - key.targetM[i]));
+  const tangent = unit(cross(direction, Math.abs(direction[1]) > 0.98 ? [1, 0, 0] : [0, 1, 0]));
+  const bitangent = cross(direction, tangent), distance = Math.hypot(...key.positionM.map((v, i) => v - key.targetM[i]));
+  const radius = distance * Math.tan(p.emitterAngularRadiusRadians);
+  for (let i = 0; i < ids.length; i++) {
+    const angle = i * 2 * Math.PI / ids.length, sample = structuredClone(key);
+    sample.id = ids[i];
+    sample.positionM = key.positionM.map((v, j) => v + radius * (tangent[j] * Math.cos(angle) + bitangent[j] * Math.sin(angle)));
+    next.lights.push(sample);
   }
-  const resolve = (ref, at) => {
-    const c = capabilities.get(scopeKey(ref));
-    requireValue(
-      c,
-      "CAPABILITY_REFERENCE",
-      "Unknown capability or exact scope",
-      document2,
-      at
-    );
-    return c;
-  };
-  unique(
-    contract.presentation.controls,
-    (c) => c.id,
-    document2,
-    "/presentation/controls"
-  );
-  for (const [i, c] of contract.presentation.controls.entries()) {
-    const at = "/presentation/controls/" + i, cap = resolve(c.source, at);
-    requireValue(
-      c.widget === "value" ? cap.access !== "write" : cap.access !== "read",
-      "CONTROL_ACCESS",
-      "Control access differs from capability",
-      document2,
-      at
-    );
-    const expected = {
-      toggle: "boolean",
-      slider: ["number", "integer"],
-      select: "enum"
-    }[c.widget];
-    requireValue(
-      !expected || [expected].flat().includes(cap.value.type),
-      "CONTROL_TYPE",
-      "Widget type differs from capability",
-      document2,
-      at
-    );
-    requireValue(
-      c.widget !== "button" || cap.behavior === "command",
-      "CONTROL_TYPE",
-      "Button requires a command",
-      document2,
-      at
-    );
-    requireValue(
-      c.widget === "button" || cap.behavior === "property",
-      "CONTROL_TYPE",
-      "State widget requires a property",
-      document2,
-      at
-    );
-  }
-  unique(
-    contract.presentation.effects,
-    (e) => e.id,
-    document2,
-    "/presentation/effects"
-  );
-  const drivers = /* @__PURE__ */ new Set();
-  for (const [i, e] of contract.presentation.effects.entries()) {
-    const at = "/presentation/effects/" + i, c = resolve(e.source, at);
-    requireValue(
-      c.behavior === "property" && c.access !== "write",
-      "EFFECT_SOURCE",
-      "Effects require readable property state",
-      document2,
-      at
-    );
-    if (e.enabledBy) {
-      const gate = resolve(e.enabledBy, at + "/enabledBy");
-      requireValue(
-        gate.behavior === "property" && gate.access !== "write" && gate.value.type === "boolean" && ["light.intensity", "material.emissiveIntensity"].includes(e.channel),
-        "EFFECT_GATE",
-        "Intensity gate requires readable boolean state",
-        document2,
-        at
-      );
-    }
-    const driver = e.slot + ":" + e.channel;
-    requireValue(
-      !drivers.has(driver),
-      "EFFECT_CONFLICT",
-      "Two effects drive the same slot channel",
-      document2,
-      at
-    );
-    drivers.add(driver);
-    if (e.mapping.kind === "linear") {
-      requireValue(
-        ["number", "integer"].includes(c.value.type) && e.mapping.input[0] === c.value.minimum && e.mapping.input[1] === c.value.maximum,
-        "EFFECT_RANGE",
-        "Linear input must match numeric contract range",
-        document2,
-        at
-      );
-    } else {
-      unique(e.mapping.cases, (v) => JSON.stringify(v.value), document2, at);
-      const values = e.mapping.cases.map((v) => v.value);
-      const domain = c.value.type === "boolean" ? [false, true] : c.value.values;
-      requireValue(
-        domain && values.length === domain.length && domain.every((v) => values.includes(v)),
-        "EFFECT_RANGE",
-        "Cases must cover the complete enum or boolean contract",
-        document2,
-        at
-      );
-    }
-    const outputs = e.mapping.kind === "linear" ? e.mapping.output : e.mapping.cases.map((v) => v.output);
-    requireValue(
-      outputs.every(
-        (v) => e.channel === "node.visible" ? typeof v === "boolean" : typeof v === "number" && Number.isFinite(v) && (!e.channel.includes(".scale.") || v > 0) && (![
-          "material.opacity",
-          "animation.progress",
-          "morph.weight"
-        ].includes(e.channel) || v >= 0 && v <= 1) && (!["material.emissiveIntensity", "light.intensity"].includes(
-          e.channel
-        ) || v >= 0)
-      ),
-      "EFFECT_RANGE",
-      "Output is outside the channel domain",
-      document2,
-      at
-    );
-  }
-  unique(
-    contract.simulation.transitions,
-    (t) => scopeKey(t.target),
-    document2,
-    "/simulation/transitions"
-  );
-  for (const [i, t] of contract.simulation.transitions.entries()) {
-    const c = resolve(t.target, "/simulation/transitions/" + i);
-    requireValue(
-      c.behavior === "property" && c.access === "read-write" && c.value.type === "number",
-      "SIMULATION_TRANSITION",
-      "Transitions require a read-write numeric property",
-      document2,
-      "/simulation/transitions/" + i
-    );
-  }
-  unique(
-    contract.simulation.commands,
-    (c) => scopeKey(c.source),
-    document2,
-    "/simulation/commands"
-  );
-  for (const [i, command] of contract.simulation.commands.entries()) {
-    const at = "/simulation/commands/" + i;
-    requireValue(
-      resolve(command.source, at).behavior === "command",
-      "SIMULATION_COMMAND",
-      "Command reference required",
-      document2,
-      at
-    );
-    for (const effect of command.effects) {
-      const c = resolve(effect.target, at);
-      requireValue(
-        c.behavior === "property" && c.access !== "write" && (effect.operation === "stop" ? c.value.type === "number" && !Object.hasOwn(effect, "value") : validCapabilityValue(c.value, effect.value)),
-        "SIMULATION_COMMAND",
-        "Invalid command state effect",
-        document2,
-        at
-      );
-    }
-  }
-  const implementedCommands = new Set(
-    contract.simulation.commands.map((command) => scopeKey(command.source))
-  );
-  for (const [key, capability] of capabilities)
-    requireValue(
-      capability.behavior !== "command" || implementedCommands.has(key),
-      "SIMULATION_COMMAND",
-      "Declared command has no simulated implementation",
-      document2,
-      "/simulation/commands"
-    );
-  return capabilities;
-}
-function validateProgram(program, context, projectDigest) {
-  validate("device-program", program, "experience.json");
-  requireValue(
-    program.projectDigest === projectDigest,
-    "PROJECT_DIGEST",
-    "Experience targets a different project",
-    "experience.json",
-    "/projectDigest"
-  );
-  const initial = unique(
-    program.initialState,
-    (v) => stateKey(v.target),
-    "experience.json",
-    "/initialState"
-  );
-  for (const [i, item] of [...initial.values()].entries()) {
-    const c = resolveCapability(context, item.target);
-    requireValue(
-      c.behavior === "property" && c.access !== "write" && validCapabilityValue(c.value, item.value),
-      "STATE_VALUE",
-      "Initial state must match a readable property",
-      "experience.json",
-      "/initialState/" + i
-    );
-  }
-  unique(program.scenes, (v) => v.id, "experience.json", "/scenes");
-  unique(program.rules, (v) => v.id, "experience.json", "/rules");
-  for (const [i, scene] of program.scenes.entries())
-    for (const [j, action] of scene.actions.entries())
-      validateAction(context, action, "/scenes/" + i + "/actions/" + j);
-  for (const [i, rule] of program.rules.entries()) {
-    const c = resolveCapability(context, rule.when.target);
-    requireValue(
-      c.behavior !== "command" && c.access !== "write" && validCapabilityValue(c.value, rule.when.value),
-      "RULE_SOURCE",
-      "Rule source must be observable",
-      "experience.json",
-      "/rules/" + i
-    );
-    for (const [j, action] of rule.actions.entries())
-      validateAction(context, action, "/rules/" + i + "/actions/" + j);
-  }
-}
-function resolveCapability(context, ref) {
-  const device = context.deviceIndex.get(ref.deviceId);
-  requireValue(
-    device,
-    "DEVICE_REFERENCE",
-    "Unknown device: " + ref.deviceId,
-    "devices.json"
-  );
-  const capability = device.capabilities.get(scopeKey(ref));
-  requireValue(
-    capability,
-    "CAPABILITY_REFERENCE",
-    "Unknown exact device scope/capability",
-    "devices.json",
-    "",
-    { objectId: ref.deviceId }
-  );
-  return capability;
-}
-function validateAction(context, action, path = "") {
-  requireValue(
-    actionShape(action),
-    "SCHEMA",
-    "Invalid device action: " + (actionShape.errors?.[0]?.message || ""),
-    "experience.json",
-    path
-  );
-  const c = resolveCapability(context, action);
-  const ok = action.operation === "write" ? c.behavior === "property" && c.access === "read-write" : action.operation === "execute" ? c.behavior === "command" && c.access === "write" : ["observe", "subscribe"].includes(action.operation) && action.sample === true && c.behavior !== "command" && c.access !== "write";
-  requireValue(
-    ok,
-    "ACTION_ACCESS",
-    "Operation is not allowed by the scoped contract; simulated samples must be explicit",
-    "experience.json",
-    path
-  );
-  requireValue(
-    validCapabilityValue(c.value, action.value),
-    "ACTION_VALUE",
-    "Action value violates capability contract",
-    "experience.json",
-    path
-  );
-  requireValue(
-    action.transitionMs === void 0 || c.value.type === "number" && action.operation === "write",
-    "ACTION_TRANSITION",
-    "Transition override requires numeric property write",
-    "experience.json",
-    path
-  );
-  return c;
-}
-async function readUnifiedPackage(entries, manifest, options, geometry, validateFiles) {
-  validate("unified-package", manifest, "package.json");
-  validateFiles(entries, manifest);
-  requireValue(
-    manifest.kind === "project",
-    "UNSUPPORTED_CAPABILITY",
-    "Solution delivery requires the solution timeline and consumer authorization phase",
-    "package.json",
-    "/kind"
-  );
-  const required = new Set(manifest.requiredCapabilities);
-  const supported = new Set(options.capabilities || []);
-  for (const c of required)
-    requireValue(
-      supported.has(c),
-      "UNSUPPORTED_CAPABILITY",
-      "Unsupported required capability: " + c,
-      "package.json",
-      "/requiredCapabilities"
-    );
-  for (const c of UNIFIED_CAPABILITIES.slice(0, 3))
-    requireValue(
-      required.has(c),
-      "MISSING_CAPABILITY",
-      "Missing required capability: " + c
-    );
-  const json = (path) => {
-    requireValue(entries[path], "MISSING_FILE", "Missing document", path);
-    const value = parseJson(entries[path], path);
-    checkCredentials(value, path);
-    return value;
-  };
-  const base = await geometry(
-    entries,
-    {
-      ...manifest,
-      entries: {
-        scene: "project.json",
-        resources: "resources.json",
-        devices: "devices.json"
-      }
-    },
-    { ...options, fillMissingFloorHeights: false },
-    { schema: "home3d.device-config.v1", bindings: [] }
-  );
-  const devices = json("devices.json"), presentation = json("presentation.json");
-  validate("unified-devices", devices, "devices.json");
-  validate("presentation", presentation, "presentation.json");
-  const instances = new Map(base.scene.instances.map((i) => [i.id, i]));
-  const definitions = /* @__PURE__ */ new Map(), deviceIndex = /* @__PURE__ */ new Map(), usedInstances = /* @__PURE__ */ new Set(), contractPaths = /* @__PURE__ */ new Set();
-  unique(devices.instances, (d) => d.id, "devices.json", "/instances");
-  for (const [i, device] of devices.instances.entries()) {
-    const at = "/instances/" + i, instance = instances.get(device.instanceId);
-    requireValue(
-      instance?.kind === "device" && !usedInstances.has(instance.id),
-      "DEVICE_INSTANCE",
-      "Device must own a distinct device instance",
-      "devices.json",
-      at
-    );
-    usedInstances.add(instance.id);
-    const contract = json(device.contractPath), actual = digest(entries[device.contractPath]);
-    requireValue(
-      actual === device.contractDigest && device.contractPath === "contracts/" + actual.slice(7) + ".json",
-      "CONTRACT_DIGEST",
-      "Frozen contract digest or path mismatch",
-      "devices.json",
-      at
-    );
-    contractPaths.add(device.contractPath);
-    let parsed = definitions.get(actual);
-    if (!parsed) {
-      parsed = {
-        contract,
-        capabilities: contractCapabilities(contract, device.contractPath)
-      };
-      definitions.set(actual, parsed);
-    }
-    deviceIndex.set(device.id, { ...device, ...parsed, instance });
-  }
-  requireValue(
-    base.scene.instances.filter((i) => i.kind === "device").every((i) => usedInstances.has(i.id)),
-    "DEVICE_UNCONFIGURED",
-    "Every device instance requires a frozen contract",
-    "devices.json"
-  );
-  requireValue(
-    Object.keys(entries).filter((p) => p.startsWith("contracts/")).every((p) => contractPaths.has(p)),
-    "UNREFERENCED_CONTRACT",
-    "Contract files must be referenced by device instances"
-  );
-  const identities = /* @__PURE__ */ new Map();
-  for (const [hash, value] of definitions) {
-    const key = JSON.stringify([value.contract.id, value.contract.version]);
-    requireValue(
-      !identities.has(key) || identities.get(key) === hash,
-      "CONTRACT_VERSION",
-      "One contract identity/version cannot have two digests in a package",
-      "devices.json"
-    );
-    identities.set(key, hash);
-  }
-  const bindings = unique(
-    presentation.bindings,
-    (b) => JSON.stringify([b.deviceId, b.slot]),
-    "presentation.json",
-    "/bindings"
-  );
-  const actualDrivers = /* @__PURE__ */ new Set();
-  for (const [i, binding] of presentation.bindings.entries()) {
-    const device = deviceIndex.get(binding.deviceId), at = "/bindings/" + i;
-    requireValue(
-      device,
-      "DEVICE_REFERENCE",
-      "Unknown binding device",
-      "presentation.json",
-      at
-    );
-    const effects = device.contract.presentation.effects.filter(
-      (e) => e.slot === binding.slot
-    );
-    requireValue(
-      effects.length,
-      "SLOT_REFERENCE",
-      "Slot is not declared by the contract",
-      "presentation.json",
-      at
-    );
-    const def = base.definitions[device.instance.resourceKey], t = binding.target;
-    const declared = t.kind === "light" ? def.lightingPath ? json(def.lightingPath).fixtures.some((f) => f.id === t.name) : base.models[device.instance.resourceKey].document.nodes?.filter(
-      (n) => n.name === t.name && n.extensions?.KHR_lights_punctual
-    ).length === 1 : def.targets.some(
-      (v) => v.kind === t.kind && v.name === t.name && v.nodeName === t.nodeName
-    );
-    requireValue(
-      declared,
-      "EFFECT_TARGET",
-      "Target must resolve in the owning model definition or lighting",
-      "presentation.json",
-      at
-    );
-    for (const effect of effects) {
-      requireValue(
-        effect.channel.startsWith(t.kind + "."),
-        "EFFECT_CHANNEL",
-        "Target kind differs from effect channel",
-        "presentation.json",
-        at
-      );
-      const driver = JSON.stringify([
-        device.instance.id,
-        t.kind,
-        t.name,
-        t.nodeName,
-        effect.channel
-      ]);
-      requireValue(
-        !actualDrivers.has(driver),
-        "EFFECT_CONFLICT",
-        "Multiple slots drive the same actual model channel",
-        "presentation.json",
-        at
-      );
-      actualDrivers.add(driver);
-    }
-  }
-  for (const device of deviceIndex.values())
-    for (const effect of device.contract.presentation.effects)
-      requireValue(
-        bindings.has(JSON.stringify([device.id, effect.slot])),
-        "SLOT_REFERENCE",
-        "Missing model slot binding",
-        "presentation.json",
-        "",
-        { objectId: device.id }
-      );
-  const context = { deviceIndex };
-  const experience = manifest.entries.experience ? json("experience.json") : void 0;
-  if (experience) {
-    requireValue(
-      required.has("experience.references.v1"),
-      "MISSING_CAPABILITY",
-      "Device program requires experience.references.v1"
-    );
-    validateProgram(experience, context, digest(entries["project.json"]));
-  }
-  return {
-    format: "v4",
-    manifest,
-    project: base.scene,
-    resources: base.resources,
-    devices,
-    presentation,
-    experience,
-    definitions: base.definitions,
-    models: base.models,
-    entries,
-    packageDigest: digest(entries["package.json"]),
-    contractSetDigest: digest(encode([...definitions.keys()].sort())),
-    contracts: Object.fromEntries(
-      [...definitions].map(([k, v]) => [k, v.contract])
-    ),
-    deviceIndex,
-    warnings: base.warnings.filter(
-      (issue) => issue.code !== "DEVICE_UNCONFIGURED"
-    ),
-    summary: {
-      ...base.summary,
-      deviceBindings: devices.instances.length,
-      contracts: definitions.size
-    }
-  };
-}
-function unifiedEntries(input, version, mime2) {
-  const entries = /* @__PURE__ */ Object.create(null);
-  for (const [p, value] of Object.entries(input.entries || {})) {
-    requireValue(
-      safePath(p) && ![
-        "package.json",
-        "project.json",
-        "resources.json",
-        "devices.json",
-        "presentation.json",
-        "experience.json"
-      ].includes(p),
-      "UNSAFE_PATH",
-      "Invalid supplied payload path",
-      p
-    );
-    entries[p] = value instanceof Uint8Array ? value : encode(value);
-  }
-  entries["project.json"] = encode(input.project);
-  entries["resources.json"] = encode(input.resources);
-  entries["devices.json"] = encode(input.devices);
-  entries["presentation.json"] = encode(input.presentation);
-  if (input.experience)
-    entries["experience.json"] = encode(input.experience);
-  const manifest = {
-    schema: "home3d.package.v4",
-    version: 4,
-    kind: input.kind,
-    name: input.name,
-    producer: input.producer || { name: "home3d-package", version },
-    requiredCapabilities: [
-      ...new Set(
-        input.requiredCapabilities || [
-          "scene.structure.v1",
-          "model.glb.v1",
-          ...UNIFIED_CAPABILITIES
-        ]
-      )
-    ].sort(),
-    entries: {
-      project: "project.json",
-      resources: "resources.json",
-      devices: "devices.json",
-      presentation: "presentation.json",
-      ...input.experience ? { experience: "experience.json" } : {}
-    },
-    files: Object.keys(entries).sort().map((path) => ({
-      path,
-      byteSize: entries[path].length,
-      digest: digest(entries[path]),
-      contentType: mime2(path)
-    }))
-  };
-  entries["package.json"] = encode(manifest);
-  return entries;
-}
-function deviceRuntimeIndex(document2) {
-  requireValue(document2?.schema === "home3d.editor-devices.v4", "DEMO_PACKAGE", "Invalid editor device document");
-  validate("unified-devices", document2.devices, "devices.json");
-  validate("presentation", document2.presentation, "presentation.json");
-  const devices = unique(document2.devices.instances, (d) => d.id, "devices.json", "/instances"), result = /* @__PURE__ */ new Map();
-  for (const device of devices.values()) {
-    const text = document2.contracts[device.contractPath];
-    requireValue(typeof text === "string", "CONTRACT_DIGEST", "Missing frozen contract", device.contractPath);
-    const bytes = new TextEncoder().encode(text);
-    requireValue(digest(bytes) === device.contractDigest, "CONTRACT_DIGEST", "Frozen contract digest differs", device.contractPath);
-    const contract = parseJson(bytes, device.contractPath);
-    result.set(device.id, { ...device, contract, capabilities: contractCapabilities(contract, device.contractPath) });
-  }
-  const context = { deviceIndex: result };
-  if (document2.experience)
-    validateProgram(document2.experience, context, document2.experience.projectDigest);
-  return result;
+  next.shadowPolicy.maxShadowedDirectionalLights = p.keySamples;
+  return next;
 }
 
-// src/demo-runtime.mjs
-function createDemoRuntime(pkg) {
-  requireValue(
-    pkg.format === "v4" && pkg.deviceIndex instanceof Map,
-    "DEMO_PACKAGE",
-    "A validated v4 package is required"
-  );
-  pkg = {
-    ...pkg,
-    deviceIndex: structuredClone(pkg.deviceIndex),
-    presentation: structuredClone(pkg.presentation),
-    experience: structuredClone(pkg.experience)
-  };
-  const state = /* @__PURE__ */ new Map(), transitions = /* @__PURE__ */ new Map();
-  let clock = 0, mode = "paused", beforeBackground = "paused";
-  function initial() {
-    state.clear();
-    transitions.clear();
-    clock = 0;
-    mode = "paused";
-    for (const device of pkg.deviceIndex.values()) {
-      for (const scope of device.contract.scopes)
-        for (const c of scope.capabilities) {
-          if (Object.hasOwn(c, "initialValue"))
-            state.set(
-              stateKey({ deviceId: device.id, ...scope, capabilityKey: c.key }),
-              c.initialValue
-            );
-        }
-    }
-    for (const assignment of pkg.experience?.initialState || [])
-      state.set(stateKey(assignment.target), assignment.value);
-  }
-  function read(ref) {
-    resolveCapability(pkg, ref);
-    const key = stateKey(ref);
-    return state.has(key) ? { known: true, value: state.get(key) } : { known: false };
-  }
-  function set(ref, value, duration = 0) {
-    const key = stateKey(ref), current = state.get(key);
-    transitions.delete(key);
-    if (duration > 0 && typeof current === "number" && current !== value) {
-      transitions.set(key, {
-        ref,
-        start: clock,
-        end: clock + duration,
-        from: current,
-        to: value
-      });
-    } else
-      state.set(key, value);
-  }
-  function apply(action) {
-    validateAction(pkg, action);
-    const device = pkg.deviceIndex.get(action.deviceId);
-    if (action.operation === "execute") {
-      const command = device.contract.simulation.commands.find(
-        (c) => scopeKey(c.source) === scopeKey(action)
-      );
-      requireValue(
-        command,
-        "SIMULATION_COMMAND",
-        "Command has no simulated implementation"
-      );
-      for (const e of command.effects) {
-        const ref = { ...e.target, deviceId: action.deviceId };
-        if (e.operation === "stop")
-          transitions.delete(stateKey(ref));
-        else
-          set(ref, e.value);
-      }
-    } else {
-      const transition = device.contract.simulation.transitions.find(
-        (t) => scopeKey(t.target) === scopeKey(action)
-      );
-      set(
-        action,
-        action.value,
-        action.operation === "write" ? action.transitionMs ?? transition?.durationMs ?? 0 : 0
-      );
-    }
-  }
-  function rules(previous) {
-    const queue = (pkg.experience?.rules || []).filter((r) => {
-      const k = stateKey(r.when.target);
-      return previous.get(k) !== state.get(k) && state.get(k) === r.when.value;
-    });
-    let operations = 0;
-    while (queue.length) {
-      const rule = queue.shift(), before = new Map(state);
-      for (const action of rule.actions) {
-        requireValue(
-          ++operations <= 64,
-          "SIMULATION_RULE_CYCLE",
-          "Rule cascade exceeded the per-command budget"
-        );
-        apply(action);
-      }
-      for (const candidate of pkg.experience.rules) {
-        const k = stateKey(candidate.when.target);
-        if (before.get(k) !== state.get(k) && state.get(k) === candidate.when.value)
-          queue.push(candidate);
-      }
-    }
-  }
-  function atomic(fn) {
-    const previous = new Map(state), pending = new Map(transitions), previousMode = mode, previousClock = clock;
-    try {
-      fn();
-      rules(previous);
-    } catch (error) {
-      state.clear();
-      previous.forEach((v, k) => state.set(k, v));
-      transitions.clear();
-      pending.forEach((v, k) => transitions.set(k, v));
-      mode = previousMode;
-      clock = previousClock;
-      throw error;
-    }
-  }
-  function dispatch(action, source = "manual") {
-    requireValue(
-      ["manual", "program"].includes(source),
-      "DEMO_SOURCE",
-      "Unknown command source"
-    );
-    requireValue(
-      mode !== "background",
-      "DEMO_BACKGROUND",
-      "Resume before interacting"
-    );
-    if (source === "manual") {
-      const device = pkg.deviceIndex.get(action.deviceId);
-      requireValue(
-        device?.manualControlEnabled && ["write", "execute"].includes(action.operation),
-        "MANUAL_CONTROL",
-        "Manual input must be an enabled control command"
-      );
-    } else
-      requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
-    atomic(() => {
-      if (source === "manual")
-        mode = "paused";
-      apply(action);
-    });
-  }
-  function advance(deltaMs) {
-    requireValue(
-      Number.isFinite(deltaMs) && deltaMs >= 0 && deltaMs <= 6e4,
-      "DEMO_TIME",
-      "Advance must be between 0 and 60000 ms"
-    );
-    if (mode === "background")
-      return;
-    atomic(() => {
-      clock += deltaMs;
-      for (const [key, t] of transitions) {
-        const value = t.from + (t.to - t.from) * Math.min(1, (clock - t.start) / (t.end - t.start));
-        state.set(key, value);
-        if (clock >= t.end)
-          transitions.delete(key);
-      }
-    });
-  }
-  function effects() {
-    const result = [];
-    for (const device of pkg.deviceIndex.values())
-      for (const effect of device.contract.presentation.effects) {
-        const binding = pkg.presentation.bindings.find(
-          (b) => b.deviceId === device.id && b.slot === effect.slot
-        );
-        const current = read({ ...effect.source, deviceId: device.id });
-        let value;
-        if (current.known) {
-          const m = effect.mapping;
-          value = m.kind === "linear" ? m.output[0] + (m.output[1] - m.output[0]) * (current.value - m.input[0]) / (m.input[1] - m.input[0]) : m.cases.find((c) => c.value === current.value)?.output;
-        }
-        if (effect.enabledBy) {
-          const gate = read({ ...effect.enabledBy, deviceId: device.id });
-          if (!gate.known)
-            value = void 0;
-          else if (!gate.value)
-            value = 0;
-        }
-        result.push({
-          deviceId: device.id,
-          instanceId: device.instanceId,
-          target: structuredClone(binding.target),
-          channel: effect.channel,
-          known: value !== void 0,
-          ...value !== void 0 ? { value } : {}
-        });
-      }
-    return result;
-  }
-  initial();
-  return {
-    read,
-    dispatch,
-    advance,
-    effects,
-    controls: (deviceId) => {
-      const d = pkg.deviceIndex.get(deviceId);
-      requireValue(d, "DEVICE_REFERENCE", "Unknown device");
-      return d.contract.presentation.controls.map((control) => ({
-        ...structuredClone(control),
-        valueContract: structuredClone(resolveCapability(pkg, { ...control.source, deviceId }).value),
-        ...read({ ...control.source, deviceId }),
-        enabled: d.manualControlEnabled && control.widget !== "value"
-      }));
-    },
-    runScene: (id) => {
-      requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
-      const scene = pkg.experience?.scenes.find((s) => s.id === id);
-      requireValue(scene, "SCENE_REFERENCE", "Unknown demonstration scene");
-      atomic(() => scene.actions.forEach(apply));
-    },
-    pause: () => {
-      if (mode !== "background")
-        mode = "paused";
-    },
-    resume: () => {
-      if (mode !== "background")
-        mode = "playing";
-    },
-    background: () => {
-      if (mode !== "background") {
-        beforeBackground = mode;
-        mode = "background";
-      }
-    },
-    foreground: () => {
-      if (mode === "background")
-        mode = beforeBackground;
-    },
-    restart: initial,
-    snapshot: () => ({ clock, mode, state: Object.fromEntries(state) })
-  };
-}
-function createDemoRuntimeFromDocument(document2) {
-  const deviceIndex = deviceRuntimeIndex(document2);
-  return createDemoRuntime({ format: "v4", deviceIndex, presentation: document2.presentation, experience: document2.experience });
-}
+// src/rendering.mjs
+var import_ajv = __toESM(require_ajv(), 1);
 
-// src/index.mjs
-var import_ajv2 = __toESM(require_ajv(), 1);
-
-// src/floor-height.mjs
-var DEFAULT_IMPORTED_FLOOR_HEIGHT = 2.8;
-var record = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
-function explicitHeight(value, document2, path) {
-  if (typeof value !== "number" || !Number.isFinite(value) || value <= 0)
-    throw new PackageError("INVALID_FLOOR_HEIGHT", "\u660E\u786E\u5C42\u9AD8\u5FC5\u987B\u662F\u6709\u6548\u7684\u6B63\u6570\uFF08\u7C73\uFF09\u3002", document2, path);
-  return value;
-}
-function fallbackHeight(defaults, document2, path) {
-  return defaults?.floorHeight === void 0 ? DEFAULT_IMPORTED_FLOOR_HEIGHT : explicitHeight(defaults.floorHeight, document2, path);
-}
-function normalizeImportedSceneFloorHeights(scene, document2 = "scene.json") {
-  const value = structuredClone(scene);
-  if (!record(value) || !Array.isArray(value.floors))
-    return value;
-  const legacy = value.schema === "home3d.floorplan-scene.v4";
-  const defaults = legacy ? value.projectMetadata?.defaults : value.extensions?.["com.houzzkit.editor"]?.defaults;
-  const path = legacy ? "/projectMetadata/defaults/floorHeight" : "/extensions/com.houzzkit.editor/defaults/floorHeight";
-  const fallback = fallbackHeight(defaults, document2, path);
-  value.floors = value.floors.map((floor, index) => !record(floor) ? floor : {
-    ...floor,
-    height: floor.height === void 0 ? fallback : explicitHeight(floor.height, document2, `/floors/${index}/height`)
-  });
-  return value;
-}
+// src/schemas.mjs
+var schemas_default = { "common.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/common.schema.json", "title": "Home3D v3 proposal: common.schema.json", "definitions": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "path": { "type": "string", "pattern": "^(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\\.(?:json|glb|png|jpg|webp)$", "maxLength": 240 }, "point": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number" }, "z": { "type": "number" } }, "required": ["x", "z"] }, "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }, "quat": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }, "size": { "type": "object", "additionalProperties": false, "properties": { "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "depth": { "type": "number", "exclusiveMinimum": 0 } }, "required": ["width", "height", "depth"] }, "extensions": { "type": "object", "propertyNames": { "pattern": "^(?:[a-z0-9-]+\\.)+[a-z0-9-]+$" }, "additionalProperties": true }, "source": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1, "maxLength": 128 }, "resourceKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "versionKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "productKey": { "type": "string", "minLength": 1, "maxLength": 128 } }, "required": ["namespace", "resourceKey", "versionKey", "digest"] }, "camera": { "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.camera.v1" }, "projection": { "enum": ["perspective", "orthographic"] }, "fov": { "type": "number", "minimum": 10, "maximum": 70 }, "azimuthDegrees": { "type": "number", "minimum": -180, "maximum": 180 }, "elevationDegrees": { "type": "number", "minimum": 10, "maximum": 85 }, "distanceScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "heightScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "depthScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 } }, "required": ["schema", "projection", "fov", "azimuthDegrees", "elevationDegrees", "distanceScale", "heightScale", "depthScale"] } } }, "device-contract.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-contract.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-contract.v1" }, "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "scopes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilities": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "behavior": { "enum": ["property", "command", "event"] }, "access": { "enum": ["read", "write", "read-write"] }, "value": { "type": "object", "additionalProperties": false, "properties": { "type": { "enum": ["boolean", "number", "integer", "enum", "string", "null"] }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string", "minLength": 1, "maxLength": 200 }, "values": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 200 }, "minItems": 1, "uniqueItems": true } }, "required": ["type"] }, "initialValue": { "type": ["boolean", "number", "string", "null"] } }, "required": ["key", "behavior", "access", "value"] }, "minItems": 1 } }, "required": ["capabilities"] }, "minItems": 1 }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "controls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "label": { "type": "string", "minLength": 1, "maxLength": 200 }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "widget": { "enum": ["toggle", "slider", "select", "value", "button"] } }, "required": ["id", "label", "source", "widget"] } }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "channel": { "enum": ["node.visible", "node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.opacity", "material.emissiveIntensity", "light.intensity", "animation.progress", "morph.weight"] }, "mapping": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "linear" }, "input": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["kind", "input", "output"] }, { "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "cases" }, "cases": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "value": { "type": ["boolean", "number", "string", "null"] }, "output": { "type": ["number", "boolean"] } }, "required": ["value", "output"] }, "minItems": 1 } }, "required": ["kind", "cases"] }] }, "enabledBy": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] } }, "required": ["id", "source", "slot", "channel", "mapping"] } } }, "required": ["controls", "effects"] }, "simulation": { "type": "object", "additionalProperties": false, "properties": { "behavior": { "const": "state-transition.v1" }, "transitions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "durationMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["target", "durationMs"] } }, "commands": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "operation": { "enum": ["set", "stop"] }, "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["operation", "target"] }, "minItems": 1 } }, "required": ["source", "effects"] } } }, "required": ["behavior", "transitions", "commands"] } }, "required": ["schema", "id", "version", "name", "scopes", "presentation", "simulation"] }, "device-program.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-program.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-program.v1" }, "projectDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "initialState": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] } }, "scenes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] } } }, "required": ["id", "name", "actions"] } }, "rules": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "when": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] }, "minItems": 1 } }, "required": ["id", "when", "actions"] } } }, "required": ["schema", "projectDigest", "initialState", "scenes", "rules"] }, "devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/devices.schema.json", "title": "Home3D v3 proposal: devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-config.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "instanceId": { "$ref": "common.schema.json#/definitions/id" }, "deviceClass": { "$ref": "common.schema.json#/definitions/id" }, "properties": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "valueType": { "enum": ["boolean", "number"] }, "readable": { "type": "boolean" }, "writable": { "type": "boolean" }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string" } }, "required": ["key", "valueType", "readable", "writable"] }, "minItems": 1 }, "previewState": { "type": "object", "additionalProperties": { "type": ["boolean", "number"] } }, "visualEffects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "property": { "$ref": "common.schema.json#/definitions/id" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] }, "channel": { "enum": ["node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.emissiveIntensity", "material.opacity", "animation.progress", "morph.weight"] }, "input": { "type": "array", "items": { "type": ["number", "boolean"] }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["property", "target", "channel", "input", "output"] } }, "controlIntent": { "type": "object", "additionalProperties": false, "properties": { "manualControlEnabled": { "type": "boolean" }, "slots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "property": { "$ref": "common.schema.json#/definitions/id" }, "operation": { "const": "set" } }, "required": ["id", "property", "operation"] } } }, "required": ["manualControlEnabled", "slots"] }, "productHint": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1 }, "productKey": { "type": "string", "minLength": 1 }, "templateKey": { "type": "string", "minLength": 1 } }, "required": ["namespace", "productKey"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "instanceId", "deviceClass", "properties", "previewState", "visualEffects", "controlIntent"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "bindings"] }, "lighting.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/lighting.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-lighting.v1" }, "modelDigest": { "$ref": "common.schema.json#/definitions/digest" }, "coordinateSystem": { "const": "right-handed-y-up" }, "fixtures": { "type": "array", "maxItems": 32, "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z0-9_:.\\u4e00-\\u9fff-]{1,128}$" }, "position": { "$ref": "common.schema.json#/definitions/vec3" }, "emitterOffsetM": { "$ref": "common.schema.json#/definitions/vec3" }, "color": { "type": "string", "pattern": "^#[0-9a-f]{6}$" }, "maxIntensity": { "type": "number", "minimum": 0, "maximum": 1e5 }, "initialBrightness": { "type": "number", "minimum": 0, "maximum": 100 }, "initialCctK": { "type": "number", "minimum": 1e3, "maximum": 4e4 }, "rangeM": { "type": "number", "minimum": 1e-3, "maximum": 1e4 } }, "required": ["id", "position", "emitterOffsetM", "color", "maxIntensity", "initialBrightness", "initialCctK", "rangeM"] } } }, "required": ["schema", "modelDigest", "coordinateSystem", "fixtures"] }, "material.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/material.schema.json", "title": "Home3D v3 proposal: material.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.material-definition.v1" }, "kind": { "const": "material" }, "baseColor": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 4, "maxItems": 4 }, "metallic": { "type": "number", "minimum": 0, "maximum": 1 }, "roughness": { "type": "number", "minimum": 0, "maximum": 1 }, "textures": { "type": "object", "additionalProperties": false, "properties": { "baseColor": { "$ref": "common.schema.json#/definitions/path" }, "normal": { "$ref": "common.schema.json#/definitions/path" }, "metallicRoughness": { "$ref": "common.schema.json#/definitions/path" } }, "required": [] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "kind", "baseColor", "metallic", "roughness", "textures"] }, "model.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/model.schema.json", "title": "Home3D v3 proposal: model.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-definition.v1" }, "kind": { "const": "model" }, "file": { "$ref": "common.schema.json#/definitions/path" }, "defaultSize": { "$ref": "common.schema.json#/definitions/size" }, "pivot": { "const": "bottom-center" }, "targets": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" }, "normalization": { "type": "object", "additionalProperties": false, "properties": { "translation": { "$ref": "common.schema.json#/definitions/vec3" }, "scale": { "$ref": "common.schema.json#/definitions/vec3" } }, "required": ["translation", "scale"] }, "lightingPath": { "$ref": "common.schema.json#/definitions/path" }, "images": { "type": "object", "additionalProperties": false, "properties": { "preview": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] }, "topView": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] } } }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] } }, "required": ["schema", "kind", "file", "defaultSize", "pivot", "targets"] }, "package.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/package.schema.json", "title": "Home3D v3 proposal: package.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.project-package.v3" }, "version": { "const": 3 }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "producer": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 } }, "required": ["name", "version"] }, "requiredCapabilities": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/id" }, "uniqueItems": true, "minItems": 2 }, "entries": { "type": "object", "additionalProperties": false, "properties": { "scene": { "const": "scene.json" }, "resources": { "const": "runtime-resources.json" }, "devices": { "const": "devices.json" } }, "required": ["scene", "resources", "devices"] }, "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "path": { "$ref": "common.schema.json#/definitions/path" }, "byteSize": { "type": "integer", "minimum": 0 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp"] } }, "required": ["path", "byteSize", "digest", "contentType"] }, "minItems": 3 }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "version", "name", "producer", "requiredCapabilities", "entries", "files"] }, "presentation.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/presentation.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.presentation.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph", "light"] }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "nodeName": { "type": "string", "minLength": 1, "maxLength": 200 } }, "required": ["kind", "name"] } }, "required": ["deviceId", "slot", "target"] } } }, "required": ["schema", "bindings"] }, "rendering.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/rendering.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "properties": { "background": { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "toneMapped": { "const": false } }, "required": ["color", "toneMapped"], "type": "object" }, "compatibility": { "additionalProperties": false, "properties": { "allowAutomaticQualityReduction": { "const": false }, "mode": { "const": "strict" }, "onUnsupported": { "const": "reject" } }, "required": ["mode", "onUnsupported", "allowAutomaticQualityReduction"], "type": "object" }, "contactAO": { "additionalProperties": false, "properties": { "attribute": { "const": "COLOR_0" }, "bakeProvenance": { "additionalProperties": false, "properties": { "distanceM": { "exclusiveMinimum": 0, "type": "number" }, "lightEmissionBaked": { "const": false }, "samples": { "maximum": 1024, "minimum": 1, "type": "integer" }, "strength": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["samples", "distanceM", "strength", "lightEmissionBaked"], "type": "object" }, "combine": { "const": "multiply-base-color-once" }, "mode": { "enum": ["baked-vertex", "none"] }, "onGeometryChange": { "const": "keep-bake-and-report-stale" }, "runtimeStrength": { "const": 1 }, "valueColorSpace": { "const": "linear" } }, "required": ["mode", "attribute", "valueColorSpace", "combine", "runtimeStrength", "bakeProvenance", "onGeometryChange"], "type": "object" }, "defaultViewId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "environment": { "additionalProperties": false, "properties": { "colorSpace": { "const": "srgb" }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "file": { "pattern": "^blobs/[0-9a-f]{64}\\.png$", "type": "string" }, "filter": { "const": "linear" }, "height": { "maximum": 16384, "minimum": 1, "type": "integer" }, "intensity": { "maximum": 100, "minimum": 0, "type": "number" }, "mode": { "const": "equirectangular-image" }, "projection": { "const": "three-r171-equirect.v1" }, "rotationYRadians": { "maximum": 6.283185307179586, "minimum": -6.283185307179586, "type": "number" }, "useAsBackground": { "const": false }, "width": { "maximum": 16384, "minimum": 1, "type": "integer" }, "wrapS": { "const": "repeat" }, "wrapT": { "const": "clamp" } }, "required": ["mode", "file", "digest", "width", "height", "colorSpace", "intensity", "rotationYRadians", "projection", "wrapS", "wrapT", "filter", "useAsBackground"], "type": "object" }, "geometryPresentation": { "additionalProperties": false, "properties": { "cutaway": { "const": false }, "frontWallFade": { "const": false }, "outlines": { "const": false }, "roomIsolation": { "const": false } }, "required": ["cutaway", "frontWallFade", "roomIsolation", "outlines"], "type": "object" }, "ground": { "additionalProperties": false, "properties": { "castShadow": { "const": false }, "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "enabled": { "type": "boolean" }, "metallic": { "maximum": 1, "minimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "receiveShadow": { "type": "boolean" }, "roughness": { "maximum": 1, "minimum": 0, "type": "number" }, "sizeM": { "items": { "exclusiveMinimum": 0, "type": "number" }, "maxItems": 2, "minItems": 2, "type": "array" } }, "required": ["enabled", "positionM", "sizeM", "color", "roughness", "metallic", "castShadow", "receiveShadow"], "type": "object" }, "lights": { "items": { "oneOf": [{ "additionalProperties": false, "properties": { "groundColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "hemisphere" }, "skyColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "skyColor", "groundColor", "up"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "directional" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-vsm.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "blurSamples": { "maximum": 64, "minimum": 2, "type": "integer" }, "camera": { "additionalProperties": false, "properties": { "bottom": { "type": "number" }, "far": { "exclusiveMinimum": 0, "type": "number" }, "left": { "type": "number" }, "near": { "exclusiveMinimum": 0, "type": "number" }, "projection": { "const": "orthographic" }, "right": { "type": "number" }, "top": { "type": "number" } }, "required": ["projection", "left", "right", "top", "bottom", "near", "far"], "type": "object" }, "enabled": { "const": true }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048, 4096] }, "maxItems": 2, "minItems": 2, "type": "array" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" }, "radiusTexels": { "maximum": 64, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "radiusTexels", "blurSamples", "camera"], "type": "object" }] }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "targetM", "shadow"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "decay": { "const": 2 }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "point" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "rangeM": { "maximum": 1e4, "minimum": 0, "type": "number" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "rangeM", "decay", "shadow"], "type": "object" }] }, "maxItems": 32, "minItems": 0, "type": "array" }, "modelLightShadows": { "items": { "additionalProperties": false, "properties": { "instanceId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "lightId": { "maxLength": 200, "minLength": 1, "type": "string" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["instanceId", "lightId", "shadow"], "type": "object" }, "maxItems": 256, "minItems": 0, "type": "array" }, "pipeline": { "additionalProperties": false, "properties": { "environmentFilter": { "const": "pmrem-ggx-three-r171.v1" }, "id": { "const": "home3d.white-three-r171.v1" }, "materialModel": { "const": "gltf-pbr-three-r171.v1" }, "requiredCapability": { "const": "render.pipeline.three-r171-white.v1" }, "studioSourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "toneMapping": { "const": "aces-filmic-three-r171.v1" } }, "required": ["id", "requiredCapability", "materialModel", "toneMapping", "environmentFilter", "studioSourceDigest"], "type": "object" }, "profile": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "sourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "version": { "minimum": 1, "type": "integer" } }, "required": ["id", "version", "sourceDigest"], "type": "object" }, "projectDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "referenceCapture": { "additionalProperties": false, "properties": { "deviceState": { "const": "contract-initial" }, "disableAdaptiveQuality": { "const": true }, "heightPx": { "maximum": 8192, "minimum": 64, "type": "integer" }, "pixelRatio": { "const": 1 }, "timeMs": { "maximum": 6e4, "minimum": 0, "type": "integer" }, "waitForAssets": { "const": true }, "waitForShadowUpdate": { "const": true }, "widthPx": { "maximum": 8192, "minimum": 64, "type": "integer" } }, "required": ["pixelRatio", "widthPx", "heightPx", "timeMs", "deviceState", "waitForAssets", "waitForShadowUpdate", "disableAdaptiveQuality"], "type": "object" }, "renderer": { "additionalProperties": false, "properties": { "antialias": { "additionalProperties": false, "properties": { "method": { "const": "msaa" }, "samples": { "enum": [2, 4, 8] } }, "required": ["method", "samples"], "type": "object" }, "autoExposure": { "const": false }, "exposureCompensationEV": { "maximum": 16, "minimum": -16, "type": "number" }, "exposureMultiplier": { "exclusiveMinimum": 0, "maximum": 64, "minimum": 0, "type": "number" }, "interactiveMaxPixelRatio": { "maximum": 3, "minimum": 1, "type": "number" }, "logarithmicDepthBuffer": { "const": false }, "outputAlpha": { "const": 1 }, "outputColorSpace": { "const": "srgb" }, "postprocessing": { "additionalProperties": false, "properties": { "bloom": { "const": false }, "dithering": { "const": false }, "fog": { "const": false }, "fxaa": { "const": false }, "ssao": { "const": false }, "taa": { "const": false } }, "required": ["ssao", "bloom", "fxaa", "taa", "dithering", "fog"], "type": "object" }, "premultipliedAlpha": { "const": false }, "referenceTarget": { "const": "rgba8-unorm" }, "reverseDepthBuffer": { "const": false }, "whiteBalance": { "const": "identity" }, "whitePoint": { "const": "D65" }, "workingColorSpace": { "const": "linear-srgb" } }, "required": ["workingColorSpace", "outputColorSpace", "whitePoint", "exposureMultiplier", "exposureCompensationEV", "autoExposure", "whiteBalance", "outputAlpha", "referenceTarget", "premultipliedAlpha", "logarithmicDepthBuffer", "reverseDepthBuffer", "antialias", "interactiveMaxPixelRatio", "postprocessing"], "type": "object" }, "schema": { "const": "home3d.rendering.v1" }, "shadowPolicy": { "additionalProperties": false, "properties": { "enabled": { "type": "boolean" }, "maxShadowedDirectionalLights": { "maximum": 4, "minimum": 0, "type": "integer" }, "maxShadowedPointLights": { "maximum": 8, "minimum": 0, "type": "integer" }, "opaque": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "overrides": { "items": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "object": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "kind": { "enum": ["wall", "room", "instance"] } }, "required": ["kind", "id"], "type": "object" }, "receive": { "type": "boolean" } }, "required": ["object", "cast", "receive"], "type": "object" }, "maxItems": 1e4, "minItems": 0, "type": "array" }, "transparent": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "update": { "const": "on-change-before-frame" } }, "required": ["enabled", "update", "maxShadowedDirectionalLights", "maxShadowedPointLights", "opaque", "transparent", "overrides"], "type": "object" }, "version": { "const": 1 }, "views": { "items": { "additionalProperties": false, "properties": { "aspectRatio": { "exclusiveMinimum": 0, "type": "number" }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "projection": { "const": "orthographic" }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "verticalSpanM": { "exclusiveMinimum": 0, "type": "number" } }, "required": ["id", "name", "projection", "positionM", "targetM", "up", "verticalSpanM", "nearM", "farM", "aspectRatio"], "type": "object" }, "maxItems": 16, "minItems": 1, "type": "array" } }, "required": ["schema", "version", "projectDigest", "profile", "pipeline", "compatibility", "renderer", "background", "environment", "lights", "modelLightShadows", "shadowPolicy", "contactAO", "ground", "geometryPresentation", "views", "defaultViewId", "referenceCapture"], "title": "Home3D v4 rendering extension v1", "type": "object" }, "resources.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/resources.schema.json", "title": "Home3D v3 proposal: resources.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.runtime-resources.v4" }, "resources": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["model", "material"] }, "definitionPath": { "$ref": "common.schema.json#/definitions/path" }, "catalogSource": { "$ref": "common.schema.json#/definitions/source" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["key", "kind", "definitionPath"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "resources"] }, "scene.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/scene.schema.json", "title": "Home3D v3 proposal: scene.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.floorplan-scene.v5" }, "id": { "$ref": "common.schema.json#/definitions/id" }, "revision": { "type": "integer", "minimum": 1 }, "parentDigest": { "anyOf": [{ "$ref": "common.schema.json#/definitions/digest" }, { "type": "null" }] }, "unit": { "const": "m" }, "coordinateSystem": { "const": "right-handed-y-up" }, "projectMetadata": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "address": { "type": "string" }, "remark": { "type": "string" }, "activeFloorId": { "$ref": "common.schema.json#/definitions/id" }, "mainRoomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["name", "activeFloorId", "mainRoomId"] }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "profile": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "version": { "type": "integer", "minimum": 1 } }, "required": ["id", "version"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["profile"] }, "floors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "elevation": { "type": "number" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "walls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "kind": { "enum": ["straight", "arc"] }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "thickness": { "type": "number", "exclusiveMinimum": 0 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "curve": { "type": "object", "additionalProperties": false, "properties": { "center": { "$ref": "common.schema.json#/definitions/point" }, "radius": { "type": "number", "exclusiveMinimum": 0 }, "startAngle": { "type": "number" }, "sweepAngle": { "type": "number" } }, "required": ["center", "radius", "startAngle", "sweepAngle"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "kind", "start", "end", "height", "thickness", "materialKey"], "allOf": [{ "if": { "properties": { "kind": { "const": "arc" } } }, "then": { "required": ["curve"] }, "else": { "not": { "required": ["curve"] } } }] } }, "openings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "wallId": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["door", "window"] }, "offset": { "type": "number", "minimum": 0 }, "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "sillHeight": { "type": "number", "minimum": 0 }, "doorLeafMode": { "enum": ["chord", "tangent"] }, "doorHingeSide": { "enum": ["left", "right"] }, "doorSwingSide": { "enum": ["inside", "outside"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "wallId", "kind", "offset", "width", "height", "sillHeight"] } }, "rooms": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "boundary", "materialKey"] } }, "regions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 } }, "required": ["id", "roomId", "name", "boundary"] } }, "dividers": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" } }, "required": ["id", "start", "end"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "elevation", "height", "walls", "openings", "rooms", "regions", "dividers"] }, "minItems": 1 }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "kind": { "enum": ["furnishing", "device", "opening-frame"] }, "resourceKey": { "$ref": "common.schema.json#/definitions/id" }, "floorId": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "regionId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "transform": { "type": "object", "additionalProperties": false, "properties": { "position": { "$ref": "common.schema.json#/definitions/vec3" }, "rotation": { "$ref": "common.schema.json#/definitions/quat" }, "size": { "$ref": "common.schema.json#/definitions/size" } }, "required": ["position", "rotation", "size"] }, "placement": { "enum": ["floor", "wall", "ceiling", "surface", "opening"] }, "host": { "anyOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["wall", "opening", "instance"] }, "id": { "$ref": "common.schema.json#/definitions/id" } }, "required": ["kind", "id"] }, { "type": "null" }] }, "openingFit": { "type": "object", "additionalProperties": false, "properties": { "margins": { "type": "object", "additionalProperties": false, "properties": { "left": { "type": "number", "minimum": 0 }, "right": { "type": "number", "minimum": 0 }, "top": { "type": "number", "minimum": 0 }, "bottom": { "type": "number", "minimum": 0 } }, "required": ["left", "right", "top", "bottom"] }, "normalOffset": { "type": "number" } }, "required": ["margins", "normalOffset"] }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "visible": { "type": "boolean" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "kind", "resourceKey", "floorId", "roomId", "regionId", "transform", "placement", "host", "materialKey", "visible"] } }, "extensions": { "allOf": [{ "$ref": "common.schema.json#/definitions/extensions" }], "properties": { "com.houzzkit.camera": { "$ref": "common.schema.json#/definitions/camera" } } } }, "required": ["schema", "id", "revision", "parentDigest", "unit", "coordinateSystem", "projectMetadata", "floors", "instances"] }, "unified-devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/unified-devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.devices.v1" }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "instanceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "contractPath": { "type": "string", "pattern": "^contracts/[0-9a-f]{64}\\.json$" }, "contractDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "manualControlEnabled": { "type": "boolean" } }, "required": ["id", "name", "instanceId", "contractPath", "contractDigest", "manualControlEnabled"] } } }, "required": ["schema", "instances"] }, "unified-package.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/unified-package.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "allOf": [{ "if": { "properties": { "entries": { "required": ["rendering"] } } }, "then": { "properties": { "requiredCapabilities": { "allOf": [{ "contains": { "const": "render.scene.v1" } }, { "contains": { "const": "render.pipeline.three-r171-white.v1" } }] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.scene.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.pipeline.three-r171-white.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }], "properties": { "entries": { "additionalProperties": false, "properties": { "devices": { "const": "devices.json" }, "experience": { "const": "experience.json" }, "presentation": { "const": "presentation.json" }, "project": { "const": "project.json" }, "rendering": { "const": "rendering.json" }, "resources": { "const": "resources.json" } }, "required": ["project", "resources", "devices", "presentation"], "type": "object" }, "files": { "items": { "additionalProperties": false, "properties": { "byteSize": { "minimum": 0, "type": "integer" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp", "audio/mpeg", "audio/wav"] }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "path": { "maxLength": 240, "type": "string" } }, "required": ["path", "byteSize", "digest", "contentType"], "type": "object" }, "minItems": 4, "type": "array" }, "kind": { "enum": ["project", "solution"] }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "producer": { "additionalProperties": false, "properties": { "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "version": { "maxLength": 200, "minLength": 1, "type": "string" } }, "required": ["name", "version"], "type": "object" }, "requiredCapabilities": { "items": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "minItems": 2, "type": "array", "uniqueItems": true }, "schema": { "const": "home3d.package.v4" }, "version": { "const": 4 } }, "required": ["schema", "version", "kind", "name", "producer", "requiredCapabilities", "entries", "files"], "type": "object" } };
 
 // ../../node_modules/three/build/three.core.js
 /**
@@ -13143,8 +12254,8 @@ var Object3D = class _Object3D extends EventDispatcher {
         const shapes = parameters.shapes;
         if (Array.isArray(shapes)) {
           for (let i = 0, l = shapes.length; i < l; i++) {
-            const shape = shapes[i];
-            serialize(meta.shapes, shape);
+            const shape2 = shapes[i];
+            serialize(meta.shapes, shape2);
           }
         } else {
           serialize(meta.shapes, shapes);
@@ -15633,7 +14744,7 @@ var MeshoptEncoder = function() {
     if (optf) {
       optf(ip, ip, indices.length, vertices);
     }
-    var unique2 = fun(rp, ip, indices.length, vertices);
+    var unique3 = fun(rp, ip, indices.length, vertices);
     heap = new Uint8Array(instance.exports.memory.buffer);
     var remap = new Uint32Array(vertices);
     new Uint8Array(remap.buffer).set(heap.subarray(rp, rp + vertices * 4));
@@ -15641,7 +14752,7 @@ var MeshoptEncoder = function() {
     sbrk(ip - sbrk(0));
     for (var i = 0; i < indices.length; ++i)
       indices[i] = remap[indices[i]];
-    return [remap, unique2];
+    return [remap, unique3];
   }
   function spatialsort(fun, positions, count, stride) {
     var sbrk = instance.exports.sbrk;
@@ -16158,7 +15269,7 @@ var MeshoptSimplifier = function() {
     var heap = new Uint8Array(instance.exports.memory.buffer);
     var indices8 = bytes(indices);
     heap.set(indices8, ip);
-    var unique2 = fun(rp, ip, indices.length, vertices);
+    var unique3 = fun(rp, ip, indices.length, vertices);
     heap = new Uint8Array(instance.exports.memory.buffer);
     var remap = new Uint32Array(vertices);
     new Uint8Array(remap.buffer).set(heap.subarray(rp, rp + vertices * 4));
@@ -16166,7 +15277,7 @@ var MeshoptSimplifier = function() {
     sbrk(ip - sbrk(0));
     for (var i = 0; i < indices.length; ++i)
       indices[i] = remap[indices[i]];
-    return [remap, unique2];
+    return [remap, unique3];
   }
   function maxindex(source) {
     var result = 0;
@@ -17478,41 +16589,1137 @@ function targetMatches(gltf, t, model) {
   return (gltf[{ node: "nodes", material: "materials", animation: "animations" }[t.kind]] || []).filter((n) => n.name === t.name).length;
 }
 
+// src/rendering.mjs
+var RENDERING_CAPABILITIES = Object.freeze(["render.scene.v1", "render.pipeline.three-r171-white.v1"]);
+var ajv = new import_ajv.default({ strict: false, allErrors: false });
+var shape = ajv.compile(schemas_default["rendering.schema.json"]);
+var doc = "rendering.json";
+var fail = (ok, code, message, path = "") => requireValue(ok, code, message, doc, path);
+var unit2 = (v) => Math.abs(v.reduce((s, n) => s + n * n, 0) - 1) < 1e-5;
+var distance2 = (a, b) => a.reduce((s, n, i) => s + (n - b[i]) ** 2, 0);
+function unique(items, key, path) {
+  const seen = /* @__PURE__ */ new Set();
+  items.forEach((item, i) => {
+    const value = key(item);
+    fail(!seen.has(value), "RENDER_DUPLICATE_ID", "Duplicate rendering identity", `${path}/${i}`);
+    seen.add(value);
+  });
+  return seen;
+}
+function shadow(s, path) {
+  if (!s.enabled)
+    return;
+  fail(s.mapSize[0] === s.mapSize[1], "RENDER_FRUSTUM", "Reference shadow maps must be square", path + "/mapSize");
+  const c = s.camera;
+  fail(
+    c ? c.left < c.right && c.bottom < c.top && c.near < c.far : s.nearM < s.farM,
+    "RENDER_FRUSTUM",
+    "Invalid shadow frustum",
+    path
+  );
+}
+function validateRendering(rendering, { project, entries, definitions = {}, models = {}, imagePixels = 0 } = {}) {
+  if (!shape(rendering)) {
+    const e2 = shape.errors[0];
+    throw new PackageError("SCHEMA", e2.message, doc, e2.instancePath);
+  }
+  checkCredentials(rendering, doc);
+  const r = rendering, warnings = [];
+  fail(project && entries?.["project.json"], "RENDER_PROJECT_DIGEST", "Validated project bytes are required", "/projectDigest");
+  fail(r.projectDigest === digest(entries["project.json"]), "RENDER_PROJECT_DIGEST", "Rendering belongs to different project bytes", "/projectDigest");
+  const e = r.environment, bytes = entries?.[e.file];
+  fail(bytes, "MISSING_FILE", "Missing environment image", "/environment/file");
+  fail(digest(bytes) === e.digest && e.file === `blobs/${e.digest.slice(7)}.png`, "HASH_MISMATCH", "Environment content address differs", "/environment/digest");
+  const image = inspectImage(bytes, e.file);
+  fail(image.type === "image/png" && image.width === e.width && image.height === e.height, "RENDER_IMAGE", "Environment image dimensions or type differ", "/environment");
+  fail(imagePixels + e.width * e.height <= 128 * 1024 * 1024, "IMAGE_BUDGET", "Environment exceeds package image budget", "/environment");
+  unique(r.lights, (l) => l.id, "/lights");
+  let directional = 0, point = 0;
+  r.lights.forEach((l, i) => {
+    const at = "/lights/" + i;
+    if (l.kind === "hemisphere")
+      fail(unit2(l.up), "RENDER_FRUSTUM", "Hemisphere up must be a unit vector", at + "/up");
+    if (l.kind === "directional")
+      fail(distance2(l.positionM, l.targetM) > 1e-12, "RENDER_FRUSTUM", "Light position equals its target", at);
+    if (l.shadow) {
+      shadow(l.shadow, at + "/shadow");
+      if (l.shadow.enabled) {
+        if (l.kind === "directional")
+          directional++;
+        else
+          point++;
+      }
+    }
+  });
+  unique(r.modelLightShadows, (l) => JSON.stringify([l.instanceId, l.lightId]), "/modelLightShadows");
+  const expectedLights = /* @__PURE__ */ new Map();
+  for (const instance of project?.instances || []) {
+    const definition = definitions[instance.resourceKey], model = models[instance.resourceKey];
+    if (!definition || !model)
+      continue;
+    if (definition.lightingPath) {
+      for (const f of parseJson(entries[definition.lightingPath], definition.lightingPath).fixtures)
+        expectedLights.set(JSON.stringify([instance.id, f.id]), "point");
+    } else {
+      for (const [i, node] of (model.document.nodes || []).entries()) {
+        const li = node.extensions?.KHR_lights_punctual?.light;
+        if (li === void 0 || !model.reachableNodes.has(i))
+          continue;
+        fail(node.name && !expectedLights.has(JSON.stringify([instance.id, node.name])), "RENDER_REFERENCE", "Embedded lights require distinct node names", "/modelLightShadows");
+        expectedLights.set(JSON.stringify([instance.id, node.name]), model.document.extensions.KHR_lights_punctual.lights[li].type);
+      }
+    }
+  }
+  for (const [i, l] of r.modelLightShadows.entries()) {
+    const key = JSON.stringify([l.instanceId, l.lightId]);
+    fail(expectedLights.get(key) === "point", "RENDER_REFERENCE", "Model light must resolve to a point light", "/modelLightShadows/" + i);
+    expectedLights.delete(key);
+    shadow(l.shadow, "/modelLightShadows/" + i + "/shadow");
+    if (l.shadow.enabled)
+      point++;
+  }
+  fail(!expectedLights.size, "RENDER_REFERENCE", "Every model light requires an explicit shadow policy", "/modelLightShadows");
+  fail(directional <= r.shadowPolicy.maxShadowedDirectionalLights && point <= r.shadowPolicy.maxShadowedPointLights, "RENDER_LIMIT_UNSUPPORTED", "Declared shadow light budget exceeded", "/shadowPolicy");
+  unique(r.shadowPolicy.overrides, (o) => JSON.stringify(o.object), "/shadowPolicy/overrides");
+  const objects = new Set((project?.instances || []).map((i) => "instance:" + i.id));
+  for (const f of project?.floors || [])
+    for (const kind of ["wall", "room"])
+      for (const o of f[kind + "s"])
+        objects.add(kind + ":" + o.id);
+  for (const [i, o] of r.shadowPolicy.overrides.entries())
+    fail(objects.has(o.object.kind + ":" + o.object.id), "RENDER_REFERENCE", "Unknown shadow object", "/shadowPolicy/overrides/" + i);
+  const views = unique(r.views, (v) => v.id, "/views");
+  fail(views.has(r.defaultViewId), "RENDER_REFERENCE", "Unknown default view", "/defaultViewId");
+  const capture = r.referenceCapture;
+  fail(capture.widthPx * capture.heightPx <= 16777216, "RENDER_LIMIT_UNSUPPORTED", "Reference capture exceeds 16 MP", "/referenceCapture");
+  r.views.forEach((v, i) => {
+    const d = v.positionM.map((n, j) => n - v.targetM[j]), u = v.up;
+    const cross2 = [d[1] * u[2] - d[2] * u[1], d[2] * u[0] - d[0] * u[2], d[0] * u[1] - d[1] * u[0]];
+    fail(v.nearM < v.farM && unit2(u) && cross2.some((n) => Math.abs(n) > 1e-8), "RENDER_FRUSTUM", "Degenerate camera or up vector", "/views/" + i);
+    fail(Math.abs(v.aspectRatio - capture.widthPx / capture.heightPx) < 1e-8, "RENDER_FRUSTUM", "Reference camera aspect differs from viewport", "/views/" + i + "/aspectRatio");
+  });
+  if (project?.extensions?.["com.houzzkit.rendering"]?.bakedAOStale && r.contactAO.mode === "baked-vertex")
+    warnings.push({ code: "AO_STALE", document: doc, path: "/contactAO", message: "Geometry changed after the AO bake; retained baked colors require author review." });
+  return warnings;
+}
+function bindRenderingToProject(rendering, project) {
+  return { ...structuredClone(rendering), projectDigest: digest(encode(project)) };
+}
+
+// src/unified.mjs
+var import_ajv2 = __toESM(require_ajv(), 1);
+var UNIFIED_CAPABILITIES = Object.freeze([
+  "device.contracts.v1",
+  "device.presentation.v1",
+  "device.simulation.v1",
+  "experience.references.v1"
+]);
+var DEVICE_CHANNELS = Object.freeze([
+  "node.visible",
+  "node.position.x",
+  "node.position.y",
+  "node.position.z",
+  "node.scale.x",
+  "node.scale.y",
+  "node.scale.z",
+  "material.opacity",
+  "material.emissiveIntensity",
+  "light.intensity",
+  "animation.progress",
+  "morph.weight"
+]);
+var ajv2 = new import_ajv2.default({ strict: false, allErrors: false });
+for (const schema2 of Object.values(schemas_default))
+  ajv2.addSchema(schema2);
+var actionShape = ajv2.compile(
+  schemas_default["device-program.schema.json"].properties.scenes.items.properties.actions.items
+);
+function validate(name, value, document2) {
+  const validator = ajv2.getSchema(schemas_default[name + ".schema.json"].$id);
+  if (!validator(value)) {
+    const e = validator.errors[0];
+    throw new PackageError("SCHEMA", e.message, document2, e.instancePath);
+  }
+}
+var scopeKey = (ref) => JSON.stringify([
+  ref.controlObjectId ?? null,
+  ref.outputId ?? null,
+  ref.capabilityKey
+]);
+var stateKey = (ref) => JSON.stringify([
+  ref.deviceId,
+  ref.controlObjectId ?? null,
+  ref.outputId ?? null,
+  ref.capabilityKey
+]);
+function validCapabilityValue(schema2, value) {
+  if (schema2.type === "null")
+    return value === null;
+  if (schema2.type === "boolean")
+    return typeof value === "boolean";
+  if (schema2.type === "enum")
+    return typeof value === "string" && schema2.values.includes(value);
+  if (schema2.type === "string")
+    return typeof value === "string" && value.length <= 4096;
+  return typeof value === "number" && Number.isFinite(value) && (schema2.type !== "integer" || Number.isInteger(value)) && value >= schema2.minimum && value <= schema2.maximum;
+}
+function unique2(items, key, document2, path) {
+  const result = /* @__PURE__ */ new Map();
+  items.forEach((item, i) => {
+    const id = key(item);
+    requireValue(
+      !result.has(id),
+      "DUPLICATE_ID",
+      "Duplicate identity: " + id,
+      document2,
+      path + "/" + i
+    );
+    result.set(id, item);
+  });
+  return result;
+}
+function contractCapabilities(contract, document2 = "contracts.json") {
+  validate("device-contract", contract, document2);
+  const capabilities = /* @__PURE__ */ new Map();
+  const scopes = /* @__PURE__ */ new Set();
+  for (const [i, scope] of contract.scopes.entries()) {
+    const key = JSON.stringify([
+      scope.controlObjectId ?? null,
+      scope.outputId ?? null
+    ]);
+    requireValue(
+      !scopes.has(key),
+      "DUPLICATE_SCOPE",
+      "Scope identity must be unique",
+      document2,
+      "/scopes/" + i
+    );
+    scopes.add(key);
+    for (const [j, capability] of scope.capabilities.entries()) {
+      const at = "/scopes/" + i + "/capabilities/" + j;
+      const k = scopeKey({ ...scope, capabilityKey: capability.key });
+      requireValue(
+        !capabilities.has(k),
+        "DUPLICATE_CAPABILITY",
+        "Capability identity must be unique",
+        document2,
+        at
+      );
+      capabilities.set(k, capability);
+      const v = capability.value;
+      requireValue(
+        !["number", "integer"].includes(v.type) || Number.isFinite(v.minimum) && Number.isFinite(v.maximum) && v.minimum < v.maximum,
+        "CAPABILITY_RANGE",
+        "Numeric values require a finite minimum and maximum",
+        document2,
+        at
+      );
+      requireValue(
+        v.type !== "enum" || Array.isArray(v.values),
+        "CAPABILITY_ENUM",
+        "Enum values are required",
+        document2,
+        at
+      );
+      requireValue(
+        capability.behavior === "property" ? ["read", "read-write"].includes(capability.access) : capability.behavior === "command" ? capability.access === "write" : capability.access === "read",
+        "CAPABILITY_ACCESS",
+        "Properties must be readable; command must be write-only; event must be read-only",
+        document2,
+        at
+      );
+      if (Object.hasOwn(capability, "initialValue")) {
+        requireValue(
+          capability.behavior === "property" && validCapabilityValue(v, capability.initialValue),
+          "STATE_VALUE",
+          "Invalid initial property value",
+          document2,
+          at + "/initialValue"
+        );
+      }
+    }
+  }
+  const resolve = (ref, at) => {
+    const c = capabilities.get(scopeKey(ref));
+    requireValue(
+      c,
+      "CAPABILITY_REFERENCE",
+      "Unknown capability or exact scope",
+      document2,
+      at
+    );
+    return c;
+  };
+  unique2(
+    contract.presentation.controls,
+    (c) => c.id,
+    document2,
+    "/presentation/controls"
+  );
+  for (const [i, c] of contract.presentation.controls.entries()) {
+    const at = "/presentation/controls/" + i, cap = resolve(c.source, at);
+    requireValue(
+      c.widget === "value" ? cap.access !== "write" : cap.access !== "read",
+      "CONTROL_ACCESS",
+      "Control access differs from capability",
+      document2,
+      at
+    );
+    const expected = {
+      toggle: "boolean",
+      slider: ["number", "integer"],
+      select: "enum"
+    }[c.widget];
+    requireValue(
+      !expected || [expected].flat().includes(cap.value.type),
+      "CONTROL_TYPE",
+      "Widget type differs from capability",
+      document2,
+      at
+    );
+    requireValue(
+      c.widget !== "button" || cap.behavior === "command",
+      "CONTROL_TYPE",
+      "Button requires a command",
+      document2,
+      at
+    );
+    requireValue(
+      c.widget === "button" || cap.behavior === "property",
+      "CONTROL_TYPE",
+      "State widget requires a property",
+      document2,
+      at
+    );
+  }
+  unique2(
+    contract.presentation.effects,
+    (e) => e.id,
+    document2,
+    "/presentation/effects"
+  );
+  const drivers = /* @__PURE__ */ new Set();
+  for (const [i, e] of contract.presentation.effects.entries()) {
+    const at = "/presentation/effects/" + i, c = resolve(e.source, at);
+    requireValue(
+      c.behavior === "property" && c.access !== "write",
+      "EFFECT_SOURCE",
+      "Effects require readable property state",
+      document2,
+      at
+    );
+    if (e.enabledBy) {
+      const gate = resolve(e.enabledBy, at + "/enabledBy");
+      requireValue(
+        gate.behavior === "property" && gate.access !== "write" && gate.value.type === "boolean" && ["light.intensity", "material.emissiveIntensity"].includes(e.channel),
+        "EFFECT_GATE",
+        "Intensity gate requires readable boolean state",
+        document2,
+        at
+      );
+    }
+    const driver = e.slot + ":" + e.channel;
+    requireValue(
+      !drivers.has(driver),
+      "EFFECT_CONFLICT",
+      "Two effects drive the same slot channel",
+      document2,
+      at
+    );
+    drivers.add(driver);
+    if (e.mapping.kind === "linear") {
+      requireValue(
+        ["number", "integer"].includes(c.value.type) && e.mapping.input[0] === c.value.minimum && e.mapping.input[1] === c.value.maximum,
+        "EFFECT_RANGE",
+        "Linear input must match numeric contract range",
+        document2,
+        at
+      );
+    } else {
+      unique2(e.mapping.cases, (v) => JSON.stringify(v.value), document2, at);
+      const values = e.mapping.cases.map((v) => v.value);
+      const domain = c.value.type === "boolean" ? [false, true] : c.value.values;
+      requireValue(
+        domain && values.length === domain.length && domain.every((v) => values.includes(v)),
+        "EFFECT_RANGE",
+        "Cases must cover the complete enum or boolean contract",
+        document2,
+        at
+      );
+    }
+    const outputs = e.mapping.kind === "linear" ? e.mapping.output : e.mapping.cases.map((v) => v.output);
+    requireValue(
+      outputs.every(
+        (v) => e.channel === "node.visible" ? typeof v === "boolean" : typeof v === "number" && Number.isFinite(v) && (!e.channel.includes(".scale.") || v > 0) && (![
+          "material.opacity",
+          "animation.progress",
+          "morph.weight"
+        ].includes(e.channel) || v >= 0 && v <= 1) && (!["material.emissiveIntensity", "light.intensity"].includes(
+          e.channel
+        ) || v >= 0)
+      ),
+      "EFFECT_RANGE",
+      "Output is outside the channel domain",
+      document2,
+      at
+    );
+  }
+  unique2(
+    contract.simulation.transitions,
+    (t) => scopeKey(t.target),
+    document2,
+    "/simulation/transitions"
+  );
+  for (const [i, t] of contract.simulation.transitions.entries()) {
+    const c = resolve(t.target, "/simulation/transitions/" + i);
+    requireValue(
+      c.behavior === "property" && c.access === "read-write" && c.value.type === "number",
+      "SIMULATION_TRANSITION",
+      "Transitions require a read-write numeric property",
+      document2,
+      "/simulation/transitions/" + i
+    );
+  }
+  unique2(
+    contract.simulation.commands,
+    (c) => scopeKey(c.source),
+    document2,
+    "/simulation/commands"
+  );
+  for (const [i, command] of contract.simulation.commands.entries()) {
+    const at = "/simulation/commands/" + i;
+    requireValue(
+      resolve(command.source, at).behavior === "command",
+      "SIMULATION_COMMAND",
+      "Command reference required",
+      document2,
+      at
+    );
+    for (const effect of command.effects) {
+      const c = resolve(effect.target, at);
+      requireValue(
+        c.behavior === "property" && c.access !== "write" && (effect.operation === "stop" ? c.value.type === "number" && !Object.hasOwn(effect, "value") : validCapabilityValue(c.value, effect.value)),
+        "SIMULATION_COMMAND",
+        "Invalid command state effect",
+        document2,
+        at
+      );
+    }
+  }
+  const implementedCommands = new Set(
+    contract.simulation.commands.map((command) => scopeKey(command.source))
+  );
+  for (const [key, capability] of capabilities)
+    requireValue(
+      capability.behavior !== "command" || implementedCommands.has(key),
+      "SIMULATION_COMMAND",
+      "Declared command has no simulated implementation",
+      document2,
+      "/simulation/commands"
+    );
+  return capabilities;
+}
+function validateProgram(program, context, projectDigest) {
+  validate("device-program", program, "experience.json");
+  requireValue(
+    program.projectDigest === projectDigest,
+    "PROJECT_DIGEST",
+    "Experience targets a different project",
+    "experience.json",
+    "/projectDigest"
+  );
+  const initial = unique2(
+    program.initialState,
+    (v) => stateKey(v.target),
+    "experience.json",
+    "/initialState"
+  );
+  for (const [i, item] of [...initial.values()].entries()) {
+    const c = resolveCapability(context, item.target);
+    requireValue(
+      c.behavior === "property" && c.access !== "write" && validCapabilityValue(c.value, item.value),
+      "STATE_VALUE",
+      "Initial state must match a readable property",
+      "experience.json",
+      "/initialState/" + i
+    );
+  }
+  unique2(program.scenes, (v) => v.id, "experience.json", "/scenes");
+  unique2(program.rules, (v) => v.id, "experience.json", "/rules");
+  for (const [i, scene] of program.scenes.entries())
+    for (const [j, action] of scene.actions.entries())
+      validateAction(context, action, "/scenes/" + i + "/actions/" + j);
+  for (const [i, rule] of program.rules.entries()) {
+    const c = resolveCapability(context, rule.when.target);
+    requireValue(
+      c.behavior !== "command" && c.access !== "write" && validCapabilityValue(c.value, rule.when.value),
+      "RULE_SOURCE",
+      "Rule source must be observable",
+      "experience.json",
+      "/rules/" + i
+    );
+    for (const [j, action] of rule.actions.entries())
+      validateAction(context, action, "/rules/" + i + "/actions/" + j);
+  }
+}
+function resolveCapability(context, ref) {
+  const device = context.deviceIndex.get(ref.deviceId);
+  requireValue(
+    device,
+    "DEVICE_REFERENCE",
+    "Unknown device: " + ref.deviceId,
+    "devices.json"
+  );
+  const capability = device.capabilities.get(scopeKey(ref));
+  requireValue(
+    capability,
+    "CAPABILITY_REFERENCE",
+    "Unknown exact device scope/capability",
+    "devices.json",
+    "",
+    { objectId: ref.deviceId }
+  );
+  return capability;
+}
+function validateAction(context, action, path = "") {
+  requireValue(
+    actionShape(action),
+    "SCHEMA",
+    "Invalid device action: " + (actionShape.errors?.[0]?.message || ""),
+    "experience.json",
+    path
+  );
+  const c = resolveCapability(context, action);
+  const ok = action.operation === "write" ? c.behavior === "property" && c.access === "read-write" : action.operation === "execute" ? c.behavior === "command" && c.access === "write" : ["observe", "subscribe"].includes(action.operation) && action.sample === true && c.behavior !== "command" && c.access !== "write";
+  requireValue(
+    ok,
+    "ACTION_ACCESS",
+    "Operation is not allowed by the scoped contract; simulated samples must be explicit",
+    "experience.json",
+    path
+  );
+  requireValue(
+    validCapabilityValue(c.value, action.value),
+    "ACTION_VALUE",
+    "Action value violates capability contract",
+    "experience.json",
+    path
+  );
+  requireValue(
+    action.transitionMs === void 0 || c.value.type === "number" && action.operation === "write",
+    "ACTION_TRANSITION",
+    "Transition override requires numeric property write",
+    "experience.json",
+    path
+  );
+  return c;
+}
+async function readUnifiedPackage(entries, manifest, options, geometry, validateFiles) {
+  validate("unified-package", manifest, "package.json");
+  validateFiles(entries, manifest);
+  requireValue(Boolean(manifest.entries.rendering) === Boolean(entries["rendering.json"]), "RENDER_ENTRY", "Rendering document and manifest entry must be declared together", "package.json", "/entries/rendering");
+  requireValue(
+    manifest.kind === "project",
+    "UNSUPPORTED_CAPABILITY",
+    "Solution delivery requires the solution timeline and consumer authorization phase",
+    "package.json",
+    "/kind"
+  );
+  const required = new Set(manifest.requiredCapabilities);
+  const supported = new Set(options.capabilities || []);
+  for (const c of required)
+    requireValue(
+      supported.has(c),
+      "UNSUPPORTED_CAPABILITY",
+      "Unsupported required capability: " + c,
+      "package.json",
+      "/requiredCapabilities"
+    );
+  for (const c of UNIFIED_CAPABILITIES.slice(0, 3))
+    requireValue(
+      required.has(c),
+      "MISSING_CAPABILITY",
+      "Missing required capability: " + c
+    );
+  const json = (path) => {
+    requireValue(entries[path], "MISSING_FILE", "Missing document", path);
+    const value = parseJson(entries[path], path);
+    checkCredentials(value, path);
+    return value;
+  };
+  const base = await geometry(
+    entries,
+    {
+      ...manifest,
+      entries: {
+        scene: "project.json",
+        resources: "resources.json",
+        devices: "devices.json"
+      }
+    },
+    { ...options, fillMissingFloorHeights: false },
+    { schema: "home3d.device-config.v1", bindings: [] }
+  );
+  const devices = json("devices.json"), presentation = json("presentation.json");
+  validate("unified-devices", devices, "devices.json");
+  validate("presentation", presentation, "presentation.json");
+  const instances = new Map(base.scene.instances.map((i) => [i.id, i]));
+  const definitions = /* @__PURE__ */ new Map(), deviceIndex = /* @__PURE__ */ new Map(), usedInstances = /* @__PURE__ */ new Set(), contractPaths = /* @__PURE__ */ new Set();
+  unique2(devices.instances, (d) => d.id, "devices.json", "/instances");
+  for (const [i, device] of devices.instances.entries()) {
+    const at = "/instances/" + i, instance = instances.get(device.instanceId);
+    requireValue(
+      instance?.kind === "device" && !usedInstances.has(instance.id),
+      "DEVICE_INSTANCE",
+      "Device must own a distinct device instance",
+      "devices.json",
+      at
+    );
+    usedInstances.add(instance.id);
+    const contract = json(device.contractPath), actual = digest(entries[device.contractPath]);
+    requireValue(
+      actual === device.contractDigest && device.contractPath === "contracts/" + actual.slice(7) + ".json",
+      "CONTRACT_DIGEST",
+      "Frozen contract digest or path mismatch",
+      "devices.json",
+      at
+    );
+    contractPaths.add(device.contractPath);
+    let parsed = definitions.get(actual);
+    if (!parsed) {
+      parsed = {
+        contract,
+        capabilities: contractCapabilities(contract, device.contractPath)
+      };
+      definitions.set(actual, parsed);
+    }
+    deviceIndex.set(device.id, { ...device, ...parsed, instance });
+  }
+  requireValue(
+    base.scene.instances.filter((i) => i.kind === "device").every((i) => usedInstances.has(i.id)),
+    "DEVICE_UNCONFIGURED",
+    "Every device instance requires a frozen contract",
+    "devices.json"
+  );
+  requireValue(
+    Object.keys(entries).filter((p) => p.startsWith("contracts/")).every((p) => contractPaths.has(p)),
+    "UNREFERENCED_CONTRACT",
+    "Contract files must be referenced by device instances"
+  );
+  const identities = /* @__PURE__ */ new Map();
+  for (const [hash, value] of definitions) {
+    const key = JSON.stringify([value.contract.id, value.contract.version]);
+    requireValue(
+      !identities.has(key) || identities.get(key) === hash,
+      "CONTRACT_VERSION",
+      "One contract identity/version cannot have two digests in a package",
+      "devices.json"
+    );
+    identities.set(key, hash);
+  }
+  const bindings = unique2(
+    presentation.bindings,
+    (b) => JSON.stringify([b.deviceId, b.slot]),
+    "presentation.json",
+    "/bindings"
+  );
+  const actualDrivers = /* @__PURE__ */ new Set();
+  for (const [i, binding] of presentation.bindings.entries()) {
+    const device = deviceIndex.get(binding.deviceId), at = "/bindings/" + i;
+    requireValue(
+      device,
+      "DEVICE_REFERENCE",
+      "Unknown binding device",
+      "presentation.json",
+      at
+    );
+    const effects = device.contract.presentation.effects.filter(
+      (e) => e.slot === binding.slot
+    );
+    requireValue(
+      effects.length,
+      "SLOT_REFERENCE",
+      "Slot is not declared by the contract",
+      "presentation.json",
+      at
+    );
+    const def = base.definitions[device.instance.resourceKey], t = binding.target;
+    const declared = t.kind === "light" ? def.lightingPath ? json(def.lightingPath).fixtures.some((f) => f.id === t.name) : base.models[device.instance.resourceKey].document.nodes?.filter(
+      (n) => n.name === t.name && n.extensions?.KHR_lights_punctual
+    ).length === 1 : def.targets.some(
+      (v) => v.kind === t.kind && v.name === t.name && v.nodeName === t.nodeName
+    );
+    requireValue(
+      declared,
+      "EFFECT_TARGET",
+      "Target must resolve in the owning model definition or lighting",
+      "presentation.json",
+      at
+    );
+    for (const effect of effects) {
+      requireValue(
+        effect.channel.startsWith(t.kind + "."),
+        "EFFECT_CHANNEL",
+        "Target kind differs from effect channel",
+        "presentation.json",
+        at
+      );
+      const driver = JSON.stringify([
+        device.instance.id,
+        t.kind,
+        t.name,
+        t.nodeName,
+        effect.channel
+      ]);
+      requireValue(
+        !actualDrivers.has(driver),
+        "EFFECT_CONFLICT",
+        "Multiple slots drive the same actual model channel",
+        "presentation.json",
+        at
+      );
+      actualDrivers.add(driver);
+    }
+  }
+  for (const device of deviceIndex.values())
+    for (const effect of device.contract.presentation.effects)
+      requireValue(
+        bindings.has(JSON.stringify([device.id, effect.slot])),
+        "SLOT_REFERENCE",
+        "Missing model slot binding",
+        "presentation.json",
+        "",
+        { objectId: device.id }
+      );
+  const context = { deviceIndex };
+  const experience = manifest.entries.experience ? json("experience.json") : void 0;
+  if (experience) {
+    requireValue(
+      required.has("experience.references.v1"),
+      "MISSING_CAPABILITY",
+      "Device program requires experience.references.v1"
+    );
+    validateProgram(experience, context, digest(entries["project.json"]));
+  }
+  const rendering = manifest.entries.rendering ? json("rendering.json") : void 0;
+  const renderingWarnings = rendering ? validateRendering(rendering, { project: base.scene, entries, definitions: base.definitions, models: base.models, imagePixels: base.summary.imagePixels || 0 }) : [];
+  return {
+    ...rendering ? { rendering, renderingDigest: digest(entries["rendering.json"]) } : {},
+    format: "v4",
+    manifest,
+    project: base.scene,
+    resources: base.resources,
+    devices,
+    presentation,
+    experience,
+    definitions: base.definitions,
+    models: base.models,
+    entries,
+    packageDigest: digest(entries["package.json"]),
+    contractSetDigest: digest(encode([...definitions.keys()].sort())),
+    contracts: Object.fromEntries(
+      [...definitions].map(([k, v]) => [k, v.contract])
+    ),
+    deviceIndex,
+    warnings: [...base.warnings.filter(
+      (issue) => issue.code !== "DEVICE_UNCONFIGURED"
+    ), ...renderingWarnings],
+    summary: {
+      ...base.summary,
+      ...rendering ? { imagePixels: (base.summary.imagePixels || 0) + rendering.environment.width * rendering.environment.height } : {},
+      deviceBindings: devices.instances.length,
+      contracts: definitions.size
+    }
+  };
+}
+function unifiedEntries(input, version, mime2) {
+  const entries = /* @__PURE__ */ Object.create(null);
+  for (const [p, value] of Object.entries(input.entries || {})) {
+    requireValue(
+      safePath(p) && ![
+        "package.json",
+        "project.json",
+        "resources.json",
+        "devices.json",
+        "presentation.json",
+        "experience.json",
+        "rendering.json"
+      ].includes(p),
+      "UNSAFE_PATH",
+      "Invalid supplied payload path",
+      p
+    );
+    entries[p] = value instanceof Uint8Array ? value : encode(value);
+  }
+  entries["project.json"] = encode(input.project);
+  entries["resources.json"] = encode(input.resources);
+  entries["devices.json"] = encode(input.devices);
+  entries["presentation.json"] = encode(input.presentation);
+  if (input.experience)
+    entries["experience.json"] = encode(input.experience);
+  if (input.rendering)
+    entries["rendering.json"] = encode(input.rendering);
+  const manifest = {
+    schema: "home3d.package.v4",
+    version: 4,
+    kind: input.kind,
+    name: input.name,
+    producer: input.producer || { name: "home3d-package", version },
+    requiredCapabilities: [
+      ...new Set(
+        input.requiredCapabilities || [
+          "scene.structure.v1",
+          "model.glb.v1",
+          ...UNIFIED_CAPABILITIES,
+          ...input.rendering ? RENDERING_CAPABILITIES : []
+        ]
+      )
+    ].sort(),
+    entries: {
+      project: "project.json",
+      resources: "resources.json",
+      devices: "devices.json",
+      presentation: "presentation.json",
+      ...input.experience ? { experience: "experience.json" } : {},
+      ...input.rendering ? { rendering: "rendering.json" } : {}
+    },
+    files: Object.keys(entries).sort().map((path) => ({
+      path,
+      byteSize: entries[path].length,
+      digest: digest(entries[path]),
+      contentType: mime2(path)
+    }))
+  };
+  entries["package.json"] = encode(manifest);
+  return entries;
+}
+function deviceRuntimeIndex(document2) {
+  requireValue(document2?.schema === "home3d.editor-devices.v4", "DEMO_PACKAGE", "Invalid editor device document");
+  validate("unified-devices", document2.devices, "devices.json");
+  validate("presentation", document2.presentation, "presentation.json");
+  const devices = unique2(document2.devices.instances, (d) => d.id, "devices.json", "/instances"), result = /* @__PURE__ */ new Map();
+  for (const device of devices.values()) {
+    const text = document2.contracts[device.contractPath];
+    requireValue(typeof text === "string", "CONTRACT_DIGEST", "Missing frozen contract", device.contractPath);
+    const bytes = new TextEncoder().encode(text);
+    requireValue(digest(bytes) === device.contractDigest, "CONTRACT_DIGEST", "Frozen contract digest differs", device.contractPath);
+    const contract = parseJson(bytes, device.contractPath);
+    result.set(device.id, { ...device, contract, capabilities: contractCapabilities(contract, device.contractPath) });
+  }
+  const context = { deviceIndex: result };
+  if (document2.experience)
+    validateProgram(document2.experience, context, document2.experience.projectDigest);
+  return result;
+}
+
+// src/demo-runtime.mjs
+function createDemoRuntime(pkg) {
+  requireValue(
+    pkg.format === "v4" && pkg.deviceIndex instanceof Map,
+    "DEMO_PACKAGE",
+    "A validated v4 package is required"
+  );
+  pkg = {
+    ...pkg,
+    deviceIndex: structuredClone(pkg.deviceIndex),
+    presentation: structuredClone(pkg.presentation),
+    experience: structuredClone(pkg.experience)
+  };
+  const state = /* @__PURE__ */ new Map(), transitions = /* @__PURE__ */ new Map();
+  let clock = 0, mode = "paused", beforeBackground = "paused";
+  function initial() {
+    state.clear();
+    transitions.clear();
+    clock = 0;
+    mode = "paused";
+    for (const device of pkg.deviceIndex.values()) {
+      for (const scope of device.contract.scopes)
+        for (const c of scope.capabilities) {
+          if (Object.hasOwn(c, "initialValue"))
+            state.set(
+              stateKey({ deviceId: device.id, ...scope, capabilityKey: c.key }),
+              c.initialValue
+            );
+        }
+    }
+    for (const assignment of pkg.experience?.initialState || [])
+      state.set(stateKey(assignment.target), assignment.value);
+  }
+  function read(ref) {
+    resolveCapability(pkg, ref);
+    const key = stateKey(ref);
+    return state.has(key) ? { known: true, value: state.get(key) } : { known: false };
+  }
+  function set(ref, value, duration = 0) {
+    const key = stateKey(ref), current = state.get(key);
+    transitions.delete(key);
+    if (duration > 0 && typeof current === "number" && current !== value) {
+      transitions.set(key, {
+        ref,
+        start: clock,
+        end: clock + duration,
+        from: current,
+        to: value
+      });
+    } else
+      state.set(key, value);
+  }
+  function apply(action) {
+    validateAction(pkg, action);
+    const device = pkg.deviceIndex.get(action.deviceId);
+    if (action.operation === "execute") {
+      const command = device.contract.simulation.commands.find(
+        (c) => scopeKey(c.source) === scopeKey(action)
+      );
+      requireValue(
+        command,
+        "SIMULATION_COMMAND",
+        "Command has no simulated implementation"
+      );
+      for (const e of command.effects) {
+        const ref = { ...e.target, deviceId: action.deviceId };
+        if (e.operation === "stop")
+          transitions.delete(stateKey(ref));
+        else
+          set(ref, e.value);
+      }
+    } else {
+      const transition = device.contract.simulation.transitions.find(
+        (t) => scopeKey(t.target) === scopeKey(action)
+      );
+      set(
+        action,
+        action.value,
+        action.operation === "write" ? action.transitionMs ?? transition?.durationMs ?? 0 : 0
+      );
+    }
+  }
+  function rules(previous) {
+    const queue = (pkg.experience?.rules || []).filter((r) => {
+      const k = stateKey(r.when.target);
+      return previous.get(k) !== state.get(k) && state.get(k) === r.when.value;
+    });
+    let operations = 0;
+    while (queue.length) {
+      const rule = queue.shift(), before = new Map(state);
+      for (const action of rule.actions) {
+        requireValue(
+          ++operations <= 64,
+          "SIMULATION_RULE_CYCLE",
+          "Rule cascade exceeded the per-command budget"
+        );
+        apply(action);
+      }
+      for (const candidate of pkg.experience.rules) {
+        const k = stateKey(candidate.when.target);
+        if (before.get(k) !== state.get(k) && state.get(k) === candidate.when.value)
+          queue.push(candidate);
+      }
+    }
+  }
+  function atomic(fn) {
+    const previous = new Map(state), pending = new Map(transitions), previousMode = mode, previousClock = clock;
+    try {
+      fn();
+      rules(previous);
+    } catch (error) {
+      state.clear();
+      previous.forEach((v, k) => state.set(k, v));
+      transitions.clear();
+      pending.forEach((v, k) => transitions.set(k, v));
+      mode = previousMode;
+      clock = previousClock;
+      throw error;
+    }
+  }
+  function dispatch(action, source = "manual") {
+    requireValue(
+      ["manual", "program"].includes(source),
+      "DEMO_SOURCE",
+      "Unknown command source"
+    );
+    requireValue(
+      mode !== "background",
+      "DEMO_BACKGROUND",
+      "Resume before interacting"
+    );
+    if (source === "manual") {
+      const device = pkg.deviceIndex.get(action.deviceId);
+      requireValue(
+        device?.manualControlEnabled && ["write", "execute"].includes(action.operation),
+        "MANUAL_CONTROL",
+        "Manual input must be an enabled control command"
+      );
+    } else
+      requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
+    atomic(() => {
+      if (source === "manual")
+        mode = "paused";
+      apply(action);
+    });
+  }
+  function advance(deltaMs) {
+    requireValue(
+      Number.isFinite(deltaMs) && deltaMs >= 0 && deltaMs <= 6e4,
+      "DEMO_TIME",
+      "Advance must be between 0 and 60000 ms"
+    );
+    if (mode === "background")
+      return;
+    atomic(() => {
+      clock += deltaMs;
+      for (const [key, t] of transitions) {
+        const value = t.from + (t.to - t.from) * Math.min(1, (clock - t.start) / (t.end - t.start));
+        state.set(key, value);
+        if (clock >= t.end)
+          transitions.delete(key);
+      }
+    });
+  }
+  function effects() {
+    const result = [];
+    for (const device of pkg.deviceIndex.values())
+      for (const effect of device.contract.presentation.effects) {
+        const binding = pkg.presentation.bindings.find(
+          (b) => b.deviceId === device.id && b.slot === effect.slot
+        );
+        const current = read({ ...effect.source, deviceId: device.id });
+        let value;
+        if (current.known) {
+          const m = effect.mapping;
+          value = m.kind === "linear" ? m.output[0] + (m.output[1] - m.output[0]) * (current.value - m.input[0]) / (m.input[1] - m.input[0]) : m.cases.find((c) => c.value === current.value)?.output;
+        }
+        if (effect.enabledBy) {
+          const gate = read({ ...effect.enabledBy, deviceId: device.id });
+          if (!gate.known)
+            value = void 0;
+          else if (!gate.value)
+            value = 0;
+        }
+        result.push({
+          deviceId: device.id,
+          instanceId: device.instanceId,
+          target: structuredClone(binding.target),
+          channel: effect.channel,
+          known: value !== void 0,
+          ...value !== void 0 ? { value } : {}
+        });
+      }
+    return result;
+  }
+  initial();
+  return {
+    read,
+    dispatch,
+    advance,
+    effects,
+    controls: (deviceId) => {
+      const d = pkg.deviceIndex.get(deviceId);
+      requireValue(d, "DEVICE_REFERENCE", "Unknown device");
+      return d.contract.presentation.controls.map((control) => ({
+        ...structuredClone(control),
+        valueContract: structuredClone(resolveCapability(pkg, { ...control.source, deviceId }).value),
+        ...read({ ...control.source, deviceId }),
+        enabled: d.manualControlEnabled && control.widget !== "value"
+      }));
+    },
+    runScene: (id) => {
+      requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
+      const scene = pkg.experience?.scenes.find((s) => s.id === id);
+      requireValue(scene, "SCENE_REFERENCE", "Unknown demonstration scene");
+      atomic(() => scene.actions.forEach(apply));
+    },
+    pause: () => {
+      if (mode !== "background")
+        mode = "paused";
+    },
+    resume: () => {
+      if (mode !== "background")
+        mode = "playing";
+    },
+    background: () => {
+      if (mode !== "background") {
+        beforeBackground = mode;
+        mode = "background";
+      }
+    },
+    foreground: () => {
+      if (mode === "background")
+        mode = beforeBackground;
+    },
+    restart: initial,
+    snapshot: () => ({ clock, mode, state: Object.fromEntries(state) })
+  };
+}
+function createDemoRuntimeFromDocument(document2) {
+  const deviceIndex = deviceRuntimeIndex(document2);
+  return createDemoRuntime({ format: "v4", deviceIndex, presentation: document2.presentation, experience: document2.experience });
+}
+
+// src/index.mjs
+var import_ajv3 = __toESM(require_ajv(), 1);
+
+// src/floor-height.mjs
+var DEFAULT_IMPORTED_FLOOR_HEIGHT = 2.8;
+var record = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+function explicitHeight(value, document2, path) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value <= 0)
+    throw new PackageError("INVALID_FLOOR_HEIGHT", "\u660E\u786E\u5C42\u9AD8\u5FC5\u987B\u662F\u6709\u6548\u7684\u6B63\u6570\uFF08\u7C73\uFF09\u3002", document2, path);
+  return value;
+}
+function fallbackHeight(defaults, document2, path) {
+  return defaults?.floorHeight === void 0 ? DEFAULT_IMPORTED_FLOOR_HEIGHT : explicitHeight(defaults.floorHeight, document2, path);
+}
+function normalizeImportedSceneFloorHeights(scene, document2 = "scene.json") {
+  const value = structuredClone(scene);
+  if (!record(value) || !Array.isArray(value.floors))
+    return value;
+  const legacy = value.schema === "home3d.floorplan-scene.v4";
+  const defaults = legacy ? value.projectMetadata?.defaults : value.extensions?.["com.houzzkit.editor"]?.defaults;
+  const path = legacy ? "/projectMetadata/defaults/floorHeight" : "/extensions/com.houzzkit.editor/defaults/floorHeight";
+  const fallback = fallbackHeight(defaults, document2, path);
+  value.floors = value.floors.map((floor, index) => !record(floor) ? floor : {
+    ...floor,
+    height: floor.height === void 0 ? fallback : explicitHeight(floor.height, document2, `/floors/${index}/height`)
+  });
+  return value;
+}
+
 // src/lighting.mjs
 var maxModelLightingBytes = 1024 * 1024;
 function parseModelLighting(value, modelSha256) {
-  const fail = (message) => {
+  const fail2 = (message) => {
     throw new Error(message);
   };
   if (!value || typeof value !== "object" || Array.isArray(value))
-    fail("\u706F\u5149\u914D\u7F6E\u4E0D\u662F\u6709\u6548\u5BF9\u8C61\u3002");
+    fail2("\u706F\u5149\u914D\u7F6E\u4E0D\u662F\u6709\u6548\u5BF9\u8C61\u3002");
   const white = value.schemaVersion === 1 && value.profileId === "white-home3d-v1" && value.profileVersion === 1;
   const portable = value.schema === "home3d.model-lighting.v1" && value.coordinateSystem === "right-handed-y-up";
   if (!white && !portable)
-    fail("\u706F\u5149\u914D\u7F6E\u683C\u5F0F\u4E0D\u53D7\u652F\u6301\uFF0C\u8BF7\u9009\u62E9 white-render-config.json\u3002");
+    fail2("\u706F\u5149\u914D\u7F6E\u683C\u5F0F\u4E0D\u53D7\u652F\u6301\uFF0C\u8BF7\u9009\u62E9 white-render-config.json\u3002");
   const digest2 = white ? value.geometrySha256 : String(value.modelDigest || "").replace(/^sha256:/, "");
   if (!/^[0-9a-f]{64}$/.test(digest2 || "") || digest2 !== modelSha256)
-    fail("\u706F\u5149\u914D\u7F6E\u4E0E\u6240\u9009 GLB \u7684\u6A21\u578B\u54C8\u5E0C\u4E0D\u4E00\u81F4\u3002");
+    fail2("\u706F\u5149\u914D\u7F6E\u4E0E\u6240\u9009 GLB \u7684\u6A21\u578B\u54C8\u5E0C\u4E0D\u4E00\u81F4\u3002");
   if (!Array.isArray(value.fixtures) || value.fixtures.length > 32)
-    fail("\u706F\u5149\u914D\u7F6E\u7F3A\u5C11\u706F\u5177\u5217\u8868\u6216\u8D85\u8FC732\u76CF\u3002");
+    fail2("\u706F\u5149\u914D\u7F6E\u7F3A\u5C11\u706F\u5177\u5217\u8868\u6216\u8D85\u8FC732\u76CF\u3002");
   const ids = /* @__PURE__ */ new Set();
   const number = (v, min, max2, label) => {
     if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max2)
-      fail(`${label}\u4E0D\u5408\u6CD5\u3002`);
+      fail2(`${label}\u4E0D\u5408\u6CD5\u3002`);
     return v;
   };
   const vector = (v, label) => {
     if (!Array.isArray(v) || v.length !== 3)
-      fail(`${label}\u5FC5\u987B\u662F\u4E09\u7EF4\u5750\u6807\u3002`);
+      fail2(`${label}\u5FC5\u987B\u662F\u4E09\u7EF4\u5750\u6807\u3002`);
     return v.map((n) => number(n, -1e4, 1e4, label));
   };
   const fixtures = value.fixtures.map((f) => {
     if (!f || typeof f !== "object" || typeof f.id !== "string" || !/^[A-Za-z0-9_:.\u4e00-\u9fff-]{1,128}$/.test(f.id) || ids.has(f.id))
-      fail("\u706F\u5177ID\u65E0\u6548\u6216\u91CD\u590D\u3002");
+      fail2("\u706F\u5177ID\u65E0\u6548\u6216\u91CD\u590D\u3002");
     ids.add(f.id);
     const color = white ? "#ffce8b" : f.color;
     if (typeof color !== "string" || !/^#[0-9a-fA-F]{6}$/.test(color))
-      fail("\u706F\u5149\u989C\u8272\u5FC5\u987B\u662F\u516D\u4F4D\u5341\u516D\u8FDB\u5236\u989C\u8272\u3002");
+      fail2("\u706F\u5149\u989C\u8272\u5FC5\u987B\u662F\u516D\u4F4D\u5341\u516D\u8FDB\u5236\u989C\u8272\u3002");
     return {
       id: f.id,
       position: vector(f.position, "\u706F\u4F4D"),
@@ -17540,9 +17747,10 @@ function serializeModelLighting(lighting) {
 }
 
 // src/index.mjs
-var VERSION = "0.2.0";
+var VERSION = "0.3.1";
 var CAPABILITIES = Object.freeze([
   ...UNIFIED_CAPABILITIES,
+  ...RENDERING_CAPABILITIES,
   "scene.structure.v1",
   "model.glb.v1",
   "device.effects.v1",
@@ -17550,15 +17758,15 @@ var CAPABILITIES = Object.freeze([
   "model.normalization.v1",
   "model.lighting.v1"
 ]);
-var ajv2 = new import_ajv2.default({
+var ajv3 = new import_ajv3.default({
   strict: false,
   allErrors: false,
   validateFormats: false
 });
 for (const s of Object.values(schemas_default))
-  ajv2.addSchema(s);
+  ajv3.addSchema(s);
 function schema(name, value, document2) {
-  const v = ajv2.getSchema(schemas_default[name + ".schema.json"].$id);
+  const v = ajv3.getSchema(schemas_default[name + ".schema.json"].$id);
   if (!v(value)) {
     const e = v.errors[0];
     throw new PackageError(
@@ -18078,14 +18286,14 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
     need("device.effects.v1");
   const bound = /* @__PURE__ */ new Set();
   for (const [bi, b] of devices.bindings.entries()) {
-    const doc = manifest.entries.devices, path = "/bindings/" + bi, ctx = { objectId: b.id };
+    const doc2 = manifest.entries.devices, path = "/bindings/" + bi, ctx = { objectId: b.id };
     add(b, "binding", void 0, path);
     const o = instances.get(b.instanceId);
     requireValue(
       o?.kind === "device",
       "DEVICE_REFERENCE",
       "Binding must reference a device instance",
-      doc,
+      doc2,
       path,
       ctx
     );
@@ -18093,7 +18301,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
       !bound.has(b.instanceId),
       "DUPLICATE_DEVICE_BINDING",
       "Duplicate device binding",
-      doc,
+      doc2,
       path,
       ctx
     );
@@ -18103,7 +18311,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
       props.size === b.properties.length,
       "DUPLICATE_PROPERTY",
       "Duplicate property",
-      doc,
+      doc2,
       path,
       ctx
     );
@@ -18111,7 +18319,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
       props.size === Object.keys(b.previewState).length && Object.keys(b.previewState).every((k) => props.has(k)),
       "STATE_REFERENCE",
       "Preview must cover all declared properties",
-      doc,
+      doc2,
       path,
       ctx
     );
@@ -18121,7 +18329,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         typeof v === p.valueType,
         "STATE_TYPE",
         "Preview value type mismatch",
-        doc,
+        doc2,
         path + "/previewState/" + k,
         ctx
       );
@@ -18130,7 +18338,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
           Number.isFinite(p.minimum) && Number.isFinite(p.maximum) && p.minimum < p.maximum && v >= p.minimum && v <= p.maximum,
           "STATE_RANGE",
           "Invalid numeric property range",
-          doc,
+          doc2,
           path,
           ctx
         );
@@ -18138,7 +18346,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
     const drivers = /* @__PURE__ */ new Set();
     for (const [ei, e] of b.visualEffects.entries()) {
       const ep = path + "/visualEffects/" + ei, p = props.get(e.property), t = e.target;
-      requireValue(p, "STATE_REFERENCE", "Missing effect property", doc, ep, ctx);
+      requireValue(p, "STATE_REFERENCE", "Missing effect property", doc2, ep, ctx);
       requireValue(
         definitions[o.resourceKey].targets.some(
           (v) => v.kind === t.kind && v.name === t.name && v.nodeName === t.nodeName
@@ -18149,7 +18357,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         ) === 1,
         "EFFECT_TARGET",
         "Undeclared or invalid model target",
-        doc,
+        doc2,
         ep,
         ctx
       );
@@ -18157,7 +18365,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         e.channel.startsWith(t.kind + "."),
         "EFFECT_CHANNEL",
         "Channel does not match target kind",
-        doc,
+        doc2,
         ep,
         ctx
       );
@@ -18166,7 +18374,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         !drivers.has(driver),
         "EFFECT_CONFLICT",
         "Conflicting effects drive one channel",
-        doc,
+        doc2,
         ep,
         ctx
       );
@@ -18177,7 +18385,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         ),
         "EFFECT_RANGE",
         "Input endpoints must match property range",
-        doc,
+        doc2,
         ep,
         ctx
       );
@@ -18191,7 +18399,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         ),
         "EFFECT_RANGE",
         "Output outside channel range",
-        doc,
+        doc2,
         ep,
         ctx
       );
@@ -18202,7 +18410,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         !slots.has(s.id),
         "DUPLICATE_SLOT",
         "Duplicate control slot",
-        doc,
+        doc2,
         path,
         ctx
       );
@@ -18211,7 +18419,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
         props.get(s.property)?.writable,
         "COMMAND_PROPERTY",
         "Control slot requires writable property",
-        doc,
+        doc2,
         path,
         ctx
       );
@@ -18238,6 +18446,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
     packageDigest: digest(entries["package.json"]),
     warnings,
     summary: {
+      imagePixels,
       floors: floors.size,
       instances: instances.size,
       modelResources: Object.keys(models).length,
@@ -18247,9 +18456,9 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
   };
 }
 function polygon(points, document2, id) {
-  const cross = (a, b, c) => (b.x - a.x) * (c.z - a.z) - (b.z - a.z) * (c.x - a.x), eps = 1e-6;
-  const on = (p, a, b) => Math.abs(cross(a, b, p)) < eps && p.x >= Math.min(a.x, b.x) - eps && p.x <= Math.max(a.x, b.x) + eps && p.z >= Math.min(a.z, b.z) - eps && p.z <= Math.max(a.z, b.z) + eps;
-  const hit = (a, b, c, d) => cross(a, b, c) * cross(a, b, d) < -eps && cross(c, d, a) * cross(c, d, b) < -eps || on(a, c, d) || on(b, c, d) || on(c, a, b) || on(d, a, b);
+  const cross2 = (a, b, c) => (b.x - a.x) * (c.z - a.z) - (b.z - a.z) * (c.x - a.x), eps = 1e-6;
+  const on = (p, a, b) => Math.abs(cross2(a, b, p)) < eps && p.x >= Math.min(a.x, b.x) - eps && p.x <= Math.max(a.x, b.x) + eps && p.z >= Math.min(a.z, b.z) - eps && p.z <= Math.max(a.z, b.z) + eps;
+  const hit = (a, b, c, d) => cross2(a, b, c) * cross2(a, b, d) < -eps && cross2(c, d, a) * cross2(c, d, b) < -eps || on(a, c, d) || on(b, c, d) || on(c, a, b) || on(d, a, b);
   const area = points.reduce((s, a, i) => {
     const b = points[(i + 1) % points.length];
     return s + a.x * b.z - b.x * a.z;
@@ -18472,8 +18681,12 @@ async function archivePackageEntries(entries, options = {}) {
   CAPABILITIES,
   LIMITS,
   PackageError,
+  RENDERING_CAPABILITIES,
+  SOFT_STUDIO_PRESET,
   VERSION,
+  applySoftStudioPreset,
   archivePackageEntries,
+  bindRenderingToProject,
   createDemoRuntime,
   createDemoRuntimeFromDocument,
   digest,
@@ -18489,6 +18702,7 @@ async function archivePackageEntries(entries, options = {}) {
   readPackageEntries,
   serializeModelLighting,
   validatePackage,
+  validateRendering,
   writePackage,
   writePackageEntries
 });
