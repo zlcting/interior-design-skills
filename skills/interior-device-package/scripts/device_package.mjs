@@ -6,7 +6,9 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import {isDeepStrictEqual} from 'node:util';
 import {resolveTemplateReference} from './resolve_template.mjs';
+import {instantiateBehavior,validateStateDescription,readDeviceState} from './device_state.mjs';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
@@ -14,13 +16,13 @@ const read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
 const NS='org.houzzkit.interior-device';
 const CORE=['scene.structure.v1','model.glb.v1','model.normalization.v1','device.contracts.v1','device.presentation.v1','device.simulation.v1'];
 const CHANNELS=new Set(['node.visible','node.position.x','node.position.y','node.position.z','node.scale.x','node.scale.y','node.scale.z','material.opacity','material.emissiveIntensity','light.intensity']);
-const FEATURES=new Set(['device.static','light.power','light.brightness','curtain.position','curtain.stop']);
+const FEATURES=new Set(['device.static','light.power','light.brightness','curtain.position','curtain.stop','device.state-simulation','sdk-core-effects']);
 
 export async function loadSdk(directory){
   assert(Number(process.versions.node.split('.')[0])>=20,'Node 20+ required');
   const dir=directory?path.resolve(directory):path.resolve(HERE,'../../interior-home3d/scripts/vendor');
   const manifest=await read(path.join(dir,'manifest.json')),file=path.join(dir,'home3d-package.cjs');
-  assert.equal(manifest.version,'0.3.0','SDK version mismatch');
+  assert(['0.3.0','0.3.1'].includes(manifest.version),'SDK version mismatch');
   assert.equal(sha(await fs.readFile(file)),'sha256:'+manifest.bundleSha256,'SDK artifact digest mismatch');
   const sdk=createRequire(import.meta.url)(file);assert.equal(sdk.VERSION,manifest.version);
   return{sdk,manifest};
@@ -57,7 +59,7 @@ export async function loadAsset(directory){
   assert(/^[A-Za-z][A-Za-z0-9_.:-]{0,127}$/.test(meta.id),'Invalid asset id');assert(/^\d+\.\d+\.\d+$/.test(meta.version),'Invalid version');
   assert(typeof meta.name==='string'&&meta.name.trim()&&typeof meta.deviceType==='string'&&meta.deviceType.trim(),'Missing name/deviceType');
   assert.equal(meta.geometryKind,'fixed','BLOCKED: procedural/path generator not implemented by this tool');
-  assert.equal(meta.target?.packageVersion,4);assert.equal(meta.target?.sdkVersion,'0.3.0');assert.equal(meta.target?.profile,'core-v4');
+  assert.equal(meta.target?.packageVersion,4);assert(['0.3.0','0.3.1'].includes(meta.target?.sdkVersion),'Unsupported target SDK');assert.equal(meta.target?.profile,'core-v4');
   assert(Array.isArray(meta.target.requiredCapabilities));assert(Array.isArray(meta.requiredFeatures));
   for(const f of meta.requiredFeatures)assert(FEATURES.has(f.id)&&f.version===1,'BLOCKED: unsupported required feature '+f.id);
   const scope=await read(path.join(HERE,'../references/scope.json')),ref=meta.requirementRef;
@@ -83,13 +85,25 @@ export async function loadAsset(directory){
   assert(rig.mounting.attachmentPoint?.length===3&&rig.mounting.attachmentPoint.every(Number.isFinite),'Invalid mounting point');
   assert.equal(policy.schema,'home3d.device-state-policy.v1');assert.equal(policy.mode,'simulation','BLOCKED: real-state adapter not implemented');
   assert.equal(effects.schema,'home3d.device-effects.v1');assert(Array.isArray(effects.effects));
-  for(const e of effects.effects)assert(['point','curtain'].includes(e.groupId)&&e.groupVersion===1,'BLOCKED: unsupported effect group '+e.groupId);
+  for(const e of effects.effects){
+    assert(['point','curtain','sdk-core-state-effects'].includes(e.groupId)&&e.groupVersion===1,'BLOCKED: unsupported effect group '+e.groupId);
+    if(e.groupId==='sdk-core-state-effects'){
+      assert(meta.requiredFeatures.some(f=>f.id==='sdk-core-effects'),'Declare sdk-core-effects feature');
+      assert(Array.isArray(e.channels)&&e.channels.every(c=>CHANNELS.has(c)),'BLOCKED: unsupported core effect channel');
+    }
+  }
   assert.equal(sources.schema,'home3d.device-sources.v1');for(const key of ['requirements','product','capabilityMappings','tools'])assert(Object.hasOwn(sources,key),'Missing source '+key);
   for(const e of contract.presentation?.effects||[])assert(CHANNELS.has(e.channel),'BLOCKED: unsupported consumer channel '+e.channel);
   assert(declared.has(model.file),'Missing model file');
   const lighting=model.lightingPath?json(model.lightingPath):null;
   const preview=files.get(meta.entries.preview);assert(preview.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'Preview must be PNG');
-  return{meta,raw,files,model,contract,template,rig,lighting,contractBytes:files.get(meta.entries.contract)};
+  const stateDescription=meta.entries.stateDescription?json(meta.entries.stateDescription):null;
+  const behavior=meta.entries.behavior?json(meta.entries.behavior):null;
+  const stateful=meta.requiredFeatures.some(f=>f.id==='device.state-simulation');
+  if(stateful)assert(stateDescription,'State simulation requires entries.stateDescription');
+  if(stateDescription)validateStateDescription(contract,stateDescription);
+  if(behavior){assert(stateful,'Behavior rules require device.state-simulation');instantiateBehavior(behavior,'check-device',contract);}
+  return{meta,raw,files,model,contract,template,rig,lighting,stateDescription,behavior,stateful,contractBytes:files.get(meta.entries.contract)};
 }
 
 export function testProject(name){
@@ -100,6 +114,7 @@ export function testProject(name){
 
 export async function assemble(asset,job,sdk){
   const capabilities=job.consumerCapabilities||sdk.CAPABILITIES;
+  assert(Number(sdk.VERSION.split('.')[2])>=Number(asset.meta.target.sdkVersion.split('.')[2]),'Consumer SDK is older than asset target');
   let businessReference=null;
   if(job.businessTemplate){
     const config=job.businessTemplate;
@@ -126,7 +141,7 @@ export async function assemble(asset,job,sdk){
   if(existing)assert.deepEqual(entries[existing.definitionPath],definition,'Resource collision');
   else{resources.resources.push({key:resourceKey,kind:'model',definitionPath});entries[definitionPath]=definition;}
   const digest=sha(asset.contractBytes),contractPath='contracts/'+digest.slice(7)+'.json';entries[contractPath]=asset.contractBytes;
-  const additions=[];
+  const additions=[],newRules=[];
   for(const place of job.placements){
     assert(['floor','wall','ceiling'].includes(place.placement)&&asset.rig.mounting.allowedSurfaces.includes(place.placement),'Placement not allowed');
     assert(!project.instances.some(i=>i.id===place.instanceId),'Duplicate instance id');
@@ -137,11 +152,16 @@ export async function assemble(asset,job,sdk){
     devices.instances.push({id:deviceId,name:place.name||asset.meta.name,instanceId:place.instanceId,contractPath,contractDigest:digest,manualControlEnabled:true});
     for(const b of asset.template.bindings)presentation.bindings.push({deviceId,...structuredClone(b)});
     additions.push({instanceId:place.instanceId,deviceId});
+    if(asset.behavior)newRules.push(...instantiateBehavior(asset.behavior,deviceId,asset.contract));
   }
   if(source){project.revision+=1;project.parentDigest=sha(source.entries['project.json']);if(job.name)project.projectMetadata.name=job.name;}
-  const input={version:4,kind:'project',name:project.projectMetadata.name,producer:{name:'interior-device-package',version:'1.0.0'},project,resources,devices,presentation,entries,
+  const input={version:4,kind:'project',name:project.projectMetadata.name,producer:{name:'interior-device-package',version:'1.1.0'},project,resources,devices,presentation,entries,
     requiredCapabilities:[...new Set([...CORE,...(source?.manifest.requiredCapabilities||[]),...asset.meta.target.requiredCapabilities,...(asset.lighting?['model.lighting.v1']:[])])]};
-  if(source?.experience)input.experience={...structuredClone(source.experience),projectDigest:sha(sdk.encode(project))};
+  if(source?.experience||asset.behavior){
+    input.experience=structuredClone(source?.experience||{schema:'home3d.device-program.v1',initialState:[],scenes:[],rules:[]});
+    input.experience.projectDigest=sha(sdk.encode(project));input.experience.rules.push(...newRules);
+    input.requiredCapabilities=[...new Set([...input.requiredCapabilities,'experience.references.v1'])];
+  }
   if(source?.rendering){
     const rendering=structuredClone(source.rendering),inspected=await sdk.inspectModel(glb,asset.model.file);
     const lights=asset.lighting?asset.lighting.fixtures.map(f=>f.id):(inspected.document.nodes||[]).filter((n,i)=>n.extensions?.KHR_lights_punctual&&inspected.reachableNodes.has(i)).map(n=>n.name);
@@ -157,7 +177,11 @@ export async function assemble(asset,job,sdk){
     for(const[p,b]of Object.entries(source.entries))if(!reserved.has(p))assert.deepEqual(parsed.entries[p],b,'Original payload changed: '+p);
     assert.deepEqual(parsed.devices.instances.slice(0,source.devices.instances.length),source.devices.instances);
     assert.deepEqual(parsed.presentation.bindings.slice(0,source.presentation.bindings.length),source.presentation.bindings);
-    if(source.experience)assert.equal(sha(sdk.encode({...parsed.experience,projectDigest:source.experience.projectDigest})),sha(sdk.encode(source.experience)));
+    if(source.experience)for(const[k,v]of Object.entries(source.experience)){
+      if(k==='projectDigest')continue;
+      if(k==='rules')assert.deepEqual(parsed.experience.rules.slice(0,v.length),v,'Original rules changed');
+      else assert.deepEqual(parsed.experience[k],v,'Original experience changed: '+k);
+    }
     if(source.rendering)assert.deepEqual(parsed.rendering.modelLightShadows.slice(0,source.rendering.modelLightShadows.length),source.rendering.modelLightShadows);
     if(source.rendering)for(const k of Object.keys(source.rendering))if(!['projectDigest','modelLightShadows'].includes(k))assert.deepEqual(parsed.rendering[k],source.rendering[k]);
   }
@@ -165,7 +189,7 @@ export async function assemble(asset,job,sdk){
   if(additions.length>=2)for(const scope of asset.contract.scopes)for(const c of scope.capabilities){
     if(c.behavior!=='property'||!['write','read-write'].includes(c.access)||c.initialValue===undefined)continue;
     const r={...(scope.controlObjectId!==undefined?{controlObjectId:scope.controlObjectId}:{}),...(scope.outputId!==undefined?{outputId:scope.outputId}:{}),capabilityKey:c.key};
-    let value=c.value.type==='boolean'?!c.initialValue:c.value.type==='number'?(c.initialValue===c.value.minimum?c.value.maximum:c.value.minimum):c.value.enum?.find(v=>v!==c.initialValue);
+    let value=c.value.type==='boolean'?!c.initialValue:['number','integer'].includes(c.value.type)?(c.initialValue===c.value.minimum?c.value.maximum:c.value.minimum):(c.value.values||c.value.enum)?.find(v=>v!==c.initialValue);
     if(value===undefined||value===c.initialValue)continue;
     const runtime=sdk.createDemoRuntime(parsed),before=additions.slice(1).map(a=>runtime.read({deviceId:a.deviceId,...r}));
     runtime.dispatch({deviceId:additions[0].deviceId,...r,operation:'write',value});runtime.advance(60000);
@@ -176,9 +200,19 @@ export async function assemble(asset,job,sdk){
     if(step.action)runtime.dispatch(step.action);
     if(step.advanceMs!==undefined)runtime.advance(step.advanceMs);
     if(step.expect)assert.deepEqual(runtime.read(step.expect.ref),{known:true,value:step.expect.value},'Scenario failed: '+scenario.name);
+    if(step.expectEffect){
+      assert(Object.hasOwn(step.expectEffect,'value'),'Effect assertion requires a value');
+      const {value,...selector}=step.expectEffect;
+      assert(Object.keys(selector).length&&Object.keys(selector).every(k=>['deviceId','instanceId','target','channel'].includes(k)),'Invalid effect selector');
+      const matches=runtime.effects().filter(e=>Object.entries(selector).every(([k,v])=>isDeepStrictEqual(e[k],v)));
+      assert(matches.length===1,'Effect selector must identify exactly one effect: '+scenario.name);
+      assert.equal(matches[0].known,true,'Effect value is unknown: '+scenario.name);
+      assert.deepEqual(matches[0].value,value,'Effect scenario failed: '+scenario.name);
+    }
   }}
   return{bytes,parsed,report:{schema:'home3d.device-acceptance.v1',assetId:asset.meta.id,version:asset.meta.version,entryDigest:sha(asset.raw),packageFileDigest:sha(bytes),packageDigest:parsed.packageDigest,
-    protocol:'passed',deterministic:true,scope:'fixed geometry, simulation, core-v4 primitives',sourcePreservation:source?'passed':'not-requested',stateIsolation:isolation,stateIsolationChecks:isolationChecks,
+    protocol:'passed',deterministic:true,scope:'fixed geometry, simulation, core-v4 primitives and optional experience rules',
+    sdkStateRead:asset.stateDescription?additions.map(a=>readDeviceState(sdk.createDemoRuntime(parsed),a.deviceId,asset.contract,asset.stateDescription)):'not-declared',behaviorRulesAdded:newRules.length,sourcePreservation:source?'passed':'not-requested',stateIsolation:isolation,stateIsolationChecks:isolationChecks,
     scenarios:(job.scenarios||[]).map(s=>({name:s.name,status:'passed'})),consumerCapabilityCheck:job.consumerCapabilities?'passed':'not-reviewed',
     businessTemplate:businessReference?{status:'resolved-read-only',env:job.businessTemplate.env,reference:businessReference}:{status:'not-requested'},
     materialIsolation:'not-reviewed',geometryReview:'not-reviewed',editorReview:'not-reviewed',onlineSave:'not-reviewed',realHardware:'not-reviewed',additions}};
@@ -191,7 +225,13 @@ export async function build(jobFile,sdkInfo){
   const realAsset=await fs.realpath(job.assetDir);
   job.outputDir=path.join(await fs.realpath(path.dirname(job.outputDir)),path.basename(job.outputDir));
   assert(job.outputDir!==realAsset&&!job.outputDir.startsWith(realAsset+path.sep),'Output cannot be inside asset source');
-  const asset=await loadAsset(job.assetDir),result=await assemble(asset,job,sdkInfo.sdk);
+  const asset=await loadAsset(job.assetDir);
+  if(asset.stateful){
+    assert(job.placements?.length>=2,'State simulation delivery requires two instances');
+    assert(job.scenarios?.some(s=>s.steps?.some(step=>step.expect)),'State simulation delivery requires SDK state assertions');
+    if(asset.contract.presentation.effects.length)assert(job.scenarios.some(s=>s.steps?.some(step=>step.expectEffect)),'State simulation delivery requires effect assertions');
+  }
+  const result=await assemble(asset,job,sdkInfo.sdk);
   await fs.mkdir(job.outputDir); // EEXIST is deliberate: never replace a delivery.
   const zip=path.join(job.outputDir,asset.meta.id+'-'+asset.meta.version+'.device.zip');
   execFileSync('python3',[path.join(HERE,'archive_asset.py'),job.assetDir,zip,sha(asset.raw)],{stdio:'pipe'});

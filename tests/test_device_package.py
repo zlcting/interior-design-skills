@@ -133,3 +133,90 @@ class DevicePackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory()as tmp:
             root=Path(tmp);asset=self.fixture(root);(root/'alias').symlink_to(asset,target_is_directory=True)
             self.run_tool('build',self.job(root,'alias/delivery'),False);self.assertFalse((asset/'delivery').exists())
+
+
+    def stateful_fixture(self, root):
+        asset=self.fixture(root)
+        contract=json.loads((asset/'device-contract.json').read_text())
+        contract['scopes'][0]['capabilities'].append({'key':'operationState','behavior':'property','access':'read','value':{'type':'enum','values':['off','running']},'initialValue':'off'})
+        contract['scopes'][0]['capabilities'] += [{'key':'mode','behavior':'property','access':'read-write','value':{'type':'enum','values':['cool','heat']},'initialValue':'cool'},{'key':'speed','behavior':'property','access':'read-write','value':{'type':'integer','minimum':0,'maximum':3},'initialValue':1}]
+        contract['presentation']['effects'][0]['source']={'capabilityKey':'operationState'}
+        contract['presentation']['effects'][0]['mapping']={'kind':'cases','cases':[{'value':'off','output':False},{'value':'running','output':True}]}
+        self.write(asset/'device-contract.json',contract)
+        self.write(asset/'device-state.json',{'schema':'home3d.device-state-description.v1','mode':'simulation','summaryRef':{'capabilityKey':'operationState'},'readableRefs':[{'capabilityKey':'power'},{'capabilityKey':'operationState'}]})
+        rules=[{'id':'power-'+str(value),'when':{'target':{'capabilityKey':'power'},'value':value},'actions':[{'capabilityKey':'operationState','operation':'observe','value':'running' if value else 'off','sample':True}]}for value in [False,True]]
+        self.write(asset/'behavior.template.json',{'schema':'home3d.device-behavior-template.v1','version':1,'mode':'simulation','rules':rules})
+        self.write(asset/'effects.json',{'schema':'home3d.device-effects.v1','effects':[{'groupId':'sdk-core-state-effects','groupVersion':1,'channels':['node.visible']}]})
+        meta=json.loads((asset/'device-asset.json').read_text())
+        meta['entries'].update({'stateDescription':'device-state.json','behavior':'behavior.template.json'})
+        meta['requiredFeatures']+=[{'id':'device.state-simulation','version':1},{'id':'sdk-core-effects','version':1}]
+        self.write(asset/'device-asset.json',meta);self.run_tool('seal',asset)
+        return asset
+
+    def stateful_scenarios(self, first='a', second='b'):
+        return [{'name':'power updates actual state and model independently','steps':[
+            {'action':{'deviceId':'device-'+first,'capabilityKey':'power','operation':'write','value':True}},
+            {'expect':{'ref':{'deviceId':'device-'+first,'capabilityKey':'operationState'},'value':'running'}},
+            {'expect':{'ref':{'deviceId':'device-'+second,'capabilityKey':'operationState'},'value':'off'}},
+            {'expectEffect':{'instanceId':first,'target':{'kind':'node','name':'FURN_A'},'channel':'node.visible','value':True}},
+            {'expectEffect':{'instanceId':second,'target':{'kind':'node','name':'FURN_A'},'channel':'node.visible','value':False}},
+            {'action':{'deviceId':'device-'+first,'capabilityKey':'power','operation':'write','value':False}},
+            {'expect':{'ref':{'deviceId':'device-'+first,'capabilityKey':'operationState'},'value':'off'}},
+            {'expectEffect':{'instanceId':first,'target':{'kind':'node','name':'FURN_A'},'channel':'node.visible','value':False}}
+        ]}]
+
+    def test_stateful_rules_compile_sdk_reads_and_merge_preserves_old_rules(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);asset=self.stateful_fixture(root)
+            report=self.run_tool('build',self.job(root,'first',scenarios=self.stateful_scenarios()))
+            self.assertEqual(report['behaviorRulesAdded'],4)
+            self.assertEqual(report['stateIsolationChecks'],3)
+            self.assertEqual(report['sdkStateRead'][0]['summary'],{'known':True,'value':'off'})
+            with zipfile.ZipFile(root/'first/validation.home3d') as z:
+                old=json.loads(z.read('experience.json'))
+                self.assertIn('experience.references.v1',json.loads(z.read('package.json'))['requiredCapabilities'])
+            places=[{'instanceId':'new-'+i,'floorId':'floor-test','roomId':'room-test','placement':'floor','position':[x,0,1]}for i,x in [('a',-1),('b',1)]]
+            merged=self.run_tool('build',self.job(root,'merged',basePackage='first/validation.home3d',placements=places,scenarios=self.stateful_scenarios('new-a','new-b')))
+            self.assertEqual(merged['sourcePreservation'],'passed')
+            with zipfile.ZipFile(root/'merged/validation.home3d') as z:
+                new=json.loads(z.read('experience.json'));self.assertEqual(new['rules'][:4],old['rules']);self.assertEqual(len(new['rules']),8)
+            code="""const s=require(process.argv[1]),f=require('fs');(async()=>{const p=await s.readPackage(f.readFileSync(process.argv[2])),r=s.createDemoRuntime(p),h=await import(process.argv[3]),c=JSON.parse(f.readFileSync(process.argv[4])),d=JSON.parse(f.readFileSync(process.argv[5]));r.dispatch({deviceId:'device-a',capabilityKey:'power',operation:'write',value:true});console.log(JSON.stringify(h.readDeviceState(r,'device-a',c,d)))})().catch(e=>{console.error(e);process.exit(1)})"""
+            cp=subprocess.run([NODE,'-e',code,str(SDK),str(root/'first/validation.home3d'),(SKILL/'scripts/device_state.mjs').as_uri(),str(asset/'device-contract.json'),str(asset/'device-state.json')],capture_output=True,text=True)
+            self.assertEqual(cp.returncode,0,cp.stderr);self.assertEqual(json.loads(cp.stdout)['summary'],{'known':True,'value':'running'})
+            self.run_tool('build',self.job(root,'again',scenarios=self.stateful_scenarios()))
+            self.assertEqual((root/'first/validation.home3d').read_bytes(),(root/'again/validation.home3d').read_bytes())
+
+    def test_stateful_bad_refs_actions_and_missing_evidence_do_not_publish(self):
+        for case in ['cross-device','wrong-scope','invalid-enum','missing-description','command-is-state','missing-state-check','missing-effect-check','wrong-effect']:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp);asset=self.stateful_fixture(root);scenarios=self.stateful_scenarios()
+                if case in ['cross-device','wrong-scope','invalid-enum']:
+                    p=asset/'behavior.template.json';v=json.loads(p.read_text())
+                    if case=='cross-device':v['rules'][0]['actions'][0]['deviceId']='device-other'
+                    elif case=='wrong-scope':v['rules'][0]['when']['target']['controlObjectId']='missing'
+                    else:v['rules'][0]['actions'][0]['value']='invalid'
+                    self.write(p,v)
+                elif case=='missing-description':
+                    p=asset/'device-asset.json';v=json.loads(p.read_text());del v['entries']['stateDescription'];self.write(p,v)
+                elif case=='command-is-state':
+                    p=asset/'device-contract.json';v=json.loads(p.read_text());v['scopes'][0]['capabilities'][1]['access']='write';self.write(p,v)
+                elif case=='missing-state-check':scenarios=[]
+                elif case=='missing-effect-check':scenarios[0]['steps']=[x for x in scenarios[0]['steps'] if 'expectEffect' not in x]
+                else:scenarios[0]['steps'][3]['expectEffect']['value']=False
+                self.run_tool('seal',asset);self.run_tool('build',self.job(root,scenarios=scenarios),False)
+                self.assertFalse((root/'out').exists())
+
+    def test_sdk_state_read_preserves_scopes_and_unknown_instead_of_false(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);asset=self.stateful_fixture(root)
+            c=json.loads((asset/'device-contract.json').read_text())
+            c['scopes']=[{'controlObjectId':key,'capabilities':[{'key':'state','behavior':'property','access':'read','value':{'type':'boolean'},**({'initialValue':False} if key=='left' else {})}]} for key in ['left','right']]
+            c['presentation']={'controls':[],'effects':[]};self.write(asset/'device-contract.json',c)
+            self.write(asset/'bindings.template.json',{'schema':'home3d.presentation-template.v1','bindings':[]})
+            refs=[{'controlObjectId':key,'capabilityKey':'state'} for key in ['left','right']]
+            self.write(asset/'device-state.json',{'schema':'home3d.device-state-description.v1','mode':'simulation','summaryRef':refs[0],'readableRefs':refs})
+            self.write(asset/'behavior.template.json',{'schema':'home3d.device-behavior-template.v1','version':1,'mode':'simulation','rules':[]})
+            self.run_tool('seal',asset)
+            scenarios=[{'name':'scoped current state','steps':[{'expect':{'ref':{'deviceId':'device-a',**refs[0]},'value':False}}]}]
+            report=self.run_tool('build',self.job(root,scenarios=scenarios))
+            values=report['sdkStateRead'][0]['values'];self.assertEqual(values[0]['value'],False);self.assertTrue(values[0]['known']);self.assertFalse(values[1]['known']);self.assertNotIn('value',values[1])
