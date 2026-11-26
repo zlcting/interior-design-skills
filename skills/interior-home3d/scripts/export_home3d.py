@@ -15,6 +15,7 @@ HERE = Path(__file__).resolve().parent
 NS = 'org.houzzkit.interior'
 sys.path.insert(0, str(HERE))
 from rendering_config import prepare as prepare_rendering
+from structure_materials import white_structure_materials
 
 
 def sha(path):
@@ -156,7 +157,8 @@ def build(args):
         job = {'schema': 'interior.home3d-export-job.v1', 'project': model, 'scene': scene,
                'geometry': str(geometry), 'geometrySha256': geometry_hash,
                'fullSource': str(args.full_source.resolve()) if args.full_source else None,
-               'lighting': lighting, 'rendering': prepare_rendering(stage, lighting, args.rendering, args.rendering_assets), 'mapping': load(args.object_map) if args.object_map else {},
+               'lighting': lighting, 'structureMaterials': white_structure_materials(model, lighting, getattr(args, 'style', None)),
+               'rendering': prepare_rendering(stage, lighting, args.rendering, args.rendering_assets), 'mapping': load(args.object_map) if args.object_map else {},
                'sourceModelSha256': sha(model_file),
                'lightingSha256': sha(args.lighting) if args.lighting else None,
                'fullSourceSha256': sha(args.full_source) if args.full_source else None,
@@ -187,6 +189,7 @@ def main():
     parser.add_argument('--name', help='Optional delivery name; source model is unchanged')
     parser.add_argument('--geometry', required=True, type=Path)
     parser.add_argument('--lighting', type=Path)
+    parser.add_argument('--style', choices=['white-minimal'], help='Explicitly bind native wall/floor materials from the white-model palette')
     parser.add_argument('--rendering', type=Path, help='Complete rendering v1 authoring template; rebinds to the exported project')
     parser.add_argument('--rendering-assets', type=Path, help='Environment asset root for --rendering; defaults to the template directory')
     parser.add_argument('--full-source', type=Path, help='Same-source full-height .blend or .glb for window frames')

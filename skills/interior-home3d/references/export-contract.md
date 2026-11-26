@@ -10,11 +10,17 @@
 
 ## 命令与依赖
 
-`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--lighting JSON`、`--rendering JSON`、`--rendering-assets DIRECTORY`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
+`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--style white-minimal`、`--lighting JSON`、`--rendering JSON`、`--rendering-assets DIRECTORY`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
 
 需要 Python 3.10+、Node 20+ 和支持 glTF 的 Blender；安装整套技能后复用总控技能的求值几何交换校核。运行时 SDK 是 `scripts/vendor` 内锁定的离线制品，不安装全局 Node 包，不依赖开发者绝对目录。
 
 作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.3.1，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
+
+## 白模原生墙地材质
+
+明确 `--style white-minimal`、项目 `visualization.style_id=white-minimal` 或通过来源校验的 `white-home3d-v1` 灯光配置时，默认从同组总控的白模配色读取墙/地颜色。sRGB转换为线性sRGB后生成 `home3d.material-definition.v1`，通过标准资源目录绑定各原生墙与房间的 `materialKey`；同一角色复用资源。现有显式材质绑定优先。其他风格或未选择白模的工程不自动套用。
+
+`acceptance.json.structureMaterials` 保存预设版本/摘要、实际绑定、sRGB颜色以及独立的 `consumerVisualReview`。绑定及SDK往返通过不能证明当前页面读取了这些颜色；实际页面仍按分层验收检查。这里不将墙改成家具模型，不编造业务材质版本ID，也不更改光照曝光来掩盖材质读取问题。
 
 ## 显式映射
 

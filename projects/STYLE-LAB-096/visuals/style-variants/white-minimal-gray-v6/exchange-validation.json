@@ -1,0 +1,2191 @@
+{
+  "passed": true,
+  "tolerance_mm": 0.02,
+  "objects": [
+    {
+      "id": "R01 floor R01 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R02 floor R02 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R03 floor R03 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R04 floor R04 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R05 floor R05 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R06 floor R06 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "R07 floor R07 floor",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "F01 recessed foot",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F01 recessed foot.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F01 recessed foot.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F01 recessed foot.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F01 upholstered plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F01 back shell",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 padded arm",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 padded arm.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored seat",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 seat piping",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored back",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 back piping",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored seat.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 seat piping.001",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored back.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 back piping.001",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored seat.002",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 seat piping.002",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored back.002",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 back piping.002",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored pillow",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 pillow piping",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F01 tailored pillow.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F01 pillow piping.001",
+      "evaluated_unique_positions": 768,
+      "imported_unique_positions": 768,
+      "passed": true
+    },
+    {
+      "id": "F02 slim tabletop",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 square table leg",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 square table leg.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 square table leg.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 square table leg.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 recessed apron",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F02 recessed apron.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F03 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F03 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F03 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F03 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F03 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F03 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F04 top",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F04 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F04 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F04 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F04 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F05 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F05 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F05 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F05 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F05 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F05 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F06 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F06 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F06 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F06 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F06 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F06 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F07 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F07 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F07 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F07 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F07 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F07 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F08 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F08 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F08 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F08 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F08 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F08 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F09 bed base",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 headboard",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 mattress",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 duvet",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 duvet fold",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 bed throw",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F09 soft pillow",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F09 soft pillow.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F09 bed foot",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 bed foot.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 bed foot.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F09 bed foot.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 bed base",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 headboard",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 mattress",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 duvet",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 duvet fold",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 bed throw",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F10 soft pillow",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F10 soft pillow.001",
+      "evaluated_unique_positions": 1986,
+      "imported_unique_positions": 1986,
+      "passed": true
+    },
+    {
+      "id": "F10 bed foot",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 bed foot.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 bed foot.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F10 bed foot.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F11 top",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F11 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F11 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F11 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F11 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F12 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F12 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F12 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F12 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F12 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F12 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F13 top",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F13 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F13 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F13 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F13 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F14 leg",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F14 leg.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F14 leg.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F14 leg.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F14 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F14 back",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F15 base",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F15 arm",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F15 arm.001",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F15 seat",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F15 back cushion",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F15 seat.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F15 back cushion.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F15 accent cushion",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F15 accent cushion.001",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F16 rug",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "F17 fridge body",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F17 lower door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F17 upper door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F17 fridge handle",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F17 fridge handle.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F18 washer body",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F18 washer front",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F18 door bezel",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F18 door glass",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F18 control panel",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F18 washer front.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F18 door bezel.001",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F18 door glass.001",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F18 control panel.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F19 cistern",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "F19 pedestal",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F19 toilet bowl",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "F19 toilet seat",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "F19 bowl inset",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "J01 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J01 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J01 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J01 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J01 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J01 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J02 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J03 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J03 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J03 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J04 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J05 door.004",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J06 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 door.004",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J07 countertop",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 door.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 door.003",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J08 countertop",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J09 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J09 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J09 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J09 door.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J09 countertop",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J10 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J10 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J10 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J11 plinth",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J11 carcass",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "J11 door",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 ceramic planter",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 planter lip",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 visible soil",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 0",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 0",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 1",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 1",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 2",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 2",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 3",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 3",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 4",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 4",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 5",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 5",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 6",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 6",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 7",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 7",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 8",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 8",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 9",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 9",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 10",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 10",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 11",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 11",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 12",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 12",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 13",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 13",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 14",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 14",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 15",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 15",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 16",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 16",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 broad leaf 17",
+      "evaluated_unique_positions": 282,
+      "imported_unique_positions": 282,
+      "passed": true
+    },
+    {
+      "id": "DECOR-F02 stem 17",
+      "evaluated_unique_positions": 168,
+      "imported_unique_positions": 168,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 ceramic pot",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 soil",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 0",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 1",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 2",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 3",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 4",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DECOR-J06 leaf 5",
+      "evaluated_unique_positions": 14,
+      "imported_unique_positions": 14,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E03 cooktop surface",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E03 burner",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E03 burner.001",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E03 burner.002",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E03 burner.003",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E05 sink rim",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E05 sink inset",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E05 tap stem",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-E05 tap spout",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-TV-J05 screen frame",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-TV-J05 screen inset",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-TV-J05 screen stand",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-J09 basin shell",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-J09 basin inset",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower tray",
+      "evaluated_unique_positions": 216,
+      "imported_unique_positions": 216,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower glass front",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower glass side",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower post",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower post.001",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DETAIL-SHOWER shower post.002",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "DECOR-LAMP-F01 lamp base",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-LAMP-F01 lamp stem",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-LAMP-F01 linen lamp shade",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-LAMP-F01 warm diffuser",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "DECOR-LAMP-F01 lamp finial",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "L07 conical shade",
+      "evaluated_unique_positions": 384,
+      "imported_unique_positions": 384,
+      "passed": true
+    },
+    {
+      "id": "L07 warm bulb",
+      "evaluated_unique_positions": 482,
+      "imported_unique_positions": 482,
+      "passed": true
+    },
+    {
+      "id": "L07 cable",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "Presentation foundation Presentation foundation",
+      "evaluated_unique_positions": 360,
+      "imported_unique_positions": 360,
+      "passed": true
+    },
+    {
+      "id": "W01 W01.012",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W01 W01.013",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W01 W01.014",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W01 W01.015",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W01 W01.016",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.022",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.023",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.024",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.025",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.026",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.027",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.028",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.029",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.030",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.031",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.032",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.033",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W02 W02.034",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W03 W03.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W04 W04.010",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W04 W04.011",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W04 W04.012",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W04 W04.013",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W05 W05.014",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W05 W05.015",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W05 W05.016",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W05 W05.017",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W05 W05.018",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W06 W06.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W07 W07.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W08 W08.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W09 W09.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W10 W10.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "W10 W10.006",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN01 glazing WIN01 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN01 frame WIN01 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN01 frame WIN01 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN01 frame WIN01 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN01 horizontal frame WIN01 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN01 horizontal frame WIN01 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN02 glazing WIN02 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN02 frame WIN02 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN02 frame WIN02 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN02 frame WIN02 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN02 horizontal frame WIN02 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN02 horizontal frame WIN02 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN03 glazing WIN03 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN03 frame WIN03 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN03 frame WIN03 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN03 frame WIN03 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN03 horizontal frame WIN03 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN03 horizontal frame WIN03 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN04 glazing WIN04 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN04 frame WIN04 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN04 frame WIN04 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN04 frame WIN04 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN04 horizontal frame WIN04 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN04 horizontal frame WIN04 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN05 glazing WIN05 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN05 frame WIN05 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN05 frame WIN05 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN05 frame WIN05 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN05 horizontal frame WIN05 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN05 horizontal frame WIN05 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN06 glazing WIN06 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN06 frame WIN06 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN06 frame WIN06 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN06 frame WIN06 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN06 horizontal frame WIN06 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN06 horizontal frame WIN06 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN07 glazing WIN07 glazing.001",
+      "evaluated_unique_positions": 56,
+      "imported_unique_positions": 56,
+      "passed": true
+    },
+    {
+      "id": "WIN07 frame WIN07 frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN07 frame WIN07 frame.004",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN07 frame WIN07 frame.005",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN07 horizontal frame WIN07 horizontal frame.002",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    },
+    {
+      "id": "WIN07 horizontal frame WIN07 horizontal frame.003",
+      "evaluated_unique_positions": 152,
+      "imported_unique_positions": 152,
+      "passed": true
+    }
+  ],
+  "glb_sha256": "0114e052ffaf0c196e542dfca5d3156443730833c32c3d14986ce2612f7a6464",
+  "normals": {
+    "passed": true,
+    "policy": "triangle-area-v1",
+    "checkedPrimitives": 360,
+    "generatedPrimitives": 60,
+    "regeneratedPrimitives": 0,
+    "maxUnitError": 1.3947199661856757e-07,
+    "maxSourceVectorDeviation": 4.809607314262463e-08,
+    "positionsIndicesColorsMaterialsPreserved": true,
+    "glb_sha256": "0114e052ffaf0c196e542dfca5d3156443730833c32c3d14986ce2612f7a6464"
+  },
+  "scope": "evaluated mesh world positions, object set and surface normals; excludes lighting/material appearance",
+  "normal_generation": {
+    "passed": true,
+    "policy": "triangle-area-v1",
+    "checkedPrimitives": 360,
+    "generatedPrimitives": 60,
+    "regeneratedPrimitives": 60,
+    "maxUnitError": 1.3947199661856757e-07,
+    "maxSourceVectorDeviation": 0.8914134188907268,
+    "positionsIndicesColorsMaterialsPreserved": true,
+    "glb_sha256": "0114e052ffaf0c196e542dfca5d3156443730833c32c3d14986ce2612f7a6464"
+  },
+  "apply_modifiers": true
+}

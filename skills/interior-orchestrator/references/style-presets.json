@@ -148,16 +148,16 @@
     {
       "id": "white-minimal",
       "name": "极简白模",
-      "version": 4,
-      "description": "白模建筑轴测：清晰硬质边缘、白灰明暗分层、蓝色背景与通透玻璃，保留柔软家具和局部暖光。",
+      "version": 6,
+      "description": "白模建筑轴测：较深的蓝灰墙体与家具、分层哑光材质、蓝色背景与通透玻璃，保留明亮灯罩和局部暖光。",
       "colors": {
-        "wall": "#F0F1F3",
-        "floor": "#D3D5DA",
-        "wood": "#E2E5E9",
-        "upholstery": "#F2F1EF",
-        "metal": "#D2D6DD",
-        "accent": "#D7DBE1",
-        "stone": "#E7E9EC",
+        "wall": "#ABB5C5",
+        "floor": "#8C99AC",
+        "wood": "#AEB9C9",
+        "upholstery": "#BAC2CD",
+        "metal": "#939FB1",
+        "accent": "#A0ACBD",
+        "stone": "#BDC5D0",
         "shade": "#FAF9F6",
         "detail": "#697584",
         "foliage": "#5D7047",
@@ -166,10 +166,10 @@
         "lamp_shade": "#FFF1D7"
       },
       "materials": {
-        "floor": "连续浅灰白模地面",
-        "wood": "统一哑光白模面",
-        "upholstery": "哑光白模软体",
-        "metal": "浅灰哑光面"
+        "floor": "连续中灰蓝哑光白模地面",
+        "wood": "统一蓝灰哑光白模面",
+        "upholstery": "浅蓝灰哑光软体",
+        "metal": "中灰哑光面"
       },
       "forms": {
         "sofa": "low-wide-modular",

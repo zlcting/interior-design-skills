@@ -1,11 +1,15 @@
 """Style selection, semantic portability, dimensions, and rejection behavior."""
 import copy
+import hashlib
 import json
+import shutil
+import struct
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 SCRIPTS=ROOT/'skills/interior-orchestrator/scripts'
 sys.path.insert(0,str(SCRIPTS))
@@ -200,7 +204,18 @@ class StyleTests(unittest.TestCase):
             self.assertEqual(CATALOG['material_profiles'][profile]['texture'],'plain')
             self.assertEqual(CATALOG['material_profiles'][profile]['metallic'],0)
             color=style['colors'][role]
-            self.assertGreaterEqual(min(int(color[i:i+2],16) for i in (1,3,5)),210)
+            channels=[int(color[i:i+2],16) for i in (1,3,5)]
+            self.assertGreaterEqual(min(channels),140)
+            self.assertLessEqual(max(channels)-min(channels),36)
+        def luminance(role):
+            channels=[int(style['colors'][role][i:i+2],16)/255 for i in (1,3,5)]
+            linear=[v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4 for v in channels]
+            return sum(v*w for v,w in zip(linear,(.2126,.7152,.0722)))
+        for role in ('wall','wood','upholstery'):
+            self.assertLess(luminance(role),.6)
+        self.assertLess(luminance('floor'),luminance('wall')*.8)
+        self.assertLess(luminance('floor'),luminance('upholstery')*.7)
+        self.assertGreater(luminance('shade'),.9)
     def test_white_does_not_change_layout(self):
         p=resolve_plan(MODEL,STYLES['white-minimal'])
         self.assertEqual(p['resolved_model'],MODEL)
@@ -322,5 +337,64 @@ class StyleTests(unittest.TestCase):
     def test_unsafe_camera_names_rejected(self):
         m=copy.deepcopy(MODEL);m['visualization']['cameras'][0]['name']='../escape'
         with self.assertRaises(ValueError):resolve_plan(m,STYLES['mid-century'])
+
+@unittest.skipUnless(shutil.which('blender') and shutil.which('node'), 'Blender and Node required for material exchange')
+class MaterialExchangeTests(unittest.TestCase):
+    def test_contact_colors_export_and_restore_the_offline_shader(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);script=root/'materials.py';output=root/'colors.glb';source=root/'colors.blend'
+            script.write_text("""import bpy,sys
+from pathlib import Path
+sys.path.insert(0,SCRIPTS)
+from style_renderer import make_material,contact_shadow
+from style_library import get_style,load_catalog
+from exchange_validation import export_glb_verified,flat_contact_colors
+bpy.ops.wm.read_factory_settings(use_empty=True)
+style=get_style('white-minimal');profile=load_catalog()['material_profiles']['plain'];objects=[];sockets=[]
+for i,role in enumerate(('wall','wood','upholstery','shade')):
+    material=make_material(role,style['colors'][role],profile);contact_shadow(material,.34,140)
+    socket=material.node_tree.nodes.get('Principled BSDF').inputs['Base Color']
+    sockets.append((socket,tuple(socket.default_value),socket.links[0].from_socket))
+    bpy.ops.mesh.primitive_cube_add(location=(i*3,0,0));obj=bpy.context.object;obj.data.materials.append(material);objects.append(obj)
+# An authored, unmarked graph must not be flattened by the generated-material fix.
+material=objects[-1].data.materials[0];del material['texture_kind']
+with flat_contact_colors(objects):
+    assert not sockets[0][0].is_linked and sockets[-1][0].is_linked
+material['texture_kind']='plain'
+export_glb_verified(Path(OUTPUT),objects)
+try:
+    with flat_contact_colors(objects):
+        assert all(not socket.is_linked for socket,_,_ in sockets)
+        raise RuntimeError('simulated export failure')
+except RuntimeError:pass
+for socket,value,source in sockets:
+    assert tuple(socket.default_value)==value and len(socket.links)==1 and socket.links[0].from_socket==source
+for obj,role in zip(objects,('wall','wood','upholstery','shade')):obj['object_id']=role
+bpy.ops.wm.save_as_mainfile(filepath=SOURCE_BLEND)
+""".replace('SCRIPTS',repr(str(SCRIPTS))).replace('OUTPUT',repr(str(output))).replace('SOURCE_BLEND',repr(str(source))))
+            result=subprocess.run([shutil.which('blender'),'-b','--python-exit-code','1','--python',str(script)],capture_output=True,text=True)
+            self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+            raw=output.read_bytes();size=struct.unpack_from('<I',raw,12)[0];document=json.loads(raw[20:20+size])
+            from test_home3d import project
+            model=project();roles=('wall','wood','upholstery','shade')
+            model['rooms'][0]['rect']=[-2000,-2000,15000,6000]
+            model['furniture']=[{'id':role,'name':role,'room':'ROOM','rect':[i*3000-1000,-1000,2000,2000]} for i,role in enumerate(roles)]
+            (root/'model').mkdir();(root/'model/project.json').write_text(json.dumps(model))
+            before=hashlib.sha256(source.read_bytes()).hexdigest()
+            result=subprocess.run([sys.executable,str(ROOT/'skills/interior-home3d/scripts/export_home3d.py'),str(root),'--geometry',str(source),'--out',str(root/'delivery')],capture_output=True,text=True)
+            self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+            self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),before)
+            materials=list(document['materials'])
+            with zipfile.ZipFile(root/'delivery/project.home3d') as archive:
+                for file in archive.namelist():
+                    if not file.endswith('.glb'):continue
+                    raw=archive.read(file);size=struct.unpack_from('<I',raw,12)[0]
+                    materials.extend(json.loads(raw[20:20+size])['materials'])
+            for material in materials:
+                color=STYLES['white-minimal']['colors'][material['name']]
+                rgb=[int(color[i:i+2],16)/255 for i in (1,3,5)]
+                expected=[v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4 for v in rgb]
+                actual=material['pbrMetallicRoughness'].get('baseColorFactor',[1,1,1,1])[:3]
+                for a,b in zip(actual,expected):self.assertAlmostEqual(a,b,places=6)
 
 if __name__=='__main__':unittest.main()

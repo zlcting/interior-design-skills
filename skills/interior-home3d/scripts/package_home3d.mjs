@@ -90,10 +90,23 @@ export async function build(jobFile) {
     objectMap.push({sourceId: component.sourceId, sourceNodes: component.sourceNodes, instanceId: instance.id,
       resourceKey, modelDigest: digest, lightingFixtures: normalizedFixtures.map(f => f.id), openingId: component.openingId});
   }
+  const structureBindings=[];
+  if(job.structureMaterials){
+    for(const [role,collection] of [['wall','walls'],['floor','rooms']]){
+      const spec=job.structureMaterials.roles[role],data=sdk.encode(spec.definition);
+      const resourceKey='material-'+hash(data).slice(0,32),definitionPath='resources/'+resourceKey+'.json';
+      resources.resources.push({key:resourceKey,kind:'material',definitionPath});entries[definitionPath]=data;
+      for(const floor of scene.floors)for(const object of floor[collection])if(object.materialKey===null){
+        object.materialKey=resourceKey;structureBindings.push({id:object.id,role,resourceKey,colorSrgb:spec.colorSrgb});
+      }
+    }
+    scene.extensions[NS].structurePalette={styleId:job.structureMaterials.styleId,styleVersion:job.structureMaterials.styleVersion,
+      styleDigest:job.structureMaterials.styleDigest,colorSpace:job.structureMaterials.colorSpace};
+  }
   scene.extensions[NS].sourceModelSha256 = job.sourceModelSha256;
   scene.extensions[NS].sourceGeometrySha256 = job.geometrySha256;
   const input = {version: 4, kind: 'project', name: scene.projectMetadata.name,
-    producer: {name: 'interior-home3d', version: '1.2.0'},
+    producer: {name: 'interior-home3d', version: '1.3.0'},
     requiredCapabilities: ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1',
       'device.contracts.v1', 'device.presentation.v1', 'device.simulation.v1',
       ...(fixtures.length || extracted.components.some(c => c.embeddedLights) ? ['model.lighting.v1'] : [])],
@@ -132,7 +145,10 @@ export async function build(jobFile) {
     rendering: roundtrip.rendering ? {status:'protocol-passed',documentDigest:roundtrip.renderingDigest,projectDigest:roundtrip.rendering.projectDigest,environmentDigest:roundtrip.rendering.environment.digest,viewIds:roundtrip.rendering.views.map(v=>v.id),modelLightPolicies:roundtrip.rendering.modelLightShadows.length,provenance:job.rendering.provenance,referenceReview:'not_reviewed'} : {status:'not_requested'},
     objects: {passed: true, sourceFurniture: expectedFurniture.size, walls: scene.floors[0].walls.length,
       openings: scene.floors[0].openings.length, rooms: scene.floors[0].rooms.length,
-      instances: scene.instances.length, modelDefinitions: resources.resources.length, lightingFixtures: fixtures.length, embeddedLights: extracted.components.reduce((sum, c) => sum + (c.embeddedLights || 0), 0)},
+      instances: scene.instances.length, modelDefinitions: resources.resources.filter(r=>r.kind==='model').length,
+      materialDefinitions:resources.resources.filter(r=>r.kind==='material').length, lightingFixtures: fixtures.length, embeddedLights: extracted.components.reduce((sum, c) => sum + (c.embeddedLights || 0), 0)},
+    structureMaterials: {status:job.structureMaterials?'bound':'not_requested',palette:job.structureMaterials?scene.extensions[NS].structurePalette:null,
+      bindings:structureBindings,consumerVisualReview:'not_reviewed'},
     geometry: {passed: extracted.components.every(c => c.geometryVerification.passed), toleranceMm: 0.02,
       scope: 'evaluated mesh local coordinates after extraction and GLB reimport; source transforms retained in object map'},
     normals: {passed: extracted.components.every(c => c.geometryVerification.normals?.passed),

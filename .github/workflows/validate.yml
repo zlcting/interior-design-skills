@@ -58,8 +58,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Verify style previews and current white-model outputs
         run: |
-          python tools/verify_style_outputs.py projects/STYLE-LAB-096
-          python tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minimal --out projects/STYLE-LAB-096/visuals/style-variants/white-minimal-crisp-v4 --require-current
+          python tools/verify_style_outputs.py projects/STYLE-LAB-096 --style japanese-natural --style italian-modern --style mid-century
+          python tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minimal --out projects/STYLE-LAB-096/visuals/style-variants/white-minimal-gray-v6 --require-current
       - name: Verify transfer example and five actual stage records
         run: python skills/interior-review/scripts/verify_2d.py projects/TEST-L-084 --check-records
       - name: Verify cabinet change
