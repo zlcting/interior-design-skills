@@ -1,0 +1,4 @@
+interface:
+  display_name: "方案中心体验编排 YAML"
+  short_description: "根据 Home3D 工程和目标方案生成可核对场景、讲解及动作的体验编排 YAML"
+  default_prompt: "使用 $interior-experience-yaml，根据这个 Home3D 工程和目标方案生成第 2 稿体验编排 YAML。"
