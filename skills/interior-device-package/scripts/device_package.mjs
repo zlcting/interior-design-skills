@@ -9,6 +9,7 @@ import {execFileSync} from 'node:child_process';
 import {isDeepStrictEqual} from 'node:util';
 import {resolveTemplateReference} from './resolve_template.mjs';
 import {instantiateBehavior,validateStateDescription,readDeviceState} from './device_state.mjs';
+import {SUPPORTED_SDK_VERSIONS,sdkAtLeast,checkContinuousAsset,verifyContinuousEffects} from './continuous_effects.mjs';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
@@ -22,7 +23,7 @@ export async function loadSdk(directory){
   assert(Number(process.versions.node.split('.')[0])>=20,'Node 20+ required');
   const dir=directory?path.resolve(directory):path.resolve(HERE,'../../interior-home3d/scripts/vendor');
   const manifest=await read(path.join(dir,'manifest.json')),file=path.join(dir,'home3d-package.cjs');
-  assert(['0.3.0','0.3.1'].includes(manifest.version),'SDK version mismatch');
+  assert(SUPPORTED_SDK_VERSIONS.includes(manifest.version),'SDK version mismatch');
   assert.equal(sha(await fs.readFile(file)),'sha256:'+manifest.bundleSha256,'SDK artifact digest mismatch');
   const sdk=createRequire(import.meta.url)(file);assert.equal(sdk.VERSION,manifest.version);
   return{sdk,manifest};
@@ -59,7 +60,7 @@ export async function loadAsset(directory){
   assert(/^[A-Za-z][A-Za-z0-9_.:-]{0,127}$/.test(meta.id),'Invalid asset id');assert(/^\d+\.\d+\.\d+$/.test(meta.version),'Invalid version');
   assert(typeof meta.name==='string'&&meta.name.trim()&&typeof meta.deviceType==='string'&&meta.deviceType.trim(),'Missing name/deviceType');
   assert.equal(meta.geometryKind,'fixed','BLOCKED: procedural/path generator not implemented by this tool');
-  assert.equal(meta.target?.packageVersion,4);assert(['0.3.0','0.3.1'].includes(meta.target?.sdkVersion),'Unsupported target SDK');assert.equal(meta.target?.profile,'core-v4');
+  assert.equal(meta.target?.packageVersion,4);assert(SUPPORTED_SDK_VERSIONS.includes(meta.target?.sdkVersion),'Unsupported target SDK');assert.equal(meta.target?.profile,'core-v4');
   assert(Array.isArray(meta.target.requiredCapabilities));assert(Array.isArray(meta.requiredFeatures));
   for(const f of meta.requiredFeatures)assert(FEATURES.has(f.id)&&f.version===1,'BLOCKED: unsupported required feature '+f.id);
   const scope=await read(path.join(HERE,'../references/scope.json')),ref=meta.requirementRef;
@@ -103,6 +104,7 @@ export async function loadAsset(directory){
   if(stateful)assert(stateDescription,'State simulation requires entries.stateDescription');
   if(stateDescription)validateStateDescription(contract,stateDescription);
   if(behavior){assert(stateful,'Behavior rules require device.state-simulation');instantiateBehavior(behavior,'check-device',contract);}
+  checkContinuousAsset(meta,contract,stateful);
   return{meta,raw,files,model,contract,template,rig,lighting,stateDescription,behavior,stateful,contractBytes:files.get(meta.entries.contract)};
 }
 
@@ -114,7 +116,7 @@ export function testProject(name){
 
 export async function assemble(asset,job,sdk){
   const capabilities=job.consumerCapabilities||sdk.CAPABILITIES;
-  assert(Number(sdk.VERSION.split('.')[2])>=Number(asset.meta.target.sdkVersion.split('.')[2]),'Consumer SDK is older than asset target');
+  assert(sdkAtLeast(sdk.VERSION,asset.meta.target.sdkVersion),'Consumer SDK is older than asset target');
   let businessReference=null;
   if(job.businessTemplate){
     const config=job.businessTemplate;
@@ -155,7 +157,7 @@ export async function assemble(asset,job,sdk){
     if(asset.behavior)newRules.push(...instantiateBehavior(asset.behavior,deviceId,asset.contract));
   }
   if(source){project.revision+=1;project.parentDigest=sha(source.entries['project.json']);if(job.name)project.projectMetadata.name=job.name;}
-  const input={version:4,kind:'project',name:project.projectMetadata.name,producer:{name:'interior-device-package',version:'1.1.0'},project,resources,devices,presentation,entries,
+  const input={version:4,kind:'project',name:project.projectMetadata.name,producer:{name:'interior-device-package',version:'1.2.0'},project,resources,devices,presentation,entries,
     requiredCapabilities:[...new Set([...CORE,...(source?.manifest.requiredCapabilities||[]),...asset.meta.target.requiredCapabilities,...(asset.lighting?['model.lighting.v1']:[])])]};
   if(source?.experience||asset.behavior){
     input.experience=structuredClone(source?.experience||{schema:'home3d.device-program.v1',initialState:[],scenes:[],rules:[]});
@@ -196,9 +198,27 @@ export async function assemble(asset,job,sdk){
     assert.deepEqual(additions.slice(1).map(a=>runtime.read({deviceId:a.deviceId,...r})),before,'Device state leaked');isolationChecks++;
   }
   if(isolationChecks)isolation='passed';
-  for(const scenario of job.scenarios||[]){const runtime=sdk.createDemoRuntime(parsed);for(const step of scenario.steps){
+  const continuousEffects=verifyContinuousEffects(parsed,sdk);
+  for(const scenario of job.scenarios||[]){let runtime=sdk.createDemoRuntime(parsed);for(const step of scenario.steps){
+    if(step.runtime){
+      assert(['resume','pause','background','foreground','restart','cancelGuidedScene'].includes(step.runtime),'Unsupported runtime operation');
+      runtime[step.runtime]();
+    }
+    if(step.guidedScene)runtime.startGuidedScene(step.guidedScene);
     if(step.action)runtime.dispatch(step.action);
     if(step.advanceMs!==undefined)runtime.advance(step.advanceMs);
+    if(Object.hasOwn(step,'acknowledgeGuidedFrame')){
+      assert.equal(step.acknowledgeGuidedFrame,true);const frame=runtime.guidedSceneProgress().finalFrameId;
+      assert(frame,'No final frame to acknowledge');assert.equal(runtime.acknowledgeGuidedFrame(frame),true);
+    }
+    if(Object.hasOwn(step,'handoff')){
+      assert.equal(step.handoff,true);const snapshot=JSON.parse(JSON.stringify(runtime.exportStableState())),effects=runtime.effects();
+      const next=sdk.createDemoRuntime(parsed);next.importStableState(snapshot);
+      assert.deepEqual(next.exportStableState(),snapshot,'State handoff mismatch');assert.deepEqual(next.effects(),effects,'Effect handoff mismatch');runtime=next;
+    }
+    if(Object.hasOwn(step,'expectPendingTransitions')){assert.equal(typeof step.expectPendingTransitions,'boolean');assert.equal(runtime.hasPendingTransitions(),step.expectPendingTransitions,'Frame demand mismatch: '+scenario.name);}
+    if(Object.hasOwn(step,'expectBlockingTransitions')){assert.equal(typeof step.expectBlockingTransitions,'boolean');assert.equal(runtime.hasBlockingTransitions(),step.expectBlockingTransitions,'Finite motion mismatch: '+scenario.name);}
+    if(step.expectGuidedStatus)assert.equal(runtime.guidedSceneProgress().status,step.expectGuidedStatus,'Guided status mismatch: '+scenario.name);
     if(step.expect)assert.deepEqual(runtime.read(step.expect.ref),{known:true,value:step.expect.value},'Scenario failed: '+scenario.name);
     if(step.expectEffect){
       assert(Object.hasOwn(step.expectEffect,'value'),'Effect assertion requires a value');
@@ -213,7 +233,7 @@ export async function assemble(asset,job,sdk){
   return{bytes,parsed,report:{schema:'home3d.device-acceptance.v1',assetId:asset.meta.id,version:asset.meta.version,entryDigest:sha(asset.raw),packageFileDigest:sha(bytes),packageDigest:parsed.packageDigest,
     protocol:'passed',deterministic:true,scope:'fixed geometry, simulation, core-v4 primitives and optional experience rules',
     sdkStateRead:asset.stateDescription?additions.map(a=>readDeviceState(sdk.createDemoRuntime(parsed),a.deviceId,asset.contract,asset.stateDescription)):'not-declared',behaviorRulesAdded:newRules.length,sourcePreservation:source?'passed':'not-requested',stateIsolation:isolation,stateIsolationChecks:isolationChecks,
-    scenarios:(job.scenarios||[]).map(s=>({name:s.name,status:'passed'})),consumerCapabilityCheck:job.consumerCapabilities?'passed':'not-reviewed',
+    continuousEffects,scenarios:(job.scenarios||[]).map(s=>({name:s.name,status:'passed'})),consumerCapabilityCheck:job.consumerCapabilities?'passed':'not-reviewed',
     businessTemplate:businessReference?{status:'resolved-read-only',env:job.businessTemplate.env,reference:businessReference}:{status:'not-requested'},
     materialIsolation:'not-reviewed',geometryReview:'not-reviewed',editorReview:'not-reviewed',onlineSave:'not-reviewed',realHardware:'not-reviewed',additions}};
 }

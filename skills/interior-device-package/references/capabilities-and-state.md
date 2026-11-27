@@ -17,7 +17,7 @@
 
 1. `device-contract.json`：标准能力、类型、权限、初值、控件、效果及命令模拟。只读属性用`read`，无参数命令用`value.type=null`和execute的`value:null`。
 2. `device-state.json`：源包的状态说明，不是SDK新Schema字段。`entries.stateDescription`指向它，新交互包声明`requiredFeatures: [{"id":"device.state-simulation","version":1}]`。
-3. `behavior.template.json`：需要派生状态、连续动作或归座等过程时提供。`entries.behavior`指向它；装配器为每个实例填入deviceId并编译为标准`home3d.device-program.v1`，不会执行包内JavaScript。
+3. `behavior.template.json`：需要派生状态、归座等有限过程时提供。`entries.behavior`指向它；装配器为每个实例填入deviceId并编译为标准`home3d.device-program.v1`，不会执行包内JavaScript。持续出风等使用合同visualCycles，见[持续效果](continuous-effects.md)。
 
 ```json
 {

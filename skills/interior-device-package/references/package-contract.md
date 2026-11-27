@@ -30,7 +30,7 @@ device-source/
 | deviceType/geometryKind | 设备类型；fixed/procedural/path |
 | requirementRef | modelTypeId和templateKey对应scope.json；超出首批时scopeStatus=experimental并写reason |
 | entries | model/contract/bindings/rig/statePolicy/effects/sources/preview指向对应文件；新交互包加stateDescription，规则加behavior |
-| target | packageVersion=4、sdkVersion=0.3.0或0.3.1、profile=core-v4、requiredCapabilities数组；客户端验收另锁定版本 |
+| target | packageVersion=4、sdkVersion支持0.3.0—0.3.4、profile=core-v4；持续效果至少0.3.4且requiredCapabilities含device.visual-cycles.v1；客户端验收另锁定能力 |
 | requiredFeatures | `{id,version}`数组；version=1的device.static、light.power、light.brightness、curtain.position、curtain.stop，以及新交互包的device.state-simulation、通用效果的sdk-core-effects |
 | files | 完整登记path/byteSize/digest，入口自身除外；sha256:加64位小写十六进制 |
 
@@ -71,6 +71,8 @@ job是本地制作输入，路径相对job目录，outputDir必须不存在且�
 不指定basePackage时创建测试房间。指定basePackage时用原工程的真实楼层/房间ID。rotation默认单位四元数，size默认模型尺寸。首版只支持floor/wall/ceiling自由放置；宿主/开口安装需另实现，不能以null冒充。consumerCapabilities可给目标消费者实际能力数组；未给时只证明SDK协议，不宣称客户端支持。
 
 scenarios含name和steps；每步可提供action（deviceId及完整scope/capabilityKey/operation/value）、advanceMs、expect（ref/value），或expectEffect（instanceId/target/channel/value），通过SDK模拟器断言。效果选择器须唯一匹配。execute无参数仍传value:null。新device.state-simulation包的build要求至少两实例和状态断言；合同含效果时还要求效果断言。旧源包继续可检查，不能以旧包验证结果替代新要求。
+
+讲解、持续帧查询及稳定交接步骤见[持续效果与交接](continuous-effects.md#验证)。所有SDK错误会中止build，未通过前不创建交付目录。报告continuousEffects区分自动gate样本与作者声明的操作场景。
 
 输出`<id>-<version>.device.zip`、validation.home3d、acceptance.json。合并既有工程时保留原必需能力、资源、合同、experience和rendering，重绑定projectDigest，并给新模型灯声明阴影策略。
 

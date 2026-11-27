@@ -1063,52 +1063,52 @@ var require_util = __commonJS({
       return hash;
     }
     exports2.toHash = toHash;
-    function alwaysValidSchema(it, schema2) {
-      if (typeof schema2 == "boolean")
-        return schema2;
-      if (Object.keys(schema2).length === 0)
+    function alwaysValidSchema(it, schema3) {
+      if (typeof schema3 == "boolean")
+        return schema3;
+      if (Object.keys(schema3).length === 0)
         return true;
-      checkUnknownRules(it, schema2);
-      return !schemaHasRules(schema2, it.self.RULES.all);
+      checkUnknownRules(it, schema3);
+      return !schemaHasRules(schema3, it.self.RULES.all);
     }
     exports2.alwaysValidSchema = alwaysValidSchema;
-    function checkUnknownRules(it, schema2 = it.schema) {
+    function checkUnknownRules(it, schema3 = it.schema) {
       const { opts, self: self2 } = it;
       if (!opts.strictSchema)
         return;
-      if (typeof schema2 === "boolean")
+      if (typeof schema3 === "boolean")
         return;
       const rules = self2.RULES.keywords;
-      for (const key in schema2) {
+      for (const key in schema3) {
         if (!rules[key])
           checkStrictMode(it, `unknown keyword: "${key}"`);
       }
     }
     exports2.checkUnknownRules = checkUnknownRules;
-    function schemaHasRules(schema2, rules) {
-      if (typeof schema2 == "boolean")
-        return !schema2;
-      for (const key in schema2)
+    function schemaHasRules(schema3, rules) {
+      if (typeof schema3 == "boolean")
+        return !schema3;
+      for (const key in schema3)
         if (rules[key])
           return true;
       return false;
     }
     exports2.schemaHasRules = schemaHasRules;
-    function schemaHasRulesButRef(schema2, RULES) {
-      if (typeof schema2 == "boolean")
-        return !schema2;
-      for (const key in schema2)
+    function schemaHasRulesButRef(schema3, RULES) {
+      if (typeof schema3 == "boolean")
+        return !schema3;
+      for (const key in schema3)
         if (key !== "$ref" && RULES.all[key])
           return true;
       return false;
     }
     exports2.schemaHasRulesButRef = schemaHasRulesButRef;
-    function schemaRefOrVal({ topSchemaRef, schemaPath }, schema2, keyword, $data) {
+    function schemaRefOrVal({ topSchemaRef, schemaPath }, schema3, keyword, $data) {
       if (!$data) {
-        if (typeof schema2 == "number" || typeof schema2 == "boolean")
-          return schema2;
-        if (typeof schema2 == "string")
-          return (0, codegen_1._)`${schema2}`;
+        if (typeof schema3 == "number" || typeof schema3 == "boolean")
+          return schema3;
+        if (typeof schema3 == "string")
+          return (0, codegen_1._)`${schema3}`;
       }
       return (0, codegen_1._)`${topSchemaRef}${schemaPath}${(0, codegen_1.getProperty)(keyword)}`;
     }
@@ -1389,10 +1389,10 @@ var require_boolSchema = __commonJS({
       message: "boolean schema is false"
     };
     function topBoolOrEmptySchema(it) {
-      const { gen, schema: schema2, validateName } = it;
-      if (schema2 === false) {
+      const { gen, schema: schema3, validateName } = it;
+      if (schema3 === false) {
         falseSchemaError(it, false);
-      } else if (typeof schema2 == "object" && schema2.$async === true) {
+      } else if (typeof schema3 == "object" && schema3.$async === true) {
         gen.return(names_1.default.data);
       } else {
         gen.assign((0, codegen_1._)`${validateName}.errors`, null);
@@ -1401,8 +1401,8 @@ var require_boolSchema = __commonJS({
     }
     exports2.topBoolOrEmptySchema = topBoolOrEmptySchema;
     function boolOrEmptySchema(it, valid) {
-      const { gen, schema: schema2 } = it;
-      if (schema2 === false) {
+      const { gen, schema: schema3 } = it;
+      if (schema3 === false) {
         gen.var(valid, false);
         falseSchemaError(it);
       } else {
@@ -1464,18 +1464,18 @@ var require_applicability = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.shouldUseRule = exports2.shouldUseGroup = exports2.schemaHasRulesForType = void 0;
-    function schemaHasRulesForType({ schema: schema2, self: self2 }, type) {
+    function schemaHasRulesForType({ schema: schema3, self: self2 }, type) {
       const group = self2.RULES.types[type];
-      return group && group !== true && shouldUseGroup(schema2, group);
+      return group && group !== true && shouldUseGroup(schema3, group);
     }
     exports2.schemaHasRulesForType = schemaHasRulesForType;
-    function shouldUseGroup(schema2, group) {
-      return group.rules.some((rule) => shouldUseRule(schema2, rule));
+    function shouldUseGroup(schema3, group) {
+      return group.rules.some((rule) => shouldUseRule(schema3, rule));
     }
     exports2.shouldUseGroup = shouldUseGroup;
-    function shouldUseRule(schema2, rule) {
+    function shouldUseRule(schema3, rule) {
       var _a2;
-      return schema2[rule.keyword] !== void 0 || ((_a2 = rule.definition.implements) === null || _a2 === void 0 ? void 0 : _a2.some((kwd) => schema2[kwd] !== void 0));
+      return schema3[rule.keyword] !== void 0 || ((_a2 = rule.definition.implements) === null || _a2 === void 0 ? void 0 : _a2.some((kwd) => schema3[kwd] !== void 0));
     }
     exports2.shouldUseRule = shouldUseRule;
   }
@@ -1497,17 +1497,17 @@ var require_dataType = __commonJS({
       DataType2[DataType2["Correct"] = 0] = "Correct";
       DataType2[DataType2["Wrong"] = 1] = "Wrong";
     })(DataType || (exports2.DataType = DataType = {}));
-    function getSchemaTypes(schema2) {
-      const types = getJSONTypes(schema2.type);
+    function getSchemaTypes(schema3) {
+      const types = getJSONTypes(schema3.type);
       const hasNull = types.includes("null");
       if (hasNull) {
-        if (schema2.nullable === false)
+        if (schema3.nullable === false)
           throw new Error("type: null contradicts nullable: false");
       } else {
-        if (!types.length && schema2.nullable !== void 0) {
+        if (!types.length && schema3.nullable !== void 0) {
           throw new Error('"nullable" cannot be used without "type"');
         }
-        if (schema2.nullable === true)
+        if (schema3.nullable === true)
           types.push("null");
       }
       return types;
@@ -1639,8 +1639,8 @@ var require_dataType = __commonJS({
     }
     exports2.checkDataTypes = checkDataTypes;
     var typeError = {
-      message: ({ schema: schema2 }) => `must be ${schema2}`,
-      params: ({ schema: schema2, schemaValue }) => typeof schema2 == "string" ? (0, codegen_1._)`{type: ${schema2}}` : (0, codegen_1._)`{type: ${schemaValue}}`
+      message: ({ schema: schema3 }) => `must be ${schema3}`,
+      params: ({ schema: schema3, schemaValue }) => typeof schema3 == "string" ? (0, codegen_1._)`{type: ${schema3}}` : (0, codegen_1._)`{type: ${schemaValue}}`
     };
     function reportTypeError(it) {
       const cxt = getTypeErrorContext(it);
@@ -1648,16 +1648,16 @@ var require_dataType = __commonJS({
     }
     exports2.reportTypeError = reportTypeError;
     function getTypeErrorContext(it) {
-      const { gen, data, schema: schema2 } = it;
-      const schemaCode = (0, util_1.schemaRefOrVal)(it, schema2, "type");
+      const { gen, data, schema: schema3 } = it;
+      const schemaCode = (0, util_1.schemaRefOrVal)(it, schema3, "type");
       return {
         gen,
         keyword: "type",
         data,
-        schema: schema2.type,
+        schema: schema3.type,
         schemaCode,
         schemaValue: schemaCode,
-        parentSchema: schema2,
+        parentSchema: schema3,
         params: {},
         it
       };
@@ -1674,10 +1674,10 @@ var require_defaults = __commonJS({
     var codegen_1 = require_codegen();
     var util_1 = require_util();
     function assignDefaults(it, ty) {
-      const { properties, items } = it.schema;
-      if (ty === "object" && properties) {
-        for (const key in properties) {
-          assignDefault(it, key, properties[key].default);
+      const { properties: properties2, items } = it.schema;
+      if (ty === "object" && properties2) {
+        for (const key in properties2) {
+          assignDefault(it, key, properties2[key].default);
         }
       } else if (ty === "array" && Array.isArray(items)) {
         items.forEach((sch, i) => assignDefault(it, i, sch.default));
@@ -1720,8 +1720,8 @@ var require_code2 = __commonJS({
       });
     }
     exports2.checkReportMissingProp = checkReportMissingProp;
-    function checkMissingProp({ gen, data, it: { opts } }, properties, missing) {
-      return (0, codegen_1.or)(...properties.map((prop) => (0, codegen_1.and)(noPropertyInData(gen, data, prop, opts.ownProperties), (0, codegen_1._)`${missing} = ${prop}`)));
+    function checkMissingProp({ gen, data, it: { opts } }, properties2, missing) {
+      return (0, codegen_1.or)(...properties2.map((prop) => (0, codegen_1.and)(noPropertyInData(gen, data, prop, opts.ownProperties), (0, codegen_1._)`${missing} = ${prop}`)));
     }
     exports2.checkMissingProp = checkMissingProp;
     function reportMissingProp(cxt, missing) {
@@ -1810,15 +1810,15 @@ var require_code2 = __commonJS({
     }
     exports2.validateArray = validateArray;
     function validateUnion(cxt) {
-      const { gen, schema: schema2, keyword, it } = cxt;
-      if (!Array.isArray(schema2))
+      const { gen, schema: schema3, keyword, it } = cxt;
+      if (!Array.isArray(schema3))
         throw new Error("ajv implementation error");
-      const alwaysValid = schema2.some((sch) => (0, util_1.alwaysValidSchema)(it, sch));
+      const alwaysValid = schema3.some((sch) => (0, util_1.alwaysValidSchema)(it, sch));
       if (alwaysValid && !it.opts.unevaluated)
         return;
       const valid = gen.let("valid", false);
       const schValid = gen.name("_valid");
-      gen.block(() => schema2.forEach((_sch, i) => {
+      gen.block(() => schema3.forEach((_sch, i) => {
         const schCxt = cxt.subschema({
           keyword,
           schemaProp: i,
@@ -1846,8 +1846,8 @@ var require_keyword = __commonJS({
     var code_1 = require_code2();
     var errors_1 = require_errors();
     function macroKeywordCode(cxt, def) {
-      const { gen, keyword, schema: schema2, parentSchema, it } = cxt;
-      const macroSchema = def.macro.call(it.self, schema2, parentSchema, it);
+      const { gen, keyword, schema: schema3, parentSchema, it } = cxt;
+      const macroSchema = def.macro.call(it.self, schema3, parentSchema, it);
       const schemaRef = useKeyword(gen, keyword, macroSchema);
       if (it.opts.validateSchema !== false)
         it.self.validateSchema(macroSchema, true);
@@ -1864,9 +1864,9 @@ var require_keyword = __commonJS({
     exports2.macroKeywordCode = macroKeywordCode;
     function funcKeywordCode(cxt, def) {
       var _a2;
-      const { gen, keyword, schema: schema2, parentSchema, $data, it } = cxt;
+      const { gen, keyword, schema: schema3, parentSchema, $data, it } = cxt;
       checkAsyncKeyword(it, def);
-      const validate2 = !$data && def.compile ? def.compile.call(it.self, schema2, parentSchema, it) : def.validate;
+      const validate2 = !$data && def.compile ? def.compile.call(it.self, schema3, parentSchema, it) : def.validate;
       const validateRef = useKeyword(gen, keyword, validate2);
       const valid = gen.let("valid");
       cxt.block$data(valid, validateKeyword);
@@ -1926,20 +1926,20 @@ var require_keyword = __commonJS({
         throw new Error(`keyword "${keyword}" failed to compile`);
       return gen.scopeValue("keyword", typeof result == "function" ? { ref: result } : { ref: result, code: (0, codegen_1.stringify)(result) });
     }
-    function validSchemaType(schema2, schemaType, allowUndefined = false) {
-      return !schemaType.length || schemaType.some((st) => st === "array" ? Array.isArray(schema2) : st === "object" ? schema2 && typeof schema2 == "object" && !Array.isArray(schema2) : typeof schema2 == st || allowUndefined && typeof schema2 == "undefined");
+    function validSchemaType(schema3, schemaType, allowUndefined = false) {
+      return !schemaType.length || schemaType.some((st) => st === "array" ? Array.isArray(schema3) : st === "object" ? schema3 && typeof schema3 == "object" && !Array.isArray(schema3) : typeof schema3 == st || allowUndefined && typeof schema3 == "undefined");
     }
     exports2.validSchemaType = validSchemaType;
-    function validateKeywordUsage({ schema: schema2, opts, self: self2, errSchemaPath }, def, keyword) {
+    function validateKeywordUsage({ schema: schema3, opts, self: self2, errSchemaPath }, def, keyword) {
       if (Array.isArray(def.keyword) ? !def.keyword.includes(keyword) : def.keyword !== keyword) {
         throw new Error("ajv implementation error");
       }
       const deps = def.dependencies;
-      if (deps === null || deps === void 0 ? void 0 : deps.some((kwd) => !Object.prototype.hasOwnProperty.call(schema2, kwd))) {
+      if (deps === null || deps === void 0 ? void 0 : deps.some((kwd) => !Object.prototype.hasOwnProperty.call(schema3, kwd))) {
         throw new Error(`parent schema must have dependencies of ${keyword}: ${deps.join(",")}`);
       }
       if (def.validateSchema) {
-        const valid = def.validateSchema(schema2[keyword]);
+        const valid = def.validateSchema(schema3[keyword]);
         if (!valid) {
           const msg = `keyword "${keyword}" value is invalid at path "${errSchemaPath}": ` + self2.errorsText(def.validateSchema.errors);
           if (opts.validateSchema === "log")
@@ -1961,8 +1961,8 @@ var require_subschema = __commonJS({
     exports2.extendSubschemaMode = exports2.extendSubschemaData = exports2.getSubschema = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util();
-    function getSubschema(it, { keyword, schemaProp, schema: schema2, schemaPath, errSchemaPath, topSchemaRef }) {
-      if (keyword !== void 0 && schema2 !== void 0) {
+    function getSubschema(it, { keyword, schemaProp, schema: schema3, schemaPath, errSchemaPath, topSchemaRef }) {
+      if (keyword !== void 0 && schema3 !== void 0) {
         throw new Error('both "keyword" and "schema" passed, only one allowed');
       }
       if (keyword !== void 0) {
@@ -1977,12 +1977,12 @@ var require_subschema = __commonJS({
           errSchemaPath: `${it.errSchemaPath}/${keyword}/${(0, util_1.escapeFragment)(schemaProp)}`
         };
       }
-      if (schema2 !== void 0) {
+      if (schema3 !== void 0) {
         if (schemaPath === void 0 || errSchemaPath === void 0 || topSchemaRef === void 0) {
           throw new Error('"schemaPath", "errSchemaPath" and "topSchemaRef" are required with "schema"');
         }
         return {
-          schema: schema2,
+          schema: schema3,
           schemaPath,
           topSchemaRef,
           errSchemaPath
@@ -2085,7 +2085,7 @@ var require_fast_deep_equal = __commonJS({
 var require_json_schema_traverse = __commonJS({
   "../../node_modules/json-schema-traverse/index.js"(exports2, module2) {
     "use strict";
-    var traverse = module2.exports = function(schema2, opts, cb) {
+    var traverse = module2.exports = function(schema3, opts, cb) {
       if (typeof opts == "function") {
         cb = opts;
         opts = {};
@@ -2095,7 +2095,7 @@ var require_json_schema_traverse = __commonJS({
       };
       var post = cb.post || function() {
       };
-      _traverse(opts, pre, post, schema2, "", schema2);
+      _traverse(opts, pre, post, schema3, "", schema3);
     };
     traverse.keywords = {
       additionalItems: true,
@@ -2141,26 +2141,26 @@ var require_json_schema_traverse = __commonJS({
       maxProperties: true,
       minProperties: true
     };
-    function _traverse(opts, pre, post, schema2, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
-      if (schema2 && typeof schema2 == "object" && !Array.isArray(schema2)) {
-        pre(schema2, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
-        for (var key in schema2) {
-          var sch = schema2[key];
+    function _traverse(opts, pre, post, schema3, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
+      if (schema3 && typeof schema3 == "object" && !Array.isArray(schema3)) {
+        pre(schema3, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
+        for (var key in schema3) {
+          var sch = schema3[key];
           if (Array.isArray(sch)) {
             if (key in traverse.arrayKeywords) {
               for (var i = 0; i < sch.length; i++)
-                _traverse(opts, pre, post, sch[i], jsonPtr + "/" + key + "/" + i, rootSchema, jsonPtr, key, schema2, i);
+                _traverse(opts, pre, post, sch[i], jsonPtr + "/" + key + "/" + i, rootSchema, jsonPtr, key, schema3, i);
             }
           } else if (key in traverse.propsKeywords) {
             if (sch && typeof sch == "object") {
               for (var prop in sch)
-                _traverse(opts, pre, post, sch[prop], jsonPtr + "/" + key + "/" + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema2, prop);
+                _traverse(opts, pre, post, sch[prop], jsonPtr + "/" + key + "/" + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema3, prop);
             }
           } else if (key in traverse.keywords || opts.allKeys && !(key in traverse.skipKeywords)) {
-            _traverse(opts, pre, post, sch, jsonPtr + "/" + key, rootSchema, jsonPtr, key, schema2);
+            _traverse(opts, pre, post, sch, jsonPtr + "/" + key, rootSchema, jsonPtr, key, schema3);
           }
         }
-        post(schema2, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
+        post(schema3, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
       }
     }
     function escapeJsonPtr(str) {
@@ -2196,14 +2196,14 @@ var require_resolve = __commonJS({
       "enum",
       "const"
     ]);
-    function inlineRef(schema2, limit = true) {
-      if (typeof schema2 == "boolean")
+    function inlineRef(schema3, limit = true) {
+      if (typeof schema3 == "boolean")
         return true;
       if (limit === true)
-        return !hasRef(schema2);
+        return !hasRef(schema3);
       if (!limit)
         return false;
-      return countKeys(schema2) <= limit;
+      return countKeys(schema3) <= limit;
     }
     exports2.inlineRef = inlineRef;
     var REF_KEYWORDS = /* @__PURE__ */ new Set([
@@ -2213,11 +2213,11 @@ var require_resolve = __commonJS({
       "$dynamicRef",
       "$dynamicAnchor"
     ]);
-    function hasRef(schema2) {
-      for (const key in schema2) {
+    function hasRef(schema3) {
+      for (const key in schema3) {
         if (REF_KEYWORDS.has(key))
           return true;
-        const sch = schema2[key];
+        const sch = schema3[key];
         if (Array.isArray(sch) && sch.some(hasRef))
           return true;
         if (typeof sch == "object" && hasRef(sch))
@@ -2225,16 +2225,16 @@ var require_resolve = __commonJS({
       }
       return false;
     }
-    function countKeys(schema2) {
+    function countKeys(schema3) {
       let count = 0;
-      for (const key in schema2) {
+      for (const key in schema3) {
         if (key === "$ref")
           return Infinity;
         count++;
         if (SIMPLE_INLINED.has(key))
           continue;
-        if (typeof schema2[key] == "object") {
-          (0, util_1.eachItem)(schema2[key], (sch) => count += countKeys(sch));
+        if (typeof schema3[key] == "object") {
+          (0, util_1.eachItem)(schema3[key], (sch) => count += countKeys(sch));
         }
         if (count === Infinity)
           return Infinity;
@@ -2264,16 +2264,16 @@ var require_resolve = __commonJS({
     }
     exports2.resolveUrl = resolveUrl;
     var ANCHOR = /^[a-z_][-a-z0-9._]*$/i;
-    function getSchemaRefs(schema2, baseId) {
-      if (typeof schema2 == "boolean")
+    function getSchemaRefs(schema3, baseId) {
+      if (typeof schema3 == "boolean")
         return {};
       const { schemaId, uriResolver } = this.opts;
-      const schId = normalizeId(schema2[schemaId] || baseId);
+      const schId = normalizeId(schema3[schemaId] || baseId);
       const baseIds = { "": schId };
       const pathPrefix = getFullPath(uriResolver, schId, false);
       const localRefs = {};
       const schemaRefs = /* @__PURE__ */ new Set();
-      traverse(schema2, { allKeys: true }, (sch, jsonPtr, _, parentJsonPtr) => {
+      traverse(schema3, { allKeys: true }, (sch, jsonPtr, _, parentJsonPtr) => {
         if (parentJsonPtr === void 0)
           return;
         const fullPath = pathPrefix + jsonPtr;
@@ -2354,15 +2354,15 @@ var require_validate = __commonJS({
       validateFunction(it, () => (0, boolSchema_1.topBoolOrEmptySchema)(it));
     }
     exports2.validateFunctionCode = validateFunctionCode;
-    function validateFunction({ gen, validateName, schema: schema2, schemaEnv, opts }, body) {
+    function validateFunction({ gen, validateName, schema: schema3, schemaEnv, opts }, body) {
       if (opts.code.es5) {
         gen.func(validateName, (0, codegen_1._)`${names_1.default.data}, ${names_1.default.valCxt}`, schemaEnv.$async, () => {
-          gen.code((0, codegen_1._)`"use strict"; ${funcSourceUrl(schema2, opts)}`);
+          gen.code((0, codegen_1._)`"use strict"; ${funcSourceUrl(schema3, opts)}`);
           destructureValCxtES5(gen, opts);
           gen.code(body);
         });
       } else {
-        gen.func(validateName, (0, codegen_1._)`${names_1.default.data}, ${destructureValCxt(opts)}`, schemaEnv.$async, () => gen.code(funcSourceUrl(schema2, opts)).code(body));
+        gen.func(validateName, (0, codegen_1._)`${names_1.default.data}, ${destructureValCxt(opts)}`, schemaEnv.$async, () => gen.code(funcSourceUrl(schema3, opts)).code(body));
       }
     }
     function destructureValCxt(opts) {
@@ -2386,9 +2386,9 @@ var require_validate = __commonJS({
       });
     }
     function topSchemaObjCode(it) {
-      const { schema: schema2, opts, gen } = it;
+      const { schema: schema3, opts, gen } = it;
       validateFunction(it, () => {
-        if (opts.$comment && schema2.$comment)
+        if (opts.$comment && schema3.$comment)
           commentKeyword(it);
         checkNoDefault(it);
         gen.let(names_1.default.vErrors, null);
@@ -2406,8 +2406,8 @@ var require_validate = __commonJS({
       gen.if((0, codegen_1._)`${it.evaluated}.dynamicProps`, () => gen.assign((0, codegen_1._)`${it.evaluated}.props`, (0, codegen_1._)`undefined`));
       gen.if((0, codegen_1._)`${it.evaluated}.dynamicItems`, () => gen.assign((0, codegen_1._)`${it.evaluated}.items`, (0, codegen_1._)`undefined`));
     }
-    function funcSourceUrl(schema2, opts) {
-      const schId = typeof schema2 == "object" && schema2[opts.schemaId];
+    function funcSourceUrl(schema3, opts) {
+      const schId = typeof schema3 == "object" && schema3[opts.schemaId];
       return schId && (opts.code.source || opts.code.process) ? (0, codegen_1._)`/*# sourceURL=${schId} */` : codegen_1.nil;
     }
     function subschemaCode(it, valid) {
@@ -2420,10 +2420,10 @@ var require_validate = __commonJS({
       }
       (0, boolSchema_1.boolOrEmptySchema)(it, valid);
     }
-    function schemaCxtHasRules({ schema: schema2, self: self2 }) {
-      if (typeof schema2 == "boolean")
-        return !schema2;
-      for (const key in schema2)
+    function schemaCxtHasRules({ schema: schema3, self: self2 }) {
+      if (typeof schema3 == "boolean")
+        return !schema3;
+      for (const key in schema3)
         if (self2.RULES.all[key])
           return true;
       return false;
@@ -2432,8 +2432,8 @@ var require_validate = __commonJS({
       return typeof it.schema != "boolean";
     }
     function subSchemaObjCode(it, valid) {
-      const { schema: schema2, gen, opts } = it;
-      if (opts.$comment && schema2.$comment)
+      const { schema: schema3, gen, opts } = it;
+      if (opts.$comment && schema3.$comment)
         commentKeyword(it);
       updateContext(it);
       checkAsyncSchema(it);
@@ -2453,14 +2453,14 @@ var require_validate = __commonJS({
       schemaKeywords(it, types, !checkedTypes, errsCount);
     }
     function checkRefsAndKeywords(it) {
-      const { schema: schema2, errSchemaPath, opts, self: self2 } = it;
-      if (schema2.$ref && opts.ignoreKeywordsWithRef && (0, util_1.schemaHasRulesButRef)(schema2, self2.RULES)) {
+      const { schema: schema3, errSchemaPath, opts, self: self2 } = it;
+      if (schema3.$ref && opts.ignoreKeywordsWithRef && (0, util_1.schemaHasRulesButRef)(schema3, self2.RULES)) {
         self2.logger.warn(`$ref: keywords ignored in schema at path "${errSchemaPath}"`);
       }
     }
     function checkNoDefault(it) {
-      const { schema: schema2, opts } = it;
-      if (schema2.default !== void 0 && opts.useDefaults && opts.strictSchema) {
+      const { schema: schema3, opts } = it;
+      if (schema3.default !== void 0 && opts.useDefaults && opts.strictSchema) {
         (0, util_1.checkStrictMode)(it, "default is ignored in the schema root");
       }
     }
@@ -2473,8 +2473,8 @@ var require_validate = __commonJS({
       if (it.schema.$async && !it.schemaEnv.$async)
         throw new Error("async schema in sync schema");
     }
-    function commentKeyword({ gen, schemaEnv, schema: schema2, errSchemaPath, opts }) {
-      const msg = schema2.$comment;
+    function commentKeyword({ gen, schemaEnv, schema: schema3, errSchemaPath, opts }) {
+      const msg = schema3.$comment;
       if (opts.$comment === true) {
         gen.code((0, codegen_1._)`${names_1.default.self}.logger.log(${msg})`);
       } else if (typeof opts.$comment == "function") {
@@ -2501,9 +2501,9 @@ var require_validate = __commonJS({
         gen.assign((0, codegen_1._)`${evaluated}.items`, items);
     }
     function schemaKeywords(it, types, typeErrors, errsCount) {
-      const { gen, schema: schema2, data, allErrors, opts, self: self2 } = it;
+      const { gen, schema: schema3, data, allErrors, opts, self: self2 } = it;
       const { RULES } = self2;
-      if (schema2.$ref && (opts.ignoreKeywordsWithRef || !(0, util_1.schemaHasRulesButRef)(schema2, RULES))) {
+      if (schema3.$ref && (opts.ignoreKeywordsWithRef || !(0, util_1.schemaHasRulesButRef)(schema3, RULES))) {
         gen.block(() => keywordCode(it, "$ref", RULES.all.$ref.definition));
         return;
       }
@@ -2515,7 +2515,7 @@ var require_validate = __commonJS({
         groupKeywords(RULES.post);
       });
       function groupKeywords(group) {
-        if (!(0, applicability_1.shouldUseGroup)(schema2, group))
+        if (!(0, applicability_1.shouldUseGroup)(schema3, group))
           return;
         if (group.type) {
           gen.if((0, dataType_2.checkDataType)(group.type, data, opts.strictNumbers));
@@ -2533,12 +2533,12 @@ var require_validate = __commonJS({
       }
     }
     function iterateKeywords(it, group) {
-      const { gen, schema: schema2, opts: { useDefaults } } = it;
+      const { gen, schema: schema3, opts: { useDefaults } } = it;
       if (useDefaults)
         (0, defaults_1.assignDefaults)(it, group.type);
       gen.block(() => {
         for (const rule of group.rules) {
-          if ((0, applicability_1.shouldUseRule)(schema2, rule)) {
+          if ((0, applicability_1.shouldUseRule)(schema3, rule)) {
             keywordCode(it, rule.keyword, rule.definition, group.type);
           }
         }
@@ -2883,17 +2883,17 @@ var require_compile = __commonJS({
         var _a2;
         this.refs = {};
         this.dynamicAnchors = {};
-        let schema2;
+        let schema3;
         if (typeof env.schema == "object")
-          schema2 = env.schema;
+          schema3 = env.schema;
         this.schema = env.schema;
         this.schemaId = env.schemaId;
         this.root = env.root || this;
-        this.baseId = (_a2 = env.baseId) !== null && _a2 !== void 0 ? _a2 : (0, resolve_1.normalizeId)(schema2 === null || schema2 === void 0 ? void 0 : schema2[env.schemaId || "$id"]);
+        this.baseId = (_a2 = env.baseId) !== null && _a2 !== void 0 ? _a2 : (0, resolve_1.normalizeId)(schema3 === null || schema3 === void 0 ? void 0 : schema3[env.schemaId || "$id"]);
         this.schemaPath = env.schemaPath;
         this.localRefs = env.localRefs;
         this.meta = env.meta;
-        this.$async = schema2 === null || schema2 === void 0 ? void 0 : schema2.$async;
+        this.$async = schema3 === null || schema3 === void 0 ? void 0 : schema3.$async;
         this.refs = {};
       }
     };
@@ -2992,10 +2992,10 @@ var require_compile = __commonJS({
         return schOrFunc;
       let _sch = resolve.call(this, root, ref);
       if (_sch === void 0) {
-        const schema2 = (_a2 = root.localRefs) === null || _a2 === void 0 ? void 0 : _a2[ref];
+        const schema3 = (_a2 = root.localRefs) === null || _a2 === void 0 ? void 0 : _a2[ref];
         const { schemaId } = this.opts;
-        if (schema2)
-          _sch = new SchemaEnv({ schema: schema2, schemaId, root, baseId });
+        if (schema3)
+          _sch = new SchemaEnv({ schema: schema3, schemaId, root, baseId });
       }
       if (_sch === void 0)
         return;
@@ -3043,12 +3043,12 @@ var require_compile = __commonJS({
       if (!schOrRef.validate)
         compileSchema.call(this, schOrRef);
       if (id === (0, resolve_1.normalizeId)(ref)) {
-        const { schema: schema2 } = schOrRef;
+        const { schema: schema3 } = schOrRef;
         const { schemaId } = this.opts;
-        const schId = schema2[schemaId];
+        const schId = schema3[schemaId];
         if (schId)
           baseId = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, schId);
-        return new SchemaEnv({ schema: schema2, schemaId, root, baseId });
+        return new SchemaEnv({ schema: schema3, schemaId, root, baseId });
       }
       return getJsonPointer.call(this, p, schOrRef);
     }
@@ -3060,29 +3060,29 @@ var require_compile = __commonJS({
       "dependencies",
       "definitions"
     ]);
-    function getJsonPointer(parsedRef, { baseId, schema: schema2, root }) {
+    function getJsonPointer(parsedRef, { baseId, schema: schema3, root }) {
       var _a2;
       if (((_a2 = parsedRef.fragment) === null || _a2 === void 0 ? void 0 : _a2[0]) !== "/")
         return;
       for (const part of parsedRef.fragment.slice(1).split("/")) {
-        if (typeof schema2 === "boolean")
+        if (typeof schema3 === "boolean")
           return;
-        const partSchema = schema2[(0, util_1.unescapeFragment)(part)];
+        const partSchema = schema3[(0, util_1.unescapeFragment)(part)];
         if (partSchema === void 0)
           return;
-        schema2 = partSchema;
-        const schId = typeof schema2 === "object" && schema2[this.opts.schemaId];
+        schema3 = partSchema;
+        const schId = typeof schema3 === "object" && schema3[this.opts.schemaId];
         if (!PREVENT_SCOPE_CHANGE.has(part) && schId) {
           baseId = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, schId);
         }
       }
       let env;
-      if (typeof schema2 != "boolean" && schema2.$ref && !(0, util_1.schemaHasRulesButRef)(schema2, this.RULES)) {
-        const $ref = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, schema2.$ref);
+      if (typeof schema3 != "boolean" && schema3.$ref && !(0, util_1.schemaHasRulesButRef)(schema3, this.RULES)) {
+        const $ref = (0, resolve_1.resolveUrl)(this.opts.uriResolver, baseId, schema3.$ref);
         env = resolveSchema.call(this, root, $ref);
       }
       const { schemaId } = this.opts;
-      env = env || new SchemaEnv({ schema: schema2, schemaId, root, baseId });
+      env = env || new SchemaEnv({ schema: schema3, schemaId, root, baseId });
       if (env.schema !== env.root.schema)
         return env;
       return void 0;
@@ -4428,16 +4428,16 @@ var require_core = __commonJS({
           this.errors = v.errors;
         return valid;
       }
-      compile(schema2, _meta) {
-        const sch = this._addSchema(schema2, _meta);
+      compile(schema3, _meta) {
+        const sch = this._addSchema(schema3, _meta);
         return sch.validate || this._compileSchemaEnv(sch);
       }
-      compileAsync(schema2, meta) {
+      compileAsync(schema3, meta) {
         if (typeof this.opts.loadSchema != "function") {
           throw new Error("options.loadSchema should be a function");
         }
         const { loadSchema } = this.opts;
-        return runCompileAsync.call(this, schema2, meta);
+        return runCompileAsync.call(this, schema3, meta);
         async function runCompileAsync(_schema, _meta) {
           await loadMetaSchema.call(this, _schema.$schema);
           const sch = this._addSchema(_schema, _meta);
@@ -4483,37 +4483,37 @@ var require_core = __commonJS({
         }
       }
       // Adds schema to the instance
-      addSchema(schema2, key, _meta, _validateSchema = this.opts.validateSchema) {
-        if (Array.isArray(schema2)) {
-          for (const sch of schema2)
+      addSchema(schema3, key, _meta, _validateSchema = this.opts.validateSchema) {
+        if (Array.isArray(schema3)) {
+          for (const sch of schema3)
             this.addSchema(sch, void 0, _meta, _validateSchema);
           return this;
         }
         let id;
-        if (typeof schema2 === "object") {
+        if (typeof schema3 === "object") {
           const { schemaId } = this.opts;
-          id = schema2[schemaId];
+          id = schema3[schemaId];
           if (id !== void 0 && typeof id != "string") {
             throw new Error(`schema ${schemaId} must be string`);
           }
         }
         key = (0, resolve_1.normalizeId)(key || id);
         this._checkUnique(key);
-        this.schemas[key] = this._addSchema(schema2, _meta, key, _validateSchema, true);
+        this.schemas[key] = this._addSchema(schema3, _meta, key, _validateSchema, true);
         return this;
       }
       // Add schema that will be used to validate other schemas
       // options in META_IGNORE_OPTIONS are alway set to false
-      addMetaSchema(schema2, key, _validateSchema = this.opts.validateSchema) {
-        this.addSchema(schema2, key, true, _validateSchema);
+      addMetaSchema(schema3, key, _validateSchema = this.opts.validateSchema) {
+        this.addSchema(schema3, key, true, _validateSchema);
         return this;
       }
       //  Validate schema against its meta-schema
-      validateSchema(schema2, throwOrLogError) {
-        if (typeof schema2 == "boolean")
+      validateSchema(schema3, throwOrLogError) {
+        if (typeof schema3 == "boolean")
           return true;
         let $schema;
-        $schema = schema2.$schema;
+        $schema = schema3.$schema;
         if ($schema !== void 0 && typeof $schema != "string") {
           throw new Error("$schema must be a string");
         }
@@ -4523,7 +4523,7 @@ var require_core = __commonJS({
           this.errors = null;
           return true;
         }
-        const valid = this.validate($schema, schema2);
+        const valid = this.validate($schema, schema3);
         if (!valid && throwOrLogError) {
           const message = "schema is invalid: " + this.errorsText();
           if (this.opts.validateSchema === "log")
@@ -4666,9 +4666,9 @@ var require_core = __commonJS({
             if (typeof rule != "object")
               continue;
             const { $data } = rule.definition;
-            const schema2 = keywords[key];
-            if ($data && schema2)
-              keywords[key] = schemaOrData(schema2);
+            const schema3 = keywords[key];
+            if ($data && schema3)
+              keywords[key] = schemaOrData(schema3);
           }
         }
         return metaSchema;
@@ -4686,23 +4686,23 @@ var require_core = __commonJS({
           }
         }
       }
-      _addSchema(schema2, meta, baseId, validateSchema = this.opts.validateSchema, addSchema = this.opts.addUsedSchema) {
+      _addSchema(schema3, meta, baseId, validateSchema = this.opts.validateSchema, addSchema = this.opts.addUsedSchema) {
         let id;
         const { schemaId } = this.opts;
-        if (typeof schema2 == "object") {
-          id = schema2[schemaId];
+        if (typeof schema3 == "object") {
+          id = schema3[schemaId];
         } else {
           if (this.opts.jtd)
             throw new Error("schema must be object");
-          else if (typeof schema2 != "boolean")
+          else if (typeof schema3 != "boolean")
             throw new Error("schema must be object or boolean");
         }
-        let sch = this._cache.get(schema2);
+        let sch = this._cache.get(schema3);
         if (sch !== void 0)
           return sch;
         baseId = (0, resolve_1.normalizeId)(id || baseId);
-        const localRefs = resolve_1.getSchemaRefs.call(this, schema2, baseId);
-        sch = new compile_1.SchemaEnv({ schema: schema2, schemaId, meta, baseId, localRefs });
+        const localRefs = resolve_1.getSchemaRefs.call(this, schema3, baseId);
+        sch = new compile_1.SchemaEnv({ schema: schema3, schemaId, meta, baseId, localRefs });
         this._cache.set(sch.schema, sch);
         if (addSchema && !baseId.startsWith("#")) {
           if (baseId)
@@ -4710,7 +4710,7 @@ var require_core = __commonJS({
           this.refs[baseId] = sch;
         }
         if (validateSchema)
-          this.validateSchema(schema2, true);
+          this.validateSchema(schema3, true);
         return sch;
       }
       _checkUnique(id) {
@@ -4864,8 +4864,8 @@ var require_core = __commonJS({
     var $dataRef = {
       $ref: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#"
     };
-    function schemaOrData(schema2) {
-      return { anyOf: [schema2, $dataRef] };
+    function schemaOrData(schema3) {
+      return { anyOf: [schema3, $dataRef] };
     }
   }
 });
@@ -4970,12 +4970,12 @@ var require_ref = __commonJS({
       function callSyncRef() {
         cxt.result((0, code_1.callValidateCode)(cxt, v, passCxt), () => addEvaluatedFrom(v), () => addErrorsFrom(v));
       }
-      function addErrorsFrom(source) {
-        const errs = (0, codegen_1._)`${source}.errors`;
+      function addErrorsFrom(source2) {
+        const errs = (0, codegen_1._)`${source2}.errors`;
         gen.assign(names_1.default.vErrors, (0, codegen_1._)`${names_1.default.vErrors} === null ? ${errs} : ${names_1.default.vErrors}.concat(${errs})`);
         gen.assign(names_1.default.errors, (0, codegen_1._)`${names_1.default.vErrors}.length`);
       }
-      function addEvaluatedFrom(source) {
+      function addEvaluatedFrom(source2) {
         var _a2;
         if (!it.opts.unevaluated)
           return;
@@ -4986,7 +4986,7 @@ var require_ref = __commonJS({
               it.props = util_1.mergeEvaluated.props(gen, schEvaluated.props, it.props);
             }
           } else {
-            const props = gen.var("props", (0, codegen_1._)`${source}.evaluated.props`);
+            const props = gen.var("props", (0, codegen_1._)`${source2}.evaluated.props`);
             it.props = util_1.mergeEvaluated.props(gen, props, it.props, codegen_1.Name);
           }
         }
@@ -4996,7 +4996,7 @@ var require_ref = __commonJS({
               it.items = util_1.mergeEvaluated.items(gen, schEvaluated.items, it.items);
             }
           } else {
-            const items = gen.var("items", (0, codegen_1._)`${source}.evaluated.items`);
+            const items = gen.var("items", (0, codegen_1._)`${source2}.evaluated.items`);
             it.items = util_1.mergeEvaluated.items(gen, items, it.items, codegen_1.Name);
           }
         }
@@ -5164,9 +5164,9 @@ var require_pattern = __commonJS({
       $data: true,
       error,
       code(cxt) {
-        const { data, $data, schema: schema2, schemaCode, it } = cxt;
+        const { data, $data, schema: schema3, schemaCode, it } = cxt;
         const u = it.opts.unicodeRegExp ? "u" : "";
-        const regExp = $data ? (0, codegen_1._)`(new RegExp(${schemaCode}, ${u}))` : (0, code_1.usePattern)(cxt, schema2);
+        const regExp = $data ? (0, codegen_1._)`(new RegExp(${schemaCode}, ${u}))` : (0, code_1.usePattern)(cxt, schema3);
         cxt.fail$data((0, codegen_1._)`!${regExp}.test(${data})`);
       }
     };
@@ -5222,11 +5222,11 @@ var require_required = __commonJS({
       $data: true,
       error,
       code(cxt) {
-        const { gen, schema: schema2, schemaCode, data, $data, it } = cxt;
+        const { gen, schema: schema3, schemaCode, data, $data, it } = cxt;
         const { opts } = it;
-        if (!$data && schema2.length === 0)
+        if (!$data && schema3.length === 0)
           return;
-        const useLoop = schema2.length >= opts.loopRequired;
+        const useLoop = schema3.length >= opts.loopRequired;
         if (it.allErrors)
           allErrorsMode();
         else
@@ -5234,7 +5234,7 @@ var require_required = __commonJS({
         if (opts.strictRequired) {
           const props = cxt.parentSchema.properties;
           const { definedProperties } = cxt.it;
-          for (const requiredKey of schema2) {
+          for (const requiredKey of schema3) {
             if ((props === null || props === void 0 ? void 0 : props[requiredKey]) === void 0 && !definedProperties.has(requiredKey)) {
               const schemaPath = it.schemaEnv.baseId + it.errSchemaPath;
               const msg = `required property "${requiredKey}" is not defined at "${schemaPath}" (strictRequired)`;
@@ -5246,7 +5246,7 @@ var require_required = __commonJS({
           if (useLoop || $data) {
             cxt.block$data(codegen_1.nil, loopAllRequired);
           } else {
-            for (const prop of schema2) {
+            for (const prop of schema3) {
               (0, code_1.checkReportMissingProp)(cxt, prop);
             }
           }
@@ -5258,7 +5258,7 @@ var require_required = __commonJS({
             cxt.block$data(valid, () => loopUntilMissing(missing, valid));
             cxt.ok(valid);
           } else {
-            gen.if((0, code_1.checkMissingProp)(cxt, schema2, missing));
+            gen.if((0, code_1.checkMissingProp)(cxt, schema3, missing));
             (0, code_1.reportMissingProp)(cxt, missing);
             gen.else();
           }
@@ -5345,8 +5345,8 @@ var require_uniqueItems = __commonJS({
       $data: true,
       error,
       code(cxt) {
-        const { gen, data, $data, schema: schema2, parentSchema, schemaCode, it } = cxt;
-        if (!$data && !schema2)
+        const { gen, data, $data, schema: schema3, parentSchema, schemaCode, it } = cxt;
+        if (!$data && !schema3)
           return;
         const valid = gen.let("valid");
         const itemTypes = parentSchema.items ? (0, dataType_1.getSchemaTypes)(parentSchema.items) : [];
@@ -5409,11 +5409,11 @@ var require_const = __commonJS({
       $data: true,
       error,
       code(cxt) {
-        const { gen, data, $data, schemaCode, schema: schema2 } = cxt;
-        if ($data || schema2 && typeof schema2 == "object") {
+        const { gen, data, $data, schemaCode, schema: schema3 } = cxt;
+        if ($data || schema3 && typeof schema3 == "object") {
           cxt.fail$data((0, codegen_1._)`!${(0, util_1.useFunc)(gen, equal_1.default)}(${data}, ${schemaCode})`);
         } else {
-          cxt.fail((0, codegen_1._)`${schema2} !== ${data}`);
+          cxt.fail((0, codegen_1._)`${schema3} !== ${data}`);
         }
       }
     };
@@ -5439,10 +5439,10 @@ var require_enum = __commonJS({
       $data: true,
       error,
       code(cxt) {
-        const { gen, data, $data, schema: schema2, schemaCode, it } = cxt;
-        if (!$data && schema2.length === 0)
+        const { gen, data, $data, schema: schema3, schemaCode, it } = cxt;
+        if (!$data && schema3.length === 0)
           throw new Error("enum must have non-empty array");
-        const useLoop = schema2.length >= it.opts.loopEnum;
+        const useLoop = schema3.length >= it.opts.loopEnum;
         let eql;
         const getEql = () => eql !== null && eql !== void 0 ? eql : eql = (0, util_1.useFunc)(gen, equal_1.default);
         let valid;
@@ -5450,10 +5450,10 @@ var require_enum = __commonJS({
           valid = gen.let("valid");
           cxt.block$data(valid, loopEnum);
         } else {
-          if (!Array.isArray(schema2))
+          if (!Array.isArray(schema3))
             throw new Error("ajv implementation error");
           const vSchema = gen.const("vSchema", schemaCode);
-          valid = (0, codegen_1.or)(...schema2.map((_x2, i) => equalCode(vSchema, i)));
+          valid = (0, codegen_1.or)(...schema3.map((_x2, i) => equalCode(vSchema, i)));
         }
         cxt.pass(valid);
         function loopEnum() {
@@ -5461,7 +5461,7 @@ var require_enum = __commonJS({
           gen.forOf("v", schemaCode, (v) => gen.if((0, codegen_1._)`${getEql()}(${data}, ${v})`, () => gen.assign(valid, true).break()));
         }
         function equalCode(vSchema, i) {
-          const sch = schema2[i];
+          const sch = schema3[i];
           return typeof sch === "object" && sch !== null ? (0, codegen_1._)`${getEql()}(${data}, ${vSchema}[${i}])` : (0, codegen_1._)`${data} === ${sch}`;
         }
       }
@@ -5537,13 +5537,13 @@ var require_additionalItems = __commonJS({
       }
     };
     function validateAdditionalItems(cxt, items) {
-      const { gen, schema: schema2, data, keyword, it } = cxt;
+      const { gen, schema: schema3, data, keyword, it } = cxt;
       it.items = true;
       const len = gen.const("len", (0, codegen_1._)`${data}.length`);
-      if (schema2 === false) {
+      if (schema3 === false) {
         cxt.setParams({ len: items.length });
         cxt.pass((0, codegen_1._)`${len} <= ${items.length}`);
-      } else if (typeof schema2 == "object" && !(0, util_1.alwaysValidSchema)(it, schema2)) {
+      } else if (typeof schema3 == "object" && !(0, util_1.alwaysValidSchema)(it, schema3)) {
         const valid = gen.var("valid", (0, codegen_1._)`${len} <= ${items.length}`);
         gen.if((0, codegen_1.not)(valid), () => validateItems(valid));
         cxt.ok(valid);
@@ -5576,11 +5576,11 @@ var require_items = __commonJS({
       schemaType: ["object", "array", "boolean"],
       before: "uniqueItems",
       code(cxt) {
-        const { schema: schema2, it } = cxt;
-        if (Array.isArray(schema2))
-          return validateTuple(cxt, "additionalItems", schema2);
+        const { schema: schema3, it } = cxt;
+        if (Array.isArray(schema3))
+          return validateTuple(cxt, "additionalItems", schema3);
         it.items = true;
-        if ((0, util_1.alwaysValidSchema)(it, schema2))
+        if ((0, util_1.alwaysValidSchema)(it, schema3))
           return;
         cxt.ok((0, code_1.validateArray)(cxt));
       }
@@ -5655,10 +5655,10 @@ var require_items2020 = __commonJS({
       before: "uniqueItems",
       error,
       code(cxt) {
-        const { schema: schema2, parentSchema, it } = cxt;
+        const { schema: schema3, parentSchema, it } = cxt;
         const { prefixItems } = parentSchema;
         it.items = true;
-        if ((0, util_1.alwaysValidSchema)(it, schema2))
+        if ((0, util_1.alwaysValidSchema)(it, schema3))
           return;
         if (prefixItems)
           (0, additionalItems_1.validateAdditionalItems)(cxt, prefixItems);
@@ -5689,7 +5689,7 @@ var require_contains = __commonJS({
       trackErrors: true,
       error,
       code(cxt) {
-        const { gen, schema: schema2, parentSchema, data, it } = cxt;
+        const { gen, schema: schema3, parentSchema, data, it } = cxt;
         let min;
         let max2;
         const { minContains, maxContains } = parentSchema;
@@ -5710,7 +5710,7 @@ var require_contains = __commonJS({
           cxt.fail();
           return;
         }
-        if ((0, util_1.alwaysValidSchema)(it, schema2)) {
+        if ((0, util_1.alwaysValidSchema)(it, schema3)) {
           let cond = (0, codegen_1._)`${len} >= ${min}`;
           if (max2 !== void 0)
             cond = (0, codegen_1._)`${cond} && ${len} <= ${max2}`;
@@ -5795,14 +5795,14 @@ var require_dependencies = __commonJS({
         validateSchemaDeps(cxt, schDeps);
       }
     };
-    function splitDependencies({ schema: schema2 }) {
+    function splitDependencies({ schema: schema3 }) {
       const propertyDeps = {};
       const schemaDeps = {};
-      for (const key in schema2) {
+      for (const key in schema3) {
         if (key === "__proto__")
           continue;
-        const deps = Array.isArray(schema2[key]) ? propertyDeps : schemaDeps;
-        deps[key] = schema2[key];
+        const deps = Array.isArray(schema3[key]) ? propertyDeps : schemaDeps;
+        deps[key] = schema3[key];
       }
       return [propertyDeps, schemaDeps];
     }
@@ -5875,8 +5875,8 @@ var require_propertyNames = __commonJS({
       schemaType: ["object", "boolean"],
       error,
       code(cxt) {
-        const { gen, schema: schema2, data, it } = cxt;
-        if ((0, util_1.alwaysValidSchema)(it, schema2))
+        const { gen, schema: schema3, data, it } = cxt;
+        if ((0, util_1.alwaysValidSchema)(it, schema3))
           return;
         const valid = gen.name("valid");
         gen.forIn("key", data, (key) => {
@@ -5922,12 +5922,12 @@ var require_additionalProperties = __commonJS({
       trackErrors: true,
       error,
       code(cxt) {
-        const { gen, schema: schema2, parentSchema, data, errsCount, it } = cxt;
+        const { gen, schema: schema3, parentSchema, data, errsCount, it } = cxt;
         if (!errsCount)
           throw new Error("ajv implementation error");
         const { allErrors, opts } = it;
         it.props = true;
-        if (opts.removeAdditional !== "all" && (0, util_1.alwaysValidSchema)(it, schema2))
+        if (opts.removeAdditional !== "all" && (0, util_1.alwaysValidSchema)(it, schema3))
           return;
         const props = (0, code_1.allSchemaProperties)(parentSchema.properties);
         const patProps = (0, code_1.allSchemaProperties)(parentSchema.patternProperties);
@@ -5960,18 +5960,18 @@ var require_additionalProperties = __commonJS({
           gen.code((0, codegen_1._)`delete ${data}[${key}]`);
         }
         function additionalPropertyCode(key) {
-          if (opts.removeAdditional === "all" || opts.removeAdditional && schema2 === false) {
+          if (opts.removeAdditional === "all" || opts.removeAdditional && schema3 === false) {
             deleteAdditional(key);
             return;
           }
-          if (schema2 === false) {
+          if (schema3 === false) {
             cxt.setParams({ additionalProperty: key });
             cxt.error();
             if (!allErrors)
               gen.break();
             return;
           }
-          if (typeof schema2 == "object" && !(0, util_1.alwaysValidSchema)(it, schema2)) {
+          if (typeof schema3 == "object" && !(0, util_1.alwaysValidSchema)(it, schema3)) {
             const valid = gen.name("valid");
             if (opts.removeAdditional === "failing") {
               applyAdditionalSchema(key, valid, false);
@@ -6021,22 +6021,22 @@ var require_properties = __commonJS({
       type: "object",
       schemaType: "object",
       code(cxt) {
-        const { gen, schema: schema2, parentSchema, data, it } = cxt;
+        const { gen, schema: schema3, parentSchema, data, it } = cxt;
         if (it.opts.removeAdditional === "all" && parentSchema.additionalProperties === void 0) {
           additionalProperties_1.default.code(new validate_1.KeywordCxt(it, additionalProperties_1.default, "additionalProperties"));
         }
-        const allProps = (0, code_1.allSchemaProperties)(schema2);
+        const allProps = (0, code_1.allSchemaProperties)(schema3);
         for (const prop of allProps) {
           it.definedProperties.add(prop);
         }
         if (it.opts.unevaluated && allProps.length && it.props !== true) {
           it.props = util_1.mergeEvaluated.props(gen, (0, util_1.toHash)(allProps), it.props);
         }
-        const properties = allProps.filter((p) => !(0, util_1.alwaysValidSchema)(it, schema2[p]));
-        if (properties.length === 0)
+        const properties2 = allProps.filter((p) => !(0, util_1.alwaysValidSchema)(it, schema3[p]));
+        if (properties2.length === 0)
           return;
         const valid = gen.name("valid");
-        for (const prop of properties) {
+        for (const prop of properties2) {
           if (hasDefault(prop)) {
             applyPropertySchema(prop);
           } else {
@@ -6050,7 +6050,7 @@ var require_properties = __commonJS({
           cxt.ok(valid);
         }
         function hasDefault(prop) {
-          return it.opts.useDefaults && !it.compositeRule && schema2[prop].default !== void 0;
+          return it.opts.useDefaults && !it.compositeRule && schema3[prop].default !== void 0;
         }
         function applyPropertySchema(prop) {
           cxt.subschema({
@@ -6079,10 +6079,10 @@ var require_patternProperties = __commonJS({
       type: "object",
       schemaType: "object",
       code(cxt) {
-        const { gen, schema: schema2, data, parentSchema, it } = cxt;
+        const { gen, schema: schema3, data, parentSchema, it } = cxt;
         const { opts } = it;
-        const patterns = (0, code_1.allSchemaProperties)(schema2);
-        const alwaysValidPatterns = patterns.filter((p) => (0, util_1.alwaysValidSchema)(it, schema2[p]));
+        const patterns = (0, code_1.allSchemaProperties)(schema3);
+        const alwaysValidPatterns = patterns.filter((p) => (0, util_1.alwaysValidSchema)(it, schema3[p]));
         if (patterns.length === 0 || alwaysValidPatterns.length === patterns.length && (!it.opts.unevaluated || it.props === true)) {
           return;
         }
@@ -6150,8 +6150,8 @@ var require_not = __commonJS({
       schemaType: ["object", "boolean"],
       trackErrors: true,
       code(cxt) {
-        const { gen, schema: schema2, it } = cxt;
-        if ((0, util_1.alwaysValidSchema)(it, schema2)) {
+        const { gen, schema: schema3, it } = cxt;
+        if ((0, util_1.alwaysValidSchema)(it, schema3)) {
           cxt.fail();
           return;
         }
@@ -6204,12 +6204,12 @@ var require_oneOf = __commonJS({
       trackErrors: true,
       error,
       code(cxt) {
-        const { gen, schema: schema2, parentSchema, it } = cxt;
-        if (!Array.isArray(schema2))
+        const { gen, schema: schema3, parentSchema, it } = cxt;
+        if (!Array.isArray(schema3))
           throw new Error("ajv implementation error");
         if (it.opts.discriminator && parentSchema.discriminator)
           return;
-        const schArr = schema2;
+        const schArr = schema3;
         const valid = gen.let("valid", false);
         const passing = gen.let("passing", null);
         const schValid = gen.name("_valid");
@@ -6255,11 +6255,11 @@ var require_allOf = __commonJS({
       keyword: "allOf",
       schemaType: "array",
       code(cxt) {
-        const { gen, schema: schema2, it } = cxt;
-        if (!Array.isArray(schema2))
+        const { gen, schema: schema3, it } = cxt;
+        if (!Array.isArray(schema3))
           throw new Error("ajv implementation error");
         const valid = gen.name("valid");
-        schema2.forEach((sch, i) => {
+        schema3.forEach((sch, i) => {
           if ((0, util_1.alwaysValidSchema)(it, sch))
             return;
           const schCxt = cxt.subschema({ keyword: "allOf", schemaProp: i }, valid);
@@ -6334,8 +6334,8 @@ var require_if = __commonJS({
       }
     };
     function hasSchema(it, keyword) {
-      const schema2 = it.schema[keyword];
-      return schema2 !== void 0 && !(0, util_1.alwaysValidSchema)(it, schema2);
+      const schema3 = it.schema[keyword];
+      return schema3 !== void 0 && !(0, util_1.alwaysValidSchema)(it, schema3);
     }
     exports2.default = def;
   }
@@ -6424,7 +6424,7 @@ var require_format = __commonJS({
       $data: true,
       error,
       code(cxt, ruleType) {
-        const { gen, data, $data, schema: schema2, schemaCode, it } = cxt;
+        const { gen, data, $data, schema: schema3, schemaCode, it } = cxt;
         const { opts, errSchemaPath, schemaEnv, self: self2 } = it;
         if (!opts.validateFormats)
           return;
@@ -6454,7 +6454,7 @@ var require_format = __commonJS({
           }
         }
         function validateFormat() {
-          const formatDef = self2.formats[schema2];
+          const formatDef = self2.formats[schema3];
           if (!formatDef) {
             unknownFormat();
             return;
@@ -6471,12 +6471,12 @@ var require_format = __commonJS({
             }
             throw new Error(unknownMsg());
             function unknownMsg() {
-              return `unknown format "${schema2}" ignored in schema at path "${errSchemaPath}"`;
+              return `unknown format "${schema3}" ignored in schema at path "${errSchemaPath}"`;
             }
           }
           function getFormat(fmtDef) {
-            const code = fmtDef instanceof RegExp ? (0, codegen_1.regexpCode)(fmtDef) : opts.code.formats ? (0, codegen_1._)`${opts.code.formats}${(0, codegen_1.getProperty)(schema2)}` : void 0;
-            const fmt = gen.scopeValue("formats", { key: schema2, ref: fmtDef, code });
+            const code = fmtDef instanceof RegExp ? (0, codegen_1.regexpCode)(fmtDef) : opts.code.formats ? (0, codegen_1._)`${opts.code.formats}${(0, codegen_1.getProperty)(schema3)}` : void 0;
+            const fmt = gen.scopeValue("formats", { key: schema3, ref: fmtDef, code });
             if (typeof fmtDef == "object" && !(fmtDef instanceof RegExp)) {
               return [fmtDef.type || "string", fmtDef.validate, (0, codegen_1._)`${fmt}.validate`];
             }
@@ -6587,15 +6587,15 @@ var require_discriminator = __commonJS({
       schemaType: "object",
       error,
       code(cxt) {
-        const { gen, data, schema: schema2, parentSchema, it } = cxt;
+        const { gen, data, schema: schema3, parentSchema, it } = cxt;
         const { oneOf } = parentSchema;
         if (!it.opts.discriminator) {
           throw new Error("discriminator: requires discriminator option");
         }
-        const tagName = schema2.propertyName;
+        const tagName = schema3.propertyName;
         if (typeof tagName != "string")
           throw new Error("discriminator: requires propertyName");
-        if (schema2.mapping)
+        if (schema3.mapping)
           throw new Error("discriminator: mapping is not supported");
         if (!oneOf)
           throw new Error("discriminator: requires oneOf keyword");
@@ -6911,10 +6911,12 @@ __export(stdin_exports, {
   applySoftStudioPreset: () => applySoftStudioPreset,
   archivePackageEntries: () => archivePackageEntries,
   bindRenderingToProject: () => bindRenderingToProject,
+  buildDeviceAssetPreviewPackage: () => buildDeviceAssetPreviewPackage,
   createDemoRuntime: () => createDemoRuntime,
   createDemoRuntimeFromDocument: () => createDemoRuntimeFromDocument,
   digest: () => digest,
   encode: () => encode,
+  inspectDeviceAssetPackage: () => inspectDeviceAssetPackage,
   inspectImage: () => inspectImage,
   inspectModel: () => inspectModel,
   maxModelLightingBytes: () => maxModelLightingBytes,
@@ -6924,7 +6926,9 @@ __export(stdin_exports, {
   readArchive: () => readArchive,
   readPackage: () => readPackage,
   readPackageEntries: () => readPackageEntries,
+  resolveInteractivePixelRatio: () => resolveInteractivePixelRatio,
   serializeModelLighting: () => serializeModelLighting,
+  validateDeviceAssetPackage: () => validateDeviceAssetPackage,
   validatePackage: () => validatePackage,
   validateRendering: () => validateRendering,
   writePackage: () => writePackage,
@@ -8592,7 +8596,7 @@ function applySoftStudioPreset(rendering) {
 var import_ajv = __toESM(require_ajv(), 1);
 
 // src/schemas.mjs
-var schemas_default = { "common.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/common.schema.json", "title": "Home3D v3 proposal: common.schema.json", "definitions": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "path": { "type": "string", "pattern": "^(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\\.(?:json|glb|png|jpg|webp)$", "maxLength": 240 }, "point": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number" }, "z": { "type": "number" } }, "required": ["x", "z"] }, "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }, "quat": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }, "size": { "type": "object", "additionalProperties": false, "properties": { "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "depth": { "type": "number", "exclusiveMinimum": 0 } }, "required": ["width", "height", "depth"] }, "extensions": { "type": "object", "propertyNames": { "pattern": "^(?:[a-z0-9-]+\\.)+[a-z0-9-]+$" }, "additionalProperties": true }, "source": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1, "maxLength": 128 }, "resourceKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "versionKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "productKey": { "type": "string", "minLength": 1, "maxLength": 128 } }, "required": ["namespace", "resourceKey", "versionKey", "digest"] }, "camera": { "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.camera.v1" }, "projection": { "enum": ["perspective", "orthographic"] }, "fov": { "type": "number", "minimum": 10, "maximum": 70 }, "azimuthDegrees": { "type": "number", "minimum": -180, "maximum": 180 }, "elevationDegrees": { "type": "number", "minimum": 10, "maximum": 85 }, "distanceScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "heightScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "depthScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 } }, "required": ["schema", "projection", "fov", "azimuthDegrees", "elevationDegrees", "distanceScale", "heightScale", "depthScale"] } } }, "device-contract.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-contract.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-contract.v1" }, "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "scopes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilities": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "behavior": { "enum": ["property", "command", "event"] }, "access": { "enum": ["read", "write", "read-write"] }, "value": { "type": "object", "additionalProperties": false, "properties": { "type": { "enum": ["boolean", "number", "integer", "enum", "string", "null"] }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string", "minLength": 1, "maxLength": 200 }, "values": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 200 }, "minItems": 1, "uniqueItems": true } }, "required": ["type"] }, "initialValue": { "type": ["boolean", "number", "string", "null"] } }, "required": ["key", "behavior", "access", "value"] }, "minItems": 1 } }, "required": ["capabilities"] }, "minItems": 1 }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "controls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "label": { "type": "string", "minLength": 1, "maxLength": 200 }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "widget": { "enum": ["toggle", "slider", "select", "value", "button"] } }, "required": ["id", "label", "source", "widget"] } }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "channel": { "enum": ["node.visible", "node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.opacity", "material.emissiveIntensity", "light.intensity", "animation.progress", "morph.weight"] }, "mapping": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "linear" }, "input": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["kind", "input", "output"] }, { "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "cases" }, "cases": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "value": { "type": ["boolean", "number", "string", "null"] }, "output": { "type": ["number", "boolean"] } }, "required": ["value", "output"] }, "minItems": 1 } }, "required": ["kind", "cases"] }] }, "enabledBy": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] } }, "required": ["id", "source", "slot", "channel", "mapping"] } } }, "required": ["controls", "effects"] }, "simulation": { "type": "object", "additionalProperties": false, "properties": { "behavior": { "const": "state-transition.v1" }, "transitions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "durationMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["target", "durationMs"] } }, "commands": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "operation": { "enum": ["set", "stop"] }, "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["operation", "target"] }, "minItems": 1 } }, "required": ["source", "effects"] } } }, "required": ["behavior", "transitions", "commands"] } }, "required": ["schema", "id", "version", "name", "scopes", "presentation", "simulation"] }, "device-program.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-program.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-program.v1" }, "projectDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "initialState": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] } }, "scenes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] } } }, "required": ["id", "name", "actions"] } }, "rules": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "when": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] }, "minItems": 1 } }, "required": ["id", "when", "actions"] } } }, "required": ["schema", "projectDigest", "initialState", "scenes", "rules"] }, "devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/devices.schema.json", "title": "Home3D v3 proposal: devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-config.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "instanceId": { "$ref": "common.schema.json#/definitions/id" }, "deviceClass": { "$ref": "common.schema.json#/definitions/id" }, "properties": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "valueType": { "enum": ["boolean", "number"] }, "readable": { "type": "boolean" }, "writable": { "type": "boolean" }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string" } }, "required": ["key", "valueType", "readable", "writable"] }, "minItems": 1 }, "previewState": { "type": "object", "additionalProperties": { "type": ["boolean", "number"] } }, "visualEffects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "property": { "$ref": "common.schema.json#/definitions/id" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] }, "channel": { "enum": ["node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.emissiveIntensity", "material.opacity", "animation.progress", "morph.weight"] }, "input": { "type": "array", "items": { "type": ["number", "boolean"] }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["property", "target", "channel", "input", "output"] } }, "controlIntent": { "type": "object", "additionalProperties": false, "properties": { "manualControlEnabled": { "type": "boolean" }, "slots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "property": { "$ref": "common.schema.json#/definitions/id" }, "operation": { "const": "set" } }, "required": ["id", "property", "operation"] } } }, "required": ["manualControlEnabled", "slots"] }, "productHint": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1 }, "productKey": { "type": "string", "minLength": 1 }, "templateKey": { "type": "string", "minLength": 1 } }, "required": ["namespace", "productKey"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "instanceId", "deviceClass", "properties", "previewState", "visualEffects", "controlIntent"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "bindings"] }, "lighting.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/lighting.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-lighting.v1" }, "modelDigest": { "$ref": "common.schema.json#/definitions/digest" }, "coordinateSystem": { "const": "right-handed-y-up" }, "fixtures": { "type": "array", "maxItems": 32, "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z0-9_:.\\u4e00-\\u9fff-]{1,128}$" }, "position": { "$ref": "common.schema.json#/definitions/vec3" }, "emitterOffsetM": { "$ref": "common.schema.json#/definitions/vec3" }, "color": { "type": "string", "pattern": "^#[0-9a-f]{6}$" }, "maxIntensity": { "type": "number", "minimum": 0, "maximum": 1e5 }, "initialBrightness": { "type": "number", "minimum": 0, "maximum": 100 }, "initialCctK": { "type": "number", "minimum": 1e3, "maximum": 4e4 }, "rangeM": { "type": "number", "minimum": 1e-3, "maximum": 1e4 } }, "required": ["id", "position", "emitterOffsetM", "color", "maxIntensity", "initialBrightness", "initialCctK", "rangeM"] } } }, "required": ["schema", "modelDigest", "coordinateSystem", "fixtures"] }, "material.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/material.schema.json", "title": "Home3D v3 proposal: material.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.material-definition.v1" }, "kind": { "const": "material" }, "baseColor": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 4, "maxItems": 4 }, "metallic": { "type": "number", "minimum": 0, "maximum": 1 }, "roughness": { "type": "number", "minimum": 0, "maximum": 1 }, "textures": { "type": "object", "additionalProperties": false, "properties": { "baseColor": { "$ref": "common.schema.json#/definitions/path" }, "normal": { "$ref": "common.schema.json#/definitions/path" }, "metallicRoughness": { "$ref": "common.schema.json#/definitions/path" } }, "required": [] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "kind", "baseColor", "metallic", "roughness", "textures"] }, "model.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/model.schema.json", "title": "Home3D v3 proposal: model.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-definition.v1" }, "kind": { "const": "model" }, "file": { "$ref": "common.schema.json#/definitions/path" }, "defaultSize": { "$ref": "common.schema.json#/definitions/size" }, "pivot": { "const": "bottom-center" }, "targets": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" }, "normalization": { "type": "object", "additionalProperties": false, "properties": { "translation": { "$ref": "common.schema.json#/definitions/vec3" }, "scale": { "$ref": "common.schema.json#/definitions/vec3" } }, "required": ["translation", "scale"] }, "lightingPath": { "$ref": "common.schema.json#/definitions/path" }, "images": { "type": "object", "additionalProperties": false, "properties": { "preview": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] }, "topView": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] } } }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] } }, "required": ["schema", "kind", "file", "defaultSize", "pivot", "targets"] }, "package.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/package.schema.json", "title": "Home3D v3 proposal: package.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.project-package.v3" }, "version": { "const": 3 }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "producer": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 } }, "required": ["name", "version"] }, "requiredCapabilities": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/id" }, "uniqueItems": true, "minItems": 2 }, "entries": { "type": "object", "additionalProperties": false, "properties": { "scene": { "const": "scene.json" }, "resources": { "const": "runtime-resources.json" }, "devices": { "const": "devices.json" } }, "required": ["scene", "resources", "devices"] }, "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "path": { "$ref": "common.schema.json#/definitions/path" }, "byteSize": { "type": "integer", "minimum": 0 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp"] } }, "required": ["path", "byteSize", "digest", "contentType"] }, "minItems": 3 }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "version", "name", "producer", "requiredCapabilities", "entries", "files"] }, "presentation.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/presentation.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.presentation.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph", "light"] }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "nodeName": { "type": "string", "minLength": 1, "maxLength": 200 } }, "required": ["kind", "name"] } }, "required": ["deviceId", "slot", "target"] } } }, "required": ["schema", "bindings"] }, "rendering.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/rendering.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "properties": { "background": { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "toneMapped": { "const": false } }, "required": ["color", "toneMapped"], "type": "object" }, "compatibility": { "additionalProperties": false, "properties": { "allowAutomaticQualityReduction": { "const": false }, "mode": { "const": "strict" }, "onUnsupported": { "const": "reject" } }, "required": ["mode", "onUnsupported", "allowAutomaticQualityReduction"], "type": "object" }, "contactAO": { "additionalProperties": false, "properties": { "attribute": { "const": "COLOR_0" }, "bakeProvenance": { "additionalProperties": false, "properties": { "distanceM": { "exclusiveMinimum": 0, "type": "number" }, "lightEmissionBaked": { "const": false }, "samples": { "maximum": 1024, "minimum": 1, "type": "integer" }, "strength": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["samples", "distanceM", "strength", "lightEmissionBaked"], "type": "object" }, "combine": { "const": "multiply-base-color-once" }, "mode": { "enum": ["baked-vertex", "none"] }, "onGeometryChange": { "const": "keep-bake-and-report-stale" }, "runtimeStrength": { "const": 1 }, "valueColorSpace": { "const": "linear" } }, "required": ["mode", "attribute", "valueColorSpace", "combine", "runtimeStrength", "bakeProvenance", "onGeometryChange"], "type": "object" }, "defaultViewId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "environment": { "additionalProperties": false, "properties": { "colorSpace": { "const": "srgb" }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "file": { "pattern": "^blobs/[0-9a-f]{64}\\.png$", "type": "string" }, "filter": { "const": "linear" }, "height": { "maximum": 16384, "minimum": 1, "type": "integer" }, "intensity": { "maximum": 100, "minimum": 0, "type": "number" }, "mode": { "const": "equirectangular-image" }, "projection": { "const": "three-r171-equirect.v1" }, "rotationYRadians": { "maximum": 6.283185307179586, "minimum": -6.283185307179586, "type": "number" }, "useAsBackground": { "const": false }, "width": { "maximum": 16384, "minimum": 1, "type": "integer" }, "wrapS": { "const": "repeat" }, "wrapT": { "const": "clamp" } }, "required": ["mode", "file", "digest", "width", "height", "colorSpace", "intensity", "rotationYRadians", "projection", "wrapS", "wrapT", "filter", "useAsBackground"], "type": "object" }, "geometryPresentation": { "additionalProperties": false, "properties": { "cutaway": { "const": false }, "frontWallFade": { "const": false }, "outlines": { "const": false }, "roomIsolation": { "const": false } }, "required": ["cutaway", "frontWallFade", "roomIsolation", "outlines"], "type": "object" }, "ground": { "additionalProperties": false, "properties": { "castShadow": { "const": false }, "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "enabled": { "type": "boolean" }, "metallic": { "maximum": 1, "minimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "receiveShadow": { "type": "boolean" }, "roughness": { "maximum": 1, "minimum": 0, "type": "number" }, "sizeM": { "items": { "exclusiveMinimum": 0, "type": "number" }, "maxItems": 2, "minItems": 2, "type": "array" } }, "required": ["enabled", "positionM", "sizeM", "color", "roughness", "metallic", "castShadow", "receiveShadow"], "type": "object" }, "lights": { "items": { "oneOf": [{ "additionalProperties": false, "properties": { "groundColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "hemisphere" }, "skyColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "skyColor", "groundColor", "up"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "directional" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-vsm.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "blurSamples": { "maximum": 64, "minimum": 2, "type": "integer" }, "camera": { "additionalProperties": false, "properties": { "bottom": { "type": "number" }, "far": { "exclusiveMinimum": 0, "type": "number" }, "left": { "type": "number" }, "near": { "exclusiveMinimum": 0, "type": "number" }, "projection": { "const": "orthographic" }, "right": { "type": "number" }, "top": { "type": "number" } }, "required": ["projection", "left", "right", "top", "bottom", "near", "far"], "type": "object" }, "enabled": { "const": true }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048, 4096] }, "maxItems": 2, "minItems": 2, "type": "array" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" }, "radiusTexels": { "maximum": 64, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "radiusTexels", "blurSamples", "camera"], "type": "object" }] }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "targetM", "shadow"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "decay": { "const": 2 }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "point" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "rangeM": { "maximum": 1e4, "minimum": 0, "type": "number" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "rangeM", "decay", "shadow"], "type": "object" }] }, "maxItems": 32, "minItems": 0, "type": "array" }, "modelLightShadows": { "items": { "additionalProperties": false, "properties": { "instanceId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "lightId": { "maxLength": 200, "minLength": 1, "type": "string" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["instanceId", "lightId", "shadow"], "type": "object" }, "maxItems": 256, "minItems": 0, "type": "array" }, "pipeline": { "additionalProperties": false, "properties": { "environmentFilter": { "const": "pmrem-ggx-three-r171.v1" }, "id": { "const": "home3d.white-three-r171.v1" }, "materialModel": { "const": "gltf-pbr-three-r171.v1" }, "requiredCapability": { "const": "render.pipeline.three-r171-white.v1" }, "studioSourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "toneMapping": { "const": "aces-filmic-three-r171.v1" } }, "required": ["id", "requiredCapability", "materialModel", "toneMapping", "environmentFilter", "studioSourceDigest"], "type": "object" }, "profile": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "sourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "version": { "minimum": 1, "type": "integer" } }, "required": ["id", "version", "sourceDigest"], "type": "object" }, "projectDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "referenceCapture": { "additionalProperties": false, "properties": { "deviceState": { "const": "contract-initial" }, "disableAdaptiveQuality": { "const": true }, "heightPx": { "maximum": 8192, "minimum": 64, "type": "integer" }, "pixelRatio": { "const": 1 }, "timeMs": { "maximum": 6e4, "minimum": 0, "type": "integer" }, "waitForAssets": { "const": true }, "waitForShadowUpdate": { "const": true }, "widthPx": { "maximum": 8192, "minimum": 64, "type": "integer" } }, "required": ["pixelRatio", "widthPx", "heightPx", "timeMs", "deviceState", "waitForAssets", "waitForShadowUpdate", "disableAdaptiveQuality"], "type": "object" }, "renderer": { "additionalProperties": false, "properties": { "antialias": { "additionalProperties": false, "properties": { "method": { "const": "msaa" }, "samples": { "enum": [2, 4, 8] } }, "required": ["method", "samples"], "type": "object" }, "autoExposure": { "const": false }, "exposureCompensationEV": { "maximum": 16, "minimum": -16, "type": "number" }, "exposureMultiplier": { "exclusiveMinimum": 0, "maximum": 64, "minimum": 0, "type": "number" }, "interactiveMaxPixelRatio": { "maximum": 3, "minimum": 1, "type": "number" }, "logarithmicDepthBuffer": { "const": false }, "outputAlpha": { "const": 1 }, "outputColorSpace": { "const": "srgb" }, "postprocessing": { "additionalProperties": false, "properties": { "bloom": { "const": false }, "dithering": { "const": false }, "fog": { "const": false }, "fxaa": { "const": false }, "ssao": { "const": false }, "taa": { "const": false } }, "required": ["ssao", "bloom", "fxaa", "taa", "dithering", "fog"], "type": "object" }, "premultipliedAlpha": { "const": false }, "referenceTarget": { "const": "rgba8-unorm" }, "reverseDepthBuffer": { "const": false }, "whiteBalance": { "const": "identity" }, "whitePoint": { "const": "D65" }, "workingColorSpace": { "const": "linear-srgb" } }, "required": ["workingColorSpace", "outputColorSpace", "whitePoint", "exposureMultiplier", "exposureCompensationEV", "autoExposure", "whiteBalance", "outputAlpha", "referenceTarget", "premultipliedAlpha", "logarithmicDepthBuffer", "reverseDepthBuffer", "antialias", "interactiveMaxPixelRatio", "postprocessing"], "type": "object" }, "schema": { "const": "home3d.rendering.v1" }, "shadowPolicy": { "additionalProperties": false, "properties": { "enabled": { "type": "boolean" }, "maxShadowedDirectionalLights": { "maximum": 4, "minimum": 0, "type": "integer" }, "maxShadowedPointLights": { "maximum": 8, "minimum": 0, "type": "integer" }, "opaque": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "overrides": { "items": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "object": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "kind": { "enum": ["wall", "room", "instance"] } }, "required": ["kind", "id"], "type": "object" }, "receive": { "type": "boolean" } }, "required": ["object", "cast", "receive"], "type": "object" }, "maxItems": 1e4, "minItems": 0, "type": "array" }, "transparent": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "update": { "const": "on-change-before-frame" } }, "required": ["enabled", "update", "maxShadowedDirectionalLights", "maxShadowedPointLights", "opaque", "transparent", "overrides"], "type": "object" }, "version": { "const": 1 }, "views": { "items": { "additionalProperties": false, "properties": { "aspectRatio": { "exclusiveMinimum": 0, "type": "number" }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "projection": { "const": "orthographic" }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "verticalSpanM": { "exclusiveMinimum": 0, "type": "number" } }, "required": ["id", "name", "projection", "positionM", "targetM", "up", "verticalSpanM", "nearM", "farM", "aspectRatio"], "type": "object" }, "maxItems": 16, "minItems": 1, "type": "array" } }, "required": ["schema", "version", "projectDigest", "profile", "pipeline", "compatibility", "renderer", "background", "environment", "lights", "modelLightShadows", "shadowPolicy", "contactAO", "ground", "geometryPresentation", "views", "defaultViewId", "referenceCapture"], "title": "Home3D v4 rendering extension v1", "type": "object" }, "resources.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/resources.schema.json", "title": "Home3D v3 proposal: resources.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.runtime-resources.v4" }, "resources": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["model", "material"] }, "definitionPath": { "$ref": "common.schema.json#/definitions/path" }, "catalogSource": { "$ref": "common.schema.json#/definitions/source" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["key", "kind", "definitionPath"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "resources"] }, "scene.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/scene.schema.json", "title": "Home3D v3 proposal: scene.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.floorplan-scene.v5" }, "id": { "$ref": "common.schema.json#/definitions/id" }, "revision": { "type": "integer", "minimum": 1 }, "parentDigest": { "anyOf": [{ "$ref": "common.schema.json#/definitions/digest" }, { "type": "null" }] }, "unit": { "const": "m" }, "coordinateSystem": { "const": "right-handed-y-up" }, "projectMetadata": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "address": { "type": "string" }, "remark": { "type": "string" }, "activeFloorId": { "$ref": "common.schema.json#/definitions/id" }, "mainRoomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["name", "activeFloorId", "mainRoomId"] }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "profile": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "version": { "type": "integer", "minimum": 1 } }, "required": ["id", "version"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["profile"] }, "floors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "elevation": { "type": "number" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "walls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "kind": { "enum": ["straight", "arc"] }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "thickness": { "type": "number", "exclusiveMinimum": 0 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "curve": { "type": "object", "additionalProperties": false, "properties": { "center": { "$ref": "common.schema.json#/definitions/point" }, "radius": { "type": "number", "exclusiveMinimum": 0 }, "startAngle": { "type": "number" }, "sweepAngle": { "type": "number" } }, "required": ["center", "radius", "startAngle", "sweepAngle"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "kind", "start", "end", "height", "thickness", "materialKey"], "allOf": [{ "if": { "properties": { "kind": { "const": "arc" } } }, "then": { "required": ["curve"] }, "else": { "not": { "required": ["curve"] } } }] } }, "openings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "wallId": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["door", "window"] }, "offset": { "type": "number", "minimum": 0 }, "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "sillHeight": { "type": "number", "minimum": 0 }, "doorLeafMode": { "enum": ["chord", "tangent"] }, "doorHingeSide": { "enum": ["left", "right"] }, "doorSwingSide": { "enum": ["inside", "outside"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "wallId", "kind", "offset", "width", "height", "sillHeight"] } }, "rooms": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "boundary", "materialKey"] } }, "regions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 } }, "required": ["id", "roomId", "name", "boundary"] } }, "dividers": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" } }, "required": ["id", "start", "end"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "elevation", "height", "walls", "openings", "rooms", "regions", "dividers"] }, "minItems": 1 }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "kind": { "enum": ["furnishing", "device", "opening-frame"] }, "resourceKey": { "$ref": "common.schema.json#/definitions/id" }, "floorId": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "regionId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "transform": { "type": "object", "additionalProperties": false, "properties": { "position": { "$ref": "common.schema.json#/definitions/vec3" }, "rotation": { "$ref": "common.schema.json#/definitions/quat" }, "size": { "$ref": "common.schema.json#/definitions/size" } }, "required": ["position", "rotation", "size"] }, "placement": { "enum": ["floor", "wall", "ceiling", "surface", "opening"] }, "host": { "anyOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["wall", "opening", "instance"] }, "id": { "$ref": "common.schema.json#/definitions/id" } }, "required": ["kind", "id"] }, { "type": "null" }] }, "openingFit": { "type": "object", "additionalProperties": false, "properties": { "margins": { "type": "object", "additionalProperties": false, "properties": { "left": { "type": "number", "minimum": 0 }, "right": { "type": "number", "minimum": 0 }, "top": { "type": "number", "minimum": 0 }, "bottom": { "type": "number", "minimum": 0 } }, "required": ["left", "right", "top", "bottom"] }, "normalOffset": { "type": "number" } }, "required": ["margins", "normalOffset"] }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "visible": { "type": "boolean" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "kind", "resourceKey", "floorId", "roomId", "regionId", "transform", "placement", "host", "materialKey", "visible"] } }, "extensions": { "allOf": [{ "$ref": "common.schema.json#/definitions/extensions" }], "properties": { "com.houzzkit.camera": { "$ref": "common.schema.json#/definitions/camera" } } } }, "required": ["schema", "id", "revision", "parentDigest", "unit", "coordinateSystem", "projectMetadata", "floors", "instances"] }, "unified-devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/unified-devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.devices.v1" }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "instanceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "contractPath": { "type": "string", "pattern": "^contracts/[0-9a-f]{64}\\.json$" }, "contractDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "manualControlEnabled": { "type": "boolean" } }, "required": ["id", "name", "instanceId", "contractPath", "contractDigest", "manualControlEnabled"] } } }, "required": ["schema", "instances"] }, "unified-package.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/unified-package.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "allOf": [{ "if": { "properties": { "entries": { "required": ["rendering"] } } }, "then": { "properties": { "requiredCapabilities": { "allOf": [{ "contains": { "const": "render.scene.v1" } }, { "contains": { "const": "render.pipeline.three-r171-white.v1" } }] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.scene.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.pipeline.three-r171-white.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }], "properties": { "entries": { "additionalProperties": false, "properties": { "devices": { "const": "devices.json" }, "experience": { "const": "experience.json" }, "presentation": { "const": "presentation.json" }, "project": { "const": "project.json" }, "rendering": { "const": "rendering.json" }, "resources": { "const": "resources.json" } }, "required": ["project", "resources", "devices", "presentation"], "type": "object" }, "files": { "items": { "additionalProperties": false, "properties": { "byteSize": { "minimum": 0, "type": "integer" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp", "audio/mpeg", "audio/wav"] }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "path": { "maxLength": 240, "type": "string" } }, "required": ["path", "byteSize", "digest", "contentType"], "type": "object" }, "minItems": 4, "type": "array" }, "kind": { "enum": ["project", "solution"] }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "producer": { "additionalProperties": false, "properties": { "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "version": { "maxLength": 200, "minLength": 1, "type": "string" } }, "required": ["name", "version"], "type": "object" }, "requiredCapabilities": { "items": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "minItems": 2, "type": "array", "uniqueItems": true }, "schema": { "const": "home3d.package.v4" }, "version": { "const": 4 } }, "required": ["schema", "version", "kind", "name", "producer", "requiredCapabilities", "entries", "files"], "type": "object" } };
+var schemas_default = { "common.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/common.schema.json", "title": "Home3D v3 proposal: common.schema.json", "definitions": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "path": { "type": "string", "pattern": "^(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\\.(?:json|glb|png|jpg|webp)$", "maxLength": 240 }, "point": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number" }, "z": { "type": "number" } }, "required": ["x", "z"] }, "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }, "quat": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }, "size": { "type": "object", "additionalProperties": false, "properties": { "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "depth": { "type": "number", "exclusiveMinimum": 0 } }, "required": ["width", "height", "depth"] }, "extensions": { "type": "object", "propertyNames": { "pattern": "^(?:[a-z0-9-]+\\.)+[a-z0-9-]+$" }, "additionalProperties": true }, "source": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1, "maxLength": 128 }, "resourceKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "versionKey": { "type": "string", "minLength": 1, "maxLength": 128 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "productKey": { "type": "string", "minLength": 1, "maxLength": 128 } }, "required": ["namespace", "resourceKey", "versionKey", "digest"] }, "camera": { "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.camera.v1" }, "projection": { "enum": ["perspective", "orthographic"] }, "fov": { "type": "number", "minimum": 10, "maximum": 70 }, "azimuthDegrees": { "type": "number", "minimum": -180, "maximum": 180 }, "elevationDegrees": { "type": "number", "minimum": 10, "maximum": 85 }, "distanceScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "heightScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 }, "depthScale": { "type": "number", "minimum": 0.35, "maximum": 2.5 } }, "required": ["schema", "projection", "fov", "azimuthDegrees", "elevationDegrees", "distanceScale", "heightScale", "depthScale"] } } }, "device-contract.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-contract.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-contract.v1" }, "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "scopes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilities": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "behavior": { "enum": ["property", "command", "event"] }, "access": { "enum": ["read", "write", "read-write"] }, "value": { "type": "object", "additionalProperties": false, "properties": { "type": { "enum": ["boolean", "number", "integer", "enum", "string", "null"] }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string", "minLength": 1, "maxLength": 200 }, "values": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 200 }, "minItems": 1, "uniqueItems": true } }, "required": ["type"] }, "initialValue": { "type": ["boolean", "number", "string", "null"] } }, "required": ["key", "behavior", "access", "value"] }, "minItems": 1 } }, "required": ["capabilities"] }, "minItems": 1 }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "controls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "label": { "type": "string", "minLength": 1, "maxLength": 200 }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "widget": { "enum": ["toggle", "slider", "select", "value", "button"] } }, "required": ["id", "label", "source", "widget"] } }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "channel": { "enum": ["node.visible", "node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.opacity", "material.emissiveIntensity", "light.intensity", "animation.progress", "morph.weight"] }, "mapping": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "linear" }, "input": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["kind", "input", "output"] }, { "type": "object", "additionalProperties": false, "properties": { "kind": { "const": "cases" }, "cases": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "value": { "type": ["boolean", "number", "string", "null"] }, "output": { "type": ["number", "boolean"] } }, "required": ["value", "output"] }, "minItems": 1 } }, "required": ["kind", "cases"] }] }, "enabledBy": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] } }, "required": ["id", "source", "slot", "channel", "mapping"] } } }, "required": ["controls", "effects"] }, "simulation": { "type": "object", "additionalProperties": false, "properties": { "behavior": { "const": "state-transition.v1" }, "transitions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "durationMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["target", "durationMs"] } }, "commands": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "source": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "effects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "operation": { "enum": ["set", "stop"] }, "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["operation", "target"] }, "minItems": 1 } }, "required": ["source", "effects"] } }, "visualCycles": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "when": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] }, "from": { "type": "number" }, "to": { "type": "number" }, "durationMs": { "type": "integer", "minimum": 1, "maximum": 6e4 } }, "required": ["id", "target", "when", "from", "to", "durationMs"] } } }, "required": ["behavior", "transitions", "commands"] } }, "required": ["schema", "id", "version", "name", "scopes", "presentation", "simulation"] }, "device-program.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/device-program.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-program.v1" }, "projectDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "initialState": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] } }, "scenes": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] } } }, "required": ["id", "name", "actions"] } }, "rules": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "when": { "type": "object", "additionalProperties": false, "properties": { "target": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" } }, "required": ["deviceId", "capabilityKey"] }, "value": { "type": ["boolean", "number", "string", "null"] } }, "required": ["target", "value"] }, "actions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "controlObjectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "capabilityKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "operation": { "enum": ["write", "execute", "observe", "subscribe"] }, "value": { "type": ["boolean", "number", "string", "null"] }, "sample": { "const": true }, "transitionMs": { "type": "integer", "minimum": 0, "maximum": 6e4 } }, "required": ["deviceId", "capabilityKey", "operation", "value"] }, "minItems": 1 } }, "required": ["id", "when", "actions"] } } }, "required": ["schema", "projectDigest", "initialState", "scenes", "rules"] }, "devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/devices.schema.json", "title": "Home3D v3 proposal: devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.device-config.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "instanceId": { "$ref": "common.schema.json#/definitions/id" }, "deviceClass": { "$ref": "common.schema.json#/definitions/id" }, "properties": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "valueType": { "enum": ["boolean", "number"] }, "readable": { "type": "boolean" }, "writable": { "type": "boolean" }, "minimum": { "type": "number" }, "maximum": { "type": "number" }, "unit": { "type": "string" } }, "required": ["key", "valueType", "readable", "writable"] }, "minItems": 1 }, "previewState": { "type": "object", "additionalProperties": { "type": ["boolean", "number"] } }, "visualEffects": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "property": { "$ref": "common.schema.json#/definitions/id" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] }, "channel": { "enum": ["node.position.x", "node.position.y", "node.position.z", "node.scale.x", "node.scale.y", "node.scale.z", "material.emissiveIntensity", "material.opacity", "animation.progress", "morph.weight"] }, "input": { "type": "array", "items": { "type": ["number", "boolean"] }, "minItems": 2, "maxItems": 2 }, "output": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }, "required": ["property", "target", "channel", "input", "output"] } }, "controlIntent": { "type": "object", "additionalProperties": false, "properties": { "manualControlEnabled": { "type": "boolean" }, "slots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "property": { "$ref": "common.schema.json#/definitions/id" }, "operation": { "const": "set" } }, "required": ["id", "property", "operation"] } } }, "required": ["manualControlEnabled", "slots"] }, "productHint": { "type": "object", "additionalProperties": false, "properties": { "namespace": { "type": "string", "minLength": 1 }, "productKey": { "type": "string", "minLength": 1 }, "templateKey": { "type": "string", "minLength": 1 } }, "required": ["namespace", "productKey"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "instanceId", "deviceClass", "properties", "previewState", "visualEffects", "controlIntent"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "bindings"] }, "lighting.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/lighting.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-lighting.v1" }, "modelDigest": { "$ref": "common.schema.json#/definitions/digest" }, "coordinateSystem": { "const": "right-handed-y-up" }, "fixtures": { "type": "array", "maxItems": 32, "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z0-9_:.\\u4e00-\\u9fff-]{1,128}$" }, "position": { "$ref": "common.schema.json#/definitions/vec3" }, "emitterOffsetM": { "$ref": "common.schema.json#/definitions/vec3" }, "color": { "type": "string", "pattern": "^#[0-9a-f]{6}$" }, "maxIntensity": { "type": "number", "minimum": 0, "maximum": 1e5 }, "initialBrightness": { "type": "number", "minimum": 0, "maximum": 100 }, "initialCctK": { "type": "number", "minimum": 1e3, "maximum": 4e4 }, "rangeM": { "type": "number", "minimum": 1e-3, "maximum": 1e4 } }, "required": ["id", "position", "emitterOffsetM", "color", "maxIntensity", "initialBrightness", "initialCctK", "rangeM"] } } }, "required": ["schema", "modelDigest", "coordinateSystem", "fixtures"] }, "material.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/material.schema.json", "title": "Home3D v3 proposal: material.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.material-definition.v1" }, "kind": { "const": "material" }, "baseColor": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 }, "minItems": 4, "maxItems": 4 }, "metallic": { "type": "number", "minimum": 0, "maximum": 1 }, "roughness": { "type": "number", "minimum": 0, "maximum": 1 }, "textures": { "type": "object", "additionalProperties": false, "properties": { "baseColor": { "$ref": "common.schema.json#/definitions/path" }, "normal": { "$ref": "common.schema.json#/definitions/path" }, "metallicRoughness": { "$ref": "common.schema.json#/definitions/path" } }, "required": [] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "kind", "baseColor", "metallic", "roughness", "textures"] }, "model.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/model.schema.json", "title": "Home3D v3 proposal: model.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.model-definition.v1" }, "kind": { "const": "model" }, "file": { "$ref": "common.schema.json#/definitions/path" }, "defaultSize": { "$ref": "common.schema.json#/definitions/size" }, "pivot": { "const": "bottom-center" }, "targets": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph"] }, "name": { "type": "string", "minLength": 1 }, "nodeName": { "type": "string", "minLength": 1 } }, "required": ["kind", "name"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" }, "normalization": { "type": "object", "additionalProperties": false, "properties": { "translation": { "$ref": "common.schema.json#/definitions/vec3" }, "scale": { "$ref": "common.schema.json#/definitions/vec3" } }, "required": ["translation", "scale"] }, "lightingPath": { "$ref": "common.schema.json#/definitions/path" }, "images": { "type": "object", "additionalProperties": false, "properties": { "preview": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] }, "topView": { "type": "object", "additionalProperties": false, "properties": { "file": { "$ref": "common.schema.json#/definitions/path" }, "width": { "type": "integer", "minimum": 1, "maximum": 16384 }, "height": { "type": "integer", "minimum": 1, "maximum": 16384 }, "contentBounds": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "integer", "minimum": 0 }, "y": { "type": "integer", "minimum": 0 }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }, "required": ["x", "y", "width", "height"] } }, "required": ["file", "width", "height"] } } }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] } }, "required": ["schema", "kind", "file", "defaultSize", "pivot", "targets"] }, "package.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/package.schema.json", "title": "Home3D v3 proposal: package.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.project-package.v3" }, "version": { "const": 3 }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "producer": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 } }, "required": ["name", "version"] }, "requiredCapabilities": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/id" }, "uniqueItems": true, "minItems": 2 }, "entries": { "type": "object", "additionalProperties": false, "properties": { "scene": { "const": "scene.json" }, "resources": { "const": "runtime-resources.json" }, "devices": { "const": "devices.json" } }, "required": ["scene", "resources", "devices"] }, "files": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "path": { "$ref": "common.schema.json#/definitions/path" }, "byteSize": { "type": "integer", "minimum": 0 }, "digest": { "$ref": "common.schema.json#/definitions/digest" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp"] } }, "required": ["path", "byteSize", "digest", "contentType"] }, "minItems": 3 }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "version", "name", "producer", "requiredCapabilities", "entries", "files"] }, "presentation.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/presentation.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.presentation.v1" }, "bindings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "deviceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "slot": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "target": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["node", "material", "animation", "morph", "light"] }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "nodeName": { "type": "string", "minLength": 1, "maxLength": 200 } }, "required": ["kind", "name"] } }, "required": ["deviceId", "slot", "target"] } } }, "required": ["schema", "bindings"] }, "rendering.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/rendering.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "properties": { "background": { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "toneMapped": { "const": false } }, "required": ["color", "toneMapped"], "type": "object" }, "compatibility": { "additionalProperties": false, "properties": { "allowAutomaticQualityReduction": { "const": false }, "mode": { "const": "strict" }, "onUnsupported": { "const": "reject" } }, "required": ["mode", "onUnsupported", "allowAutomaticQualityReduction"], "type": "object" }, "contactAO": { "additionalProperties": false, "properties": { "attribute": { "const": "COLOR_0" }, "bakeProvenance": { "additionalProperties": false, "properties": { "distanceM": { "exclusiveMinimum": 0, "type": "number" }, "lightEmissionBaked": { "const": false }, "samples": { "maximum": 1024, "minimum": 1, "type": "integer" }, "strength": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["samples", "distanceM", "strength", "lightEmissionBaked"], "type": "object" }, "combine": { "const": "multiply-base-color-once" }, "mode": { "enum": ["baked-vertex", "none"] }, "onGeometryChange": { "const": "keep-bake-and-report-stale" }, "runtimeStrength": { "const": 1 }, "valueColorSpace": { "const": "linear" } }, "required": ["mode", "attribute", "valueColorSpace", "combine", "runtimeStrength", "bakeProvenance", "onGeometryChange"], "type": "object" }, "defaultViewId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "environment": { "additionalProperties": false, "properties": { "colorSpace": { "const": "srgb" }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "file": { "pattern": "^blobs/[0-9a-f]{64}\\.png$", "type": "string" }, "filter": { "const": "linear" }, "height": { "maximum": 16384, "minimum": 1, "type": "integer" }, "intensity": { "maximum": 100, "minimum": 0, "type": "number" }, "mode": { "const": "equirectangular-image" }, "projection": { "const": "three-r171-equirect.v1" }, "rotationYRadians": { "maximum": 6.283185307179586, "minimum": -6.283185307179586, "type": "number" }, "useAsBackground": { "const": false }, "width": { "maximum": 16384, "minimum": 1, "type": "integer" }, "wrapS": { "const": "repeat" }, "wrapT": { "const": "clamp" } }, "required": ["mode", "file", "digest", "width", "height", "colorSpace", "intensity", "rotationYRadians", "projection", "wrapS", "wrapT", "filter", "useAsBackground"], "type": "object" }, "geometryPresentation": { "additionalProperties": false, "properties": { "cutaway": { "const": false }, "frontWallFade": { "const": false }, "outlines": { "const": false }, "roomIsolation": { "const": false } }, "required": ["cutaway", "frontWallFade", "roomIsolation", "outlines"], "type": "object" }, "ground": { "additionalProperties": false, "properties": { "castShadow": { "const": false }, "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "enabled": { "type": "boolean" }, "metallic": { "maximum": 1, "minimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "receiveShadow": { "type": "boolean" }, "roughness": { "maximum": 1, "minimum": 0, "type": "number" }, "sizeM": { "items": { "exclusiveMinimum": 0, "type": "number" }, "maxItems": 2, "minItems": 2, "type": "array" } }, "required": ["enabled", "positionM", "sizeM", "color", "roughness", "metallic", "castShadow", "receiveShadow"], "type": "object" }, "lights": { "items": { "oneOf": [{ "additionalProperties": false, "properties": { "groundColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "hemisphere" }, "skyColor": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "skyColor", "groundColor", "up"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "directional" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-vsm.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "blurSamples": { "maximum": 64, "minimum": 2, "type": "integer" }, "camera": { "additionalProperties": false, "properties": { "bottom": { "type": "number" }, "far": { "exclusiveMinimum": 0, "type": "number" }, "left": { "type": "number" }, "near": { "exclusiveMinimum": 0, "type": "number" }, "projection": { "const": "orthographic" }, "right": { "type": "number" }, "top": { "type": "number" } }, "required": ["projection", "left", "right", "top", "bottom", "near", "far"], "type": "object" }, "enabled": { "const": true }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048, 4096] }, "maxItems": 2, "minItems": 2, "type": "array" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" }, "radiusTexels": { "maximum": 64, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "radiusTexels", "blurSamples", "camera"], "type": "object" }] }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "targetM", "shadow"], "type": "object" }, { "additionalProperties": false, "properties": { "color": { "pattern": "^#[0-9a-f]{6}$", "type": "string" }, "decay": { "const": 2 }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "intensity": { "maximum": 1e5, "minimum": 0, "type": "number" }, "intensityUnit": { "const": "three-r171-linear" }, "kind": { "const": "point" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "rangeM": { "maximum": 1e4, "minimum": 0, "type": "number" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["id", "intensity", "intensityUnit", "kind", "color", "positionM", "rangeM", "decay", "shadow"], "type": "object" }] }, "maxItems": 32, "minItems": 0, "type": "array" }, "modelLightShadows": { "items": { "additionalProperties": false, "properties": { "instanceId": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "lightId": { "maxLength": 200, "minLength": 1, "type": "string" }, "shadow": { "oneOf": [{ "additionalProperties": false, "properties": { "enabled": { "const": false } }, "required": ["enabled"], "type": "object" }, { "additionalProperties": false, "properties": { "algorithm": { "const": "three-r171-point-depth.v1" }, "bias": { "maximum": 0.1, "minimum": -0.1, "type": "number" }, "enabled": { "const": true }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "mapSize": { "items": { "enum": [128, 256, 512, 1024, 2048] }, "maxItems": 2, "minItems": 2, "type": "array" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "normalBiasM": { "maximum": 1, "minimum": 0, "type": "number" } }, "required": ["enabled", "algorithm", "mapSize", "bias", "normalBiasM", "nearM", "farM"], "type": "object" }] } }, "required": ["instanceId", "lightId", "shadow"], "type": "object" }, "maxItems": 256, "minItems": 0, "type": "array" }, "pipeline": { "additionalProperties": false, "properties": { "environmentFilter": { "const": "pmrem-ggx-three-r171.v1" }, "id": { "const": "home3d.white-three-r171.v1" }, "materialModel": { "const": "gltf-pbr-three-r171.v1" }, "requiredCapability": { "const": "render.pipeline.three-r171-white.v1" }, "studioSourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "toneMapping": { "const": "aces-filmic-three-r171.v1" } }, "required": ["id", "requiredCapability", "materialModel", "toneMapping", "environmentFilter", "studioSourceDigest"], "type": "object" }, "profile": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "sourceDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "version": { "minimum": 1, "type": "integer" } }, "required": ["id", "version", "sourceDigest"], "type": "object" }, "projectDigest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "referenceCapture": { "additionalProperties": false, "properties": { "deviceState": { "const": "contract-initial" }, "disableAdaptiveQuality": { "const": true }, "heightPx": { "maximum": 8192, "minimum": 64, "type": "integer" }, "pixelRatio": { "const": 1 }, "timeMs": { "maximum": 6e4, "minimum": 0, "type": "integer" }, "waitForAssets": { "const": true }, "waitForShadowUpdate": { "const": true }, "widthPx": { "maximum": 8192, "minimum": 64, "type": "integer" } }, "required": ["pixelRatio", "widthPx", "heightPx", "timeMs", "deviceState", "waitForAssets", "waitForShadowUpdate", "disableAdaptiveQuality"], "type": "object" }, "renderer": { "additionalProperties": false, "properties": { "antialias": { "additionalProperties": false, "properties": { "method": { "const": "msaa" }, "samples": { "enum": [2, 4, 8] } }, "required": ["method", "samples"], "type": "object" }, "autoExposure": { "const": false }, "exposureCompensationEV": { "maximum": 16, "minimum": -16, "type": "number" }, "exposureMultiplier": { "exclusiveMinimum": 0, "maximum": 64, "minimum": 0, "type": "number" }, "interactiveMaxPixelRatio": { "maximum": 3, "minimum": 1, "type": "number" }, "logarithmicDepthBuffer": { "const": false }, "outputAlpha": { "const": 1 }, "outputColorSpace": { "const": "srgb" }, "postprocessing": { "additionalProperties": false, "properties": { "bloom": { "const": false }, "dithering": { "const": false }, "fog": { "const": false }, "fxaa": { "const": false }, "ssao": { "const": false }, "taa": { "const": false } }, "required": ["ssao", "bloom", "fxaa", "taa", "dithering", "fog"], "type": "object" }, "premultipliedAlpha": { "const": false }, "referenceTarget": { "const": "rgba8-unorm" }, "reverseDepthBuffer": { "const": false }, "whiteBalance": { "const": "identity" }, "whitePoint": { "const": "D65" }, "workingColorSpace": { "const": "linear-srgb" } }, "required": ["workingColorSpace", "outputColorSpace", "whitePoint", "exposureMultiplier", "exposureCompensationEV", "autoExposure", "whiteBalance", "outputAlpha", "referenceTarget", "premultipliedAlpha", "logarithmicDepthBuffer", "reverseDepthBuffer", "antialias", "interactiveMaxPixelRatio", "postprocessing"], "type": "object" }, "schema": { "const": "home3d.rendering.v1" }, "shadowPolicy": { "additionalProperties": false, "properties": { "enabled": { "type": "boolean" }, "maxShadowedDirectionalLights": { "maximum": 4, "minimum": 0, "type": "integer" }, "maxShadowedPointLights": { "maximum": 8, "minimum": 0, "type": "integer" }, "opaque": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "overrides": { "items": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "object": { "additionalProperties": false, "properties": { "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "kind": { "enum": ["wall", "room", "instance"] } }, "required": ["kind", "id"], "type": "object" }, "receive": { "type": "boolean" } }, "required": ["object", "cast", "receive"], "type": "object" }, "maxItems": 1e4, "minItems": 0, "type": "array" }, "transparent": { "additionalProperties": false, "properties": { "cast": { "type": "boolean" }, "receive": { "type": "boolean" } }, "required": ["cast", "receive"], "type": "object" }, "update": { "const": "on-change-before-frame" } }, "required": ["enabled", "update", "maxShadowedDirectionalLights", "maxShadowedPointLights", "opaque", "transparent", "overrides"], "type": "object" }, "version": { "const": 1 }, "views": { "items": { "additionalProperties": false, "properties": { "aspectRatio": { "exclusiveMinimum": 0, "type": "number" }, "farM": { "exclusiveMinimum": 0, "type": "number" }, "id": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "nearM": { "exclusiveMinimum": 0, "type": "number" }, "positionM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "projection": { "const": "orthographic" }, "targetM": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "up": { "items": { "type": "number" }, "maxItems": 3, "minItems": 3, "type": "array" }, "verticalSpanM": { "exclusiveMinimum": 0, "type": "number" } }, "required": ["id", "name", "projection", "positionM", "targetM", "up", "verticalSpanM", "nearM", "farM", "aspectRatio"], "type": "object" }, "maxItems": 16, "minItems": 1, "type": "array" } }, "required": ["schema", "version", "projectDigest", "profile", "pipeline", "compatibility", "renderer", "background", "environment", "lights", "modelLightShadows", "shadowPolicy", "contactAO", "ground", "geometryPresentation", "views", "defaultViewId", "referenceCapture"], "title": "Home3D v4 rendering extension v1", "type": "object" }, "resources.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/resources.schema.json", "title": "Home3D v3 proposal: resources.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.runtime-resources.v4" }, "resources": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "key": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["model", "material"] }, "definitionPath": { "$ref": "common.schema.json#/definitions/path" }, "catalogSource": { "$ref": "common.schema.json#/definitions/source" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["key", "kind", "definitionPath"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["schema", "resources"] }, "scene.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v3/scene.schema.json", "title": "Home3D v3 proposal: scene.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.floorplan-scene.v5" }, "id": { "$ref": "common.schema.json#/definitions/id" }, "revision": { "type": "integer", "minimum": 1 }, "parentDigest": { "anyOf": [{ "$ref": "common.schema.json#/definitions/digest" }, { "type": "null" }] }, "unit": { "const": "m" }, "coordinateSystem": { "const": "right-handed-y-up" }, "projectMetadata": { "type": "object", "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "address": { "type": "string" }, "remark": { "type": "string" }, "activeFloorId": { "$ref": "common.schema.json#/definitions/id" }, "mainRoomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["name", "activeFloorId", "mainRoomId"] }, "presentation": { "type": "object", "additionalProperties": false, "properties": { "profile": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "version": { "type": "integer", "minimum": 1 } }, "required": ["id", "version"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["profile"] }, "floors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "elevation": { "type": "number" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "walls": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "kind": { "enum": ["straight", "arc"] }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" }, "height": { "type": "number", "exclusiveMinimum": 0 }, "thickness": { "type": "number", "exclusiveMinimum": 0 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "curve": { "type": "object", "additionalProperties": false, "properties": { "center": { "$ref": "common.schema.json#/definitions/point" }, "radius": { "type": "number", "exclusiveMinimum": 0 }, "startAngle": { "type": "number" }, "sweepAngle": { "type": "number" } }, "required": ["center", "radius", "startAngle", "sweepAngle"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "kind", "start", "end", "height", "thickness", "materialKey"], "allOf": [{ "if": { "properties": { "kind": { "const": "arc" } } }, "then": { "required": ["curve"] }, "else": { "not": { "required": ["curve"] } } }] } }, "openings": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "wallId": { "$ref": "common.schema.json#/definitions/id" }, "kind": { "enum": ["door", "window"] }, "offset": { "type": "number", "minimum": 0 }, "width": { "type": "number", "exclusiveMinimum": 0 }, "height": { "type": "number", "exclusiveMinimum": 0 }, "sillHeight": { "type": "number", "minimum": 0 }, "doorLeafMode": { "enum": ["chord", "tangent"] }, "doorHingeSide": { "enum": ["left", "right"] }, "doorSwingSide": { "enum": ["inside", "outside"] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "wallId", "kind", "offset", "width", "height", "sillHeight"] } }, "rooms": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "boundary", "materialKey"] } }, "regions": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string" }, "boundary": { "type": "array", "items": { "$ref": "common.schema.json#/definitions/point" }, "minItems": 3 } }, "required": ["id", "roomId", "name", "boundary"] } }, "dividers": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "start": { "$ref": "common.schema.json#/definitions/point" }, "end": { "$ref": "common.schema.json#/definitions/point" } }, "required": ["id", "start", "end"] } }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "elevation", "height", "walls", "openings", "rooms", "regions", "dividers"] }, "minItems": 1 }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "$ref": "common.schema.json#/definitions/id" }, "name": { "type": "string", "minLength": 1 }, "kind": { "enum": ["furnishing", "device", "opening-frame"] }, "resourceKey": { "$ref": "common.schema.json#/definitions/id" }, "floorId": { "$ref": "common.schema.json#/definitions/id" }, "roomId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "regionId": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "transform": { "type": "object", "additionalProperties": false, "properties": { "position": { "$ref": "common.schema.json#/definitions/vec3" }, "rotation": { "$ref": "common.schema.json#/definitions/quat" }, "size": { "$ref": "common.schema.json#/definitions/size" } }, "required": ["position", "rotation", "size"] }, "placement": { "enum": ["floor", "wall", "ceiling", "surface", "opening"] }, "host": { "anyOf": [{ "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["wall", "opening", "instance"] }, "id": { "$ref": "common.schema.json#/definitions/id" } }, "required": ["kind", "id"] }, { "type": "null" }] }, "openingFit": { "type": "object", "additionalProperties": false, "properties": { "margins": { "type": "object", "additionalProperties": false, "properties": { "left": { "type": "number", "minimum": 0 }, "right": { "type": "number", "minimum": 0 }, "top": { "type": "number", "minimum": 0 }, "bottom": { "type": "number", "minimum": 0 } }, "required": ["left", "right", "top", "bottom"] }, "normalOffset": { "type": "number" } }, "required": ["margins", "normalOffset"] }, "materialKey": { "anyOf": [{ "$ref": "common.schema.json#/definitions/id" }, { "type": "null" }] }, "visible": { "type": "boolean" }, "extensions": { "$ref": "common.schema.json#/definitions/extensions" } }, "required": ["id", "name", "kind", "resourceKey", "floorId", "roomId", "regionId", "transform", "placement", "host", "materialKey", "visible"] } }, "extensions": { "allOf": [{ "$ref": "common.schema.json#/definitions/extensions" }], "properties": { "com.houzzkit.camera": { "$ref": "common.schema.json#/definitions/camera" } } } }, "required": ["schema", "id", "revision", "parentDigest", "unit", "coordinateSystem", "projectMetadata", "floors", "instances"] }, "unified-devices.schema.json": { "$schema": "http://json-schema.org/draft-07/schema#", "$id": "https://home3d.invalid/spec/package-v4/unified-devices.schema.json", "type": "object", "additionalProperties": false, "properties": { "schema": { "const": "home3d.devices.v1" }, "instances": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "name": { "type": "string", "minLength": 1, "maxLength": 200 }, "instanceId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$" }, "contractPath": { "type": "string", "pattern": "^contracts/[0-9a-f]{64}\\.json$" }, "contractDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }, "manualControlEnabled": { "type": "boolean" } }, "required": ["id", "name", "instanceId", "contractPath", "contractDigest", "manualControlEnabled"] } } }, "required": ["schema", "instances"] }, "unified-package.schema.json": { "$id": "https://home3d.invalid/spec/package-v4/unified-package.schema.json", "$schema": "http://json-schema.org/draft-07/schema#", "additionalProperties": false, "allOf": [{ "if": { "properties": { "entries": { "required": ["rendering"] } } }, "then": { "properties": { "requiredCapabilities": { "allOf": [{ "contains": { "const": "render.scene.v1" } }, { "contains": { "const": "render.pipeline.three-r171-white.v1" } }] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.scene.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }, { "if": { "properties": { "requiredCapabilities": { "contains": { "const": "render.pipeline.three-r171-white.v1" } } } }, "then": { "properties": { "entries": { "required": ["rendering"] } } } }], "properties": { "entries": { "additionalProperties": false, "properties": { "devices": { "const": "devices.json" }, "experience": { "const": "experience.json" }, "presentation": { "const": "presentation.json" }, "project": { "const": "project.json" }, "rendering": { "const": "rendering.json" }, "resources": { "const": "resources.json" } }, "required": ["project", "resources", "devices", "presentation"], "type": "object" }, "files": { "items": { "additionalProperties": false, "properties": { "byteSize": { "minimum": 0, "type": "integer" }, "contentType": { "enum": ["application/json", "model/gltf-binary", "image/png", "image/jpeg", "image/webp", "audio/mpeg", "audio/wav"] }, "digest": { "pattern": "^sha256:[0-9a-f]{64}$", "type": "string" }, "path": { "maxLength": 240, "type": "string" } }, "required": ["path", "byteSize", "digest", "contentType"], "type": "object" }, "minItems": 4, "type": "array" }, "kind": { "enum": ["project", "solution"] }, "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "producer": { "additionalProperties": false, "properties": { "name": { "maxLength": 200, "minLength": 1, "type": "string" }, "version": { "maxLength": 200, "minLength": 1, "type": "string" } }, "required": ["name", "version"], "type": "object" }, "requiredCapabilities": { "items": { "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,127}$", "type": "string" }, "minItems": 2, "type": "array", "uniqueItems": true }, "schema": { "const": "home3d.package.v4" }, "version": { "const": 4 } }, "required": ["schema", "version", "kind", "name", "producer", "requiredCapabilities", "entries", "files"], "type": "object" } };
 
 // ../../node_modules/three/build/three.core.js
 /**
@@ -9562,32 +9566,32 @@ var Texture = class _Texture extends EventDispatcher {
   clone() {
     return new this.constructor().copy(this);
   }
-  copy(source) {
-    this.name = source.name;
-    this.source = source.source;
-    this.mipmaps = source.mipmaps.slice(0);
-    this.mapping = source.mapping;
-    this.channel = source.channel;
-    this.wrapS = source.wrapS;
-    this.wrapT = source.wrapT;
-    this.magFilter = source.magFilter;
-    this.minFilter = source.minFilter;
-    this.anisotropy = source.anisotropy;
-    this.format = source.format;
-    this.internalFormat = source.internalFormat;
-    this.type = source.type;
-    this.offset.copy(source.offset);
-    this.repeat.copy(source.repeat);
-    this.center.copy(source.center);
-    this.rotation = source.rotation;
-    this.matrixAutoUpdate = source.matrixAutoUpdate;
-    this.matrix.copy(source.matrix);
-    this.generateMipmaps = source.generateMipmaps;
-    this.premultiplyAlpha = source.premultiplyAlpha;
-    this.flipY = source.flipY;
-    this.unpackAlignment = source.unpackAlignment;
-    this.colorSpace = source.colorSpace;
-    this.userData = JSON.parse(JSON.stringify(source.userData));
+  copy(source2) {
+    this.name = source2.name;
+    this.source = source2.source;
+    this.mipmaps = source2.mipmaps.slice(0);
+    this.mapping = source2.mapping;
+    this.channel = source2.channel;
+    this.wrapS = source2.wrapS;
+    this.wrapT = source2.wrapT;
+    this.magFilter = source2.magFilter;
+    this.minFilter = source2.minFilter;
+    this.anisotropy = source2.anisotropy;
+    this.format = source2.format;
+    this.internalFormat = source2.internalFormat;
+    this.type = source2.type;
+    this.offset.copy(source2.offset);
+    this.repeat.copy(source2.repeat);
+    this.center.copy(source2.center);
+    this.rotation = source2.rotation;
+    this.matrixAutoUpdate = source2.matrixAutoUpdate;
+    this.matrix.copy(source2.matrix);
+    this.generateMipmaps = source2.generateMipmaps;
+    this.premultiplyAlpha = source2.premultiplyAlpha;
+    this.flipY = source2.flipY;
+    this.unpackAlignment = source2.unpackAlignment;
+    this.colorSpace = source2.colorSpace;
+    this.userData = JSON.parse(JSON.stringify(source2.userData));
     this.needsUpdate = true;
     return this;
   }
@@ -12335,29 +12339,29 @@ var Object3D = class _Object3D extends EventDispatcher {
   clone(recursive) {
     return new this.constructor().copy(this, recursive);
   }
-  copy(source, recursive = true) {
-    this.name = source.name;
-    this.up.copy(source.up);
-    this.position.copy(source.position);
-    this.rotation.order = source.rotation.order;
-    this.quaternion.copy(source.quaternion);
-    this.scale.copy(source.scale);
-    this.matrix.copy(source.matrix);
-    this.matrixWorld.copy(source.matrixWorld);
-    this.matrixAutoUpdate = source.matrixAutoUpdate;
-    this.matrixWorldAutoUpdate = source.matrixWorldAutoUpdate;
-    this.matrixWorldNeedsUpdate = source.matrixWorldNeedsUpdate;
-    this.layers.mask = source.layers.mask;
-    this.visible = source.visible;
-    this.castShadow = source.castShadow;
-    this.receiveShadow = source.receiveShadow;
-    this.frustumCulled = source.frustumCulled;
-    this.renderOrder = source.renderOrder;
-    this.animations = source.animations.slice();
-    this.userData = JSON.parse(JSON.stringify(source.userData));
+  copy(source2, recursive = true) {
+    this.name = source2.name;
+    this.up.copy(source2.up);
+    this.position.copy(source2.position);
+    this.rotation.order = source2.rotation.order;
+    this.quaternion.copy(source2.quaternion);
+    this.scale.copy(source2.scale);
+    this.matrix.copy(source2.matrix);
+    this.matrixWorld.copy(source2.matrixWorld);
+    this.matrixAutoUpdate = source2.matrixAutoUpdate;
+    this.matrixWorldAutoUpdate = source2.matrixWorldAutoUpdate;
+    this.matrixWorldNeedsUpdate = source2.matrixWorldNeedsUpdate;
+    this.layers.mask = source2.layers.mask;
+    this.visible = source2.visible;
+    this.castShadow = source2.castShadow;
+    this.receiveShadow = source2.receiveShadow;
+    this.frustumCulled = source2.frustumCulled;
+    this.renderOrder = source2.renderOrder;
+    this.animations = source2.animations.slice();
+    this.userData = JSON.parse(JSON.stringify(source2.userData));
     if (recursive === true) {
-      for (let i = 0; i < source.children.length; i++) {
-        const child = source.children[i];
+      for (let i = 0; i < source2.children.length; i++) {
+        const child = source2.children[i];
         this.add(child.clone());
       }
     }
@@ -13623,9 +13627,9 @@ var PropertyBinding = class _PropertyBinding {
     buffer[offset] = this.targetObject[this.propertyName];
   }
   _getValue_array(buffer, offset) {
-    const source = this.resolvedProperty;
-    for (let i = 0, n = source.length; i !== n; ++i) {
-      buffer[offset++] = source[i];
+    const source2 = this.resolvedProperty;
+    for (let i = 0, n = source2.length; i !== n; ++i) {
+      buffer[offset++] = source2[i];
     }
   }
   _getValue_arrayElement(buffer, offset) {
@@ -14767,41 +14771,41 @@ var MeshoptEncoder = function() {
     sbrk(ip - sbrk(0));
     return remap;
   }
-  function encode2(fun, bound, source, count, size, level, version) {
+  function encode2(fun, bound, source2, count, size, level, version) {
     var sbrk = instance.exports.sbrk;
     var tp = sbrk(bound);
     var sp = sbrk(count * size);
     var heap = new Uint8Array(instance.exports.memory.buffer);
-    heap.set(bytes(source), sp);
+    heap.set(bytes(source2), sp);
     var res = fun(tp, bound, sp, count, size, level, version);
     var target = new Uint8Array(res);
     target.set(heap.subarray(tp, tp + res));
     sbrk(tp - sbrk(0));
     return target;
   }
-  function maxindex(source) {
+  function maxindex(source2) {
     var result = 0;
-    for (var i = 0; i < source.length; ++i) {
-      var index = source[i];
+    for (var i = 0; i < source2.length; ++i) {
+      var index = source2[i];
       result = result < index ? index : result;
     }
     return result;
   }
-  function index32(source, size) {
+  function index32(source2, size) {
     assert(size == 2 || size == 4);
     if (size == 4) {
-      return new Uint32Array(source.buffer, source.byteOffset, source.byteLength / 4);
+      return new Uint32Array(source2.buffer, source2.byteOffset, source2.byteLength / 4);
     } else {
-      var view = new Uint16Array(source.buffer, source.byteOffset, source.byteLength / 2);
+      var view = new Uint16Array(source2.buffer, source2.byteOffset, source2.byteLength / 2);
       return new Uint32Array(view);
     }
   }
-  function filter(fun, source, count, stride, bits2, insize, mode) {
+  function filter(fun, source2, count, stride, bits2, insize, mode) {
     var sbrk = instance.exports.sbrk;
     var tp = sbrk(count * stride);
     var sp = sbrk(count * insize);
     var heap = new Uint8Array(instance.exports.memory.buffer);
-    heap.set(bytes(source), sp);
+    heap.set(bytes(source2), sp);
     fun(tp, count, stride, bits2, sp, mode);
     var target = new Uint8Array(count * stride);
     target.set(heap.subarray(tp, tp + count * stride));
@@ -14821,34 +14825,34 @@ var MeshoptEncoder = function() {
       assert(positions_stride >= 3);
       return spatialsort(instance.exports.meshopt_spatialSortRemap, positions, positions.length / positions_stride, positions_stride * 4);
     },
-    encodeVertexBuffer: function(source, count, size) {
+    encodeVertexBuffer: function(source2, count, size) {
       assert(size > 0 && size <= 256);
       assert(size % 4 == 0);
       var bound = instance.exports.meshopt_encodeVertexBufferBound(count, size);
-      return encode2(instance.exports.meshopt_encodeVertexBuffer, bound, source, count, size);
+      return encode2(instance.exports.meshopt_encodeVertexBuffer, bound, source2, count, size);
     },
-    encodeVertexBufferLevel: function(source, count, size, level, version) {
+    encodeVertexBufferLevel: function(source2, count, size, level, version) {
       assert(size > 0 && size <= 256);
       assert(size % 4 == 0);
       assert(level >= 0 && level <= 3);
       assert(version === void 0 || version == 0 || version == 1);
       var bound = instance.exports.meshopt_encodeVertexBufferBound(count, size);
-      return encode2(instance.exports.meshopt_encodeVertexBufferLevel, bound, source, count, size, level, version === void 0 ? -1 : version);
+      return encode2(instance.exports.meshopt_encodeVertexBufferLevel, bound, source2, count, size, level, version === void 0 ? -1 : version);
     },
-    encodeIndexBuffer: function(source, count, size) {
+    encodeIndexBuffer: function(source2, count, size) {
       assert(size == 2 || size == 4);
       assert(count % 3 == 0);
-      var indices = index32(source, size);
+      var indices = index32(source2, size);
       var bound = instance.exports.meshopt_encodeIndexBufferBound(count, maxindex(indices) + 1);
       return encode2(instance.exports.meshopt_encodeIndexBuffer, bound, indices, count, 4);
     },
-    encodeIndexSequence: function(source, count, size) {
+    encodeIndexSequence: function(source2, count, size) {
       assert(size == 2 || size == 4);
-      var indices = index32(source, size);
+      var indices = index32(source2, size);
       var bound = instance.exports.meshopt_encodeIndexSequenceBound(count, maxindex(indices) + 1);
       return encode2(instance.exports.meshopt_encodeIndexSequence, bound, indices, count, 4);
     },
-    encodeGltfBuffer: function(source, count, size, mode, version) {
+    encodeGltfBuffer: function(source2, count, size, mode, version) {
       var table = {
         ATTRIBUTES: this.encodeVertexBufferLevel,
         TRIANGLES: this.encodeIndexBuffer,
@@ -14856,7 +14860,7 @@ var MeshoptEncoder = function() {
       };
       assert(table[mode]);
       return table[mode](
-        source,
+        source2,
         count,
         size,
         /* level= */
@@ -14864,17 +14868,17 @@ var MeshoptEncoder = function() {
         version === void 0 ? 0 : version
       );
     },
-    encodeFilterOct: function(source, count, stride, bits2) {
+    encodeFilterOct: function(source2, count, stride, bits2) {
       assert(stride == 4 || stride == 8);
       assert(bits2 >= 2 && bits2 <= 16);
-      return filter(instance.exports.meshopt_encodeFilterOct, source, count, stride, bits2, 16);
+      return filter(instance.exports.meshopt_encodeFilterOct, source2, count, stride, bits2, 16);
     },
-    encodeFilterQuat: function(source, count, stride, bits2) {
+    encodeFilterQuat: function(source2, count, stride, bits2) {
       assert(stride == 8);
       assert(bits2 >= 4 && bits2 <= 16);
-      return filter(instance.exports.meshopt_encodeFilterQuat, source, count, stride, bits2, 16);
+      return filter(instance.exports.meshopt_encodeFilterQuat, source2, count, stride, bits2, 16);
     },
-    encodeFilterExp: function(source, count, stride, bits2, mode) {
+    encodeFilterExp: function(source2, count, stride, bits2, mode) {
       assert(stride > 0 && stride % 4 == 0);
       assert(bits2 >= 1 && bits2 <= 24);
       var table = {
@@ -14883,12 +14887,12 @@ var MeshoptEncoder = function() {
         SharedComponent: 2,
         Clamped: 3
       };
-      return filter(instance.exports.meshopt_encodeFilterExp, source, count, stride, bits2, stride, mode ? table[mode] : 1);
+      return filter(instance.exports.meshopt_encodeFilterExp, source2, count, stride, bits2, stride, mode ? table[mode] : 1);
     },
-    encodeFilterColor: function(source, count, stride, bits2) {
+    encodeFilterColor: function(source2, count, stride, bits2) {
       assert(stride == 4 || stride == 8);
       assert(bits2 >= 2 && bits2 <= 16);
-      return filter(instance.exports.meshopt_encodeFilterColor, source, count, stride, bits2, 16);
+      return filter(instance.exports.meshopt_encodeFilterColor, source2, count, stride, bits2, 16);
     }
   };
 }();
@@ -15035,14 +15039,14 @@ var MeshoptDecoder = function() {
     }
     return result.buffer.slice(0, write);
   }
-  function decode(instance2, fun, target, count, size, source, filter) {
+  function decode(instance2, fun, target, count, size, source2, filter) {
     var sbrk = instance2.exports.sbrk;
     var count4 = count + 3 & ~3;
     var tp = sbrk(count4 * size);
-    var sp = sbrk(source.length);
+    var sp = sbrk(source2.length);
     var heap = new Uint8Array(instance2.exports.memory.buffer);
-    heap.set(source, sp);
-    var res = fun(tp, count, size, sp, source.length);
+    heap.set(source2, sp);
+    var res = fun(tp, count, size, sp, source2.length);
     if (res == 0 && filter) {
       filter(tp, count4, size);
     }
@@ -15081,8 +15085,8 @@ var MeshoptDecoder = function() {
     return worker;
   }
   function initWorkers(count) {
-    var source = "self.ready = WebAssembly.instantiate(new Uint8Array([" + new Uint8Array(wasm) + "]), {}).then(function(result) { result.instance.exports.__wasm_call_ctors(); return result.instance; });self.onmessage = " + workerProcess.name + ";" + decode.toString() + workerProcess.toString();
-    var blob = new Blob([source], { type: "text/javascript" });
+    var source2 = "self.ready = WebAssembly.instantiate(new Uint8Array([" + new Uint8Array(wasm) + "]), {}).then(function(result) { result.instance.exports.__wasm_call_ctors(); return result.instance; });self.onmessage = " + workerProcess.name + ";" + decode.toString() + workerProcess.toString();
+    var blob = new Blob([source2], { type: "text/javascript" });
     var url = URL.createObjectURL(blob);
     for (var i = workers.length; i < count; ++i) {
       workers[i] = createWorker(url);
@@ -15093,7 +15097,7 @@ var MeshoptDecoder = function() {
     workers.length = count;
     URL.revokeObjectURL(url);
   }
-  function decodeWorker(count, size, source, mode, filter) {
+  function decodeWorker(count, size, source2, mode, filter) {
     var worker = workers[0];
     for (var i = 1; i < workers.length; ++i) {
       if (workers[i].pending < worker.pending) {
@@ -15101,7 +15105,7 @@ var MeshoptDecoder = function() {
       }
     }
     return new Promise(function(resolve, reject) {
-      var data = new Uint8Array(source);
+      var data = new Uint8Array(source2);
       var id = ++requestId;
       worker.pending += count;
       worker.requests[id] = { resolve, reject };
@@ -15129,25 +15133,25 @@ var MeshoptDecoder = function() {
     useWorkers: function(count) {
       initWorkers(count);
     },
-    decodeVertexBuffer: function(target, count, size, source, filter) {
-      decode(instance, instance.exports.meshopt_decodeVertexBuffer, target, count, size, source, instance.exports[filters[filter]]);
+    decodeVertexBuffer: function(target, count, size, source2, filter) {
+      decode(instance, instance.exports.meshopt_decodeVertexBuffer, target, count, size, source2, instance.exports[filters[filter]]);
     },
-    decodeIndexBuffer: function(target, count, size, source) {
-      decode(instance, instance.exports.meshopt_decodeIndexBuffer, target, count, size, source);
+    decodeIndexBuffer: function(target, count, size, source2) {
+      decode(instance, instance.exports.meshopt_decodeIndexBuffer, target, count, size, source2);
     },
-    decodeIndexSequence: function(target, count, size, source) {
-      decode(instance, instance.exports.meshopt_decodeIndexSequence, target, count, size, source);
+    decodeIndexSequence: function(target, count, size, source2) {
+      decode(instance, instance.exports.meshopt_decodeIndexSequence, target, count, size, source2);
     },
-    decodeGltfBuffer: function(target, count, size, source, mode, filter) {
-      decode(instance, instance.exports[decoders[mode]], target, count, size, source, instance.exports[filters[filter]]);
+    decodeGltfBuffer: function(target, count, size, source2, mode, filter) {
+      decode(instance, instance.exports[decoders[mode]], target, count, size, source2, instance.exports[filters[filter]]);
     },
-    decodeGltfBufferAsync: function(count, size, source, mode, filter) {
+    decodeGltfBufferAsync: function(count, size, source2, mode, filter) {
       if (workers.length > 0) {
-        return decodeWorker(count, size, source, decoders[mode], filters[filter]);
+        return decodeWorker(count, size, source2, decoders[mode], filters[filter]);
       }
       return ready.then(function() {
         var target = new Uint8Array(count * size);
-        decode(instance, instance.exports[decoders[mode]], target, count, size, source, instance.exports[filters[filter]]);
+        decode(instance, instance.exports[decoders[mode]], target, count, size, source2, instance.exports[filters[filter]]);
         return target;
       });
     }
@@ -15279,10 +15283,10 @@ var MeshoptSimplifier = function() {
       indices[i] = remap[indices[i]];
     return [remap, unique3];
   }
-  function maxindex(source) {
+  function maxindex(source2) {
     var result = 0;
-    for (var i = 0; i < source.length; ++i) {
-      var index = source[i];
+    for (var i = 0; i < source2.length; ++i) {
+      var index = source2[i];
       result = result < index ? index : result;
     }
     return result;
@@ -16589,6 +16593,23 @@ function targetMatches(gltf, t, model) {
   return (gltf[{ node: "nodes", material: "materials", animation: "animations" }[t.kind]] || []).filter((n) => n.name === t.name).length;
 }
 
+// src/rendering-resolution.mjs
+function resolveInteractivePixelRatio(rendering, { devicePixelRatio, interactiveMaxPixelRatio } = {}) {
+  const packageMaxPixelRatio = rendering?.renderer?.interactiveMaxPixelRatio;
+  const positive = (value, name) => {
+    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0)
+      throw new TypeError(`${name} must be a finite positive number`);
+  };
+  positive(packageMaxPixelRatio, "Package interactiveMaxPixelRatio");
+  if (packageMaxPixelRatio < 1 || packageMaxPixelRatio > 3)
+    throw new TypeError("Package interactiveMaxPixelRatio must satisfy the rendering schema (1..3)");
+  positive(devicePixelRatio, "devicePixelRatio");
+  const source2 = interactiveMaxPixelRatio === void 0 ? "package" : "client";
+  const maxPixelRatio = source2 === "package" ? packageMaxPixelRatio : interactiveMaxPixelRatio;
+  positive(maxPixelRatio, "interactiveMaxPixelRatio");
+  return { devicePixelRatio, packageMaxPixelRatio, maxPixelRatio, pixelRatio: Math.min(devicePixelRatio, maxPixelRatio), source: source2 };
+}
+
 // src/rendering.mjs
 var RENDERING_CAPABILITIES = Object.freeze(["render.scene.v1", "render.pipeline.three-r171-white.v1"]);
 var ajv = new import_ajv.default({ strict: false, allErrors: false });
@@ -16714,6 +16735,7 @@ var UNIFIED_CAPABILITIES = Object.freeze([
   "device.simulation.v1",
   "experience.references.v1"
 ]);
+var VISUAL_CYCLE_CAPABILITY = "device.visual-cycles.v1";
 var DEVICE_CHANNELS = Object.freeze([
   "node.visible",
   "node.position.x",
@@ -16729,8 +16751,8 @@ var DEVICE_CHANNELS = Object.freeze([
   "morph.weight"
 ]);
 var ajv2 = new import_ajv2.default({ strict: false, allErrors: false });
-for (const schema2 of Object.values(schemas_default))
-  ajv2.addSchema(schema2);
+for (const schema3 of Object.values(schemas_default))
+  ajv2.addSchema(schema3);
 var actionShape = ajv2.compile(
   schemas_default["device-program.schema.json"].properties.scenes.items.properties.actions.items
 );
@@ -16752,16 +16774,16 @@ var stateKey = (ref) => JSON.stringify([
   ref.outputId ?? null,
   ref.capabilityKey
 ]);
-function validCapabilityValue(schema2, value) {
-  if (schema2.type === "null")
+function validCapabilityValue(schema3, value) {
+  if (schema3.type === "null")
     return value === null;
-  if (schema2.type === "boolean")
+  if (schema3.type === "boolean")
     return typeof value === "boolean";
-  if (schema2.type === "enum")
-    return typeof value === "string" && schema2.values.includes(value);
-  if (schema2.type === "string")
+  if (schema3.type === "enum")
+    return typeof value === "string" && schema3.values.includes(value);
+  if (schema3.type === "string")
     return typeof value === "string" && value.length <= 4096;
-  return typeof value === "number" && Number.isFinite(value) && (schema2.type !== "integer" || Number.isInteger(value)) && value >= schema2.minimum && value <= schema2.maximum;
+  return typeof value === "number" && Number.isFinite(value) && (schema3.type !== "integer" || Number.isInteger(value)) && value >= schema3.minimum && value <= schema3.maximum;
 }
 function unique2(items, key, document2, path) {
   const result = /* @__PURE__ */ new Map();
@@ -17017,7 +17039,35 @@ function contractCapabilities(contract, document2 = "contracts.json") {
       document2,
       "/simulation/commands"
     );
+  const cycles = contract.simulation.visualCycles || [];
+  const phases = unique2(cycles, (c) => scopeKey(c.target), document2, "/simulation/visualCycles");
+  unique2(cycles, (c) => c.id, document2, "/simulation/visualCycles");
+  for (const [i, cycle] of cycles.entries()) {
+    const at = "/simulation/visualCycles/" + i;
+    const phase = resolve(cycle.target, at + "/target");
+    const gate = resolve(cycle.when.target, at + "/when/target");
+    requireValue(
+      phase.behavior === "property" && phase.access === "read" && phase.value.type === "number" && validCapabilityValue(phase.value, cycle.from) && validCapabilityValue(phase.value, cycle.to) && cycle.from !== cycle.to && Number.isFinite(cycle.to - cycle.from) && phase.initialValue === cycle.from,
+      "VISUAL_CYCLE_TARGET",
+      "Visual cycles require a read-only numeric phase with matching endpoints and initial value",
+      document2,
+      at
+    );
+    requireValue(
+      gate.behavior === "property" && gate.access !== "write" && validCapabilityValue(gate.value, cycle.when.value) && !phases.has(scopeKey(cycle.when.target)),
+      "VISUAL_CYCLE_GATE",
+      "Visual cycles require an independent property gate",
+      document2,
+      at
+    );
+  }
+  for (const command of contract.simulation.commands)
+    for (const effect of command.effects)
+      requireValue(!phases.has(scopeKey(effect.target)), "VISUAL_CYCLE_TARGET", "Commands cannot mutate a visual phase", document2, "/simulation/commands");
   return capabilities;
+}
+function isVisualPhase(context, ref) {
+  return context.deviceIndex.get(ref.deviceId)?.contract.simulation.visualCycles?.some((c) => scopeKey(c.target) === scopeKey(ref));
 }
 function validateProgram(program, context, projectDigest) {
   validate("device-program", program, "experience.json");
@@ -17036,6 +17086,7 @@ function validateProgram(program, context, projectDigest) {
   );
   for (const [i, item] of [...initial.values()].entries()) {
     const c = resolveCapability(context, item.target);
+    requireValue(!isVisualPhase(context, item.target), "VISUAL_CYCLE_TARGET", "Program initial state cannot override a visual phase", "experience.json", "/initialState/" + i);
     requireValue(
       c.behavior === "property" && c.access !== "write" && validCapabilityValue(c.value, item.value),
       "STATE_VALUE",
@@ -17051,6 +17102,7 @@ function validateProgram(program, context, projectDigest) {
       validateAction(context, action, "/scenes/" + i + "/actions/" + j);
   for (const [i, rule] of program.rules.entries()) {
     const c = resolveCapability(context, rule.when.target);
+    requireValue(!isVisualPhase(context, rule.when.target), "VISUAL_CYCLE_TARGET", "Visual phases cannot trigger business rules", "experience.json", "/rules/" + i);
     requireValue(
       c.behavior !== "command" && c.access !== "write" && validCapabilityValue(c.value, rule.when.value),
       "RULE_SOURCE",
@@ -17090,6 +17142,7 @@ function validateAction(context, action, path = "") {
     path
   );
   const c = resolveCapability(context, action);
+  requireValue(!isVisualPhase(context, action), "VISUAL_CYCLE_TARGET", "Actions cannot mutate a visual phase", "experience.json", path);
   const ok = action.operation === "write" ? c.behavior === "property" && c.access === "read-write" : action.operation === "execute" ? c.behavior === "command" && c.access === "write" : ["observe", "subscribe"].includes(action.operation) && action.sample === true && c.behavior !== "command" && c.access !== "write";
   requireValue(
     ok,
@@ -17195,6 +17248,13 @@ async function readUnifiedPackage(entries, manifest, options, geometry, validate
     }
     deviceIndex.set(device.id, { ...device, ...parsed, instance });
   }
+  requireValue(
+    ![...deviceIndex.values()].some((d) => d.contract.simulation.visualCycles?.length) || required.has(VISUAL_CYCLE_CAPABILITY),
+    "MISSING_CAPABILITY",
+    "Visual cycles require " + VISUAL_CYCLE_CAPABILITY,
+    "package.json",
+    "/requiredCapabilities"
+  );
   requireValue(
     base.scene.instances.filter((i) => i.kind === "device").every((i) => usedInstances.has(i.id)),
     "DEVICE_UNCONFIGURED",
@@ -17408,11 +17468,152 @@ function deviceRuntimeIndex(document2) {
   }
   const context = { deviceIndex: result };
   if (document2.experience)
-    validateProgram(document2.experience, context, document2.experience.projectDigest);
+    validateProgram(document2.experience, context, document2.projectDigest ?? document2.experience.projectDigest);
   return result;
 }
 
+// src/demo-stable-state.mjs
+var schema = "home3d.demo-stable-state.v1";
+function identity(pkg) {
+  const { projectDigest } = pkg;
+  requireValue(
+    typeof projectDigest === "string" && /^sha256:[0-9a-f]{64}$/.test(projectDigest),
+    "DEMO_STATE_IDENTITY",
+    "Stable state requires the verified project digest"
+  );
+  const bindings = [...pkg.deviceIndex.keys()].sort().map((id) => {
+    const device = pkg.deviceIndex.get(id);
+    return {
+      id,
+      instanceId: device.instanceId,
+      contractDigest: device.contractDigest,
+      manualControlEnabled: device.manualControlEnabled
+    };
+  });
+  return { projectDigest, deviceBindingsDigest: digest(encode(bindings)) };
+}
+function properties(pkg) {
+  const result = /* @__PURE__ */ new Map();
+  for (const id of [...pkg.deviceIndex.keys()].sort()) {
+    for (const scope of pkg.deviceIndex.get(id).contract.scopes) {
+      for (const capability of scope.capabilities) {
+        if (capability.behavior !== "property")
+          continue;
+        const target = {
+          deviceId: id,
+          ...scope.controlObjectId ? { controlObjectId: scope.controlObjectId } : {},
+          ...scope.outputId ? { outputId: scope.outputId } : {},
+          capabilityKey: capability.key
+        };
+        result.set(stateKey(target), { target, valueContract: capability.value });
+      }
+    }
+  }
+  return result;
+}
+function exportStableState(pkg, state) {
+  return {
+    schema,
+    ...identity(pkg),
+    values: [...properties(pkg)].map(([key, { target }]) => ({
+      target,
+      state: state.has(key) ? { known: true, value: state.get(key) } : { known: false }
+    }))
+  };
+}
+function parseStableState(pkg, snapshot) {
+  const expected = identity(pkg);
+  requireValue(
+    snapshot?.schema === schema && snapshot.projectDigest === expected.projectDigest && snapshot.deviceBindingsDigest === expected.deviceBindingsDigest,
+    "DEMO_STATE_IDENTITY",
+    "Stable state belongs to a different project, device binding or contract",
+    "stable-state"
+  );
+  const remaining = properties(pkg);
+  requireValue(
+    Array.isArray(snapshot.values) && snapshot.values.length === remaining.size,
+    "DEMO_STATE_VALUES",
+    "Stable state must include every property, including unknown values",
+    "stable-state",
+    "/values"
+  );
+  const imported = /* @__PURE__ */ new Map();
+  for (const [index, row] of snapshot.values.entries()) {
+    const path = "/values/" + index;
+    requireValue(row?.target && row.state && typeof row.state === "object", "DEMO_STATE_VALUE", "Invalid property state", "stable-state", path);
+    const key = stateKey(row.target);
+    const property = remaining.get(key);
+    requireValue(property, "DEMO_STATE_TARGET", "Unknown or duplicate property scope", "stable-state", path + "/target");
+    const known = row.state.known;
+    const hasValue = Object.hasOwn(row.state, "value");
+    requireValue(
+      known === false && !hasValue || known === true && hasValue && validCapabilityValue(property.valueContract, row.state.value),
+      "DEMO_STATE_VALUE",
+      "Property state does not match its contract",
+      "stable-state",
+      path + "/state"
+    );
+    if (known)
+      imported.set(key, row.state.value);
+    remaining.delete(key);
+  }
+  return imported;
+}
+
+// src/visual-cycles.mjs
+function createVisualCycles(pkg, state) {
+  const cycles = [];
+  for (const device of pkg.deviceIndex.values()) {
+    for (const cycle of device.contract.simulation.visualCycles || []) {
+      cycles.push({
+        ...cycle,
+        key: stateKey({ ...cycle.target, deviceId: device.id }),
+        gate: stateKey({ ...cycle.when.target, deviceId: device.id })
+      });
+    }
+  }
+  let active = /* @__PURE__ */ new Map();
+  function sync(preservePhase = false) {
+    for (const cycle of cycles) {
+      if (state.has(cycle.gate) && state.get(cycle.gate) === cycle.when.value) {
+        if (!active.has(cycle.key)) {
+          const phase = state.get(cycle.key);
+          const ratio = preservePhase && typeof phase === "number" ? (phase - cycle.from) / (cycle.to - cycle.from) : 0;
+          const restored = preservePhase && typeof phase === "number" && ratio >= 0 && ratio < 1;
+          active.set(cycle.key, restored ? ratio * cycle.durationMs : 0);
+          state.set(cycle.key, restored ? phase : cycle.from);
+        }
+      } else {
+        active.delete(cycle.key);
+        state.set(cycle.key, cycle.from);
+      }
+    }
+  }
+  return {
+    sync,
+    reset(preservePhase = false) {
+      active.clear();
+      sync(preservePhase);
+    },
+    advance(deltaMs) {
+      for (const cycle of cycles) {
+        if (!active.has(cycle.key))
+          continue;
+        const elapsed = (active.get(cycle.key) + deltaMs) % cycle.durationMs;
+        active.set(cycle.key, elapsed);
+        state.set(cycle.key, cycle.from + (cycle.to - cycle.from) * (elapsed / cycle.durationMs));
+      }
+    },
+    hasActive: () => active.size > 0,
+    snapshot: () => new Map(active),
+    restore(saved) {
+      active = saved;
+    }
+  };
+}
+
 // src/demo-runtime.mjs
+var finalFrameSequence = 0;
 function createDemoRuntime(pkg) {
   requireValue(
     pkg.format === "v4" && pkg.deviceIndex instanceof Map,
@@ -17421,13 +17622,17 @@ function createDemoRuntime(pkg) {
   );
   pkg = {
     ...pkg,
+    projectDigest: pkg.entries?.["project.json"] ? digest(pkg.entries["project.json"]) : pkg.projectDigest,
     deviceIndex: structuredClone(pkg.deviceIndex),
     presentation: structuredClone(pkg.presentation),
     experience: structuredClone(pkg.experience)
   };
   const state = /* @__PURE__ */ new Map(), transitions = /* @__PURE__ */ new Map();
+  const visualCycles = createVisualCycles(pkg, state);
   let clock = 0, mode = "paused", beforeBackground = "paused";
+  let guided;
   function initial() {
+    guided = void 0;
     state.clear();
     transitions.clear();
     clock = 0;
@@ -17444,6 +17649,7 @@ function createDemoRuntime(pkg) {
     }
     for (const assignment of pkg.experience?.initialState || [])
       state.set(stateKey(assignment.target), assignment.value);
+    visualCycles.reset();
   }
   function read(ref) {
     resolveCapability(pkg, ref);
@@ -17464,19 +17670,19 @@ function createDemoRuntime(pkg) {
     } else
       state.set(key, value);
   }
+  function simulationCommand(action) {
+    const device = pkg.deviceIndex.get(action.deviceId);
+    const command = device.contract.simulation.commands.find(
+      (c) => scopeKey(c.source) === scopeKey(action)
+    );
+    requireValue(command, "SIMULATION_COMMAND", "Command has no simulated implementation");
+    return command;
+  }
   function apply(action) {
     validateAction(pkg, action);
     const device = pkg.deviceIndex.get(action.deviceId);
     if (action.operation === "execute") {
-      const command = device.contract.simulation.commands.find(
-        (c) => scopeKey(c.source) === scopeKey(action)
-      );
-      requireValue(
-        command,
-        "SIMULATION_COMMAND",
-        "Command has no simulated implementation"
-      );
-      for (const e of command.effects) {
+      for (const e of simulationCommand(action).effects) {
         const ref = { ...e.target, deviceId: action.deviceId };
         if (e.operation === "stop")
           transitions.delete(stateKey(ref));
@@ -17518,23 +17724,26 @@ function createDemoRuntime(pkg) {
     }
   }
   function atomic(fn) {
-    const previous = new Map(state), pending = new Map(transitions), previousMode = mode, previousClock = clock;
+    const previous = new Map(state), pending = new Map(transitions), phases = visualCycles.snapshot(), previousMode = mode, previousClock = clock;
     try {
       fn();
       rules(previous);
+      visualCycles.sync();
     } catch (error) {
       state.clear();
       previous.forEach((v, k) => state.set(k, v));
       transitions.clear();
       pending.forEach((v, k) => transitions.set(k, v));
+      visualCycles.restore(phases);
       mode = previousMode;
       clock = previousClock;
       throw error;
     }
   }
-  function dispatch(action, source = "manual") {
+  function dispatch(action, source2 = "manual") {
+    requireValue(!guidedActive(), "GUIDED_ACTIVE", "Cancel the guided scene before dispatching an unrelated action");
     requireValue(
-      ["manual", "program"].includes(source),
+      ["manual", "program"].includes(source2),
       "DEMO_SOURCE",
       "Unknown command source"
     );
@@ -17543,7 +17752,7 @@ function createDemoRuntime(pkg) {
       "DEMO_BACKGROUND",
       "Resume before interacting"
     );
-    if (source === "manual") {
+    if (source2 === "manual") {
       const device = pkg.deviceIndex.get(action.deviceId);
       requireValue(
         device?.manualControlEnabled && ["write", "execute"].includes(action.operation),
@@ -17553,10 +17762,110 @@ function createDemoRuntime(pkg) {
     } else
       requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
     atomic(() => {
-      if (source === "manual")
+      if (source2 === "manual")
         mode = "paused";
       apply(action);
     });
+  }
+  function advanceTransitions(deltaMs) {
+    atomic(() => {
+      clock += deltaMs;
+      visualCycles.advance(deltaMs);
+      for (const [key, t] of transitions) {
+        const value = clock >= t.end && guidedActive() ? t.to : t.from + (t.to - t.from) * Math.min(1, (clock - t.start) / (t.end - t.start));
+        state.set(key, value);
+        if (clock >= t.end)
+          transitions.delete(key);
+      }
+    });
+  }
+  function guidedActive() {
+    return guided?.status === "running" || guided?.status === "awaiting-presentation";
+  }
+  function prepareFinalFrame() {
+    if (clock < guided.endsAt || transitions.size)
+      return;
+    guided.status = "awaiting-presentation";
+    guided.finalFrameId = "guided-frame-" + ++finalFrameSequence;
+  }
+  function beginGuidedAction(scene, completedActions, replacing = false) {
+    const action = scene.actions[completedActions];
+    atomic(() => {
+      if (replacing)
+        transitions.clear();
+      apply(action);
+    });
+    guided = {
+      scene,
+      completedActions,
+      status: "running",
+      endsAt: clock + (action.transitionMs ?? 0),
+      finalFrameId: null
+    };
+    prepareFinalFrame();
+  }
+  function startGuidedScene(scene) {
+    requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
+    requireValue(
+      typeof scene?.id === "string" && /^[A-Za-z][A-Za-z0-9_.:-]{0,127}$/.test(scene.id) && Array.isArray(scene.actions) && scene.actions.length > 0,
+      "GUIDED_SCENE",
+      "A guided scene needs an ID and at least one action",
+      "guided-scene"
+    );
+    const replacing = guidedActive();
+    requireValue(replacing || !transitions.size, "GUIDED_BUSY", "Finish existing device transitions before starting a guided scene");
+    const actions = Array.from(scene.actions, (action, index) => {
+      const path = "/actions/" + index;
+      validateAction(pkg, action, path);
+      const capability = resolveCapability(pkg, action);
+      requireValue(
+        action.operation !== "subscribe" && (action.operation !== "observe" || capability.behavior === "property") && (action.operation !== "execute" || action.value === null),
+        "GUIDED_ACTION",
+        "Guided scenes support property writes, property samples and commands without parameters",
+        "guided-scene",
+        path
+      );
+      if (action.operation === "execute")
+        simulationCommand(action);
+      return structuredClone(action);
+    });
+    beginGuidedAction({ id: scene.id, actions }, 0, replacing);
+  }
+  function guidedSceneProgress() {
+    const action = guidedActive() ? guided.scene.actions[guided.completedActions] : void 0;
+    return {
+      status: guided?.status ?? "idle",
+      sceneId: guided?.scene.id ?? null,
+      actionIndex: action ? guided.completedActions : null,
+      activeDeviceId: action?.deviceId ?? null,
+      completedActions: guided?.completedActions ?? 0,
+      totalActions: guided?.scene.actions.length ?? 0,
+      finalFrameId: guided?.finalFrameId ?? null
+    };
+  }
+  function stopGuidedScene(status) {
+    guided.status = status;
+    guided.finalFrameId = null;
+  }
+  function acknowledgeGuidedFrame(frameId) {
+    if (mode !== "playing" || guided?.status !== "awaiting-presentation" || guided.finalFrameId !== frameId)
+      return false;
+    const { scene } = guided;
+    guided.completedActions += 1;
+    if (guided.completedActions === scene.actions.length) {
+      stopGuidedScene("completed");
+    } else {
+      stopGuidedScene("canceled");
+      beginGuidedAction(scene, guided.completedActions);
+    }
+    return true;
+  }
+  function cancelGuidedScene() {
+    if (!guidedActive())
+      return false;
+    transitions.clear();
+    stopGuidedScene("canceled");
+    return true;
   }
   function advance(deltaMs) {
     requireValue(
@@ -17566,31 +17875,44 @@ function createDemoRuntime(pkg) {
     );
     if (mode === "background")
       return;
-    atomic(() => {
-      clock += deltaMs;
-      for (const [key, t] of transitions) {
-        const value = t.from + (t.to - t.from) * Math.min(1, (clock - t.start) / (t.end - t.start));
-        state.set(key, value);
-        if (clock >= t.end)
-          transitions.delete(key);
-      }
-    });
+    if (!guidedActive()) {
+      advanceTransitions(deltaMs);
+      return;
+    }
+    if (mode !== "playing")
+      return;
+    if (guided.finalFrameId) {
+      if (visualCycles.hasActive())
+        advanceTransitions(deltaMs);
+      return;
+    }
+    const limit = clock + deltaMs;
+    while (clock < limit && !guided.finalFrameId) {
+      let next = clock < guided.endsAt ? Math.min(limit, guided.endsAt) : limit;
+      for (const transition of transitions.values())
+        next = Math.min(next, transition.end);
+      advanceTransitions(next - clock);
+      prepareFinalFrame();
+    }
   }
-  function effects() {
+  function requireStableState() {
+    requireValue(!guidedActive() && !transitions.size, "DEMO_STATE_BUSY", "Finish or cancel device playback before transferring state");
+  }
+  function projectEffects(sample) {
     const result = [];
     for (const device of pkg.deviceIndex.values())
       for (const effect of device.contract.presentation.effects) {
         const binding = pkg.presentation.bindings.find(
           (b) => b.deviceId === device.id && b.slot === effect.slot
         );
-        const current = read({ ...effect.source, deviceId: device.id });
+        const current = sample({ ...effect.source, deviceId: device.id });
         let value;
         if (current.known) {
           const m = effect.mapping;
           value = m.kind === "linear" ? m.output[0] + (m.output[1] - m.output[0]) * (current.value - m.input[0]) / (m.input[1] - m.input[0]) : m.cases.find((c) => c.value === current.value)?.output;
         }
         if (effect.enabledBy) {
-          const gate = read({ ...effect.enabledBy, deviceId: device.id });
+          const gate = sample({ ...effect.enabledBy, deviceId: device.id });
           if (!gate.known)
             value = void 0;
           else if (!gate.value)
@@ -17607,12 +17929,50 @@ function createDemoRuntime(pkg) {
       }
     return result;
   }
+  function effects() {
+    return projectEffects(read);
+  }
+  function preview(action) {
+    requireValue(mode !== "background", "DEMO_BACKGROUND", "Resume before interacting");
+    const device = pkg.deviceIndex.get(action?.deviceId);
+    requireValue(
+      device?.manualControlEnabled && action?.operation === "write",
+      "MANUAL_CONTROL",
+      "Preview requires an enabled manual property write"
+    );
+    validateAction(pkg, action);
+    const key = stateKey(action), value = structuredClone(action.value);
+    const sample = (ref) => stateKey(ref) === key ? { known: true, value } : read(ref);
+    return {
+      value: { known: true, value: structuredClone(value) },
+      effects: projectEffects(sample)
+    };
+  }
   initial();
   return {
     read,
     dispatch,
     advance,
     effects,
+    preview,
+    hasPendingTransitions: () => transitions.size > 0 || visualCycles.hasActive(),
+    hasBlockingTransitions: () => transitions.size > 0,
+    startGuidedScene,
+    guidedSceneProgress,
+    acknowledgeGuidedFrame,
+    cancelGuidedScene,
+    exportStableState: () => {
+      requireStableState();
+      return exportStableState(pkg, state);
+    },
+    importStableState: (snapshot) => {
+      requireStableState();
+      const imported = parseStableState(pkg, snapshot);
+      state.clear();
+      for (const [key, value] of imported)
+        state.set(key, value);
+      visualCycles.reset(true);
+    },
     controls: (deviceId) => {
       const d = pkg.deviceIndex.get(deviceId);
       requireValue(d, "DEVICE_REFERENCE", "Unknown device");
@@ -17624,6 +17984,7 @@ function createDemoRuntime(pkg) {
       }));
     },
     runScene: (id) => {
+      requireValue(!guidedActive(), "GUIDED_ACTIVE", "Cancel the guided scene before running another program");
       requireValue(mode === "playing", "DEMO_PAUSED", "Presentation is paused");
       const scene = pkg.experience?.scenes.find((s) => s.id === id);
       requireValue(scene, "SCENE_REFERENCE", "Unknown demonstration scene");
@@ -17653,7 +18014,13 @@ function createDemoRuntime(pkg) {
 }
 function createDemoRuntimeFromDocument(document2) {
   const deviceIndex = deviceRuntimeIndex(document2);
-  return createDemoRuntime({ format: "v4", deviceIndex, presentation: document2.presentation, experience: document2.experience });
+  return createDemoRuntime({
+    format: "v4",
+    deviceIndex,
+    presentation: document2.presentation,
+    experience: document2.experience,
+    projectDigest: document2.projectDigest
+  });
 }
 
 // src/index.mjs
@@ -17746,10 +18113,451 @@ function serializeModelLighting(lighting) {
   return JSON.stringify(normalized, null, 2) + "\n";
 }
 
+// src/device-asset.mjs
+var formalSchema = "home3d.device-asset.v1";
+var legacySchema = "home3d.device-asset.demo.v1";
+function source(bytes, options) {
+  const archive = readArchive(bytes);
+  const manifests = Object.keys(archive).filter(
+    (p) => p === "device-asset.json" || p.endsWith("/device-asset.json")
+  );
+  requireValue(
+    manifests.length === 1,
+    "DEVICE_MANIFEST",
+    "Device package must contain exactly one device-asset.json",
+    "device-asset.json"
+  );
+  const entry = manifests[0], prefix = entry.slice(0, -"device-asset.json".length);
+  requireValue(
+    !prefix || prefix.split("/").length === 2,
+    "DEVICE_ROOT",
+    "Device package must have a root entry or one enclosing folder",
+    entry
+  );
+  requireValue(
+    Object.keys(archive).every((p) => p.startsWith(prefix)),
+    "DEVICE_ROOT",
+    "Files outside the device package root",
+    entry
+  );
+  const meta = parseJson(archive[entry], entry);
+  requireValue(
+    meta && typeof meta === "object" && !Array.isArray(meta),
+    "DEVICE_MANIFEST",
+    "Invalid device manifest",
+    entry
+  );
+  checkCredentials(meta, entry);
+  const legacy = meta.schema === legacySchema;
+  requireValue(
+    meta.schema === formalSchema || legacy && meta.experimental === true,
+    "DEVICE_SCHEMA",
+    "Unsupported device asset schema: " + meta.schema,
+    entry,
+    "/schema"
+  );
+  requireValue(
+    /^[A-Za-z][A-Za-z0-9_.:-]{0,127}$/.test(meta.id) && /^\d+\.\d+\.\d+$/.test(meta.version),
+    "DEVICE_IDENTITY",
+    "Invalid device identity",
+    entry,
+    "/id"
+  );
+  requireValue(
+    typeof meta.name === "string" && meta.name.trim() && meta.name.length <= 255,
+    "DEVICE_NAME",
+    "Invalid device name",
+    entry,
+    "/name"
+  );
+  if (!legacy)
+    requireValue(
+      meta.target?.packageVersion === 4 && meta.target?.profile === "core-v4",
+      "DEVICE_TARGET",
+      "Unsupported device target profile",
+      entry,
+      "/target"
+    );
+  const requiredCapabilities = legacy ? meta.requiredCapabilities : meta.target?.requiredCapabilities;
+  const capabilities = options.capabilities || CAPABILITIES;
+  requireValue(
+    Array.isArray(requiredCapabilities) && requiredCapabilities.every((c) => capabilities.includes(c)),
+    "UNSUPPORTED_CAPABILITY",
+    "Unsupported device required capabilities",
+    entry,
+    legacy ? "/requiredCapabilities" : "/target/requiredCapabilities"
+  );
+  requireValue(
+    Array.isArray(meta.files) && meta.files.length > 0 && meta.files.length <= 1e3,
+    "DEVICE_FILES",
+    "Invalid device file manifest",
+    entry,
+    "/files"
+  );
+  const files = /* @__PURE__ */ new Map();
+  for (const [index, f] of meta.files.entries()) {
+    requireValue(
+      safePath(f.path) && !files.has(f.path) && f.path !== "device-asset.json",
+      "DEVICE_FILE_PATH",
+      "Invalid or duplicate device file path",
+      entry,
+      "/files/" + index
+    );
+    const value = archive[prefix + f.path];
+    requireValue(
+      value,
+      "MISSING_FILE",
+      "Missing declared device file: " + f.path,
+      f.path
+    );
+    requireValue(
+      value.length === f.byteSize,
+      "SIZE_MISMATCH",
+      "Device file size mismatch: " + f.path,
+      f.path
+    );
+    requireValue(
+      digest(value) === f.digest,
+      "HASH_MISMATCH",
+      "Device file digest mismatch: " + f.path,
+      f.path
+    );
+    files.set(f.path, value);
+  }
+  const json = (p) => {
+    requireValue(
+      safePath(p) && files.has(p),
+      "MISSING_FILE",
+      "Missing declared device entry: " + p,
+      String(p)
+    );
+    const value = parseJson(files.get(p), p);
+    checkCredentials(value, p);
+    return value;
+  };
+  requireValue(
+    meta.entries && ["model", "contract", "bindings", "preview"].every(
+      (k) => typeof meta.entries[k] === "string"
+    ),
+    "DEVICE_ENTRIES",
+    "Missing device entries",
+    entry,
+    "/entries"
+  );
+  const model = json(meta.entries.model), contract = json(meta.entries.contract), template = json(meta.entries.bindings);
+  requireValue(
+    !contract.simulation?.visualCycles?.length || requiredCapabilities.includes("device.visual-cycles.v1"),
+    "MISSING_CAPABILITY",
+    "Visual cycles require device.visual-cycles.v1",
+    entry,
+    "/target/requiredCapabilities"
+  );
+  requireValue(
+    files.has(model.file),
+    "MISSING_FILE",
+    "Missing device GLB",
+    String(model.file)
+  );
+  if (model.lightingPath)
+    json(model.lightingPath);
+  requireValue(
+    template.schema === (legacy ? "home3d.presentation-template.demo.v1" : "home3d.presentation-template.v1") && Array.isArray(template.bindings),
+    "DEVICE_BINDINGS",
+    "Unsupported device bindings",
+    meta.entries.bindings,
+    "/schema"
+  );
+  requireValue(
+    template.bindings.every((b) => !Object.hasOwn(b, "deviceId")),
+    "DEVICE_REFERENCE",
+    "Device asset bindings must use local references",
+    meta.entries.bindings
+  );
+  requireValue(
+    files.has(meta.entries.preview),
+    "MISSING_FILE",
+    "Missing device preview image",
+    meta.entries.preview
+  );
+  let mounting = meta.mounting;
+  if (!mounting && !legacy)
+    mounting = {
+      coordinateSpace: "normalized-model",
+      allowedSurfaces: ["floor"],
+      attachmentPoint: [0, 0, 0]
+    };
+  requireValue(
+    mounting?.coordinateSpace === "normalized-model" && Array.isArray(mounting.allowedSurfaces) && mounting.allowedSurfaces.length > 0 && mounting.allowedSurfaces.every(
+      (s) => ["floor", "wall", "ceiling"].includes(s)
+    ),
+    "DEVICE_MOUNTING",
+    "Unsupported mounting",
+    entry,
+    "/mounting"
+  );
+  requireValue(
+    mounting.attachmentPoint?.length === 3 && mounting.attachmentPoint.every(Number.isFinite),
+    "DEVICE_MOUNTING",
+    "Invalid attachment point",
+    entry,
+    "/mounting/attachmentPoint"
+  );
+  const behavior = meta.entries.behavior ? json(meta.entries.behavior) : void 0;
+  if (behavior) {
+    requireValue(
+      behavior.schema === "home3d.device-behavior-template.v1" && behavior.version === 1 && behavior.mode === "simulation" && Array.isArray(behavior.rules),
+      "DEVICE_BEHAVIOR",
+      "Unsupported declarative device behavior",
+      meta.entries.behavior
+    );
+    requireValue(
+      behavior.rules.every(
+        (r) => r.when?.target && !Object.hasOwn(r.when.target, "deviceId") && Array.isArray(r.actions) && r.actions.every((a) => !Object.hasOwn(a, "deviceId"))
+      ),
+      "DEVICE_REFERENCE",
+      "Device asset behavior must use local references",
+      meta.entries.behavior,
+      "/rules"
+    );
+  }
+  for (const p of Object.keys(archive).map((p2) => p2.slice(prefix.length)))
+    requireValue(
+      p === "device-asset.json" || files.has(p) || legacy && (p === "README.md" || p.startsWith("source/")),
+      "UNDECLARED_FILE",
+      "Undeclared device file: " + p,
+      p
+    );
+  return {
+    meta,
+    model,
+    contract,
+    template,
+    files,
+    mounting,
+    requiredCapabilities,
+    behavior
+  };
+}
+async function assemble(asset, options = {}) {
+  const {
+    meta,
+    model,
+    contract,
+    template,
+    files,
+    mounting,
+    requiredCapabilities,
+    behavior
+  } = asset;
+  const name = options.name || meta.name, id = options.projectId || "device-package-preview";
+  const size = model.defaultSize;
+  requireValue(
+    size && ["width", "height", "depth"].every(
+      (k) => Number.isFinite(size[k]) && size[k] > 0
+    ),
+    "DEVICE_DIMENSIONS",
+    "Invalid device dimensions",
+    meta.entries.model,
+    "/defaultSize"
+  );
+  const height = Math.max(3, size.height + 0.4), width = Math.max(2.5, size.width + 1), depth = Math.max(2, size.depth + 1);
+  const placement = ["ceiling", "wall", "floor"].find(
+    (s) => mounting.allowedSurfaces.includes(s)
+  );
+  const target = placement === "ceiling" ? [0, height, 0] : placement === "wall" ? [0, height / 2, -depth / 2 + 0.15] : [0, 0, 0];
+  const position = target.map((n, i) => n - mounting.attachmentPoint[i]);
+  const project = {
+    schema: "home3d.floorplan-scene.v5",
+    id,
+    revision: 1,
+    parentDigest: null,
+    unit: "m",
+    coordinateSystem: "right-handed-y-up",
+    projectMetadata: {
+      name,
+      activeFloorId: "preview-floor",
+      mainRoomId: "preview-room"
+    },
+    presentation: { profile: { id: "white-home3d-v1", version: 1 } },
+    floors: [
+      {
+        id: "preview-floor",
+        name: "Device preview",
+        elevation: 0,
+        height,
+        walls: [
+          {
+            id: "preview-wall",
+            kind: "straight",
+            start: { x: -width / 2, z: -depth / 2 },
+            end: { x: width / 2, z: -depth / 2 },
+            height,
+            thickness: 0.1,
+            materialKey: null
+          }
+        ],
+        openings: [],
+        rooms: [
+          {
+            id: "preview-room",
+            name: "Device preview",
+            boundary: [
+              { x: -width / 2, z: -depth / 2 },
+              { x: width / 2, z: -depth / 2 },
+              { x: width / 2, z: depth / 2 },
+              { x: -width / 2, z: depth / 2 }
+            ],
+            materialKey: null
+          }
+        ],
+        regions: [],
+        dividers: []
+      }
+    ],
+    instances: [],
+    extensions: {}
+  };
+  const entries = {}, def = structuredClone(model);
+  const glb = files.get(def.file), glbPath = "blobs/" + digest(glb).slice(7) + ".glb";
+  entries[glbPath] = glb;
+  def.file = glbPath;
+  if (def.lightingPath) {
+    const raw = files.get(def.lightingPath), p = "blobs/" + digest(raw).slice(7) + ".json";
+    entries[p] = raw;
+    def.lightingPath = p;
+  }
+  const definitionPath = "resources/device-model.json";
+  entries[definitionPath] = encode(def);
+  const contractBytes = files.get(meta.entries.contract), contractDigest = digest(contractBytes), contractPath = "contracts/" + contractDigest.slice(7) + ".json";
+  entries[contractPath] = contractBytes;
+  project.instances.push({
+    id: "preview-device",
+    name,
+    kind: "device",
+    resourceKey: "device-model",
+    floorId: "preview-floor",
+    roomId: "preview-room",
+    regionId: null,
+    materialKey: null,
+    transform: { position, rotation: [0, 0, 0, 1], size },
+    visible: true,
+    placement,
+    host: null,
+    extensions: {}
+  });
+  const experience = behavior ? {
+    schema: "home3d.device-program.v1",
+    projectDigest: digest(encode(project)),
+    initialState: [],
+    scenes: [],
+    rules: behavior.rules.map((rule) => ({
+      id: rule.id,
+      when: {
+        ...rule.when,
+        target: { ...rule.when.target, deviceId: "device-preview" }
+      },
+      actions: rule.actions.map((action) => ({
+        ...action,
+        deviceId: "device-preview"
+      }))
+    }))
+  } : void 0;
+  const bytes = await writePackage(
+    {
+      version: 4,
+      kind: "project",
+      name,
+      project,
+      resources: {
+        schema: "home3d.runtime-resources.v4",
+        resources: [{ key: "device-model", kind: "model", definitionPath }]
+      },
+      devices: {
+        schema: "home3d.devices.v1",
+        instances: [
+          {
+            id: "device-preview",
+            name,
+            instanceId: "preview-device",
+            contractPath,
+            contractDigest,
+            manualControlEnabled: true
+          }
+        ]
+      },
+      presentation: {
+        schema: "home3d.presentation.v1",
+        bindings: template.bindings.map((b) => ({
+          deviceId: "device-preview",
+          ...b
+        }))
+      },
+      entries,
+      ...experience ? { experience } : {},
+      requiredCapabilities: [
+        .../* @__PURE__ */ new Set(["scene.structure.v1", ...requiredCapabilities])
+      ]
+    },
+    { capabilities: options.capabilities || CAPABILITIES }
+  );
+  const pkg = await readPackage(bytes, {
+    capabilities: options.capabilities || CAPABILITIES
+  });
+  return { bytes, pkg };
+}
+async function readPreview(bytes, options) {
+  try {
+    const asset = source(bytes, options);
+    return { asset, ...await assemble(asset, options) };
+  } catch (error) {
+    if (error instanceof PackageError)
+      throw error;
+    throw new PackageError(
+      "INVALID_DEVICE_PACKAGE",
+      "Malformed device package: " + error.message,
+      "device-asset.json"
+    );
+  }
+}
+async function inspectDeviceAssetPackage(bytes, options = {}) {
+  const { asset, pkg } = await readPreview(bytes, options);
+  return {
+    name: asset.meta.name,
+    assetId: asset.meta.id,
+    schema: asset.meta.schema,
+    category: asset.meta.category || asset.meta.deviceType || "device",
+    byteSize: bytes.length,
+    sha256: digest(bytes),
+    controls: createDemoRuntime(pkg).controls("device-preview"),
+    capabilities: asset.contract.scopes,
+    requiredCapabilities: asset.requiredCapabilities,
+    warnings: pkg.warnings
+  };
+}
+async function buildDeviceAssetPreviewPackage(bytes, options = {}) {
+  return (await readPreview(bytes, options)).bytes;
+}
+async function validateDeviceAssetPackage(bytes, options = {}) {
+  try {
+    const inspection = await inspectDeviceAssetPackage(bytes, options);
+    return {
+      valid: true,
+      inspection,
+      errors: [],
+      warnings: inspection.warnings
+    };
+  } catch (error) {
+    if (error instanceof PackageError)
+      return { valid: false, errors: error.issues, warnings: [] };
+    throw error;
+  }
+}
+
 // src/index.mjs
-var VERSION = "0.3.1";
+var VERSION = "0.3.4";
 var CAPABILITIES = Object.freeze([
   ...UNIFIED_CAPABILITIES,
+  VISUAL_CYCLE_CAPABILITY,
   ...RENDERING_CAPABILITIES,
   "scene.structure.v1",
   "model.glb.v1",
@@ -17765,7 +18573,7 @@ var ajv3 = new import_ajv3.default({
 });
 for (const s of Object.values(schemas_default))
   ajv3.addSchema(s);
-function schema(name, value, document2) {
+function schema2(name, value, document2) {
   const v = ajv3.getSchema(schemas_default[name + ".schema.json"].$id);
   if (!v(value)) {
     const e = v.errors[0];
@@ -17829,7 +18637,7 @@ async function readPackageEntries(entries, options = {}) {
       readGeometryDocuments,
       validateManifestFiles
     );
-  schema("package", manifest, "package.json");
+  schema2("package", manifest, "package.json");
   validateManifestFiles(entries, manifest);
   return readGeometryDocuments(entries, manifest, options);
 }
@@ -17907,9 +18715,9 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
       json(path);
   const rawScene = json(manifest.entries.scene);
   const scene = options.fillMissingFloorHeights ? normalizeImportedSceneFloorHeights(rawScene, manifest.entries.scene) : rawScene, resources = json(manifest.entries.resources), devices = devicesOverride || json(manifest.entries.devices);
-  schema("scene", scene, manifest.entries.scene);
-  schema("resources", resources, manifest.entries.resources);
-  schema("devices", devices, manifest.entries.devices);
+  schema2("scene", scene, manifest.entries.scene);
+  schema2("resources", resources, manifest.entries.resources);
+  schema2("devices", devices, manifest.entries.devices);
   const definitions = /* @__PURE__ */ Object.create(null), models = /* @__PURE__ */ Object.create(null), resourceMap = /* @__PURE__ */ new Map(), warnings = [], modelCache = /* @__PURE__ */ new Map();
   if (options.fillMissingFloorHeights)
     rawScene.floors.forEach((floor, index) => {
@@ -17934,7 +18742,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
     );
     resourceMap.set(r.key, r);
     const def = json(r.definitionPath);
-    schema(r.kind, def, r.definitionPath);
+    schema2(r.kind, def, r.definitionPath);
     definitions[r.key] = def;
     if (r.kind === "model") {
       requireValue(entries[def.file], "MISSING_FILE", "Missing model GLB", def.file);
@@ -18012,7 +18820,7 @@ async function readGeometryDocuments(entries, manifest, options, devicesOverride
       if (def.lightingPath) {
         need("model.lighting.v1");
         const light = json(def.lightingPath);
-        schema("lighting", light, def.lightingPath);
+        schema2("lighting", light, def.lightingPath);
         try {
           parseModelLighting(light, hash.slice(7));
         } catch (error) {
@@ -18687,10 +19495,12 @@ async function archivePackageEntries(entries, options = {}) {
   applySoftStudioPreset,
   archivePackageEntries,
   bindRenderingToProject,
+  buildDeviceAssetPreviewPackage,
   createDemoRuntime,
   createDemoRuntimeFromDocument,
   digest,
   encode,
+  inspectDeviceAssetPackage,
   inspectImage,
   inspectModel,
   maxModelLightingBytes,
@@ -18700,7 +19510,9 @@ async function archivePackageEntries(entries, options = {}) {
   readArchive,
   readPackage,
   readPackageEntries,
+  resolveInteractivePixelRatio,
   serializeModelLighting,
+  validateDeviceAssetPackage,
   validatePackage,
   validateRendering,
   writePackage,

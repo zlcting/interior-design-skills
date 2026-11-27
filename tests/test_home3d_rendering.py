@@ -134,7 +134,7 @@ class RenderingExportTests(unittest.TestCase):
                 self.assertAlmostEqual(sum(light['intensity'] for light in keys), 1.5)
                 self.assertEqual(r['shadowPolicy']['maxShadowedDirectionalLights'], 4)
             report = json.loads((root / 'out/acceptance.json').read_text())
-            self.assertEqual(report['sdk']['version'], '0.3.1')
+            self.assertEqual(report['sdk']['version'], '0.3.4')
             self.assertEqual(report['rendering']['status'], 'protocol-passed')
             self.assertEqual(report['visualReview']['status'], 'not_reviewed')
             self.assertTrue(json.loads((root / 'out/world-verification.json').read_text())['passed'])

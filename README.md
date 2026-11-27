@@ -129,7 +129,7 @@ blender -b -t 4 --python skills/interior-orchestrator/scripts/render_project.py 
 
 ## 可编辑 Home3D 工程
 
-新增 `interior-home3d`，从同一 `model/project.json`、带稳定对象编号的几何与灯光配置默认生成标准 v4 project `.home3d`。墙、门窗、房间和家具保持独立对象，普通模型随包携带，不绑定业务模型版本。共用打包SDK 0.3.0以锁定的离线制品随技能分发；支持将可信白模配置或显式作者模板导出为完整光线、阴影、曝光及参考相机配置和冻结环境图。SDK通过、几何通过、实际编辑通过和跨端视觉通过分别记录。命令、运行依赖和验收步骤见[技能入口](skills/interior-home3d/SKILL.md)。原有十五项冻结案例与执行记录保留。
+新增 `interior-home3d`，从同一 `model/project.json`、带稳定对象编号的几何与灯光配置默认生成标准 v4 project `.home3d`。墙、门窗、房间和家具保持独立对象，普通模型随包携带，不绑定业务模型版本。共用打包SDK 0.3.4以锁定的离线制品随技能分发；支持将可信白模配置或显式作者模板导出为完整光线、阴影、曝光及参考相机配置和冻结环境图。SDK通过、几何通过、实际编辑通过和跨端视觉通过分别记录。命令、运行依赖和验收步骤见[技能入口](skills/interior-home3d/SKILL.md)。原有十五项冻结案例与执行记录保留。
 
 默认 v4 升级已通过源世界顶点、侧车/内嵌灯光和本地编辑器保存、刷新、导出重导入验收，见[升级验收记录](validation/home3d-v4.json)。旧 v3 工程仍可校验；仅支持 v3 的消费者须更新。
 

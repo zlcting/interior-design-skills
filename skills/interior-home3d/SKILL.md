@@ -52,7 +52,7 @@ python3 scripts/export_home3d.py /path/to/project \
 
 首次版本及导出工具改动需实际导入目标编辑器，修改一件家具、一段墙和一个门窗，保存、刷新、导出再导入，并检查灯光位置、材质及白模预设。未执行的检查保持 `not_reviewed`；程序通过不等同客户视觉批准。
 
-离线 SDK 0.3.1 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
+离线 SDK 0.3.4 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。
 

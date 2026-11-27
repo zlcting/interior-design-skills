@@ -9,7 +9,7 @@ if (Number(process.versions.node.split('.')[0]) < 20) throw new Error('Node.js 2
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(await fs.readFile(path.join(HERE, 'vendor/manifest.json')));
 const bundle = path.join(HERE, 'vendor/home3d-package.cjs');
-if (manifest.version !== '0.3.1' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
+if (manifest.version !== '0.3.4' || hash(await fs.readFile(bundle)) !== manifest.bundleSha256) throw new Error('SDK artifact digest mismatch');
 const sdk = createRequire(import.meta.url)(bundle);
 if (sdk.VERSION !== manifest.version) throw new Error('SDK runtime version mismatch');
 const CAPABILITIES = ['scene.structure.v1', 'model.glb.v1', 'model.normalization.v1', 'model.lighting.v1',

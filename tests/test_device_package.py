@@ -220,3 +220,80 @@ class DevicePackageTests(unittest.TestCase):
             scenarios=[{'name':'scoped current state','steps':[{'expect':{'ref':{'deviceId':'device-a',**refs[0]},'value':False}}]}]
             report=self.run_tool('build',self.job(root,scenarios=scenarios))
             values=report['sdkStateRead'][0]['values'];self.assertEqual(values[0]['value'],False);self.assertTrue(values[0]['known']);self.assertFalse(values[1]['known']);self.assertNotIn('value',values[1])
+
+    def continuous_fixture(self,root):
+        asset=self.stateful_fixture(root)
+        contract=json.loads((asset/'device-contract.json').read_text())
+        contract['scopes'][0]['capabilities'] += [
+            {'key':'runningPhase','behavior':'property','access':'read','value':{'type':'number','minimum':0,'maximum':1},'initialValue':0},
+            {'key':'position','behavior':'property','access':'read-write','value':{'type':'number','minimum':0,'maximum':100},'initialValue':0}]
+        contract['simulation']['visualCycles']=[{'id':'continuous-flow','target':{'capabilityKey':'runningPhase'},'when':{'target':{'capabilityKey':'operationState'},'value':'running'},'from':0,'to':1,'durationMs':1800}]
+        contract['simulation']['transitions']=[{'target':{'capabilityKey':'position'},'durationMs':2400}]
+        contract['presentation']['effects'] += [
+            {'id':'flow','source':{'capabilityKey':'runningPhase'},'slot':'flow','channel':'node.position.x','mapping':{'kind':'linear','input':[0,1],'output':[0,.1]}},
+            {'id':'position','source':{'capabilityKey':'position'},'slot':'position','channel':'node.scale.x','mapping':{'kind':'linear','input':[0,100],'output':[1,.1]}}]
+        self.write(asset/'device-contract.json',contract)
+        bindings=json.loads((asset/'bindings.template.json').read_text());bindings['bindings'] += [{'slot':slot,'target':{'kind':'node','name':'FURN_A'}} for slot in ['flow','position']]
+        self.write(asset/'bindings.template.json',bindings)
+        meta=json.loads((asset/'device-asset.json').read_text());meta['target']['sdkVersion']='0.3.4';meta['target']['requiredCapabilities'].append('device.visual-cycles.v1')
+        self.write(asset/'device-asset.json',meta);self.run_tool('seal',asset)
+        return asset
+
+    def test_continuous_effect_keeps_frames_without_blocking_finite_motion_or_handoff(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            root=Path(tmp);self.continuous_fixture(root)
+            steps=[
+                {'action':{'deviceId':'device-a','capabilityKey':'power','operation':'write','value':True}},
+                {'expect':{'ref':{'deviceId':'device-a','capabilityKey':'operationState'},'value':'running'}},
+                {'expectEffect':{'instanceId':'a','target':{'kind':'node','name':'FURN_A'},'channel':'node.visible','value':True}},
+                {'advanceMs':900},{'expect':{'ref':{'deviceId':'device-a','capabilityKey':'runningPhase'},'value':.5}},
+                {'expectPendingTransitions':True,'expectBlockingTransitions':False},
+                {'runtime':'resume'},
+                {'guidedScene':{'id':'finite-motion','actions':[{'deviceId':'device-b','capabilityKey':'position','operation':'write','value':100}]}},
+                {'advanceMs':1200,'expectGuidedStatus':'running','expectBlockingTransitions':True},
+                {'expect':{'ref':{'deviceId':'device-b','capabilityKey':'position'},'value':50}},
+                {'advanceMs':1200,'expectGuidedStatus':'awaiting-presentation','expectPendingTransitions':True,'expectBlockingTransitions':False},
+                {'acknowledgeGuidedFrame':True,'expectGuidedStatus':'completed'},
+                {'handoff':True},{'expect':{'ref':{'deviceId':'device-b','capabilityKey':'position'},'value':100}},
+                {'advanceMs':300},{'expect':{'ref':{'deviceId':'device-a','capabilityKey':'runningPhase'},'value':0}},
+                {'expect':{'ref':{'deviceId':'device-b','capabilityKey':'runningPhase'},'value':0}},
+                {'action':{'deviceId':'device-a','capabilityKey':'power','operation':'write','value':False}},
+                {'expectPendingTransitions':False,'expectBlockingTransitions':False}]
+            report=self.run_tool('build',self.job(root,scenarios=[{'name':'continuous plus finite motion and handoff','steps':steps}]))
+            self.assertEqual(report['sdk']['version'],'0.3.4');self.assertEqual(report['continuousEffects']['status'],'passed')
+            self.assertEqual(len(report['continuousEffects']['checks']),2)
+            self.assertTrue(all(c['stableHandoff']=='passed' for c in report['continuousEffects']['checks']))
+            with zipfile.ZipFile(root/'out/validation.home3d')as z:self.assertIn('device.visual-cycles.v1',json.loads(z.read('package.json'))['requiredCapabilities'])
+            places=[{'instanceId':'new-'+i,'floorId':'floor-test','roomId':'room-test','placement':'floor','position':[x,0,1]}for i,x in [('a',-1),('b',1)]]
+            merged=self.run_tool('build',self.job(root,'merged',basePackage='out/validation.home3d',placements=places,scenarios=self.stateful_scenarios('new-a','new-b')))
+            self.assertEqual(merged['sourcePreservation'],'passed');self.assertEqual(len(merged['continuousEffects']['checks']),4)
+
+    def test_continuous_phase_scope_is_preserved_in_automatic_sdk_checks(self):
+        with tempfile.TemporaryDirectory()as tmp:
+            root=Path(tmp);asset=self.continuous_fixture(root)
+            c=json.loads((asset/'device-contract.json').read_text());phase=next(v for v in c['scopes'][0]['capabilities']if v['key']=='runningPhase')
+            c['scopes'][0]['capabilities'].remove(phase);c['scopes'].append({'controlObjectId':'motor','outputId':'fan','capabilities':[phase]})
+            scope={'controlObjectId':'motor','outputId':'fan'};c['simulation']['visualCycles'][0]['target'].update(scope);c['presentation']['effects'][1]['source'].update(scope)
+            self.write(asset/'device-contract.json',c);self.run_tool('seal',asset)
+            report=self.run_tool('build',self.job(root,scenarios=self.stateful_scenarios()))
+            self.assertTrue(all(c['target']['controlObjectId']=='motor'and c['target']['outputId']=='fan'for c in report['continuousEffects']['checks']))
+
+    def test_unsafe_continuous_contracts_and_unfinished_handoff_do_not_publish(self):
+        for case in ['missing-capability','old-target-sdk','old-phase-writer','no-changing-effect','unfinished-handoff','wrong-frame-demand','unsupported-consumer']:
+            with self.subTest(case=case),tempfile.TemporaryDirectory()as tmp:
+                root=Path(tmp);asset=self.continuous_fixture(root);scenarios=self.stateful_scenarios();extra={}
+                if case in ['missing-capability','old-target-sdk']:
+                    p=asset/'device-asset.json';v=json.loads(p.read_text())
+                    if case=='missing-capability':v['target']['requiredCapabilities'].remove('device.visual-cycles.v1')
+                    else:v['target']['sdkVersion']='0.3.1'
+                    self.write(p,v)
+                elif case=='old-phase-writer':
+                    p=asset/'behavior.template.json';v=json.loads(p.read_text());v['rules'][0]['actions'].append({'capabilityKey':'runningPhase','operation':'observe','sample':True,'value':1});self.write(p,v)
+                elif case=='no-changing-effect':
+                    p=asset/'device-contract.json';v=json.loads(p.read_text());v['presentation']['effects'][1]['mapping']['output']=[0,0];self.write(p,v)
+                elif case=='unfinished-handoff':scenarios[0]['steps'] += [{'action':{'deviceId':'device-b','capabilityKey':'position','operation':'write','value':100}},{'handoff':True}]
+                elif case=='wrong-frame-demand':scenarios[0]['steps'].insert(1,{'expectPendingTransitions':False})
+                else:
+                    meta=json.loads((asset/'device-asset.json').read_text());extra['consumerCapabilities']=[c for c in meta['target']['requiredCapabilities']if c!='device.visual-cycles.v1']
+                self.run_tool('seal',asset);self.run_tool('build',self.job(root,scenarios=scenarios,**extra),False)
+                self.assertFalse((root/'out').exists())
