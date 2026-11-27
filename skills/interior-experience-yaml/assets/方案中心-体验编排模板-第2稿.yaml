@@ -2,11 +2,12 @@
 # 取自 Hello Harmony 的回家、厨房温度、热水、洗衣和服务介绍五个步骤。
 # 换方案时先确认场景版本、设备、房间和模板引用，再改旁白、镜头、时序。
 # ID 使用资源中的稳定标识。名称可改，已有 ID 应随内容保留。
-# 本文件描述建议的编写格式。导入和发布需要方案中心支持这些约定。
+# 本文件是待绑定的结构示例，不能原样导入发布。动作、初态、作用域须同时匹配正式业务模板和模型冻结合同。
+# 设备过渡仅用于 number 属性 write；开关、枚举、命令和 observe 使用 0。镜头过渡独立。
 schema: solution-experience.draft.v2
 id: hello-harmony-502-5f-experience-authoring-example
 name: Hello Harmony｜体验编排示例
-sceneVersionId: '21'
+sceneVersionId: 'REPLACE_WITH_TARGET_SCENE_VERSION_ID'
 welcome:
   title: Hello Harmony｜让全家日常更省心2
   description: 跟着小瑞，从回家、做饭到学习、休息，看看设备怎样配合一家人的日常。
@@ -47,7 +48,8 @@ resources:
           name: 体验模拟洗涤单元
 
 # 3. 初始状态。仅写这套体验需要覆盖的值，false、0 都是有效初值。
-# 初始化或步骤恢复初始状态时不触发联动。
+# 初始化或步骤恢复初始状态时不触发联动。未覆盖的属性沿用模型初值，无初值的保持未知。
+# 下文 idle/running 是该示例的待核对枚举，不能套用到其他设备；例如机器人回站可能是 docked。
 # 有实际分路初值时，再增加 initialOutputState → 设备 ID → 分路 ID → 属性。
 initialState:
   furniture_mw4nxz05: {brightness: 70, power: false}
@@ -62,9 +64,10 @@ initialControlObjectState:
     demo-wash-unit: {power: false, programState: idle}
 
 # 4. 可复用场景。共同调用或需要单独触发的动作放在此处，一次性演示写在旁白下。
-# 动作串行。write 设置属性，execute 执行命令，observe 注入属性样本，subscribe 注入事件样本。
+# 同一标准场景的动作同时启动；需要先后次序时拆分 cue。write 设置属性，observe 注入属性样本。
+# execute 仅在双方合同都支持无参数 null 时使用；当前 SDK 发布不支持 subscribe 事件或带参数命令。
 # controlObjectId 与 outputId 互斥，均省略时指整机。transitionMs 默认 0。
-# value 按正式合同填写。null、{}、false、0 各有含义，不能互换。
+# value 按正式业务模板与模型冻结合同的交集填写，null、false、0 不能互换。
 scenes:
   - id: mode-return
     name: 回家模式
@@ -73,7 +76,7 @@ scenes:
         capabilityKey: power
         operation: write
         value: true
-        transitionMs: 500
+        transitionMs: 0
       - deviceId: furniture_mw4nxz05
         capabilityKey: brightness
         operation: write
@@ -83,7 +86,7 @@ scenes:
         capabilityKey: power
         operation: write
         value: true
-        transitionMs: 500
+        transitionMs: 0
       - deviceId: furniture_mw4nxfzy
         capabilityKey: brightness
         operation: write
@@ -98,17 +101,16 @@ scenes:
         capabilityKey: power
         operation: write
         value: true
-        transitionMs: 500
+        transitionMs: 0
       - deviceId: furniture_mwakpn26
         capabilityKey: targetTemperature
         operation: write
         value: 26
         transitionMs: 6000
 
-# 5. 全局业务联动。source.value 按正式规则匹配属性或事件。
+# 5. 全局业务联动。source.value 按冻结合同匹配可读属性。
 # observe 在属性实际变化且匹配时触发。厨房 30°C 是具体值演示。
-# 需要事件联动时用 subscribe 指定正式事件和载荷。结果可用 scene 或 actions。
-# 示例中的洗衣完成事件作为剧情样本注入。洗衣机通用完成状态由设备运行时处理。
+# 结果可用 scene 或 actions。设备自身运行过程由模型合同处理，持续出风等视觉相位不作业务规则来源。
 rules:
   - id: kitchen-temperature-sample
     name: 厨房温度样本30℃时准备舒适设置
@@ -124,7 +126,7 @@ rules:
           capabilityKey: power
           operation: write
           value: true
-          transitionMs: 500
+          transitionMs: 0
         - deviceId: furniture_mwakptal
           capabilityKey: targetTemperature
           operation: write
@@ -203,7 +205,7 @@ groups:
                       capabilityKey: power
                       operation: write
                       value: true
-                      transitionMs: 600
+                      transitionMs: 0
                     - deviceId: furniture_mwanw1k8
                       capabilityKey: targetTemperature
                       operation: write
@@ -213,7 +215,7 @@ groups:
                       capabilityKey: waterTemperature
                       operation: observe
                       value: 35
-                      transitionMs: 2500
+                      transitionMs: 0
           - id: voice18-heater-review20261117-3
             text: 洗完澡，再告诉我结束预热就行。
             durationMs: 3140
@@ -228,7 +230,7 @@ groups:
                       capabilityKey: waterTemperature
                       operation: observe
                       value: 40
-                      transitionMs: 1500
+                      transitionMs: 0
               - id: cue18-heater-review20261117-3-2
                 timing: after
                 target:
@@ -238,7 +240,7 @@ groups:
                       capabilityKey: power
                       operation: write
                       value: false
-                      transitionMs: 600
+                      transitionMs: 0
   - id: group-laundry
     name: 04 · 洗衣、烘干与晾晒
     steps:
@@ -266,29 +268,13 @@ groups:
                       capabilityKey: power
                       operation: write
                       value: true
-                      transitionMs: 500
-                    - deviceId: other-casarte-wash
-                      controlObjectId: demo-wash-unit
-                      capabilityKey: startWashing
-                      operation: execute
-                      value: {}
-                      transitionMs: 500
+                      transitionMs: 0
                     - deviceId: other-casarte-wash
                       controlObjectId: demo-wash-unit
                       capabilityKey: programState
                       operation: observe
                       value: running
-                      transitionMs: 1200
-              - id: cue18-washer-review20261117-2-2
-                timing: after
-                target:
-                  type: actions
-                  actions:
-                    - deviceId: other-casarte-wash
-                      controlObjectId: demo-wash-unit
-                      capabilityKey: washingCompleted
-                      operation: subscribe
-                      value: {}
+                      transitionMs: 0
   - id: group-service
     name: 07 · 按生活习惯交付
     kind: service

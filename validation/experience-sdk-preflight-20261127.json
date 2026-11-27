@@ -1,0 +1,51 @@
+{
+  "schema": "interior.experience-sdk-preflight.acceptance.v1",
+  "date": "2026-11-27",
+  "sample": "方案7 V10发布前后真实 YAML",
+  "scope": "本地官方 SDK 合同适配；不替代 DEV 部署、正式业务上下文或真机验收",
+  "sourceDigest": "sha256:4d857b27f0471e67bc4c578e4e77eb9566bbeffbca4ea3709562e8da7999ff0e",
+  "before": {
+    "issueCount": 4,
+    "issues": [
+      {
+        "path": "experience.initialState.device-model-robot-living.cleaningState",
+        "key": "SDK value does not match the frozen contract"
+      },
+      {
+        "path": "experience.groups.0.steps.1.cues.0.target.actions.0.transitionMs",
+        "key": "SDK transition requires a numeric property write"
+      },
+      {
+        "path": "experience.groups.0.steps.3.cues.0.target.actions.0.transitionMs",
+        "key": "SDK transition requires a numeric property write"
+      },
+      {
+        "path": "experience.groups.2.steps.0.cues.0.target.actions.0.transitionMs",
+        "key": "SDK transition requires a numeric property write"
+      }
+    ]
+  },
+  "after": {
+    "issueCount": 0,
+    "ok": true
+  },
+  "checks": {
+    "originalHome3dDigestUnchanged": true,
+    "skills": 18,
+    "relativeReferences": {
+      "checked": 82,
+      "missing": []
+    },
+    "behaviorTests": {
+      "count": 152,
+      "passed": true
+    },
+    "workspaceTestsPassed": 45,
+    "sdkHostTestsPassed": 6,
+    "sourceTypeDiagnostics": 0,
+    "sdkHostExport": "createDemoRuntimeFromDocument",
+    "sdkVersion": "0.3.4",
+    "continuousAirflowAndCurtainHandoff": "passed locally with original DEV Home3D"
+  },
+  "deployment": "merge SDK host bridge before rebuilding publisher; not deployed by this change"
+}
