@@ -2,6 +2,7 @@
 
 Run inside Blender. Importing this module does not mutate the current scene.
 """
+from contextlib import contextmanager
 import hashlib
 import json
 from pathlib import Path
@@ -80,6 +81,33 @@ def verify_roundtrip(path, expected):
             if obj.name in bpy.data.objects:
                 obj.select_set(True)
 
+@contextmanager
+def flat_contact_colors(objects):
+    """Export generated flat colours without the offline-only contact AO graph."""
+    saved=[]
+    try:
+        materials={m for obj in objects for m in obj.data.materials if m}
+        for material in materials:
+            if material.get('texture_kind')!='plain' or not material.use_nodes:
+                continue
+            tree=material.node_tree
+            bsdf=tree.nodes.get('Principled BSDF')
+            if not bsdf or not tree.nodes.get('Contact shading'):
+                continue
+            socket=bsdf.inputs['Base Color']
+            links=[(link.from_socket,link.to_socket) for link in socket.links]
+            if not links:
+                continue
+            saved.append((tree,socket,tuple(socket.default_value),links))
+            for link in list(socket.links):tree.links.remove(link)
+            socket.default_value=material.diffuse_color
+        yield
+    finally:
+        for tree,socket,color,links in reversed(saved):
+            socket.default_value=color
+            for source,target in links:tree.links.new(source,target)
+
+
 def export_glb_verified(path, objects):
     import bpy
     objects = [o for o in objects if o.type == 'MESH']
@@ -93,9 +121,10 @@ def export_glb_verified(path, objects):
     bpy.ops.object.select_all(action='DESELECT')
     for obj in objects:
         obj.select_set(True)
-    bpy.ops.export_scene.gltf(filepath=str(path), use_selection=True, export_format='GLB',
-                             export_apply=True, export_extras=True,
-                             export_cameras=False, export_lights=False)
+    with flat_contact_colors(objects):
+        bpy.ops.export_scene.gltf(filepath=str(path), use_selection=True, export_format='GLB',
+                                 export_apply=True, export_extras=True,
+                                 export_cameras=False, export_lights=False)
     from mesh_normals import finalize_glb_normals
     normal_generation = finalize_glb_normals(path)
     report = verify_roundtrip(path, expected)

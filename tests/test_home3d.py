@@ -216,10 +216,45 @@ class BlenderTests(unittest.TestCase):
                 self.assertEqual(json.loads(archive.read('presentation.json')), {'schema': 'home3d.presentation.v1', 'bindings': []})
                 self.assertFalse(any('modelVersionId' in r for r in json.loads(archive.read('resources.json'))['resources']))
                 self.assertNotIn('model.lighting.v1', manifest['requiredCapabilities'])
+                scene=json.loads(archive.read('project.json'))
+                self.assertTrue(all(w['materialKey'] is None for w in scene['floors'][0]['walls']))
+                self.assertTrue(all(r['kind']=='model' for r in json.loads(archive.read('resources.json'))['resources']))
             components = exporter.load(root / 'out/components.json')['components']
             self.assertTrue(all(c['colorPrimitives'] > 0 and c['geometryVerification']['passed'] for c in components))
             check = subprocess.run([NODE, str(SCRIPT / 'package_home3d.mjs'), 'validate', str(root / 'out/project.home3d')], text=True, capture_output=True)
             self.assertEqual(check.returncode, 0, check.stderr)
+
+    def test_white_preference_binds_native_walls_and_floors_without_tinting_models(self):
+        colors=json.loads((ROOT/'skills/interior-orchestrator/references/style-presets.json').read_text())['styles']
+        palette=next(style for style in colors if style['id']=='white-minimal')
+        for explicit in (True,False):
+            with self.subTest(explicit=explicit),tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp);model=project()
+                if not explicit:model['visualization']={'style_id':'white-minimal'}
+                result=self.run_export(root,extra=('--style','white-minimal') if explicit else (),source_model=model)
+                self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+                report=exporter.load(root/'out/acceptance.json')
+                self.assertEqual(report['objects']['modelDefinitions'],1)
+                self.assertEqual(report['objects']['materialDefinitions'],2)
+                self.assertEqual(report['structureMaterials']['status'],'bound')
+                self.assertEqual(report['structureMaterials']['consumerVisualReview'],'not_reviewed')
+                self.assertEqual(report['visualReview']['status'],'not_reviewed')
+                with zipfile.ZipFile(root/'out/project.home3d') as z:
+                    scene=json.loads(z.read('project.json'))
+                    resources={r['key']:r for r in json.loads(z.read('resources.json'))['resources']}
+                    for role,collection in [('wall','walls'),('floor','rooms')]:
+                        for obj in scene['floors'][0][collection]:
+                            resource=resources[obj['materialKey']]
+                            self.assertEqual(resource['kind'],'material')
+                            definition=json.loads(z.read(resource['definitionPath']))
+                            rgb=[int(palette['colors'][role][i:i+2],16)/255 for i in (1,3,5)]
+                            expected=[v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4 for v in rgb]
+                            for a,b in zip(definition['baseColor'],expected):self.assertAlmostEqual(a,b,places=7)
+                            self.assertEqual(definition['baseColor'][3],1)
+                    resource=next(r for r in resources.values() if r['kind']=='model')
+                    definition=json.loads(z.read(resource['definitionPath']));raw=z.read(definition['file'])
+                    size=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+size])
+                    self.assertEqual(doc['materials'][0]['pbrMetallicRoughness'].get('baseColorFactor',[1,1,1,1]),[1,1,1,1])
 
     def test_rotated_sidecar_lighting_preserves_world_position_and_settings(self):
         with tempfile.TemporaryDirectory() as tmp:

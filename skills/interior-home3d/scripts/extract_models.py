@@ -11,7 +11,7 @@ from mathutils import Matrix, Vector
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / 'interior-orchestrator/scripts'))
-from exchange_validation import signature, verify_roundtrip
+from exchange_validation import signature, verify_roundtrip, flat_contact_colors
 from mesh_normals import finalize_glb_normals, source_normal_policy, KEY, POLICY
 
 job_file = Path(sys.argv[sys.argv.index('--') + 1])
@@ -128,8 +128,9 @@ def export_group(key, objects, opening=None):
     for clone in copies + light_copies:
         clone.select_set(True)
     file = root / 'models' / (hashlib.sha256(key.encode()).hexdigest()[:24] + '.glb')
-    bpy.ops.export_scene.gltf(filepath=str(file), use_selection=True, export_format='GLB', export_apply=True,
-        export_extras=True, export_cameras=False, export_lights=bool(light_copies), export_vertex_color='ACTIVE')
+    with flat_contact_colors(copies):
+        bpy.ops.export_scene.gltf(filepath=str(file), use_selection=True, export_format='GLB', export_apply=True,
+            export_extras=True, export_cameras=False, export_lights=bool(light_copies), export_vertex_color='ACTIVE')
     normal_generation = finalize_glb_normals(file)
     verification = verify_roundtrip(file, expected)
     verification['normal_generation'] = normal_generation

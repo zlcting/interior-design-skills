@@ -10,11 +10,17 @@
 
 ## 命令与依赖
 
-`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--lighting JSON`、`--rendering JSON`、`--rendering-assets DIRECTORY`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
+`export_home3d.py PROJECT --geometry FILE --out NEW_DIRECTORY`；可选 `--name NAME`、`--style white-minimal`、`--lighting JSON`、`--rendering JSON`、`--rendering-assets DIRECTORY`、`--full-source FILE`、`--object-map JSON`、`--blender EXECUTABLE`、`--node EXECUTABLE`。输出目录必须不存在。失败不发布半成品，也不覆盖原输出。
 
 需要 Python 3.10+、Node 20+ 和支持 glTF 的 Blender；安装整套技能后复用总控技能的求值几何交换校核。运行时 SDK 是 `scripts/vendor` 内锁定的离线制品，不安装全局 Node 包，不依赖开发者绝对目录。
 
-作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.3.1，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
+作者更新 SDK：在仓库根运行 `node tools/build_home3d_sdk.mjs --sdk-source <权威home3d-package目录>`。工具只接受 0.3.4，记录源码摘要、bundle摘要和依赖许可；升级版本须同步消费能力与验收样例。SDK源码仍由共用包维护，技能只维护导出适配。
+
+## 白模原生墙地材质
+
+明确 `--style white-minimal`、项目 `visualization.style_id=white-minimal` 或通过来源校验的 `white-home3d-v1` 灯光配置时，默认从同组总控的白模配色读取墙/地颜色。sRGB转换为线性sRGB后生成 `home3d.material-definition.v1`，通过标准资源目录绑定各原生墙与房间的 `materialKey`；同一角色复用资源。现有显式材质绑定优先。其他风格或未选择白模的工程不自动套用。
+
+`acceptance.json.structureMaterials` 保存预设版本/摘要、实际绑定、sRGB颜色以及独立的 `consumerVisualReview`。绑定及SDK往返通过不能证明当前页面读取了这些颜色；实际页面仍按分层验收检查。这里不将墙改成家具模型，不编造业务材质版本ID，也不更改光照曝光来掩盖材质读取问题。
 
 ## 显式映射
 
@@ -63,7 +69,7 @@ python3 /path/to/interior-orchestrator/scripts/mesh_normals.py source-sofa.glb \
 
 ## 统一 v4 输出
 
-离线 SDK 锁定 0.3.1，默认调用 `writePackage({version: 4, kind: 'project', ...})`。包以 `project.json` 为唯一空间权威，`resources.json` 为包内私有资源目录；不再输出 v3 的 `scene.json` 或 `runtime-resources.json`。保留同一 floorplan-scene.v5 结构合同、源编号、独立实例、洞口宿主、归一化、材质、灯光和白模预设。普通模型不编造业务版本 ID。
+离线 SDK 锁定 0.3.4，默认调用 `writePackage({version: 4, kind: 'project', ...})`。包以 `project.json` 为唯一空间权威，`resources.json` 为包内私有资源目录；不再输出 v3 的 `scene.json` 或 `runtime-resources.json`。保留同一 floorplan-scene.v5 结构合同、源编号、独立实例、洞口宿主、归一化、材质、灯光和白模预设。普通模型不编造业务版本 ID。
 
 导出器没有逻辑设备合同输入：`devices.json` 使用 `home3d.devices.v1` 和空 `instances`，`presentation.json` 使用 `home3d.presentation.v1` 和空 `bindings`。展示灯光仍写入模型侧车或 GLB，不据此生成设备合同、手动控制或真实设备绑定。不生成 `experience.json`，不声明其能力；`kind: solution`、发布和手机端交付仍由后续方案链路验收。
 
@@ -102,7 +108,7 @@ python3 scripts/export_home3d.py /path/to/project \
 
 模型完成拆分后，共用SDK绑定最终 `project.json` 的精确字节摘要，并验证完整配置、图片与对象引用。自动转换给实际侧车灯逐实例生成投影策略，沿用配置中前 `maxShadowedFixtures` 盏灯的选择；额外点光和内嵌点光显式关闭投影。不会复制世界坐标灯光造成双重照明。内嵌SPOT/SUN不属于本光影管线，带光影配置时明确拒绝；无光影入口的旧导出能力保持原范围。显式模板的逐模型策略原样验证，不替作者补猜策略。
 
-清单同时声明 `entries.rendering`、`render.scene.v1` 与 `render.pipeline.three-r171-white.v1`，环境以内容地址存储。旧消费者缺少能力时必须拒绝。目标H5须包含SDK 0.3.1及共用渲染实现；已有常驻进程需重新加载代码。输出目录还保留完整 `rendering.json`、环境PNG和验收来源记录，方便复核或再次作为作者输入。
+清单同时声明 `entries.rendering`、`render.scene.v1` 与 `render.pipeline.three-r171-white.v1`，环境以内容地址存储。旧消费者缺少能力时必须拒绝。目标H5须支持光影协议（至少SDK 0.3.1）及共用渲染实现；已有常驻进程需重新加载代码。输出目录还保留完整 `rendering.json`、环境PNG和验收来源记录，方便复核或再次作为作者输入。
 
 `acceptance.json.rendering` 记录配置/工程/环境摘要、参考视角及实际模型灯数量，初始 `referenceReview` 为 `not_reviewed`；协议通过不自动升级为像素一致或客户批准。几何编辑后的 `AO_STALE` 表示保留了可能过期的烘焙颜色，需要重新审核或烘焙。
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "家居设备模型包"
   short_description: "制作可复用的家居设备模型、状态与效果包，并装配为标准 Home3D 工程进行分层验收"
-  default_prompt: "使用 $interior-device-package，按产品资料制作独立设备模型包，定义状态与效果，并交付标准 Home3D 测试工程和验收记录。"
+  default_prompt: "使用 $interior-device-package，按产品资料制作独立设备模型包，同时定义设备能力、可操作状态、模型反馈与 SDK 读取，验证两实例隔离，并交付标准 Home3D 测试工程和验收记录。"

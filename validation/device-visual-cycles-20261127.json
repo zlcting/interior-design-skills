@@ -1,0 +1,45 @@
+{
+  "schema": "interior.device-package-validation.v1",
+  "recordedAt": "2026-11-27T07:32:18.601060+00:00",
+  "sdk": {
+    "name": "@houzzkit/home3d-package",
+    "version": "0.3.4",
+    "sourceCommit": "a9f9770e915b9cf0c4f6e0dc67944bd62dcb7497",
+    "sourceDigest": "85c651cbea58370ffb14998f271e4e7df6a93ce0005372747cff6f932607d81f",
+    "bundleSha256": "7560d5868364d1a73eb4c995c4440e276c0b1fa2f9d3901215bc45d70b246d5e",
+    "repeatBuild": "passed"
+  },
+  "checks": {
+    "devicePackageBehavior": {
+      "casesPassed": 14
+    },
+    "home3dBehavior": {
+      "casesPassed": 18,
+      "editorCaseInitiallySkipped": 1
+    },
+    "renderingBehavior": {
+      "casesPassed": 6,
+      "editorCaseInitiallySkipped": 1
+    },
+    "supplementalEditorPersistence": {
+      "casesPassed": 2
+    },
+    "uniqueBehaviorCasesPassed": 40,
+    "skillCreatorValidation": {
+      "interior-device-package": "passed",
+      "interior-home3d": "passed"
+    },
+    "existingDevPackage": {
+      "protocol": "passed",
+      "continuousCycles": 3,
+      "sdkLifecycleChecks": "passed"
+    },
+    "localPathsInBundledSdk": "absent"
+  },
+  "scope": "declarative continuous visual phases, SDK lifecycle and packaging; no SDK state-machine copy in the skill",
+  "review": {
+    "browserUI": "not-reviewed",
+    "iPhone": "not-tested",
+    "devDeployment": "not-performed"
+  }
+}

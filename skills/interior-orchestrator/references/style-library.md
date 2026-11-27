@@ -53,7 +53,7 @@ blender -b -t 4 --python-exit-code 1 --python skills/interior-orchestrator/scrip
 
 ## 极简白模 white-minimal
 
-适合参考图中白色建筑模型、简洁家具、蓝色背景的空间汇报。命令选择 `--style white-minimal`，推荐先用 `--view axon`。白模复用已有简洁家具资产，同时启用统一哑光浅色、连续地面、蓝灰玻璃、蓝色衬底和柔和阴影；不改户型、门窗、家具位置或权威材料数据。前三种风格的参数保持原样。
+适合参考图中白色建筑模型、简洁家具、蓝色背景的空间汇报。命令选择 `--style white-minimal`，推荐先用 `--view axon`。白模复用已有简洁家具资产，同时启用统一哑光蓝灰、连续地面、蓝灰玻璃、蓝色衬底和柔和阴影；不改户型、门窗、家具位置或权威材料数据。前三种风格的参数保持原样。
 
 `presentation` 为可选显示配置：
 
@@ -113,6 +113,30 @@ python3 tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minim
 ```
 
 本轮6张视图统一高分辨率生成。`comparison.html`白模图片与模型均指向v4；`clarity-refinement.html`对照v3/v4同机位轴测与客厅。v1、v2、v3及v3补充图保留。
+
+### 白模v5：蓝灰材质层次
+
+`white-minimal` version 5依据颜色参考调暗墙体、地面、柜体、桌椅和软包，使用低饱和蓝灰色。灯罩与浅色细节保留明亮层次，原有光影、曝光、玻璃和家具几何沿用v4；颜色写入生成材质及GLB，不依赖截图后期调暗。实时光影仍采用独立的 `white-home3d-v1`，材质版本与光影版本分别记录。
+
+GLB导出时只对已标记的纯色材质暂时绕过离线接触阴影节点，将原始线性基础色写入PBR；导出后恢复原节点连接。整屋导出与Home3D逐对象拆分共用该处理，网页接触AO仍由独立烘焙步骤提供。
+
+v5为历史材质版本；新生成默认采用下述v6，已有输出保留其风格快照。全屋与客厅近景样板位于 `projects/STYLE-LAB-096/visuals/style-variants/white-minimal-gray-v5/`，样板使用1600×1200、96采样，正式默认仍为2400×1800、128采样。
+
+```bash
+python3 tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minimal --out projects/STYLE-LAB-096/visuals/style-variants/white-minimal-gray-v5
+```
+
+### 白模v6：中灰蓝地面
+
+`white-minimal` version 6将floor从 `#A4AFBF` 调整为 `#8C99AC`，让地面在实时光照下仍保持中灰蓝层次。墙体、家具、灯罩、光照、曝光和几何沿用上一版；仅floor角色调整。离线PBR与Home3D标准原生地面都从同一预设读取，不另维护消费端地面色常量。
+
+代表全屋与客厅样板保存在 `projects/STYLE-LAB-096/visuals/style-variants/white-minimal-gray-v6/`，1600×1200、96采样；v5样板保留为历史记录。新Home3D包核对每个房间的floor材质、保存往返和实际页面，同灯光同机位比较地面，不能仅以包内色值存在作为视觉通过。
+
+当前样板校验：
+
+```bash
+python3 tools/verify_style_outputs.py projects/STYLE-LAB-096 --style white-minimal --out projects/STYLE-LAB-096/visuals/style-variants/white-minimal-gray-v6 --require-current
+```
 
 ## 交换几何验收
 

@@ -32,6 +32,12 @@ python3 scripts/export_home3d.py /path/to/project \
 
 技能生成曲面沿用 `triangle-area-v1` 法线策略，在最终三角网格上生成并验证法线。对可识别的旧版生成沙发软包，拆分时补齐法线策略。未知来源和手工加权法线保留。复用旧工程中的独立家具时，按[导出约定](references/export-contract.md#生成曲面法线与历史资源修复)核对受光并修复异常，保留原文件。
 
+白模的默认偏好是**墙体与家具一起采用较深蓝灰色**，墙侧面、墙顶和转角都需有灰度层次。墙色唯一来源为总控 `style-presets.json` 的 `white-minimal.colors.wall`；不能只调暗家具、截图或整体曝光。生成白模时，导出器把同源预设的墙/地材质写入标准资源，并分别绑定原生墙/房间的 `materialKey`；仅修改整屋GLB的墙色不足以改变可编辑墙体。自动识别已验证的白模灯光配置或项目明确的白模选择，也可用 `--style white-minimal` 显式指定。
+
+地面沿用同一白模预设的中灰蓝floor角色，明度低于墙体和主要软包，避免受光后近白；所有原生房间地面都应绑定该材质，并在实际页面单独核对显色。
+
+包内绑定检查与目标页面实际显色分别验收。若家具已变灰但墙仍白，先检查显示端是否覆盖/遗漏标准材质绑定，并记录为消费端视觉未通过；不能凭资源中已有颜色或保存往返成功就判定墙色已生效。具体检查见[分层验收](references/acceptance.md)。
+
 资源使用包内模型与内容摘要；不编造业务 modelVersionId、不写业务系统身份或凭据。包结构、摘要、引用和能力由锁定共用 SDK 处理，不另写验证器或绕过失败检查。
 
 白模实时配置带有效 `white-home3d-v1` 来源和几何摘要时，导出器自动写入完整 `rendering.json`、冻结环境 PNG 和光影能力声明。自动生成的白模光影调用 SDK 的 `applySoftStudioPreset`，将 `soft-studio-v1` 柔和投影、补光及曝光写入文档；显式 `--rendering` 模板按作者原值保留。其他可信配置通过 `--rendering` / `--rendering-assets` 显式提供；没有配置的旧工程保留原路径，不从预设名称猜测灯位、曝光或阴影。输入与严格兼容范围见[光影导出](references/export-contract.md#光影配置导出)。
@@ -46,7 +52,7 @@ python3 scripts/export_home3d.py /path/to/project \
 
 首次版本及导出工具改动需实际导入目标编辑器，修改一件家具、一段墙和一个门窗，保存、刷新、导出再导入，并检查灯光位置、材质及白模预设。未执行的检查保持 `not_reviewed`；程序通过不等同客户视觉批准。
 
-离线 SDK 0.3.1 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
+离线 SDK 0.3.4 默认写入统一 v4 project；旧 v3 工程仍可校验。没有已确认的逻辑设备合同时，`devices.json` 与 `presentation.json` 显式为空；模型灯光照常保留，不从灯具外观推断设备。能力边界见[导出约定](references/export-contract.md#统一-v4-输出)。
 
 SDK支持某能力不代表目标编辑器已实现。当前交付能力限原生直墙/洞口/房间、静态模型、归一化与展示灯光；真实设备控制、动态 effects 和 openingFit 需另行接入，不能删除必需能力声明后冒充兼容。
 

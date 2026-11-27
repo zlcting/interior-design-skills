@@ -9,14 +9,14 @@ const position = process.argv.indexOf('--sdk-source');
 if (position < 0 || !process.argv[position + 1]) throw new Error('Use --sdk-source <canonical home3d-package directory>');
 const source = path.resolve(process.argv[position + 1]);
 const pkg = JSON.parse(await fs.readFile(path.join(source, 'package.json')));
-if (pkg.name !== '@houzzkit/home3d-package' || pkg.version !== '0.3.1') throw new Error('Expected locked SDK @houzzkit/home3d-package@0.3.1');
+if (pkg.name !== '@houzzkit/home3d-package' || pkg.version !== '0.3.4') throw new Error('Expected locked SDK @houzzkit/home3d-package@0.3.4');
 const require = createRequire(path.join(source, 'package.json'));
 const { build, version: buildVersion } = require('esbuild');
 if (buildVersion !== '0.20.2') throw new Error('Expected reproducible SDK builder esbuild@0.20.2');
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../skills/interior-home3d/scripts/vendor');
 await fs.mkdir(out, { recursive: true });
 const built = await build({absWorkingDir: source, metafile: true, stdin: {contents: 'export * from "./src/index.mjs"; export * from "./src/lighting.mjs";', resolveDir: source, loader: 'js'},
-  outfile: path.join(out, 'home3d-package.cjs'), bundle: true, format: 'cjs', platform: 'node', target: 'node20', legalComments: 'inline'});
+  outfile: path.join(out, 'home3d-package.cjs'), bundle: true, preserveSymlinks: true, format: 'cjs', platform: 'node', target: 'node20', legalComments: 'inline'});
 const hash = data => createHash('sha256').update(data).digest('hex');
 const files = {};
 for (const directory of ['src', 'schemas'])

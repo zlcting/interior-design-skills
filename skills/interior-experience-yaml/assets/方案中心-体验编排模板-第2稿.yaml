@@ -1,0 +1,306 @@
+# 方案中心 · 体验编排模板（第 2 稿）
+# 取自 Hello Harmony 的回家、厨房温度、热水、洗衣和服务介绍五个步骤。
+# 换方案时先确认场景版本、设备、房间和模板引用，再改旁白、镜头、时序。
+# ID 使用资源中的稳定标识。名称可改，已有 ID 应随内容保留。
+# 本文件描述建议的编写格式。导入和发布需要方案中心支持这些约定。
+schema: solution-experience.draft.v2
+id: hello-harmony-502-5f-experience-authoring-example
+name: Hello Harmony｜体验编排示例
+sceneVersionId: '21'
+welcome:
+  title: Hello Harmony｜让全家日常更省心2
+  description: 跟着小瑞，从回家、做饭到学习、休息，看看设备怎样配合一家人的日常。
+startCountdownMs: 3000
+
+# 1. 通用设置。tts 只用于生成音频，播放使用发布音频的实际时长。
+# durationMs 是该段已知时长或备用值。两种时长都缺失时应提示补齐音频或时长。
+# enabled 可省略，默认为 true。普通章默认 content / continue，步骤默认继承状态。
+# 镜头按全局默认 → 步骤预设 → 步骤 camera → 旁白预设 → 旁白 camera 覆盖。
+# 步骤必须有 focus，旁白省略 focus 时沿用步骤目标，每段据此定位。
+# 想保持上段画面时可显式写 focus: keep，仅用于同一步骤后续旁白且不叠加镜头覆盖。
+tts: {voiceId: xiaoyuan, speed: 1, pitch: 1, volume: 1}
+defaults:
+  camera: {mode: fixed, yawDeg: 142.5, pitchDeg: 28.5, zoom: 1.5, transitionMs: 800}
+  durationMode: audio
+  startDelayMs: 100
+  pauseAfterMs: 300
+cameraPresets:
+  kitchen-device: {yawDeg: 225, zoom: 2, transitionMs: 600}
+
+# 2. 固定资源引用。场景版本提供普通设备实例、房间及其能力绑定。
+# 这里只补充洗衣机的模拟合同引用。templateRef 引用模板映射中的键，子控制对象沿用该合同。
+# 文件发布时固定模板、模型、音频及其校验信息。资源版本缺失时提示修正，禁止回退到最新版。
+resources:
+  templateRefs:
+    washer:
+      templateId: eec2f52a-4b8d-5652-8a06-a26e5e845882
+      publicationId: sha256:b0e185bb83cf8d040659b3e1dc267dda54d955566ba9f1b41d4047c23b53f3db
+      definitionId: sha256:9bbf318ca2a7c8764c37a33367d71da329b2511ac1b0d04ae2b0a83bd9aa4007
+  playbackDevices:
+    - id: other-casarte-wash
+      name: 卡萨帝洗衣机
+      roomId: room_mw38bxc9_ym8bo
+      templateRef: washer
+      purpose: experienceSimulation
+      controlObjects:
+        - id: demo-wash-unit
+          name: 体验模拟洗涤单元
+
+# 3. 初始状态。仅写这套体验需要覆盖的值，false、0 都是有效初值。
+# 初始化或步骤恢复初始状态时不触发联动。
+# 有实际分路初值时，再增加 initialOutputState → 设备 ID → 分路 ID → 属性。
+initialState:
+  furniture_mw4nxz05: {brightness: 70, power: false}
+  furniture_mw4nxfzy: {brightness: 70, power: false}
+  furniture_mw4rn5u1: {position: 0}
+  furniture_mwakpn26: {power: false, targetTemperature: 26}
+  furniture_mwakptal: {power: false, targetTemperature: 26, currentTemperature: 26}
+  furniture_mwanw1k8: {power: false, waterTemperature: 20}
+  other-casarte-wash: {power: false}
+initialControlObjectState:
+  other-casarte-wash:
+    demo-wash-unit: {power: false, programState: idle}
+
+# 4. 可复用场景。共同调用或需要单独触发的动作放在此处，一次性演示写在旁白下。
+# 动作串行。write 设置属性，execute 执行命令，observe 注入属性样本，subscribe 注入事件样本。
+# controlObjectId 与 outputId 互斥，均省略时指整机。transitionMs 默认 0。
+# value 按正式合同填写。null、{}、false、0 各有含义，不能互换。
+scenes:
+  - id: mode-return
+    name: 回家模式
+    actions:
+      - deviceId: furniture_mw4nxz05
+        capabilityKey: power
+        operation: write
+        value: true
+        transitionMs: 500
+      - deviceId: furniture_mw4nxz05
+        capabilityKey: brightness
+        operation: write
+        value: 70
+        transitionMs: 1500
+      - deviceId: furniture_mw4nxfzy
+        capabilityKey: power
+        operation: write
+        value: true
+        transitionMs: 500
+      - deviceId: furniture_mw4nxfzy
+        capabilityKey: brightness
+        operation: write
+        value: 70
+        transitionMs: 3000
+      - deviceId: furniture_mw4rn5u1
+        capabilityKey: position
+        operation: write
+        value: 70
+        transitionMs: 4500
+      - deviceId: furniture_mwakpn26
+        capabilityKey: power
+        operation: write
+        value: true
+        transitionMs: 500
+      - deviceId: furniture_mwakpn26
+        capabilityKey: targetTemperature
+        operation: write
+        value: 26
+        transitionMs: 6000
+
+# 5. 全局业务联动。source.value 按正式规则匹配属性或事件。
+# observe 在属性实际变化且匹配时触发。厨房 30°C 是具体值演示。
+# 需要事件联动时用 subscribe 指定正式事件和载荷。结果可用 scene 或 actions。
+# 示例中的洗衣完成事件作为剧情样本注入。洗衣机通用完成状态由设备运行时处理。
+rules:
+  - id: kitchen-temperature-sample
+    name: 厨房温度样本30℃时准备舒适设置
+    source:
+      deviceId: furniture_mwakptal
+      capabilityKey: currentTemperature
+      operation: observe
+      value: 30
+    target:
+      type: actions
+      actions:
+        - deviceId: furniture_mwakptal
+          capabilityKey: power
+          operation: write
+          value: true
+          transitionMs: 500
+        - deviceId: furniture_mwakptal
+          capabilityKey: targetTemperature
+          operation: write
+          value: 26
+          transitionMs: 600
+
+# 6. 章节 → 步骤 → 旁白 → cue。cue 的稳定 ID 用于定位和追踪。
+# before 在开口前，with 与旁白同时启动，after 在旁白和 with 都完成后。
+# before 结束后等 startDelayMs 再开口，pauseAfterMs 从音频结束起算。
+# cue 排到执行时才计算 offsetMs，默认 0。各阶段的动作按顺序执行。
+# 每段等待镜头到位及必要的动作、效果确认。镜头 transitionMs 与动作过渡独立。
+# 末章使用固定服务流程标识，用户手动确认完成。
+groups:
+  - id: group-living
+    name: 02 · 回家、会客与观影
+    steps:
+      - id: step18-return
+        name: 回家
+        focus: {kind: room, id: hello-room-6}
+        camera: {yawDeg: 45, zoom: 1.6}
+        narrations:
+          - id: voice18-return-review20261117-1
+            text: 刚回到家，手里还拿着东西，就叫我：“小瑞，开启回家模式。”
+            durationMs: 5700
+            startDelayMs: 200
+          - id: voice18-return-review20261117-2
+            text: 客餐厅先亮灯，窗帘打开，空调也开始运行。
+            durationMs: 4291
+            pauseAfterMs: 4100
+            cues:
+              - id: cue18-return-review20261117-2-1
+                timing: with
+                target: {type: scene, id: mode-return}
+  - id: group-kitchen
+    name: 03 · 厨房、洗碗与热水
+    steps:
+      - id: step18-kitchen-temperature
+        name: 厨房温度联动
+        focus: {kind: instance, id: furniture_mwakptal}
+        cameraPreset: kitchen-device
+        narrations:
+          - id: voice18-kitchen-review20261117-2
+            text: 做饭时温度升高，空调也会跟着调整。
+            durationMs: 3772
+            pauseAfterMs: 1200
+            cues:
+              - id: cue18-kitchen-review20261117-2-1
+                timing: with
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: furniture_mwakptal
+                      capabilityKey: currentTemperature
+                      operation: observe
+                      value: 30
+      - id: step18-heater
+        name: 热水准备
+        focus: {kind: instance, id: furniture_mwanw1k8}
+        cameraPreset: kitchen-device
+        narrations:
+          - id: voice18-heater-review20261117-1
+            text: 厨房的事情安排好，洗澡前的热水也可以提前准备。“小瑞，开启零冷水，准备热水。”
+            durationMs: 7000
+            startDelayMs: 200
+          - id: voice18-heater-review20261117-2
+            text: 热水先准备起来，不用等进了浴室才开始。
+            durationMs: 3781
+            pauseAfterMs: 1200
+            cues:
+              - id: cue18-heater-review20261117-2-1
+                timing: with
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: furniture_mwanw1k8
+                      capabilityKey: power
+                      operation: write
+                      value: true
+                      transitionMs: 600
+                    - deviceId: furniture_mwanw1k8
+                      capabilityKey: targetTemperature
+                      operation: write
+                      value: 40
+                      transitionMs: 600
+                    - deviceId: furniture_mwanw1k8
+                      capabilityKey: waterTemperature
+                      operation: observe
+                      value: 35
+                      transitionMs: 2500
+          - id: voice18-heater-review20261117-3
+            text: 洗完澡，再告诉我结束预热就行。
+            durationMs: 3140
+            pauseAfterMs: 2200
+            cues:
+              - id: cue18-heater-review20261117-3-1
+                timing: before
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: furniture_mwanw1k8
+                      capabilityKey: waterTemperature
+                      operation: observe
+                      value: 40
+                      transitionMs: 1500
+              - id: cue18-heater-review20261117-3-2
+                timing: after
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: furniture_mwanw1k8
+                      capabilityKey: power
+                      operation: write
+                      value: false
+                      transitionMs: 600
+  - id: group-laundry
+    name: 04 · 洗衣、烘干与晾晒
+    steps:
+      - id: step18-washer
+        name: 洗衣
+        focus: {kind: instance, id: other-casarte-wash}
+        camera: {yawDeg: 20, zoom: 1.9, transitionMs: 600}
+        narrations:
+          - id: voice18-washer-review20261117-1
+            text: 换下来的衣服放进洗衣机，也可以直接让我启动。
+            durationMs: 3878
+            startDelayMs: 200
+          - id: voice18-washer-review20261117-2
+            text: 洗好后，我会提醒您取衣。接下来，按衣物需要选择烘干或晾晒。
+            durationMs: 6231
+            pauseAfterMs: 2000
+            cues:
+              - id: cue18-washer-review20261117-2-1
+                timing: with
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: other-casarte-wash
+                      controlObjectId: demo-wash-unit
+                      capabilityKey: power
+                      operation: write
+                      value: true
+                      transitionMs: 500
+                    - deviceId: other-casarte-wash
+                      controlObjectId: demo-wash-unit
+                      capabilityKey: startWashing
+                      operation: execute
+                      value: {}
+                      transitionMs: 500
+                    - deviceId: other-casarte-wash
+                      controlObjectId: demo-wash-unit
+                      capabilityKey: programState
+                      operation: observe
+                      value: running
+                      transitionMs: 1200
+              - id: cue18-washer-review20261117-2-2
+                timing: after
+                target:
+                  type: actions
+                  actions:
+                    - deviceId: other-casarte-wash
+                      controlObjectId: demo-wash-unit
+                      capabilityKey: washingCompleted
+                      operation: subscribe
+                      value: {}
+  - id: group-service
+    name: 07 · 按生活习惯交付
+    kind: service
+    finish: manual
+    serviceFlowId: service-flow-v1
+    steps:
+      - id: step18-service
+        name: 服务介绍
+        focus: {kind: all}
+        narrations:
+          - id: voice18-service-review20261117-1
+            text: 接下来的服务流程，请您看图了解。
+            durationMs: 3172
+            startDelayMs: 200
+            pauseAfterMs: 500
